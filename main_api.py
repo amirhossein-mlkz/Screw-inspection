@@ -62,7 +62,18 @@ class API:
         # update picture waitkey/delay for updating camera picture in video mode
         self.update_picture_delay = 10
 
-        
+
+        # load image must change
+
+        self.test()
+        # self.show_full_screen('fullscreen_cam_1')
+
+    def test(self):
+        self.image_cam_1=cv2.imread('images/imge/dineniso14583.png')
+        self.image_cam_2=cv2.imread('images/imge/Screw-Flat-Head-6-x-1-2-Key-II_1.jpg')
+
+        self.ui.set_image_label(self.ui.camera_1,self.image_cam_1)     
+        self.ui.set_image_label(self.ui.camera_2,self.image_cam_2)     
 
     # functions
     #------------------------------------------------------------------------------------------------------------------------
@@ -124,6 +135,7 @@ class API:
 
         #Fullscreen
         self.ui.fullscreen_cam_1.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam_1))
+        self.ui.fullscreen_cam2.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam2))
 
         
     # dashboard page
@@ -391,21 +403,21 @@ class API:
 
 
     def show_full_screen(self,cam_num):
-        self.image_cam_1=cv2.imread('images/icons/240_F_296806337_usQssx5FBitebzcGsaOF5qOltJ4AZfBJ.jpg')
-        self.image_cam_2=cv2.imread('images/icons/calibration_setting_white.png')
-        fullscreen_dict={'fullscreen_cam_1':self.image_cam_1,'fullscreen_cam_2':self.image_cam_2}
-        print('cam_num',fullscreen_dict[str(cam_num.objectName())])
+        # self.image_cam_1=cv2.imread('images/icons/240_F_296806337_usQssx5FBitebzcGsaOF5qOltJ4AZfBJ.jpg')
+        # self.image_cam_2=cv2.imread('images/icons/calibration_setting_white.png')
+        fullscreen_dict={'fullscreen_cam_1':self.image_cam_1,'fullscreen_cam2':self.image_cam_2}
+        # print('cam_num',fullscreen_dict[str(cam_num.objectName())])
 
         # full_screen_obj=FullScreen_UI(fullscreen_dict[str(cam_num.objectName())])
-        img = cv2.imread('images/icons/240_F_296806337_usQssx5FBitebzcGsaOF5qOltJ4AZfBJ.jpg')
+        # img = cv2.imread('images/icons/240_F_296806337_usQssx5FBitebzcGsaOF5qOltJ4AZfBJ.jpg')
         # cv2.imshow('asd',img)
         # cv2.waitKey(0)
         # app = QApplication()
         # from PyQt5 import QtGui
         # app = QtGui.QApplication
-        win = FullScreen_UI(img)
+        self.win_fullscreen = FullScreen_UI(fullscreen_dict[str(cam_num.objectName())])
         # full_screen_obj.show()
-        win.show()
+        self.win_fullscreen.show()
 
 
 

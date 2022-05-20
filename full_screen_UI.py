@@ -29,6 +29,8 @@ class FullScreen_UI(QMainWindow, ui):
 
         self.show()
 
+        self.checkBox_ontop.stateChanged.connect(lambda:self.check_box_state(self.checkBox_ontop))
+
         self.win_set_geometry()
         self._old_pos = None
 
@@ -49,6 +51,7 @@ class FullScreen_UI(QMainWindow, ui):
     def activate_(self):
         self.closeButton.clicked.connect(self.close_win)
         self.miniButton.clicked.connect(self.minimize)
+        self.maxiButton.clicked.connect(self.maxmize_minimize)
 
     def win_set_geometry(self, left=100, top=600, width=800, height=600):
         self.setGeometry(left, top, width, height)
@@ -59,6 +62,26 @@ class FullScreen_UI(QMainWindow, ui):
     def close_win(self):
         self.close()
 
+    def maxmize_minimize(self):
+        
+        if self.isMaximized():
+            self.showNormal()
+            # self.sheet_view_down=data_grabber.sheetOverView(h=129,w=1084,nh=12,nw=30)
+        else:
+            self.showMaximized()
+
+
+    def check_box_state(self,b):
+
+            if b.isChecked() == True:
+                flags = Qt.WindowFlags(Qt.FramelessWindowHint|Qt.WindowStaysOnTopHint)
+                # QtCore.Qt.WindowStaysOnTopHint
+                self.setWindowFlags(flags)
+                self.show()
+            else:
+                flags = Qt.WindowFlags(Qt.FramelessWindowHint)
+                self.setWindowFlags(flags)
+                self.show()
 
 # api = labeling_api.labeling_API(win)
 import cv2

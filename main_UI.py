@@ -26,7 +26,7 @@ import threading
 import time
 from PyQt5.QtGui import QPainter
 import os
-import setting_api
+import main_api
 import cv2
 from qt_material import apply_stylesheet
 from app_settings import Settings
@@ -708,7 +708,7 @@ if __name__ == "__main__":
     app = QApplication()
     win = UI_main_window()
     # apply_stylesheet(app,theme='dark_cyan.xml')
-    api = setting_api.API(win)
+    api = main_api.API(win)
     win.show()
     sys.exit(app.exec())
     
