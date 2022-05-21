@@ -39,7 +39,7 @@ class API:
         # start-up functions
         # get available cameras and update database
         self.available_camera_serials = camera_funcs.get_available_cameras_list_serial_numbers()
-        camera_funcs.update_available_camera_serials_on_db(db_obj=self.db, available_serials=self.available_camera_serials)
+        # camera_funcs.update_available_camera_serials_on_db(db_obj=self.db, available_serials=self.available_camera_serials)
         # assign base parameters to UI
         mainsetting_funcs.assign_appearance_existing_params_to_ui(ui_obj=self.ui)
         # load and apply program appearance params
@@ -137,15 +137,21 @@ class API:
         self.ui.fullscreen_cam_1.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam_1))
         self.ui.fullscreen_cam2.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam2))
 
+
+        #tools page
+
+        self.ui.save_new_btn.clicked.connect(self.add_name_screw)
+
+
+
+
         
     # dashboard page
     #------------------------------------------------------------------------------------------------------------------------
     # refresh summary informations on the dashboard page
     def refresh_dashboard_page(self):
         print('dashboard_page')
-        # user_management_funcs.show_users_summary_info(ui_obj=self.ui, db_obj=self.db)
-        # defect_management_funcs.show_defects_summary_info(ui_obj=self.ui, db_obj=self.db)
-        # storage_funcs.show_storage_status(ui_obj=self.ui)
+
 
     #------------------------------------------------------------------------------------------------------------------------   
 
@@ -268,14 +274,7 @@ class API:
             self.ui.camera_setting_connect_btn.setStyleSheet("background-color:{}; border:Transparent".format(colors_pallete.disabled_btn))
 
 
-    #------------------------------------------------------------------------------------------------------------------------
-    
-
-    # camera soft-calibration functions in the calibration setting page
-    #------------------------------------------------------------------------------------------------------------------------
-  
-    #------------------------------------------------------------------------------------------------------------------------
-
+ 
 
     # appearance parameters in the general-settings page
     #------------------------------------------------------------------------------------------------------------------------
@@ -403,25 +402,22 @@ class API:
 
 
     def show_full_screen(self,cam_num):
-        # self.image_cam_1=cv2.imread('images/icons/240_F_296806337_usQssx5FBitebzcGsaOF5qOltJ4AZfBJ.jpg')
-        # self.image_cam_2=cv2.imread('images/icons/calibration_setting_white.png')
-        fullscreen_dict={'fullscreen_cam_1':self.image_cam_1,'fullscreen_cam2':self.image_cam_2}
-        # print('cam_num',fullscreen_dict[str(cam_num.objectName())])
 
-        # full_screen_obj=FullScreen_UI(fullscreen_dict[str(cam_num.objectName())])
-        # img = cv2.imread('images/icons/240_F_296806337_usQssx5FBitebzcGsaOF5qOltJ4AZfBJ.jpg')
-        # cv2.imshow('asd',img)
-        # cv2.waitKey(0)
-        # app = QApplication()
-        # from PyQt5 import QtGui
-        # app = QtGui.QApplication
+        fullscreen_dict={'fullscreen_cam_1':self.image_cam_1,'fullscreen_cam2':self.image_cam_2}
+
         self.win_fullscreen = FullScreen_UI(fullscreen_dict[str(cam_num.objectName())])
         # full_screen_obj.show()
         self.win_fullscreen.show()
 
 
 
-
+    def add_name_screw(self):
+        pass
+        # self.db.
+        
+        data={'name':self.ui.get_parms_new_screw()}
+        print(data)
+        self.db.add_screw(data)
 
 
 
