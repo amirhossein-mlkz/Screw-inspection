@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.29, for Linux (x86_64)
 --
--- Host: localhost    Database: saba_database
+-- Host: localhost    Database: screw
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.29-0ubuntu0.20.04.3
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,20 +23,19 @@ DROP TABLE IF EXISTS `settings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `settings` (
-  `id` int NOT NULL,
-  `parent_path` varchar(45) DEFAULT NULL,
-  `path_dataset` varchar(45) DEFAULT NULL,
-  `font_style` varchar(45) NOT NULL DEFAULT 'Arial',
-  `font_size` int NOT NULL DEFAULT '10',
-  `window_style` varchar(45) NOT NULL DEFAULT 'Windows',
-  `window_color` varchar(45) NOT NULL DEFAULT 'blue',
-  `language` varchar(45) NOT NULL DEFAULT 'English',
-  `large_rect_area` int NOT NULL DEFAULT '0',
-  `small_rect_area` int NOT NULL DEFAULT '0',
-  `rect_accuracy` float NOT NULL DEFAULT '0.9',
-  `split_size` varchar(45) NOT NULL DEFAULT '0',
-  `n_defect_colors` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
+  `id` int DEFAULT NULL,
+  `parent_path` text,
+  `path_dataset` text,
+  `font_style` text,
+  `font_size` int DEFAULT NULL,
+  `window_style` text,
+  `window_color` text,
+  `language` text,
+  `large_rect_area` int DEFAULT NULL,
+  `small_rect_area` int DEFAULT NULL,
+  `rect_accuracy` double DEFAULT NULL,
+  `split_size` json DEFAULT NULL,
+  `n_defect_colors` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -46,7 +45,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES (0,'G:/oxin_image_grabber','G:/dataset/','Times New Roman',8,'Windows','#144475','English',2000,1000,0.9,'[11,4]',6);
+INSERT INTO `settings` VALUES (0,'G:/oxin_image_grabber','G:/dataset/','Gigi',8,'QtCurve','#144475','English',2000,1000,0.9,'[11, 4]',6);
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-28 17:29:41
+-- Dump completed on 2022-05-22 23:40:51

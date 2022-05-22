@@ -108,16 +108,16 @@ class dataBase:
     #--------------------------------------------------------------------------
     #--------------------------------------------------------------------------
 
-    def update_record(self,table_name,col_name,value,id,id_value):
+    def update_record(self,table_name,col_name,value,id_name,id_value):
         
-        
+        print(table_name,col_name,value,id_name,'id_value',id_value)
         if self.check_connection:
             
             cursor,connection=self.connect()
             
             mySql_insert_query = """UPDATE {} 
                                     SET {} = {}
-                                    WHERE {} ={} """.format(table_name, col_name, ("'"+value+"'"),id,id_value)
+                                    WHERE {} ={} """.format(table_name, col_name, ("'"+str(value)+"'"),id_name,("'"+id_value+"'"))
             
             #print(mySql_insert_query)
             cursor.execute(mySql_insert_query)
@@ -136,7 +136,7 @@ class dataBase:
 
 
 
-    def remove_record(self,col_name, id, table_name):
+    def remove_record(self,table_name,col_name, id ):
         if self.check_connection:
             cursor,connection=self.connect()
 

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.29, for Linux (x86_64)
 --
--- Host: localhost    Database: saba_database
+-- Host: localhost    Database: screw
 -- ------------------------------------------------------
--- Server version	8.0.27
+-- Server version	8.0.29-0ubuntu0.20.04.3
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,29 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `screw_page_grab`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `screw_page_grab`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `role` varchar(45) NOT NULL DEFAULT 'operator',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `screw_page_grab` (
+  `name` varchar(45) DEFAULT NULL,
+  `roi_x` float DEFAULT NULL,
+  `roi_y` float DEFAULT NULL,
+  `threshold` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `screw_page_grab`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (4,'test','test','operator'),(5,'ali','1234','Operator'),(18,'alii','1','Operator'),(19,'1','1','Operator'),(20,'2','2','Operator'),(29,'ali1','1','Operator'),(30,'testt','12','Operator'),(31,'te','te','Operator');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `screw_page_grab` WRITE;
+/*!40000 ALTER TABLE `screw_page_grab` DISABLE KEYS */;
+INSERT INTO `screw_page_grab` VALUES ('AC',0,NULL,0),('asd',3,11,72),('asdadaw',0,0,0);
+/*!40000 ALTER TABLE `screw_page_grab` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-28 17:29:41
+-- Dump completed on 2022-05-22 23:40:51

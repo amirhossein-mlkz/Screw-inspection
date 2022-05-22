@@ -1,3 +1,25 @@
+#################################
+#//////////////////////////////
+#
+#   stackwidget1-->
+#               page_dashboard   (main_page)
+#               page_users_setting
+#               page_camera_setting
+#               page_settings
+#               page_tools (stackwidget2)-->      
+#                               page_grab  (page)
+#                               page_tool_1 (page_1)
+#                               page_tool_2 (page_2)
+#
+#   set functions in *set image here 
+#
+#   push_ptn  =  *_btn   exam roi_grab_btn
+#   others = label_*     exam spinBox_grab_page_x
+#
+#
+#//////////////////////////////
+################################
+
 from PySide6 import QtCore as sQtCore
 from functools import partial
 import numpy as np
@@ -13,7 +35,7 @@ from backend import camera_funcs, colors_pallete, confirm_window_messages, mains
 
 
 from full_screen_UI import FullScreen_UI
-
+import texts
 
 class API:
 
@@ -49,7 +71,7 @@ class API:
         # function to active the UI buttons functionality
         self.button_connector()
 
-
+        self.language='en'
         #------------------------------------------------------------------------------------------------------------------------
         # main UI widget ids list 
 
@@ -141,6 +163,18 @@ class API:
         #tools page
 
         self.ui.save_new_btn.clicked.connect(self.add_name_screw)
+        self.ui.edit_remove_btn.clicked.connect(self.get_screw_names)
+        self.ui.edit_btn.clicked.connect(self.edit_load_parms)
+        self.ui.remove_btn.clicked.connect(self.remove_screw)
+
+
+
+        #grab page
+
+        self.ui.horizontalSlider_grab.valueChanged.connect(self.update_image_grab_page)
+        self.ui.roi_gran_btn.clicked.connect(self.set_roi_grab_page)
+        self.ui.save_btn_page_grab.clicked.connect(self.save_grab_page)
+
 
 
 
@@ -398,7 +432,7 @@ class API:
         self.edit_defect_group = False
 
     #------------------------------------------------------------------------------------------------------------------------
-
+    # NEW----------------------------------------------------------------
 
 
     def show_full_screen(self,cam_num):
@@ -412,12 +446,91 @@ class API:
 
 
     def add_name_screw(self):
-        pass
-        # self.db.
-        
-        data={'name':self.ui.get_parms_new_screw()}
+
+        data=self.ui.get_parms_new_screw_page_grab()
         print(data)
         self.db.add_screw(data)
+
+        # self.screw_name=data['name']
+
+    def edit_load_parms(self):
+
+        details_grab=self.db.search_page_grab(self.ui.comboBox_edit_remove.currentText())
+        print('details_grab',details_grab)
+        self.ui.set_loaded_parms_page_grab(details_grab[0])
+
+    def remove_screw(self):
+
+        name=self.ui.label_screw_name.text()
+
+        t = self.ui.show_question(texts.WARNINGS['Warning'][self.language],
+                                        texts.WARNINGS['Delete_Screw'][self.language])
+        if not t:
+            return
+        else:
+            self.db.remove_screw(self.ui.label_screw_name.text())
+            print('delete')
+            self.ui.label_screw_name.setText('Deleted')
+            self.get_screw_names()
+
+
+
+    def get_screw_names(self):
+
+        content=self.db.get_all_screw()
+        print('content',content)
+
+        names=[]
+
+        for i in range(len(content)):
+            names.append(content[i]['name'])
+        
+        self.ui.set_combo_boxes(self.ui.comboBox_edit_remove,names)
+
+
+
+    #grab_page
+
+    def set_roi_grab_page(self):
+
+        img=cv2.imread('images/upload-big-arrow.png')   # set image here
+
+        self.update_image(self.ui.label_image_grab_page,img)
+
+    def update_image_grab_page(self):
+
+        img=cv2.imread('images/upload-big-arrow.png')   # set image here
+
+        # print('img',img)
+
+        self.update_image(self.ui.label_image_grab_page,img)
+        
+
+
+    def save_grab_page(self):
+
+        data=self.ui.get_parms_new_screw_page_grab()
+
+        self.db.update_screw(data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def update_image(self,label_name,img):
+
+        self.ui.set_image_label(label_name,img)
+
 
 
 

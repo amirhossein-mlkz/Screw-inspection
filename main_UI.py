@@ -114,7 +114,7 @@ class UI_main_window(QMainWindow, ui):
         self.toogle_btn_1.clicked.connect(partial(self.leftmenu))
         self.toogle_btn_2.clicked.connect(partial(self.leftmenu))
 
-        self.set_combo_boxes()
+        self.set_combo_boxes_2()
 
         self.camera_params = [self.gain_spinbox, self.expo_spinbox, self.width_spinbox\
                             , self.height_spinbox, self.offsetx_spinbox, self.offsety_spinbox\
@@ -173,7 +173,6 @@ class UI_main_window(QMainWindow, ui):
     #         detect_lenguage.main_window(self)
     
  
-# Label Dorsa
     # ///////////////////////////////////////////////     
 
     def leftmenu(self):
@@ -332,7 +331,22 @@ class UI_main_window(QMainWindow, ui):
 
         self.add_btn.clicked.connect(self.buttonClick)
         self.edit_remove_btn.clicked.connect(self.buttonClick)
+        self.save_new_btn.clicked.connect(self.buttonClick)
+        self.edit_btn.clicked.connect(self.buttonClick)
         # self.add_btn.clicked.connect(self.buttonClick)
+        self.grab_load_btn.clicked.connect(self.buttonClick)
+        self.tool1_btn.clicked.connect(self.buttonClick)
+        self.tool2_btn.clicked.connect(self.buttonClick)
+        self.tool3_btn.clicked.connect(self.buttonClick)
+        self.next_page_btn.clicked.connect(self.buttonClick)
+        self.prev_page_btn.clicked.connect(self.buttonClick)
+
+
+
+        # Page grab select image
+
+        self.load_image_btn.clicked.connect(self.buttonClick)
+        self.set_image_btn.clicked.connect(self.buttonClick)
 
 
 
@@ -354,25 +368,16 @@ class UI_main_window(QMainWindow, ui):
 
 
 
-    def set_combo_boxes(self):
+    def set_combo_boxes_2(self):
 
         x=["Operator", "Admin"]
         self.user_role.addItems(x)
 
 
+    def set_combo_boxes(self,combo_name,items):
 
-
-    def set_sliders(self):
-
-        self.verticalSlider_noise.valueChanged[int].connect(self.show_value)
-        self.verticalSlider_defect.valueChanged[int].connect(self.show_value)
-
-
-    def set_checkboxes(self):
-
-        # self.checkBox_noise.stateChanged.connect(lambda:self.btnstate(self.b1))
-        self.checkBox_noise.setChecked(True)
-        self.checkBox_noise.stateChanged.connect(lambda:self.check_box_state(self.checkBox_noise))
+        combo_name.clear()
+        combo_name.addItems(items)
 
     def check_box_state(self,b):
 
@@ -420,16 +425,6 @@ class UI_main_window(QMainWindow, ui):
 
 
 
-    
-
-    
-
-
-
-    
-
-
-
     def show_mesagges(self,label_name,text,color='green'):
         
         name=label_name
@@ -447,11 +442,34 @@ class UI_main_window(QMainWindow, ui):
 
 
 
-    def get_parms_new_screw(self):
+    def get_parms_new_screw_page_grab(self):
 
-        return self.line_new_screw.text()
+        return (self.label_screw_name.text(),self.spinBox_grab_page_x.value(),self.spinBox_grab_page_y.value(),self.horizontalSlider_grab.value())
+
+        
+        
+    def  open_file_dialog(self,set_label):
+
+        filepath = QFileDialog.getOpenFileName(self, 'Select a File')
+        print(filepath)
+        set_label.setText(filepath[0])
 
 
+    def set_loaded_parms_page_grab(self,parms):
+        print('int',(parms['roi_y']))
+        
+        self.horizontalSlider_grab.setValue(int(parms['threshold']))
+        self.spinBox_grab_page_x.setValue(int(parms['roi_x']))
+        self.spinBox_grab_page_y.setValue(int(parms['roi_y']))
+
+
+
+    def show_question(self, title, message):
+        msg = QMessageBox.question(self, title, message, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if msg == QMessageBox.Yes:
+            return True
+        if msg == QMessageBox.No:
+            return False
 
     def buttonClick(self):
         # GET BUTTON CLICKED
@@ -489,12 +507,55 @@ class UI_main_window(QMainWindow, ui):
 
             self.animation_move(self.frame_23,300)
 
-        
-        
-        
-        
+        if btnName =='save_new_btn' :
+
+            self.animation_move(self.frame_23,300)
+
+        if btnName =='edit_btn' :
+
+            self.animation_move(self.frame_24,300)
+
+        if btnName =='next_page_btn' :
+
+            i=self.stackedWidget_2.currentIndex()
+            print(i)
+            self.stackedWidget_2.setCurrentIndex(i+1)
 
 
+        if btnName =='prev_page_btn' :
+
+            i=self.stackedWidget_2.currentIndex()
+            print(i)
+            self.stackedWidget_2.setCurrentIndex(i-1)
+
+
+        if btnName =='grab_load_btn' :
+
+            self.stackedWidget_2.setCurrentWidget(self.page)
+
+
+        if btnName =='tool1_btn' :
+
+            self.stackedWidget_2.setCurrentWidget(self.page_1)
+
+
+        if btnName =='tool2_btn' :
+
+            self.stackedWidget_2.setCurrentWidget(self.page_2)
+
+
+        if btnName =='tool3_btn' :
+
+            self.stackedWidget_2.setCurrentWidget(self.page_3)
+                
+        
+        if btnName =='load_image_btn' :
+
+            self.open_file_dialog(self.line_image_address)
+          
+        if btnName =='set_image_btn' :
+
+            self.set_image_label(self.label_3,cv2.imread(self.line_image_address.text()))              
 
 
 

@@ -11,7 +11,7 @@ class dataBaseUtils():
     def __init__(self) :
         self.db=database.dataBase('root','password','localhost','screw')
 
-        self.page_1='screw_page_1'
+        self.page_grab='screw_page_grab'
         self.table_cameras = 'camera_settings'
         self.table_general_settings = 'settings'
         self.camera_id = 'id'
@@ -121,29 +121,45 @@ class dataBaseUtils():
 
 
     def add_screw(self,parms):
-        data=(parms['name'],0,0)
-        print(data)
+        # data=(parms['name'],0,0)
+        # print(data)
         try:
-            self.db.add_record(data, table_name=self.page_1, parametrs='(name,roi,threshold)', len_parameters=3)
+            self.db.add_record(parms, table_name=self.page_grab, parametrs='(name,roi_x,roi_y,threshold)', len_parameters=4)
             return 'True'
         
         except:
             return 'Databas Eror'
-    def search_page_1(self,name):
-        # try:
-            record = self.db.search( self.page_1 , 'name', name,int_type=False)
+
+    def search_page_grab(self,name):
+        try:
+            record = self.db.search( self.page_grab , 'name', name,int_type=False)
             return record
-        # except:
-        #     return []
+        except:
+            return []
 
+    def get_all_screw(self):
+        try:
+            record = self.db.report_last(self.page_grab,'name',100)
+            return record
+        except:
+            return []
+
+    def update_screw(self,data):
+            # mySql_insert_query = """UPDATE {} 
+            #                         SET {} = {}
+            #                         WHERE {} ={} """.format(table_name, col_name, ("'"+value+"'"),id,("'"+id_value+"'"))
+        try:
+            self.db.update_record(self.page_grab,'roi_x',data[1],'name',data[0])
+            self.db.update_record(self.page_grab,'roi_y',data[2],'name',data[0])
+            self.db.update_record(self.page_grab,'threshold',data[3],'name',data[0])
   
+        except:
+            print('eror')
 
 
-    def get_dataset_path(self):
-        record =self.db.search(table_name=self.setting_tabel,param_name='id',value=0)[0 ]
-        return record['parent_path']
+    def remove_screw(self,name):
 
-
+        self.db.remove_record(self.page_grab,'name',name)
 
 
 
