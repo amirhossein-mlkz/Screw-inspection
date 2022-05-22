@@ -172,7 +172,7 @@ class API:
         #grab page
 
         self.ui.horizontalSlider_grab.valueChanged.connect(self.update_image_grab_page)
-        self.ui.roi_gran_btn.clicked.connect(self.set_roi_grab_page)
+        self.ui.roi_grab_btn.clicked.connect(self.set_roi_grab_page)
         self.ui.save_btn_page_grab.clicked.connect(self.save_grab_page)
 
 
