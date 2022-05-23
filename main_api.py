@@ -31,8 +31,9 @@ import cv2
 import login_UI
 import confirm_UI
 from backend import camera_funcs, colors_pallete, confirm_window_messages, mainsetting_funcs\
-                    , user_login_logout_funcs, user_management_funcs
+                    , user_login_logout_funcs, user_management_funcs, Scew, tempMem, Utils, Drawing, cvTools
 
+from backend.mouse import Mouse
 
 from full_screen_UI import FullScreen_UI
 import texts
@@ -89,19 +90,34 @@ class API:
 
         self.test()
         # self.show_full_screen('fullscreen_cam_1')
+        
+        self.scew_setting_mem = tempMem.scewSettingMem()
+        self.mouse = Mouse()
+        self.rect_roi_drawing = Drawing.drawRect()
+        
+        
+        self.mouse.connect_all(self.ui.label_image_grab_page, self.draw_main_roi)
+        
 
     def test(self):
-        self.image_cam_1=cv2.imread('images/imge/dineniso14583.png')
-        self.image_cam_2=cv2.imread('images/imge/Screw-Flat-Head-6-x-1-2-Key-II_1.jpg')
-
-        self.ui.set_image_label(self.ui.camera_1,self.image_cam_1)     
-        self.ui.set_image_label(self.ui.camera_2,self.image_cam_2)     
+        pass
+        path = 'images/test1_0_12 - Copy.png'
+        # self.image_cam_1=cv2.imread('images/imge/dineniso14583.png')
+        # self.image_cam_2=cv2.imread('images/imge/Screw-Flat-Head-6-x-1-2-Key-II_1.jpg')
+        self.ui.line_new_screw.setText(path)
+        # self.ui.set_image_label(self.ui.camera_1,self.image_cam_1)     
+        # self.ui.set_image_label(self.ui.camera_2,self.image_cam_2)     
 
     # functions
     #------------------------------------------------------------------------------------------------------------------------
     #------------------------------------------------------------------------------------------------------------------------
     # button connector for activating UI buttons functionality
     def button_connector(self):
+        
+        
+        self.ui.set_image_btn.clicked.connect(self.set_scew_image)
+        
+        
         
         # login button
         self.ui.main_login_btn.clicked.connect(partial(lambda: user_login_logout_funcs.run_login_window(ui_obj=self.ui, login_ui_obj=self.login_ui, confirm_ui_obj=self.confirm_ui)))
@@ -448,7 +464,6 @@ class API:
     def add_name_screw(self):
 
         data=self.ui.get_parms_new_screw_page_grab()
-        print(data)
         self.db.add_screw(data)
 
         # self.screw_name=data['name']
@@ -496,14 +511,6 @@ class API:
         img=cv2.imread('images/upload-big-arrow.png')   # set image here
 
         self.update_image(self.ui.label_image_grab_page,img)
-
-    def update_image_grab_page(self):
-
-        img=cv2.imread('images/upload-big-arrow.png')   # set image here
-
-        # print('img',img)
-
-        self.update_image(self.ui.label_image_grab_page,img)
         
 
 
@@ -538,7 +545,58 @@ class API:
 
 
 
+
+
+
+
+
+
+
+    def set_scew_image(self):
+        path = self.ui.get_scew_image_path()
+        img = cv2.imread(path)
+        if img is not None:
+            self.ui.set_image_label(self.ui.label_image_grab_page,img)
+            self.scew_setting_mem.set_img_path(path)
+            self.rect_roi_drawing.set_img_size(img.shape[:2])
+        else:
+            #ERROR
+            pass
+        
+        
             
 
         
+    def update_image_grab_page(self):
+        self.rect_roi_drawing.max_shape_count = 1
         
+        thresh = self.ui.horizontalSlider_grab.value()
+        img = self.scew_setting_mem.get_img()
+        
+        rects = self.rect_roi_drawing.shapes
+        mask = cvTools.rects2mask(img.shape[:2], rects)
+        img = Utils.threshould_view(img, thresh, mask_roi=mask)
+        
+        
+        img = self.rect_roi_drawing.get_image(img)
+        self.ui.set_image_label(self.ui.label_image_grab_page, img)
+        
+        
+    
+    
+    def draw_main_roi(self,wname):
+        mouse_status = self.mouse.get_status()
+        mouse_button = self.mouse.get_button()
+        mouse_pt = self.mouse.get_relative_position()
+                
+        if  mouse_status in ['mouse_press','mouse_release'] and mouse_button == 'left_btn':
+            self.rect_roi_drawing.click(mouse_pt)
+        
+        elif mouse_status == 'mouse_press' and mouse_button == 'right_btn':
+            self.rect_roi_drawing.remove_points_or_shape(mouse_pt)
+        
+        elif mouse_status == 'mouse_move' and mouse_button == 'left_btn':
+            self.rect_roi_drawing.set_float_point(mouse_pt)
+            
+    
+        self.update_image_grab_page()

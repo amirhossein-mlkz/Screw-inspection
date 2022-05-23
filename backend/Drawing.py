@@ -5,7 +5,6 @@ from grpc import Status
 import numpy as np
 import cv2
 
-from mouseCV import NONE
 
 
 COLOR_MAP = {
@@ -16,23 +15,25 @@ COLOR_MAP = {
 }
 
 THICKNeSS_MAP = {
-    'line' : 3,
-    'point' : 6,
-    'drawing_line': 3,
-    'drawing_point': 6
+    'line' : 6,
+    'point' : 12,
+    'drawing_line': 6,
+    'drawing_point': 12
 }
 
+THRESH = 30
 
 class drawShape:
     #______________________________________________________________________________________________________
     #args:
     #   img_size | format = (h,w)
     #______________________________________________________________________________________________________
-    def __init__(self,img_size, points_count, color_map=COLOR_MAP, thikness_map = THICKNeSS_MAP):
-        self.img_size = img_size
+    def __init__(self, points_count, max_shape_count=1000, color_map=COLOR_MAP, thikness_map = THICKNeSS_MAP):
+        self.img_size = (640,480)
         self.points_count = points_count
         self.color_map = color_map
         self.thickness_map = thikness_map
+        self.max_shape_count = max_shape_count
         
         self.count_backup = self.points_count
         self.float_point_idx = {'x':0 , 'y':0 }
@@ -41,7 +42,9 @@ class drawShape:
         self.shapes = []
 
         self.image = self.init_image()
-        
+    
+    def set_img_size(self, img_size):
+        self.img_size = img_size
     #______________________________________________________________________________________________________
     #
     #______________________________________________________________________________________________________
@@ -59,6 +62,8 @@ class drawShape:
             
         decoded_shape = self.shape_decoder(points)
         self.shapes.append(decoded_shape)
+        if len(self.shapes) > self.max_shape_count:
+            self.shapes.pop(0)
         self.points = []
         
         
@@ -195,7 +200,7 @@ class drawShape:
     #return 
     #   state   | format: bool | True means drawing is finished
     #______________________________________________________________________________________________________
-    def check_editing(self, pt, shapes, thresh=10):
+    def check_editing(self, pt, shapes, thresh=THRESH):
         return False
     
     
@@ -303,19 +308,20 @@ class drawShape:
     
     
     
-    def get_image(self):
+    def get_image(self, image=None):
 
-        image = self.init_image()
-        image = drawer.draw_points_as_shape(image, 
-                                            points,
+        if image is None:
+            image = self.init_image()
+        image = self.draw_points_as_shape(image, 
+                                            self.points,
                                             line_color=self.color_map['drawing_line'],
                                             point_color=self.color_map['drawing_point'],
                                             line_thickness=self.thickness_map['drawing_line'],
                                             point_thickness=self.thickness_map['drawing_point'])
         
  
-        image = drawer.draw_shape(  image,
-                                    shapes,
+        image = self.draw_shapes(  image,
+                                    self.shapes,
                                     line_color=self.color_map['line'],
                                     point_color=self.color_map['point'],
                                     line_thickness=self.thickness_map['line'],
@@ -334,7 +340,7 @@ class drawCircel(drawShape):
     
     def __init__(self, img_size, color_map=COLOR_MAP, thikness_map = THICKNeSS_MAP):
         points_count = 2
-        drawShape.__init__(self, img_size, points_count, color_map=color_map, thikness_map = thikness_map)   
+        drawShape.__init__(self, points_count, color_map=color_map, thikness_map = thikness_map)   
     
 
     #______________________________________________________________________________________________________
@@ -398,7 +404,7 @@ class drawCircel(drawShape):
     #return 
     #   state   | format: bool | True means drawing is finished
     #______________________________________________________________________________________________________
-    def check_editing(self, pt, shape, thresh=10):
+    def check_editing(self, pt, shapes, thresh=THRESH):
         for shape in shapes:
             center, radius = shape
             r2 = self.distance( center , pt)
@@ -423,7 +429,7 @@ class drawCircel(drawShape):
     #   shapes  | format = [((cx,cy), radius), ((,),) , ....]
     #   color: color of shape
     #______________________________________________________________________________________________________
-    def draw_shape(self, img, shapes, line_color=(255,0,0), point_color=(0,255,100) , line_thickness=3, point_thickness=6):
+    def draw_shapes(self, img, shapes, line_color=(255,0,0), point_color=(0,255,100) , line_thickness=3, point_thickness=6):
         res = np.copy(img)
         for shape in shapes:
             center, radius = shape
@@ -454,7 +460,7 @@ class drawCircel(drawShape):
     #return 
     #   state   | format: bool | True means drawing is finished
     #______________________________________________________________________________________________________
-    def check_editing(self, pt, shape, thresh=10):
+    def check_editing(self, pt, shapes, thresh=THRESH):
         for shape in shapes:
             center, radius = shape
             r2 = self.distance( center , pt)
@@ -478,7 +484,7 @@ class drawCircel(drawShape):
     def draw_points_as_shape(self, img, points, line_color=(255,0,0), point_color=(0,255,100) , line_thickness=3, point_thickness=6):
         if len(points) == self.points_count:
             shape = self.shape_decoder(points)
-            return self.draw_shape(img, [shape], line_color, point_color, line_thickness, point_thickness)
+            return self.draw_shapes(img, [shape], line_color, point_color, line_thickness, point_thickness)
         
         else:
             return img
@@ -496,9 +502,9 @@ class drawCircel(drawShape):
 
 class drawRect(drawShape):
     
-    def __init__(self, img_size, color_map=COLOR_MAP, thikness_map = THICKNeSS_MAP):
+    def __init__(self, color_map=COLOR_MAP, thikness_map = THICKNeSS_MAP):
         points_count = 2
-        drawShape.__init__(self, img_size, points_count, color_map=color_map, thikness_map = thikness_map)   
+        drawShape.__init__(self, points_count, color_map=color_map, thikness_map = thikness_map)   
     
 
     
@@ -558,7 +564,7 @@ class drawRect(drawShape):
     #return 
     #   state   | format: bool | True means drawing is finished
     #______________________________________________________________________________________________________
-    def check_editing(self, pt, shape, thresh=10):
+    def check_editing(self, pt, shapes, thresh=THRESH):
         for shape in shapes:
             
             for i in range(2):
@@ -583,7 +589,7 @@ class drawRect(drawShape):
     #   shapes  | format = [[pt1,pt2] , [,] , ...
     #   color: color of shape
     #______________________________________________________________________________________________________
-    def draw_shape(self, img, shapes, line_color=(255,0,0), point_color=(0,255,100) , line_thickness=3, point_thickness=6):
+    def draw_shapes(self, img, shapes, line_color=(255,0,0), point_color=(0,255,100) , line_thickness=3, point_thickness=6):
         res = np.copy(img)
         for shape in shapes:
             pt1, pt2 = shape
@@ -606,7 +612,7 @@ class drawRect(drawShape):
     def draw_points_as_shape(self, img, points, line_color=(255,0,0), point_color=(0,255,100) , line_thickness=3, point_thickness=6):
         if len(points) == self.points_count:
             shape = self.shape_decoder(points)
-            return self.draw_shape(img, [shape], line_color, point_color, line_thickness, point_thickness)
+            return self.draw_shapes(img, [shape], line_color, point_color, line_thickness, point_thickness)
         
         else:
             return img
@@ -624,7 +630,7 @@ class drawRect(drawShape):
 class drawPath(drawShape):
     
     def __init__(self, img_size,points_count = np.inf, color_map=COLOR_MAP, thikness_map = THICKNeSS_MAP):
-        drawShape.__init__(self, img_size, points_count, color_map=color_map, thikness_map = thikness_map) 
+        drawShape.__init__(self, points_count, color_map=color_map, thikness_map = thikness_map) 
         #self.buffer = self.points_count
 
     
@@ -709,7 +715,7 @@ class drawPath(drawShape):
     #return 
     #   state   | format: bool | True means drawing is finished
     #______________________________________________________________________________________________________
-    def check_editing(self, pt, shape, thresh=10):
+    def check_editing(self, pt, shapes, thresh=THRESH):
         for shape in shapes:
             for i,corner in enumerate(shape):
                 dist = self.distance( corner , pt)
@@ -731,7 +737,7 @@ class drawPath(drawShape):
     #   shapes  | format = [((cx,cy), radius), ((,),) , ....]
     #   color: color of shape
     #______________________________________________________________________________________________________
-    def draw_shape(self, img, shapes, line_color=(255,0,0), point_color=(0,255,100) , line_thickness=3, point_thickness=6):
+    def draw_shapes(self, img, shapes, line_color=(255,0,0), point_color=(0,255,100) , line_thickness=3, point_thickness=6):
         res = np.copy(img)
         for shape in shapes:  
             for i in range(len(shape)-1):
@@ -756,7 +762,7 @@ class drawPath(drawShape):
     def draw_points_as_shape(self, img, points, line_color=(255,0,0), point_color=(0,255,100) , line_thickness=3, point_thickness=6):
         if len(points) >=2:
             shape = self.shape_decoder(points)
-            return self.draw_shape(img, [shape], line_color, point_color, line_thickness, point_thickness)
+            return self.draw_shapes(img, [shape], line_color, point_color, line_thickness, point_thickness)
         
         else:
             return img 
@@ -771,7 +777,7 @@ class drawPath(drawShape):
 class drawPoly(drawShape):
     
     def __init__(self, img_size,points_count = np.inf, color_map=COLOR_MAP, thikness_map = THICKNeSS_MAP):
-        drawShape.__init__(self, img_size, points_count, color_map=color_map, thikness_map = thikness_map)   
+        drawShape.__init__(self, points_count, color_map=color_map, thikness_map = thikness_map)   
 
     #______________________________________________________________________________________________________
     #exp:
@@ -855,7 +861,7 @@ class drawPoly(drawShape):
     #return 
     #   state   | format: bool | True means drawing is finished
     #______________________________________________________________________________________________________
-    def check_editing(self, pt, shape, thresh=10):
+    def check_editing(self, pt, shapes, thresh=THRESH):
         for shape in shapes:
             for i,corner in enumerate(shape):
                 corner = corner[0]
@@ -880,7 +886,7 @@ class drawPoly(drawShape):
     #   shapes  | format = [((cx,cy), radius), ((,),) , ....]
     #   color: color of shape
     #______________________________________________________________________________________________________
-    def draw_shape(self, img, shapes, line_color=(255,0,0), point_color=(0,255,100) , line_thickness=3, point_thickness=6):
+    def draw_shapes(self, img, shapes, line_color=(255,0,0), point_color=(0,255,100) , line_thickness=3, point_thickness=6):
         res = np.copy(img)
         for shape in shapes:  
             cv2.drawContours(res, [shape], 0, line_color, thickness=line_thickness)
@@ -904,19 +910,20 @@ class drawPoly(drawShape):
     def draw_points_as_shape(self, img, points, line_color=(255,0,0), point_color=(0,255,100) , line_thickness=3, point_thickness=6):
         if len(points) >=2:
             shape = self.shape_decoder(points)
-            return self.draw_shape(img, [shape], line_color, point_color, line_thickness, point_thickness)
+            return self.draw_shapes(img, [shape], line_color, point_color, line_thickness, point_thickness)
         
         else:
             return img     
         
         
 
-if __name__ == '__main__':
+if __name__ == '__main__' and False:
     import mouseCV
     cv2.namedWindow('image')
     mouse = mouseCV.Mouse('image')
     img_size = (480,640)
-    drawer = drawPoly(img_size)
+    drawer = drawRect()
+    drawer.set_img_size((480,640))
     
     
     while(1):
@@ -932,8 +939,8 @@ if __name__ == '__main__':
         if status == mouseCV.MOVE:
             drawer.set_float_point((x,y))
         
-        points = drawer.get_points()
-        shapes = drawer.shapes
+        #points = drawer.get_points()
+        #shapes = drawer.shapes
         
         
         

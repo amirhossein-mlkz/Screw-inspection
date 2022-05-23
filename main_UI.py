@@ -554,8 +554,8 @@ class UI_main_window(QMainWindow, ui):
             self.open_file_dialog(self.line_image_address)
           
         if btnName =='set_image_btn' :
-
-            self.set_image_label(self.label_3,cv2.imread(self.line_image_address.text()))              
+            pass
+            #self.set_image_label(self.label_3,cv2.imread(self.line_image_address.text()))              
 
 
 
@@ -610,6 +610,7 @@ class UI_main_window(QMainWindow, ui):
     def set_image_label(self,label_name, img):
         h, w, ch = img.shape
         bytes_per_line = ch * w
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         convert_to_Qt_format = sQImage(img.data, w, h, bytes_per_line, sQImage.Format_RGB888)
 
 
@@ -632,13 +633,15 @@ class UI_main_window(QMainWindow, ui):
 
     
     
-
-
+    
+    def clear_new_scew_line(self):
+        self.line_new_screw.text = ''
 
     
         
 
-            
+    def get_scew_image_path(self):
+        return self.line_image_address.text()
 
     
     
