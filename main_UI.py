@@ -26,7 +26,7 @@ import threading
 import time
 from PyQt5.QtGui import QPainter
 import os
-import setting_api
+import main_api
 import cv2
 from qt_material import apply_stylesheet
 from app_settings import Settings
@@ -94,7 +94,7 @@ class UI_main_window(QMainWindow, ui):
         #                     , self.defect_setting_btn, self.users_setting_btn, self.level2_setting_btn\
         #                     ,self.general_setting_btn, self.storage_setting_btn]
         # side-bar button ids
-        self.side_buttons = [self.side_camera_setting_btn, self.side_plc_setting_btn\
+        self.side_buttons = [self.side_camera_setting_btn, self.side_tool_setting_btn\
                             ,self.side_users_setting_btn,self.side_general_setting_btn, self.side_dashboard_btn]
 
         # camera variable parameters ids in the camera-settings section of the UI 
@@ -111,17 +111,10 @@ class UI_main_window(QMainWindow, ui):
 
         self.setWindowTitle(title)
 
-
-
         self.toogle_btn_1.clicked.connect(partial(self.leftmenu))
         self.toogle_btn_2.clicked.connect(partial(self.leftmenu))
 
-
-
-        self.set_combo_boxes()
-
-        
-
+        self.set_combo_boxes_2()
 
         self.camera_params = [self.gain_spinbox, self.expo_spinbox, self.width_spinbox\
                             , self.height_spinbox, self.offsetx_spinbox, self.offsety_spinbox\
@@ -139,16 +132,6 @@ class UI_main_window(QMainWindow, ui):
 
         self._old_pos = None
 
-
-
-        
-
-        
-       
-
-        self.toogle_btn_1.clicked.connect(partial(self.leftmenu))
-        self.toogle_btn_2.clicked.connect(partial(self.leftmenu))
-        self.stackedWidget.currentChanged.connect(self.disable_camera_settings)
 
         
 
@@ -190,7 +173,6 @@ class UI_main_window(QMainWindow, ui):
     #         detect_lenguage.main_window(self)
     
  
-# Label Dorsa
     # ///////////////////////////////////////////////     
 
     def leftmenu(self):
@@ -334,28 +316,37 @@ class UI_main_window(QMainWindow, ui):
         self.miniButton.clicked.connect(self.minimize_win)
         self.maxiButton.clicked.connect(self.maxmize_minimize)
 
-        # self.camera_setting_btn.clicked.connect(self.buttonClick)
         self.side_camera_setting_btn.clicked.connect(self.buttonClick)
         self.side_dashboard_btn.clicked.connect(self.buttonClick)
-        # self.calibration_setting_btn.clicked.connect(self.buttonClick)
-        # self.side_calibration_setting_btn.clicked.connect(self.buttonClick)
-        # self.general_setting_btn.clicked.connect(self.buttonClick)
+
+        self.side_tool_setting_btn.clicked.connect(self.buttonClick)
         self.side_general_setting_btn.clicked.connect(self.buttonClick)
-
-
-
-
 
         self.camera01_btn.clicked.connect(self.buttonClick)
         self.camera02_btn.clicked.connect(self.buttonClick)
-    
 
         self.side_users_setting_btn.clicked.connect(self.buttonClick)
-        # self.users_setting_btn.clicked.connect(self.buttonClick)
+
         self.add_user_btn.clicked.connect(self.buttonClick)
 
-        # self.defect_setting_btn.clicked.connect(self.buttonClick)
-        # self.side_defect_setting_btn.clicked.connect(self.buttonClick)
+        self.add_btn.clicked.connect(self.buttonClick)
+        self.edit_remove_btn.clicked.connect(self.buttonClick)
+        self.save_new_btn.clicked.connect(self.buttonClick)
+        self.edit_btn.clicked.connect(self.buttonClick)
+        # self.add_btn.clicked.connect(self.buttonClick)
+        self.grab_load_btn.clicked.connect(self.buttonClick)
+        self.tool1_btn.clicked.connect(self.buttonClick)
+        self.tool2_btn.clicked.connect(self.buttonClick)
+        self.tool3_btn.clicked.connect(self.buttonClick)
+        self.next_page_btn.clicked.connect(self.buttonClick)
+        self.prev_page_btn.clicked.connect(self.buttonClick)
+
+
+
+        # Page grab select image
+
+        self.load_image_btn.clicked.connect(self.buttonClick)
+        self.set_image_btn.clicked.connect(self.buttonClick)
 
 
 
@@ -377,25 +368,16 @@ class UI_main_window(QMainWindow, ui):
 
 
 
-    def set_combo_boxes(self):
+    def set_combo_boxes_2(self):
 
         x=["Operator", "Admin"]
         self.user_role.addItems(x)
 
 
+    def set_combo_boxes(self,combo_name,items):
 
-
-    def set_sliders(self):
-
-        self.verticalSlider_noise.valueChanged[int].connect(self.show_value)
-        self.verticalSlider_defect.valueChanged[int].connect(self.show_value)
-
-
-    def set_checkboxes(self):
-
-        # self.checkBox_noise.stateChanged.connect(lambda:self.btnstate(self.b1))
-        self.checkBox_noise.setChecked(True)
-        self.checkBox_noise.stateChanged.connect(lambda:self.check_box_state(self.checkBox_noise))
+        combo_name.clear()
+        combo_name.addItems(items)
 
     def check_box_state(self,b):
 
@@ -403,50 +385,6 @@ class UI_main_window(QMainWindow, ui):
                 b.setText('Enable')
             else:
                 b.setText('Disable')
-                    
-            
-    def show_value(self,value):
-        print(value)
-        btn = self.sender()
-        btnName = btn.objectName()
-
-        if btnName=='verticalSlider_noise':
-            self.remaining_noise.setText(str(value))
-
-        elif btnName=='verticalSlider_defect':
-            self.remaining_defect.setText(str(value))
-
-
-
-    def combo_image_preccess(self,s):
-
-        # self.block_image_proccessi
-
-        self.remaining_p_value.setText(str(self.block_image_proccessing[s]))
-
-        self.set_default_image_proccess(s)
-
-
-    
-
-
-
-    def set_default_image_proccess(self,value):
-
-        if value=='Small':
-            self.verticalSlider_defect.setValue(1.5)
-            self.verticalSlider_noise.setValue(42)
-
-        if value=='Medium':
-            self.verticalSlider_defect.setValue(3)
-            self.verticalSlider_noise.setValue(35)
-
-        if value=='Large':
-            self.verticalSlider_defect.setValue(2)
-            self.verticalSlider_noise.setValue(40)
-
-
-
 
 
     def selected_camera(self,s):
@@ -487,16 +425,6 @@ class UI_main_window(QMainWindow, ui):
 
 
 
-    
-
-    
-
-
-
-    
-
-
-
     def show_mesagges(self,label_name,text,color='green'):
         
         name=label_name
@@ -513,36 +441,35 @@ class UI_main_window(QMainWindow, ui):
             label_name.setText('')
 
 
-    def clear_line_edits(self,line_edits):
 
-        for i in range(len(line_edits)):
-            line_edits[i].setText('')
+    def get_parms_new_screw_page_grab(self):
+
+        return (self.label_screw_name.text(),self.spinBox_grab_page_x.value(),self.spinBox_grab_page_y.value(),self.horizontalSlider_grab.value())
+
+        
+        
+    def  open_file_dialog(self,set_label):
+
+        filepath = QFileDialog.getOpenFileName(self, 'Select a File')
+        print(filepath)
+        set_label.setText(filepath[0])
 
 
-
-    # Calibration Page-----------------------
-
-    def get_image_proccessing_parms(self):
-
-        combo=self.comboBox_block_size.currentText()
-        defect=self.verticalSlider_defect.value()
-        noise=self.verticalSlider_noise.value()
-        noise_flag=self.checkBox_noise.isChecked()
-
-        return {'block_size':combo,'defect':defect/10,'noise':noise,'noise_flag':noise_flag}
-
-    def get_width_guage_parms(self):
-
-        combo=self.comboBox_cam_select_calibration.currentText()
-
-        # print(combo)
-
-        return combo
+    def set_loaded_parms_page_grab(self,parms):
+        print('int',(parms['roi_y']))
+        
+        self.horizontalSlider_grab.setValue(int(parms['threshold']))
+        self.spinBox_grab_page_x.setValue(int(parms['roi_x']))
+        self.spinBox_grab_page_y.setValue(int(parms['roi_y']))
 
 
 
-
-
+    def show_question(self, title, message):
+        msg = QMessageBox.question(self, title, message, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if msg == QMessageBox.Yes:
+            return True
+        if msg == QMessageBox.No:
+            return False
 
     def buttonClick(self):
         # GET BUTTON CLICKED
@@ -550,66 +477,85 @@ class UI_main_window(QMainWindow, ui):
         btnName = btn.objectName()
 
 
-        
-        if btnName =='camera_setting_btn' and self.stackedWidget.currentWidget()!=self.page_camera_setting:
-
-            self.stackedWidget.setCurrentWidget(self.page_camera_setting)
-            
-
         if btnName =='side_camera_setting_btn' and self.stackedWidget.currentWidget()!=self.page_camera_setting:
 
             self.stackedWidget.setCurrentWidget(self.page_camera_setting)
         
         if btnName =='side_dashboard_btn' and self.stackedWidget.currentWidget()!=self.page_dashboard:
 
-
             self.stackedWidget.setCurrentWidget(self.page_dashboard)
-        
-        if btnName =='users_setting_btn' :
 
-            self.stackedWidget.setCurrentWidget(self.page_users_setting)
-        
         if btnName =='side_users_setting_btn' :
 
             self.stackedWidget.setCurrentWidget(self.page_users_setting)
-        
-        if btnName =='add_user_btn' :
 
-            self.animation_move(self.frame_add_user,300)
 
-        
-        if btnName =='defect_setting_btn' :
+        if btnName =='side_tool_setting_btn' :
 
-            self.stackedWidget.setCurrentWidget(self.page_defects)
-        
-        if btnName =='side_defect_setting_btn' :
-
-            self.stackedWidget.setCurrentWidget(self.page_defects)
-
-        
-        
-        if btnName =='calibration_setting_btn' :
-
-            self.stackedWidget.setCurrentWidget(self.page_calibration_setting)
-
-        
-        if btnName =='side_calibration_setting_btn' :
-
-            self.stackedWidget.setCurrentWidget(self.page_calibration_setting)
-        
-        if btnName =='general_setting_btn' :
-
-            self.stackedWidget.setCurrentWidget(self.page_settings)
+            self.stackedWidget.setCurrentWidget(self.page_tools)
 
         
         if btnName =='side_general_setting_btn' :
 
             self.stackedWidget.setCurrentWidget(self.page_settings)
 
-        
-        
+        if btnName =='edit_remove_btn' :
+
+            self.animation_move(self.frame_24,300)
+
+        if btnName =='add_btn' :
+
+            self.animation_move(self.frame_23,300)
+
+        if btnName =='save_new_btn' :
+
+            self.animation_move(self.frame_23,300)
+
+        if btnName =='edit_btn' :
+
+            self.animation_move(self.frame_24,300)
+
+        if btnName =='next_page_btn' :
+
+            i=self.stackedWidget_2.currentIndex()
+            print(i)
+            self.stackedWidget_2.setCurrentIndex(i+1)
 
 
+        if btnName =='prev_page_btn' :
+
+            i=self.stackedWidget_2.currentIndex()
+            print(i)
+            self.stackedWidget_2.setCurrentIndex(i-1)
+
+
+        if btnName =='grab_load_btn' :
+
+            self.stackedWidget_2.setCurrentWidget(self.page)
+
+
+        if btnName =='tool1_btn' :
+
+            self.stackedWidget_2.setCurrentWidget(self.page_1)
+
+
+        if btnName =='tool2_btn' :
+
+            self.stackedWidget_2.setCurrentWidget(self.page_2)
+
+
+        if btnName =='tool3_btn' :
+
+            self.stackedWidget_2.setCurrentWidget(self.page_3)
+                
+        
+        if btnName =='load_image_btn' :
+
+            self.open_file_dialog(self.line_image_address)
+          
+        if btnName =='set_image_btn' :
+
+            self.set_image_label(self.label_3,cv2.imread(self.line_image_address.text()))              
 
 
 
@@ -708,7 +654,7 @@ if __name__ == "__main__":
     app = QApplication()
     win = UI_main_window()
     # apply_stylesheet(app,theme='dark_cyan.xml')
-    api = setting_api.API(win)
+    api = main_api.API(win)
     win.show()
     sys.exit(app.exec())
     

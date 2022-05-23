@@ -108,16 +108,16 @@ class dataBase:
     #--------------------------------------------------------------------------
     #--------------------------------------------------------------------------
 
-    def update_record(self,table_name,col_name,value,id,id_value):
+    def update_record(self,table_name,col_name,value,id_name,id_value):
         
-        
+        print(table_name,col_name,value,id_name,'id_value',id_value)
         if self.check_connection:
             
             cursor,connection=self.connect()
             
             mySql_insert_query = """UPDATE {} 
                                     SET {} = {}
-                                    WHERE {} ={} """.format(table_name, col_name, ("'"+value+"'"),id,id_value)
+                                    WHERE {} ={} """.format(table_name, col_name, ("'"+str(value)+"'"),id_name,("'"+id_value+"'"))
             
             #print(mySql_insert_query)
             cursor.execute(mySql_insert_query)
@@ -136,7 +136,7 @@ class dataBase:
 
 
 
-    def remove_record(self,col_name, id, table_name):
+    def remove_record(self,table_name,col_name, id ):
         if self.check_connection:
             cursor,connection=self.connect()
 
@@ -182,19 +182,26 @@ class dataBase:
     #--------------------------------------------------------------------------
     #--------------------------------------------------------------------------
 
-    def search(self,table_name,param_name, value, multi=False):
+    def search(self,table_name,param_name, value, multi=False,int_type=True):
         try:
             if self.check_connection:
+                
                 cursor,connection=self.connect()
-                if not multi:
-                    sql_select_Query = "SELECT * FROM {} WHERE {} = '{}'".format(table_name,param_name,str(value))
-                else:
-                    if len(value) == 1:
-                        sql_select_Query = "SELECT * FROM %s WHERE %s=('%s')" % (table_name, param_name, value[0])
+                if int_type:
+                    if not multi:
+                        sql_select_Query = "SELECT * FROM {} WHERE {} = '{}'".format(table_name,param_name,str(value))
                     else:
-                        sql_select_Query = "SELECT * FROM %s WHERE %s=%s" % (table_name, param_name, tuple(value))
-                #
-                print(sql_select_Query)
+                        if len(value) == 1:
+                            sql_select_Query = "SELECT * FROM %s WHERE %s=('%s')" % (table_name, param_name, value[0])
+                        else:
+                            sql_select_Query = "SELECT * FROM %s WHERE %s=%s" % (table_name, param_name, tuple(value))
+                    #
+                    print(sql_select_Query)
+                else:
+                    print('else')
+                    sql_select_Query = "SELECT * FROM {} WHERE {} = {}".format(table_name,param_name,"'"+str(value)+"'")
+
+
                 cursor=self.execute_quary(sql_select_Query, cursor, connection)
 
                 records = cursor.fetchall()
