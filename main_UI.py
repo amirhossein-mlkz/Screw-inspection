@@ -446,6 +446,7 @@ class UI_main_window(QMainWindow, ui):
 
         return (self.label_screw_name.text(),self.spinBox_grab_page_x.value(),self.spinBox_grab_page_y.value(),self.horizontalSlider_grab.value())
 
+    
         
         
     def  open_file_dialog(self,set_label):
@@ -455,12 +456,12 @@ class UI_main_window(QMainWindow, ui):
         set_label.setText(filepath[0])
 
 
-    def set_loaded_parms_page_grab(self,parms):
-        print('int',(parms['roi_y']))
+    def set_loaded_parms_page_grab(self,parms):        
+        self.horizontalSlider_grab.setValue(int(parms['main_thresh']))
+        self.line_image_address.setText(str(parms['img_path']))
         
-        self.horizontalSlider_grab.setValue(int(parms['threshold']))
-        self.spinBox_grab_page_x.setValue(int(parms['roi_x']))
-        self.spinBox_grab_page_y.setValue(int(parms['roi_y']))
+        #self.spinBox_grab_page_x.setValue(int(parms['roi_x']))
+        #self.spinBox_grab_page_y.setValue(int(parms['roi_y']))
 
 
 
@@ -510,10 +511,12 @@ class UI_main_window(QMainWindow, ui):
         if btnName =='save_new_btn' :
 
             self.animation_move(self.frame_23,300)
+            self.stackedWidget_2.setCurrentIndex(1)
 
         if btnName =='edit_btn' :
 
             self.animation_move(self.frame_24,300)
+            self.stackedWidget_2.setCurrentIndex(1)
 
         if btnName =='next_page_btn' :
 
@@ -640,11 +643,12 @@ class UI_main_window(QMainWindow, ui):
     
         
 
-    def get_scew_image_path(self):
+    def get_screw_image_path(self):
         return self.line_image_address.text()
 
     
-    
+    def get_line_scraw_name(self):
+        return self.line_new_screw.text().strip().capitalize()
 
 
 

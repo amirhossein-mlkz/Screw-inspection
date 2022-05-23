@@ -31,12 +31,14 @@ import cv2
 import login_UI
 import confirm_UI
 from backend import camera_funcs, colors_pallete, confirm_window_messages, mainsetting_funcs\
-                    , user_login_logout_funcs, user_management_funcs, Scew, tempMem, Utils, Drawing, cvTools
+                    , user_login_logout_funcs, user_management_funcs, Screw, Utils, Drawing, cvTools
 
 from backend.mouse import Mouse
 
 from full_screen_UI import FullScreen_UI
 import texts
+
+from database import database, dbUtils, screwDB
 
 class API:
 
@@ -90,21 +92,22 @@ class API:
 
         self.test()
         # self.show_full_screen('fullscreen_cam_1')
+        #-------------------------------------------------------------------------------------------------------------------
         
-        self.scew_setting_mem = tempMem.scewSettingMem()
         self.mouse = Mouse()
         self.rect_roi_drawing = Drawing.drawRect()
+        self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
         
         
         self.mouse.connect_all(self.ui.label_image_grab_page, self.draw_main_roi)
-        
+        #-------------------------------------------------------------------------------------------------------------------
 
     def test(self):
         pass
         path = 'images/test1_0_12 - Copy.png'
         # self.image_cam_1=cv2.imread('images/imge/dineniso14583.png')
         # self.image_cam_2=cv2.imread('images/imge/Screw-Flat-Head-6-x-1-2-Key-II_1.jpg')
-        self.ui.line_new_screw.setText(path)
+        self.ui.line_image_address.setText(path)
         # self.ui.set_image_label(self.ui.camera_1,self.image_cam_1)     
         # self.ui.set_image_label(self.ui.camera_2,self.image_cam_2)     
 
@@ -114,8 +117,8 @@ class API:
     # button connector for activating UI buttons functionality
     def button_connector(self):
         
-        
-        self.ui.set_image_btn.clicked.connect(self.set_scew_image)
+        #--------------------------------------amir---------------------------------------
+        self.ui.set_image_btn.clicked.connect(self.set_screw_image)
         
         
         
@@ -178,10 +181,10 @@ class API:
 
         #tools page
 
-        self.ui.save_new_btn.clicked.connect(self.add_name_screw)
+        self.ui.save_new_btn.clicked.connect(self.add_new_screw)
         self.ui.edit_remove_btn.clicked.connect(self.get_screw_names)
         self.ui.edit_btn.clicked.connect(self.edit_load_parms)
-        self.ui.remove_btn.clicked.connect(self.remove_screw)
+        self.ui.remove_screw_btn.clicked.connect(self.remove_screw)
 
 
 
@@ -189,7 +192,7 @@ class API:
 
         self.ui.horizontalSlider_grab.valueChanged.connect(self.update_image_grab_page)
         self.ui.roi_grab_btn.clicked.connect(self.set_roi_grab_page)
-        self.ui.save_btn_page_grab.clicked.connect(self.save_grab_page)
+        self.ui.save_btn_page_grab.clicked.connect(self.save_screw)
 
 
 
@@ -461,33 +464,10 @@ class API:
 
 
 
-    def add_name_screw(self):
+    
 
-        data=self.ui.get_parms_new_screw_page_grab()
-        self.db.add_screw(data)
-
-        # self.screw_name=data['name']
-
-    def edit_load_parms(self):
-
-        details_grab=self.db.search_page_grab(self.ui.comboBox_edit_remove.currentText())
-        print('details_grab',details_grab)
-        self.ui.set_loaded_parms_page_grab(details_grab[0])
-
-    def remove_screw(self):
-
-        name=self.ui.label_screw_name.text()
-
-        t = self.ui.show_question(texts.WARNINGS['Warning'][self.language],
-                                        texts.WARNINGS['Delete_Screw'][self.language])
-        if not t:
-            return
-        else:
-            self.db.remove_screw(self.ui.label_screw_name.text())
-            print('delete')
-            self.ui.label_screw_name.setText('Deleted')
-            self.get_screw_names()
-
+    
+    
 
 
     def get_screw_names(self):
@@ -514,11 +494,7 @@ class API:
         
 
 
-    def save_grab_page(self):
-
-        data=self.ui.get_parms_new_screw_page_grab()
-
-        self.db.update_screw(data)
+    
 
 
 
@@ -548,19 +524,59 @@ class API:
 
 
 
+    #--------------------------------------------------------------------------------------------------------------
+    def add_new_screw(self):
+        name = self.ui.get_line_scraw_name()
+        flag = dbUtils.add_screw(name)
+        self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
+        self.screw_jason = screwDB.screwJson()
+        self.screw_jason.set_name(name)
+        #ERROR
+        if not flag:
+            print('Error! : screw exits already')
+
+
+    
+    def remove_screw(self):
+        name=self.ui.label_screw_name.text()
+        dbUtils.remove_screw(name)
+        self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
 
 
 
 
-    def set_scew_image(self):
-        path = self.ui.get_scew_image_path()
+    def save_screw(self):
+        path = dbUtils.get_screw_path( self.screw_jason.get_name() )
+        self.screw_jason.set_direction('top')
+        self.screw_jason.write(path)
+        print(self.screw_jason.data)
+        print('Screw Saved')
+
+
+    
+    def edit_load_parms(self):
+        name = self.ui.comboBox_edit_remove.currentText()
+        name = self.ui.comboBox_edit_remove.currentText()
+        path = dbUtils.get_screw_path(name)
+        self.screw_jason = screwDB.screwJson()
+        self.screw_jason.read(path, 'top')
+        
+        
+        self.ui.set_loaded_parms_page_grab( self.screw_jason.data )
+        self.rect_roi_drawing.shapes = [self.screw_jason.get_main_roi()]
+        self.set_screw_image()
+        self.update_image_grab_page()
+        
+
+    def set_screw_image(self):
+        path = self.ui.get_screw_image_path()
         img = cv2.imread(path)
         if img is not None:
             self.ui.set_image_label(self.ui.label_image_grab_page,img)
-            self.scew_setting_mem.set_img_path(path)
+            self.screw_jason.set_img_path(path)
             self.rect_roi_drawing.set_img_size(img.shape[:2])
         else:
-            #ERROR
+            print('Error! : image not exist')
             pass
         
         
@@ -571,16 +587,21 @@ class API:
         self.rect_roi_drawing.max_shape_count = 1
         
         thresh = self.ui.horizontalSlider_grab.value()
-        img = self.scew_setting_mem.get_img()
+        img = self.screw_jason.img
         
         rects = self.rect_roi_drawing.shapes
         mask = cvTools.rects2mask(img.shape[:2], rects)
+        rects = self.rect_roi_drawing.shapes
         img = Utils.threshould_view(img, thresh, mask_roi=mask)
         
         
         img = self.rect_roi_drawing.get_image(img)
         self.ui.set_image_label(self.ui.label_image_grab_page, img)
         
+        self.screw_jason.set_main_thresh(thresh)
+        
+        if len(rects) > 0:
+            self.screw_jason.set_main_roi(pt1=rects[0][0], pt2=rects[0][1])
         
     
     
@@ -598,5 +619,6 @@ class API:
         elif mouse_status == 'mouse_move' and mouse_button == 'left_btn':
             self.rect_roi_drawing.set_float_point(mouse_pt)
             
-    
         self.update_image_grab_page()
+        
+    #--------------------------------------------------------------------------------------------------------------

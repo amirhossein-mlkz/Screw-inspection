@@ -4,7 +4,7 @@ import numpy as np
 
 
 
-class scewSettingMem:
+class screwSettingMem:
     
     def __init__(self):
         self.path = None
