@@ -1,7 +1,7 @@
 import os
 import shutil
 
-PATH = 'database\screws'
+PATH = 'database/screws'
 def get_screw_path(name):
     return os.path.join(PATH, name)
 

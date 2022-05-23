@@ -133,7 +133,11 @@ class UI_main_window(QMainWindow, ui):
         self._old_pos = None
 
 
-        
+        # Page Tool Image Labels
+        # //////////////////////////
+        self.image_labels={
+            'page_grab':self.label_image_grab_page
+        }        
 
 
         
@@ -348,6 +352,9 @@ class UI_main_window(QMainWindow, ui):
         self.load_image_btn.clicked.connect(self.buttonClick)
         self.set_image_btn.clicked.connect(self.buttonClick)
 
+        self.camera1_select_radio.clicked.connect(self.check_number)
+        self.camera2_select_radio.clicked.connect(self.check_number)
+
 
 
 
@@ -442,12 +449,58 @@ class UI_main_window(QMainWindow, ui):
 
 
 
-    def get_parms_new_screw_page_grab(self):
 
-        return (self.label_screw_name.text(),self.spinBox_grab_page_x.value(),self.spinBox_grab_page_y.value(),self.horizontalSlider_grab.value())
 
+    def show_question(self, title, message):
+        msg = QMessageBox.question(self, title, message, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if msg == QMessageBox.Yes:
+            return True
+        if msg == QMessageBox.No:
+            return False
+
+    def set_warning(self, text, name, level=1):                            #Show warning
+        waring_labels = {
+            'tool_page': self.label_warning_tool_page,
+
+        }
+        # print('set_warning')
+        if text != None:
     
-        
+            if level == 1:
+                waring_labels[name].setText(' ' + text + ' ')
+                waring_labels[name].setStyleSheet('background-color:#20a740;border-radius:10px;color:white')
+
+            if level == 2:
+                waring_labels[name].setText(' Warning: ' + text)
+                waring_labels[name].setStyleSheet('background-color:#FDFFA9;border-radius:2px;color:black')
+
+            if level == 3:
+                waring_labels[name].setText(' EROR : ' + text)
+                waring_labels[name].setStyleSheet('background-color:#D9534F;border-radius:2px;color:black')
+
+            threading.Timer(2, self.set_warning, args=(None, name)).start()
+
+        else:
+            waring_labels[name].setText('')
+            waring_labels[name].setStyleSheet('')
+
+
+
+    # Page Grab
+
+    def get_parms_screw_page_grab(self):
+
+        dic={}
+        dic.update({'name':self.label_screw_name.text()})
+        dic.update({'threshold':self.horizontalSlider_grab.value()})
+        dic.update({'rect1_x':self.spinBox_grab_page_x_rect1.value()})
+        dic.update({'rect1_y':self.spinBox_grab_page_y_rect1.value()})
+        dic.update({'rect2_x':self.spinBox_grab_page_x_rect2.value()})
+        dic.update({'rect2_y':self.spinBox_grab_page_y_rect2.value()})
+
+        print('dic',dic)
+
+        return dic
         
     def  open_file_dialog(self,set_label):
 
@@ -459,23 +512,39 @@ class UI_main_window(QMainWindow, ui):
     def set_loaded_parms_page_grab(self,parms):        
         self.horizontalSlider_grab.setValue(int(parms['main_thresh']))
         self.line_image_address.setText(str(parms['img_path']))
+
+
+    def check_number(self):
         
-        #self.spinBox_grab_page_x.setValue(int(parms['roi_x']))
-        #self.spinBox_grab_page_y.setValue(int(parms['roi_y']))
+        # checking if it is checked
+        if self.camera1_select_radio.isChecked():
+                
+            # changing text of label
+            # self.label.setText("It is now checked")
+            self.camera1_select_radio.setChecked(True)
+            print('cam 1 select')
+            self.selected_camera_name='camera1'
+            return 'camera1'
+        
+        else:
+            self.camera2_select_radio.setChecked(False)
+            print('cam 2 select')
+            self.selected_camera_name='camera2'
+            return 'camera2'
 
 
 
-    def show_question(self, title, message):
-        msg = QMessageBox.question(self, title, message, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-        if msg == QMessageBox.Yes:
-            return True
-        if msg == QMessageBox.No:
-            return False
+
+
+
+
+
 
     def buttonClick(self):
         # GET BUTTON CLICKED
         btn = self.sender()
         btnName = btn.objectName()
+
 
 
         if btnName =='side_camera_setting_btn' and self.stackedWidget.currentWidget()!=self.page_camera_setting:
@@ -619,7 +688,11 @@ class UI_main_window(QMainWindow, ui):
 
         label_name.setPixmap(sQPixmap.fromImage(convert_to_Qt_format))
 
+    def set_image_page_tool_labels(self,img):
 
+        list_image_labels=list(self.image_labels.values())
+        for i in range(len(list_image_labels)):
+            self.set_image_label(list_image_labels[i],img)
 
 
 

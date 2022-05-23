@@ -108,8 +108,8 @@ class API:
         # self.image_cam_1=cv2.imread('images/imge/dineniso14583.png')
         # self.image_cam_2=cv2.imread('images/imge/Screw-Flat-Head-6-x-1-2-Key-II_1.jpg')
         self.ui.line_image_address.setText(path)
-        # self.ui.set_image_label(self.ui.camera_1,self.image_cam_1)     
-        # self.ui.set_image_label(self.ui.camera_2,self.image_cam_2)     
+        # self.ui.set_image_page_tool_labels(self.ui.camera_1,self.image_cam_1)     
+        # self.ui.set_image_page_tool_labels(self.ui.camera_2,self.image_cam_2)     
 
     # functions
     #------------------------------------------------------------------------------------------------------------------------
@@ -186,12 +186,13 @@ class API:
         self.ui.edit_btn.clicked.connect(self.edit_load_parms)
         self.ui.remove_screw_btn.clicked.connect(self.remove_screw)
 
+        self.ui.get_parms_screw_page_grab()
+
 
 
         #grab page
 
         self.ui.horizontalSlider_grab.valueChanged.connect(self.update_image_grab_page)
-        self.ui.roi_grab_btn.clicked.connect(self.set_roi_grab_page)
         self.ui.save_btn_page_grab.clicked.connect(self.save_screw)
 
 
@@ -512,7 +513,7 @@ class API:
 
     def update_image(self,label_name,img):
 
-        self.ui.set_image_label(label_name,img)
+        self.ui.set_image_page_tool_labels(img)
 
 
 
@@ -572,7 +573,7 @@ class API:
         path = self.ui.get_screw_image_path()
         img = cv2.imread(path)
         if img is not None:
-            self.ui.set_image_label(self.ui.label_image_grab_page,img)
+            self.ui.set_image_page_tool_labels(img)
             self.screw_jason.set_img_path(path)
             self.rect_roi_drawing.set_img_size(img.shape[:2])
         else:
@@ -596,7 +597,7 @@ class API:
         
         
         img = self.rect_roi_drawing.get_image(img)
-        self.ui.set_image_label(self.ui.label_image_grab_page, img)
+        self.ui.set_image_page_tool_labels(img)
         
         self.screw_jason.set_main_thresh(thresh)
         

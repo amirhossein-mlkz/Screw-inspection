@@ -734,6 +734,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -783,6 +784,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -832,6 +834,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -881,6 +884,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -930,6 +934,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1016,6 +1021,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1809,6 +1815,7 @@ QPushButton:hover {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                        <stylestrategy>PreferDefault</stylestrategy>
@@ -2568,8 +2575,8 @@ QPushButton:hover {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>73</width>
-                                  <height>73</height>
+                                  <width>69</width>
+                                  <height>69</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">
@@ -3097,6 +3104,7 @@ border: 1px solid #CDCDCE;
                                   <property name="font">
                                    <font>
                                     <pointsize>8</pointsize>
+                                    <weight>50</weight>
                                     <bold>false</bold>
                                    </font>
                                   </property>
@@ -3500,6 +3508,7 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
+                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -3540,6 +3549,7 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
+                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -3635,6 +3645,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3662,6 +3673,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3689,6 +3701,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3716,6 +3729,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3743,6 +3757,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3770,6 +3785,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3797,6 +3813,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3824,6 +3841,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3851,6 +3869,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3878,6 +3897,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3905,6 +3925,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3932,6 +3953,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3959,6 +3981,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4561,6 +4584,7 @@ QPushButton:pressed {
                                <property name="font">
                                 <font>
                                  <pointsize>10</pointsize>
+                                 <weight>75</weight>
                                  <bold>true</bold>
                                 </font>
                                </property>
@@ -5300,6 +5324,7 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
+                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -6013,6 +6038,7 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
+                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -6415,7 +6441,7 @@ QPushButton:pressed {
                                      <x>0</x>
                                      <y>0</y>
                                      <width>688</width>
-                                     <height>73</height>
+                                     <height>69</height>
                                     </rect>
                                    </property>
                                    <layout class="QHBoxLayout" name="horizontalLayout_77">
@@ -6931,6 +6957,7 @@ border: 1px solid #CDCDCE;
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
+                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -6967,6 +6994,7 @@ QPushButton:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
+                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -7539,6 +7567,7 @@ border: 1px solid #CDCDCE;
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
+                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -7685,7 +7714,7 @@ QPushButton:pressed {
                                      <x>0</x>
                                      <y>0</y>
                                      <width>688</width>
-                                     <height>73</height>
+                                     <height>69</height>
                                     </rect>
                                    </property>
                                    <layout class="QHBoxLayout" name="horizontalLayout_96">
@@ -8083,6 +8112,7 @@ border: 1px solid #CDCDCE;
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
+                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -8119,6 +8149,7 @@ QPushButton:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
+                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -8482,6 +8513,7 @@ border: 1px solid #CDCDCE;
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
+                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -8776,6 +8808,29 @@ QPushButton:pressed {
                               <widget class="QLabel" name="label_screw_name">
                                <property name="text">
                                 <string>-</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <spacer name="horizontalSpacer_9">
+                               <property name="orientation">
+                                <enum>Qt::Horizontal</enum>
+                               </property>
+                               <property name="sizeType">
+                                <enum>QSizePolicy::Fixed</enum>
+                               </property>
+                               <property name="sizeHint" stdset="0">
+                                <size>
+                                 <width>86</width>
+                                 <height>20</height>
+                                </size>
+                               </property>
+                              </spacer>
+                             </item>
+                             <item>
+                              <widget class="QLabel" name="label_warning_tool_page">
+                               <property name="text">
+                                <string/>
                                </property>
                               </widget>
                              </item>
@@ -9100,7 +9155,7 @@ QPushButton:pressed {
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>0</number>
+                                   <number>1</number>
                                   </property>
                                   <widget class="QWidget" name="page_0"/>
                                   <widget class="QWidget" name="page_1">
@@ -9166,28 +9221,21 @@ QPushButton:pressed {
                                               <number>0</number>
                                              </property>
                                              <item>
-                                              <layout class="QHBoxLayout" name="horizontalLayout_39">
-                                               <item>
-                                                <widget class="QCheckBox" name="camera1_select_radio">
-                                                 <property name="minimumSize">
-                                                  <size>
-                                                   <width>0</width>
-                                                   <height>24</height>
-                                                  </size>
-                                                 </property>
-                                                 <property name="text">
-                                                  <string>Camera 1</string>
-                                                 </property>
-                                                </widget>
-                                               </item>
-                                               <item>
-                                                <widget class="QCheckBox" name="camera2_select_radio">
-                                                 <property name="text">
-                                                  <string>Camera 2</string>
-                                                 </property>
-                                                </widget>
-                                               </item>
-                                              </layout>
+                                              <widget class="QRadioButton" name="camera1_select_radio">
+                                               <property name="text">
+                                                <string>Camera 1</string>
+                                               </property>
+                                               <property name="checked">
+                                                <bool>true</bool>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QRadioButton" name="camera2_select_radio">
+                                               <property name="text">
+                                                <string>Camera 2</string>
+                                               </property>
+                                              </widget>
                                              </item>
                                              <item>
                                               <widget class="QPushButton" name="connect_grab_btn">
@@ -9337,28 +9385,18 @@ QPushButton:pressed {
                                                 <enum>QFrame::Raised</enum>
                                                </property>
                                                <layout class="QVBoxLayout" name="verticalLayout_33">
-                                                <property name="topMargin">
-                                                 <number>9</number>
+                                                <property name="leftMargin">
+                                                 <number>0</number>
                                                 </property>
-                                                <item alignment="Qt::AlignHCenter">
-                                                 <widget class="QPushButton" name="roi_grab_btn">
-                                                  <property name="minimumSize">
-                                                   <size>
-                                                    <width>100</width>
-                                                    <height>32</height>
-                                                   </size>
-                                                  </property>
-                                                  <property name="maximumSize">
-                                                   <size>
-                                                    <width>100</width>
-                                                    <height>16777215</height>
-                                                   </size>
-                                                  </property>
-                                                  <property name="text">
-                                                   <string>ROI</string>
-                                                  </property>
-                                                 </widget>
-                                                </item>
+                                                <property name="topMargin">
+                                                 <number>0</number>
+                                                </property>
+                                                <property name="rightMargin">
+                                                 <number>0</number>
+                                                </property>
+                                                <property name="bottomMargin">
+                                                 <number>0</number>
+                                                </property>
                                                 <item>
                                                  <widget class="QFrame" name="frame_49">
                                                   <property name="minimumSize">
@@ -9373,49 +9411,95 @@ QPushButton:pressed {
                                                   <property name="frameShadow">
                                                    <enum>QFrame::Raised</enum>
                                                   </property>
-                                                  <layout class="QHBoxLayout" name="horizontalLayout_47">
+                                                  <layout class="QHBoxLayout" name="horizontalLayout_51">
                                                    <item>
-                                                    <widget class="QLabel" name="label_3">
-                                                     <property name="text">
-                                                      <string>X :</string>
+                                                    <widget class="QGroupBox" name="groupBox_10">
+                                                     <property name="title">
+                                                      <string>Rect 1</string>
                                                      </property>
+                                                     <layout class="QVBoxLayout" name="verticalLayout_36">
+                                                      <item>
+                                                       <layout class="QHBoxLayout" name="horizontalLayout_47">
+                                                        <item>
+                                                         <widget class="QLabel" name="label_3">
+                                                          <property name="text">
+                                                           <string>X :</string>
+                                                          </property>
+                                                         </widget>
+                                                        </item>
+                                                        <item>
+                                                         <widget class="QSpinBox" name="spinBox_grab_page_x_rect1">
+                                                          <property name="maximum">
+                                                           <number>20000</number>
+                                                          </property>
+                                                         </widget>
+                                                        </item>
+                                                       </layout>
+                                                      </item>
+                                                      <item>
+                                                       <layout class="QHBoxLayout" name="horizontalLayout_48">
+                                                        <item>
+                                                         <widget class="QLabel" name="label_4">
+                                                          <property name="text">
+                                                           <string>Y :</string>
+                                                          </property>
+                                                         </widget>
+                                                        </item>
+                                                        <item>
+                                                         <widget class="QSpinBox" name="spinBox_grab_page_y_rect1">
+                                                          <property name="maximum">
+                                                           <number>20000</number>
+                                                          </property>
+                                                         </widget>
+                                                        </item>
+                                                       </layout>
+                                                      </item>
+                                                     </layout>
                                                     </widget>
                                                    </item>
                                                    <item>
-                                                    <widget class="QSpinBox" name="spinBox_grab_page_x">
-                                                     <property name="maximum">
-                                                      <number>20000</number>
+                                                    <widget class="QGroupBox" name="groupBox_11">
+                                                     <property name="title">
+                                                      <string>Rect 2</string>
                                                      </property>
-                                                    </widget>
-                                                   </item>
-                                                   <item>
-                                                    <spacer name="horizontalSpacer_6">
-                                                     <property name="orientation">
-                                                      <enum>Qt::Horizontal</enum>
-                                                     </property>
-                                                     <property name="sizeType">
-                                                      <enum>QSizePolicy::Fixed</enum>
-                                                     </property>
-                                                     <property name="sizeHint" stdset="0">
-                                                      <size>
-                                                       <width>26</width>
-                                                       <height>20</height>
-                                                      </size>
-                                                     </property>
-                                                    </spacer>
-                                                   </item>
-                                                   <item>
-                                                    <widget class="QLabel" name="label_4">
-                                                     <property name="text">
-                                                      <string>Y :</string>
-                                                     </property>
-                                                    </widget>
-                                                   </item>
-                                                   <item>
-                                                    <widget class="QSpinBox" name="spinBox_grab_page_y">
-                                                     <property name="maximum">
-                                                      <number>20000</number>
-                                                     </property>
+                                                     <layout class="QVBoxLayout" name="verticalLayout_37">
+                                                      <item>
+                                                       <layout class="QHBoxLayout" name="horizontalLayout_49">
+                                                        <item>
+                                                         <widget class="QLabel" name="label_7">
+                                                          <property name="text">
+                                                           <string>X :</string>
+                                                          </property>
+                                                         </widget>
+                                                        </item>
+                                                        <item>
+                                                         <widget class="QSpinBox" name="spinBox_grab_page_x_rect2">
+                                                          <property name="maximum">
+                                                           <number>20000</number>
+                                                          </property>
+                                                         </widget>
+                                                        </item>
+                                                       </layout>
+                                                      </item>
+                                                      <item>
+                                                       <layout class="QHBoxLayout" name="horizontalLayout_50">
+                                                        <item>
+                                                         <widget class="QLabel" name="label_8">
+                                                          <property name="text">
+                                                           <string>Y :</string>
+                                                          </property>
+                                                         </widget>
+                                                        </item>
+                                                        <item>
+                                                         <widget class="QSpinBox" name="spinBox_grab_page_y_rect2">
+                                                          <property name="maximum">
+                                                           <number>20000</number>
+                                                          </property>
+                                                         </widget>
+                                                        </item>
+                                                       </layout>
+                                                      </item>
+                                                     </layout>
                                                     </widget>
                                                    </item>
                                                   </layout>
@@ -9577,6 +9661,87 @@ QPushButton:pressed {
                                                 <property name="bottomMargin">
                                                  <number>0</number>
                                                 </property>
+                                                <item>
+                                                 <widget class="QPushButton" name="fullscreen_cam_grab_4">
+                                                  <property name="maximumSize">
+                                                   <size>
+                                                    <width>50</width>
+                                                    <height>50</height>
+                                                   </size>
+                                                  </property>
+                                                  <property name="toolTip">
+                                                   <string>clear all</string>
+                                                  </property>
+                                                  <property name="styleSheet">
+                                                   <string notr="true">border:None;</string>
+                                                  </property>
+                                                  <property name="text">
+                                                   <string/>
+                                                  </property>
+                                                  <property name="icon">
+                                                   <iconset>
+                                                    <normaloff>images/rotate-left.png</normaloff>images/rotate-left.png</iconset>
+                                                  </property>
+                                                  <property name="iconSize">
+                                                   <size>
+                                                    <width>21</width>
+                                                    <height>40</height>
+                                                   </size>
+                                                  </property>
+                                                 </widget>
+                                                </item>
+                                                <item>
+                                                 <widget class="QSpinBox" name="spinBox_2">
+                                                  <property name="minimum">
+                                                   <number>-90</number>
+                                                  </property>
+                                                  <property name="maximum">
+                                                   <number>90</number>
+                                                  </property>
+                                                 </widget>
+                                                </item>
+                                                <item>
+                                                 <widget class="QPushButton" name="fullscreen_cam_grab_3">
+                                                  <property name="maximumSize">
+                                                   <size>
+                                                    <width>50</width>
+                                                    <height>50</height>
+                                                   </size>
+                                                  </property>
+                                                  <property name="toolTip">
+                                                   <string>clear all</string>
+                                                  </property>
+                                                  <property name="styleSheet">
+                                                   <string notr="true">border:None;</string>
+                                                  </property>
+                                                  <property name="text">
+                                                   <string/>
+                                                  </property>
+                                                  <property name="icon">
+                                                   <iconset>
+                                                    <normaloff>images/rotate-right.png</normaloff>images/rotate-right.png</iconset>
+                                                  </property>
+                                                  <property name="iconSize">
+                                                   <size>
+                                                    <width>21</width>
+                                                    <height>40</height>
+                                                   </size>
+                                                  </property>
+                                                 </widget>
+                                                </item>
+                                                <item>
+                                                 <spacer name="horizontalSpacer_6">
+                                                  <property name="orientation">
+                                                   <enum>Qt::Horizontal</enum>
+                                                  </property>
+                                                  <property name="sizeHint" stdset="0">
+                                                   <size>
+                                                    <width>40</width>
+                                                    <height>20</height>
+                                                   </size>
+                                                  </property>
+                                                 </spacer>
+                                                </item>
                                                 <item>
                                                  <widget class="QPushButton" name="fullscreen_cam_grab_2">
                                                   <property name="maximumSize">
@@ -9848,6 +10013,7 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
+                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -9884,6 +10050,7 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
+                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -9923,6 +10090,7 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
+                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -10001,6 +10169,7 @@ QPushButton:pressed {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>-1</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -10090,12 +10259,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>440</x>
-     <y>391</y>
+     <x>596</x>
+     <y>423</y>
     </hint>
     <hint type="destinationlabel">
-     <x>471</x>
-     <y>427</y>
+     <x>491</x>
+     <y>452</y>
     </hint>
    </hints>
   </connection>
@@ -10106,12 +10275,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>473</x>
-     <y>418</y>
+     <x>491</x>
+     <y>452</y>
     </hint>
     <hint type="destinationlabel">
-     <x>498</x>
-     <y>393</y>
+     <x>596</x>
+     <y>423</y>
     </hint>
    </hints>
   </connection>
@@ -10164,50 +10333,18 @@ QPushButton:pressed {
    </hints>
   </connection>
   <connection>
-   <sender>camera1_select_radio</sender>
-   <signal>clicked()</signal>
-   <receiver>camera2_select_radio</receiver>
-   <slot>animateClick()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>368</x>
-     <y>189</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>437</x>
-     <y>186</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>camera2_select_radio</sender>
-   <signal>clicked()</signal>
-   <receiver>camera1_select_radio</receiver>
-   <slot>animateClick()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>445</x>
-     <y>179</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>385</x>
-     <y>180</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>line_new_screw</sender>
    <signal>textChanged(QString)</signal>
    <receiver>label_screw_name</receiver>
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>500</x>
-     <y>94</y>
+     <x>847</x>
+     <y>101</y>
     </hint>
     <hint type="destinationlabel">
-     <x>724</x>
-     <y>92</y>
+     <x>985</x>
+     <y>111</y>
     </hint>
    </hints>
   </connection>
@@ -10222,8 +10359,8 @@ QPushButton:pressed {
      <y>95</y>
     </hint>
     <hint type="destinationlabel">
-     <x>725</x>
-     <y>104</y>
+     <x>985</x>
+     <y>111</y>
     </hint>
    </hints>
   </connection>
