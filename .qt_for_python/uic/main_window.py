@@ -4141,7 +4141,8 @@ class Ui_MainWindow(object):
 
         self.frame_37 = QFrame(self.frame_4)
         self.frame_37.setObjectName(u"frame_37")
-        self.frame_37.setMinimumSize(QSize(100, 62))
+        self.frame_37.setMinimumSize(QSize(408, 62))
+        self.frame_37.setMaximumSize(QSize(450, 16777215))
         self.frame_37.setFrameShape(QFrame.StyledPanel)
         self.frame_37.setFrameShadow(QFrame.Raised)
         self.verticalLayout_30 = QVBoxLayout(self.frame_37)
@@ -4165,12 +4166,44 @@ class Ui_MainWindow(object):
         self.verticalLayout_28.setContentsMargins(0, 0, 0, 0)
         self.frame_29 = QFrame(self.frame_26)
         self.frame_29.setObjectName(u"frame_29")
-        self.frame_29.setMaximumSize(QSize(16777215, 74))
+        self.frame_29.setMaximumSize(QSize(445, 120))
         self.frame_29.setFrameShape(QFrame.StyledPanel)
         self.frame_29.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_40 = QHBoxLayout(self.frame_29)
-        self.horizontalLayout_40.setObjectName(u"horizontalLayout_40")
-        self.horizontalLayout_40.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_39 = QVBoxLayout(self.frame_29)
+        self.verticalLayout_39.setObjectName(u"verticalLayout_39")
+        self.verticalLayout_39.setContentsMargins(0, 0, 0, 0)
+        self.groupBox_3 = QGroupBox(self.frame_29)
+        self.groupBox_3.setObjectName(u"groupBox_3")
+        self.horizontalLayout_25 = QHBoxLayout(self.groupBox_3)
+        self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
+        self.horizontalLayout_25.setContentsMargins(-1, 0, -1, 0)
+        self.horizontalLayout_24 = QHBoxLayout()
+        self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
+        self.line_image_address = QLineEdit(self.groupBox_3)
+        self.line_image_address.setObjectName(u"line_image_address")
+        self.line_image_address.setMinimumSize(QSize(210, 0))
+        self.line_image_address.setMaximumSize(QSize(405, 16777215))
+
+        self.horizontalLayout_24.addWidget(self.line_image_address)
+
+        self.load_image_btn = QToolButton(self.groupBox_3)
+        self.load_image_btn.setObjectName(u"load_image_btn")
+
+        self.horizontalLayout_24.addWidget(self.load_image_btn)
+
+
+        self.horizontalLayout_25.addLayout(self.horizontalLayout_24)
+
+        self.set_image_btn = QPushButton(self.groupBox_3)
+        self.set_image_btn.setObjectName(u"set_image_btn")
+        self.set_image_btn.setMinimumSize(QSize(82, 27))
+        self.set_image_btn.setMaximumSize(QSize(16777215, 27))
+
+        self.horizontalLayout_25.addWidget(self.set_image_btn)
+
+
+        self.verticalLayout_39.addWidget(self.groupBox_3)
+
         self.groupBox_2 = QGroupBox(self.frame_29)
         self.groupBox_2.setObjectName(u"groupBox_2")
         self.horizontalLayout_26 = QHBoxLayout(self.groupBox_2)
@@ -4195,43 +4228,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_26.addWidget(self.connect_grab_btn)
 
 
-        self.horizontalLayout_40.addWidget(self.groupBox_2)
-
-        self.groupBox_3 = QGroupBox(self.frame_29)
-        self.groupBox_3.setObjectName(u"groupBox_3")
-        self.horizontalLayout_25 = QHBoxLayout(self.groupBox_3)
-        self.horizontalLayout_25.setObjectName(u"horizontalLayout_25")
-        self.horizontalLayout_25.setContentsMargins(-1, 0, -1, 0)
-        self.horizontalLayout_24 = QHBoxLayout()
-        self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
-        self.line_image_address = QLineEdit(self.groupBox_3)
-        self.line_image_address.setObjectName(u"line_image_address")
-        self.line_image_address.setMinimumSize(QSize(400, 0))
-        self.line_image_address.setMaximumSize(QSize(400, 16777215))
-
-        self.horizontalLayout_24.addWidget(self.line_image_address)
-
-        self.load_image_btn = QToolButton(self.groupBox_3)
-        self.load_image_btn.setObjectName(u"load_image_btn")
-
-        self.horizontalLayout_24.addWidget(self.load_image_btn)
-
-
-        self.horizontalLayout_25.addLayout(self.horizontalLayout_24)
-
-        self.set_image_btn = QPushButton(self.groupBox_3)
-        self.set_image_btn.setObjectName(u"set_image_btn")
-        self.set_image_btn.setMinimumSize(QSize(82, 27))
-        self.set_image_btn.setMaximumSize(QSize(16777215, 27))
-
-        self.horizontalLayout_25.addWidget(self.set_image_btn)
-
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_25.addItem(self.horizontalSpacer_5)
-
-
-        self.horizontalLayout_40.addWidget(self.groupBox_3)
+        self.verticalLayout_39.addWidget(self.groupBox_2)
 
 
         self.verticalLayout_28.addWidget(self.frame_29)
@@ -4249,10 +4246,11 @@ class Ui_MainWindow(object):
         self.frame_30.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_41 = QHBoxLayout(self.frame_30)
         self.horizontalLayout_41.setObjectName(u"horizontalLayout_41")
+        self.horizontalLayout_41.setContentsMargins(0, 0, 0, 0)
         self.frame_32 = QFrame(self.frame_30)
         self.frame_32.setObjectName(u"frame_32")
         self.frame_32.setMinimumSize(QSize(300, 0))
-        self.frame_32.setMaximumSize(QSize(300, 16777215))
+        self.frame_32.setMaximumSize(QSize(372, 16777215))
         self.frame_32.setFrameShape(QFrame.StyledPanel)
         self.frame_32.setFrameShadow(QFrame.Raised)
         self.verticalLayout_34 = QVBoxLayout(self.frame_32)
@@ -4285,6 +4283,7 @@ class Ui_MainWindow(object):
         self.spinBox_grab_page_x_rect1 = QSpinBox(self.groupBox_10)
         self.spinBox_grab_page_x_rect1.setObjectName(u"spinBox_grab_page_x_rect1")
         self.spinBox_grab_page_x_rect1.setMaximum(20000)
+        self.spinBox_grab_page_x_rect1.setSingleStep(5)
 
         self.horizontalLayout_47.addWidget(self.spinBox_grab_page_x_rect1)
 
@@ -4301,6 +4300,7 @@ class Ui_MainWindow(object):
         self.spinBox_grab_page_y_rect1 = QSpinBox(self.groupBox_10)
         self.spinBox_grab_page_y_rect1.setObjectName(u"spinBox_grab_page_y_rect1")
         self.spinBox_grab_page_y_rect1.setMaximum(20000)
+        self.spinBox_grab_page_y_rect1.setSingleStep(5)
 
         self.horizontalLayout_48.addWidget(self.spinBox_grab_page_y_rect1)
 
@@ -4324,6 +4324,7 @@ class Ui_MainWindow(object):
         self.spinBox_grab_page_x_rect2 = QSpinBox(self.groupBox_11)
         self.spinBox_grab_page_x_rect2.setObjectName(u"spinBox_grab_page_x_rect2")
         self.spinBox_grab_page_x_rect2.setMaximum(20000)
+        self.spinBox_grab_page_x_rect2.setSingleStep(5)
 
         self.horizontalLayout_49.addWidget(self.spinBox_grab_page_x_rect2)
 
@@ -4340,6 +4341,7 @@ class Ui_MainWindow(object):
         self.spinBox_grab_page_y_rect2 = QSpinBox(self.groupBox_11)
         self.spinBox_grab_page_y_rect2.setObjectName(u"spinBox_grab_page_y_rect2")
         self.spinBox_grab_page_y_rect2.setMaximum(20000)
+        self.spinBox_grab_page_y_rect2.setSingleStep(5)
 
         self.horizontalLayout_50.addWidget(self.spinBox_grab_page_y_rect2)
 
@@ -4384,6 +4386,35 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_34.addWidget(self.frame_40)
 
+        self.frame_50 = QFrame(self.frame_32)
+        self.frame_50.setObjectName(u"frame_50")
+        self.frame_50.setFrameShape(QFrame.StyledPanel)
+        self.frame_50.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_38 = QVBoxLayout(self.frame_50)
+        self.verticalLayout_38.setObjectName(u"verticalLayout_38")
+        self.label_9 = QLabel(self.frame_50)
+        self.label_9.setObjectName(u"label_9")
+        self.label_9.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_38.addWidget(self.label_9)
+
+        self.noiseFilterSlider_grab = QSlider(self.frame_50)
+        self.noiseFilterSlider_grab.setObjectName(u"noiseFilterSlider_grab")
+        self.noiseFilterSlider_grab.setMaximum(100)
+        self.noiseFilterSlider_grab.setSingleStep(1)
+        self.noiseFilterSlider_grab.setOrientation(Qt.Horizontal)
+
+        self.verticalLayout_38.addWidget(self.noiseFilterSlider_grab)
+
+        self.noiseAreaSpinBox = QSpinBox(self.frame_50)
+        self.noiseAreaSpinBox.setObjectName(u"noiseAreaSpinBox")
+        self.noiseAreaSpinBox.setMaximum(100)
+
+        self.verticalLayout_38.addWidget(self.noiseAreaSpinBox, 0, Qt.AlignHCenter)
+
+
+        self.verticalLayout_34.addWidget(self.frame_50)
+
         self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_34.addItem(self.verticalSpacer_4)
@@ -4395,36 +4426,279 @@ class Ui_MainWindow(object):
         self.verticalLayout_35 = QVBoxLayout(self.frame_45)
         self.verticalLayout_35.setObjectName(u"verticalLayout_35")
         self.verticalLayout_35.setContentsMargins(-1, 9, -1, -1)
-        self.save_btn_page_grab = QPushButton(self.frame_45)
-        self.save_btn_page_grab.setObjectName(u"save_btn_page_grab")
-        self.save_btn_page_grab.setMinimumSize(QSize(100, 32))
-        self.save_btn_page_grab.setMaximumSize(QSize(100, 16777215))
-
-        self.verticalLayout_35.addWidget(self.save_btn_page_grab, 0, Qt.AlignHCenter)
-
 
         self.verticalLayout_34.addWidget(self.frame_45)
 
 
         self.horizontalLayout_41.addWidget(self.frame_32)
 
-        self.frame_31 = QFrame(self.frame_30)
+
+        self.verticalLayout_28.addWidget(self.frame_30)
+
+
+        self.verticalLayout_29.addWidget(self.frame_26)
+
+        self.stackedWidget_2.addWidget(self.page_1)
+        self.page_2 = QWidget()
+        self.page_2.setObjectName(u"page_2")
+        self.verticalLayout_31 = QVBoxLayout(self.page_2)
+        self.verticalLayout_31.setObjectName(u"verticalLayout_31")
+        self.frame_31 = QFrame(self.page_2)
         self.frame_31.setObjectName(u"frame_31")
-        self.frame_31.setMaximumSize(QSize(16777215, 500))
+        self.frame_31.setMaximumSize(QSize(16777215, 61))
         self.frame_31.setFrameShape(QFrame.StyledPanel)
         self.frame_31.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_31 = QVBoxLayout(self.frame_31)
-        self.verticalLayout_31.setObjectName(u"verticalLayout_31")
-        self.label_image_grab_page = QLabel(self.frame_31)
+        self.horizontalLayout_40 = QHBoxLayout(self.frame_31)
+        self.horizontalLayout_40.setObjectName(u"horizontalLayout_40")
+        self.add_page_tool2 = QPushButton(self.frame_31)
+        self.add_page_tool2.setObjectName(u"add_page_tool2")
+        self.add_page_tool2.setMaximumSize(QSize(26, 16777215))
+        self.add_page_tool2.setStyleSheet(u"border:none;\n"
+"")
+        icon16 = QIcon()
+        icon16.addFile(u"images/plus.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.add_page_tool2.setIcon(icon16)
+        self.add_page_tool2.setIconSize(QSize(26, 26))
+
+        self.horizontalLayout_40.addWidget(self.add_page_tool2)
+
+        self.comboBox = QComboBox(self.frame_31)
+        self.comboBox.setObjectName(u"comboBox")
+        self.comboBox.setMinimumSize(QSize(191, 0))
+        self.comboBox.setMaximumSize(QSize(100, 16777215))
+
+        self.horizontalLayout_40.addWidget(self.comboBox)
+
+        self.pushButton_2 = QPushButton(self.frame_31)
+        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.pushButton_2.setMaximumSize(QSize(26, 16777215))
+        self.pushButton_2.setStyleSheet(u"border:none;")
+        icon17 = QIcon()
+        icon17.addFile(u"images/minus.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_2.setIcon(icon17)
+        self.pushButton_2.setIconSize(QSize(26, 27))
+
+        self.horizontalLayout_40.addWidget(self.pushButton_2)
+
+
+        self.verticalLayout_31.addWidget(self.frame_31)
+
+        self.frame_52 = QFrame(self.page_2)
+        self.frame_52.setObjectName(u"frame_52")
+        self.frame_52.setFrameShape(QFrame.StyledPanel)
+        self.frame_52.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_42 = QVBoxLayout(self.frame_52)
+        self.verticalLayout_42.setObjectName(u"verticalLayout_42")
+        self.frame_53 = QFrame(self.frame_52)
+        self.frame_53.setObjectName(u"frame_53")
+        self.frame_53.setMinimumSize(QSize(0, 0))
+        self.frame_53.setMaximumSize(QSize(16777215, 0))
+        self.frame_53.setFrameShape(QFrame.StyledPanel)
+        self.frame_53.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_55 = QHBoxLayout(self.frame_53)
+        self.horizontalLayout_55.setObjectName(u"horizontalLayout_55")
+        self.horizontalLayout_55.setContentsMargins(-1, 1, -1, 0)
+        self.label_10 = QLabel(self.frame_53)
+        self.label_10.setObjectName(u"label_10")
+        self.label_10.setMinimumSize(QSize(0, 0))
+
+        self.horizontalLayout_55.addWidget(self.label_10)
+
+        self.tedad_ghooshe_tool2 = QComboBox(self.frame_53)
+        self.tedad_ghooshe_tool2.setObjectName(u"tedad_ghooshe_tool2")
+
+        self.horizontalLayout_55.addWidget(self.tedad_ghooshe_tool2)
+
+        self.set_tedad_ghooshe_btn = QPushButton(self.frame_53)
+        self.set_tedad_ghooshe_btn.setObjectName(u"set_tedad_ghooshe_btn")
+        self.set_tedad_ghooshe_btn.setMaximumSize(QSize(60, 16777215))
+
+        self.horizontalLayout_55.addWidget(self.set_tedad_ghooshe_btn)
+
+
+        self.verticalLayout_42.addWidget(self.frame_53)
+
+        self.groupBox_12 = QGroupBox(self.frame_52)
+        self.groupBox_12.setObjectName(u"groupBox_12")
+        self.groupBox_12.setMinimumSize(QSize(0, 0))
+        self.groupBox_12.setMaximumSize(QSize(16777215, 0))
+        self.horizontalLayout_56 = QHBoxLayout(self.groupBox_12)
+        self.horizontalLayout_56.setObjectName(u"horizontalLayout_56")
+        self.checkBox_rect = QCheckBox(self.groupBox_12)
+        self.checkBox_rect.setObjectName(u"checkBox_rect")
+
+        self.horizontalLayout_56.addWidget(self.checkBox_rect)
+
+        self.checkBox_circle = QCheckBox(self.groupBox_12)
+        self.checkBox_circle.setObjectName(u"checkBox_circle")
+
+        self.horizontalLayout_56.addWidget(self.checkBox_circle)
+
+        self.checkBox_mask = QCheckBox(self.groupBox_12)
+        self.checkBox_mask.setObjectName(u"checkBox_mask")
+
+        self.horizontalLayout_56.addWidget(self.checkBox_mask)
+
+
+        self.verticalLayout_42.addWidget(self.groupBox_12)
+
+        self.frame_54 = QFrame(self.frame_52)
+        self.frame_54.setObjectName(u"frame_54")
+        self.frame_54.setMinimumSize(QSize(0, 0))
+        self.frame_54.setMaximumSize(QSize(16777215, 0))
+        self.frame_54.setFrameShape(QFrame.StyledPanel)
+        self.frame_54.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_54 = QHBoxLayout(self.frame_54)
+        self.horizontalLayout_54.setObjectName(u"horizontalLayout_54")
+        self.label_11 = QLabel(self.frame_54)
+        self.label_11.setObjectName(u"label_11")
+
+        self.horizontalLayout_54.addWidget(self.label_11)
+
+        self.draw_complete_btn = QPushButton(self.frame_54)
+        self.draw_complete_btn.setObjectName(u"draw_complete_btn")
+        self.draw_complete_btn.setMaximumSize(QSize(86, 16777215))
+
+        self.horizontalLayout_54.addWidget(self.draw_complete_btn)
+
+
+        self.verticalLayout_42.addWidget(self.frame_54)
+
+        self.frame_55 = QFrame(self.frame_52)
+        self.frame_55.setObjectName(u"frame_55")
+        self.frame_55.setMinimumSize(QSize(0, 0))
+        self.frame_55.setMaximumSize(QSize(16777215, 0))
+        self.frame_55.setFrameShape(QFrame.StyledPanel)
+        self.frame_55.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_41 = QVBoxLayout(self.frame_55)
+        self.verticalLayout_41.setObjectName(u"verticalLayout_41")
+        self.groupBox_13 = QGroupBox(self.frame_55)
+        self.groupBox_13.setObjectName(u"groupBox_13")
+        self.horizontalLayout_52 = QHBoxLayout(self.groupBox_13)
+        self.horizontalLayout_52.setObjectName(u"horizontalLayout_52")
+        self.horizontalSlider = QSlider(self.groupBox_13)
+        self.horizontalSlider.setObjectName(u"horizontalSlider")
+        self.horizontalSlider.setOrientation(Qt.Horizontal)
+
+        self.horizontalLayout_52.addWidget(self.horizontalSlider)
+
+        self.spinBox_3 = QSpinBox(self.groupBox_13)
+        self.spinBox_3.setObjectName(u"spinBox_3")
+
+        self.horizontalLayout_52.addWidget(self.spinBox_3)
+
+
+        self.verticalLayout_41.addWidget(self.groupBox_13)
+
+        self.groupBox_16 = QGroupBox(self.frame_55)
+        self.groupBox_16.setObjectName(u"groupBox_16")
+        self.horizontalLayout_53 = QHBoxLayout(self.groupBox_16)
+        self.horizontalLayout_53.setObjectName(u"horizontalLayout_53")
+        self.horizontalSlider_3 = QSlider(self.groupBox_16)
+        self.horizontalSlider_3.setObjectName(u"horizontalSlider_3")
+        self.horizontalSlider_3.setOrientation(Qt.Horizontal)
+
+        self.horizontalLayout_53.addWidget(self.horizontalSlider_3)
+
+        self.spinBox_5 = QSpinBox(self.groupBox_16)
+        self.spinBox_5.setObjectName(u"spinBox_5")
+
+        self.horizontalLayout_53.addWidget(self.spinBox_5)
+
+
+        self.verticalLayout_41.addWidget(self.groupBox_16)
+
+
+        self.verticalLayout_42.addWidget(self.frame_55)
+
+        self.verticalSpacer_5 = QSpacerItem(20, 111111111, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_42.addItem(self.verticalSpacer_5)
+
+        self.frame_56 = QFrame(self.frame_52)
+        self.frame_56.setObjectName(u"frame_56")
+        self.frame_56.setMaximumSize(QSize(16777215, 55))
+        self.frame_56.setFrameShape(QFrame.StyledPanel)
+        self.frame_56.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_43 = QVBoxLayout(self.frame_56)
+        self.verticalLayout_43.setObjectName(u"verticalLayout_43")
+        self.complete_page_tool2_btn = QPushButton(self.frame_56)
+        self.complete_page_tool2_btn.setObjectName(u"complete_page_tool2_btn")
+        self.complete_page_tool2_btn.setMinimumSize(QSize(113, 25))
+
+        self.verticalLayout_43.addWidget(self.complete_page_tool2_btn)
+
+
+        self.verticalLayout_42.addWidget(self.frame_56, 0, Qt.AlignHCenter)
+
+
+        self.verticalLayout_31.addWidget(self.frame_52)
+
+        self.stackedWidget_2.addWidget(self.page_2)
+        self.page_3 = QWidget()
+        self.page_3.setObjectName(u"page_3")
+        self.stackedWidget_2.addWidget(self.page_3)
+        self.page_4 = QWidget()
+        self.page_4.setObjectName(u"page_4")
+        self.stackedWidget_2.addWidget(self.page_4)
+
+        self.verticalLayout_30.addWidget(self.stackedWidget_2)
+
+        self.frame_38 = QFrame(self.frame_37)
+        self.frame_38.setObjectName(u"frame_38")
+        self.frame_38.setMinimumSize(QSize(253, 41))
+        self.frame_38.setFrameShape(QFrame.StyledPanel)
+        self.frame_38.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_39 = QHBoxLayout(self.frame_38)
+        self.horizontalLayout_39.setObjectName(u"horizontalLayout_39")
+        self.prev_page_btn = QPushButton(self.frame_38)
+        self.prev_page_btn.setObjectName(u"prev_page_btn")
+        icon18 = QIcon()
+        icon18.addFile(u"images/prev.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.prev_page_btn.setIcon(icon18)
+
+        self.horizontalLayout_39.addWidget(self.prev_page_btn)
+
+        self.save_btn_page_grab = QPushButton(self.frame_38)
+        self.save_btn_page_grab.setObjectName(u"save_btn_page_grab")
+        self.save_btn_page_grab.setMinimumSize(QSize(100, 32))
+        self.save_btn_page_grab.setMaximumSize(QSize(100, 16777215))
+
+        self.horizontalLayout_39.addWidget(self.save_btn_page_grab)
+
+        self.next_page_btn = QPushButton(self.frame_38)
+        self.next_page_btn.setObjectName(u"next_page_btn")
+        icon19 = QIcon()
+        icon19.addFile(u"images/next.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.next_page_btn.setIcon(icon19)
+
+        self.horizontalLayout_39.addWidget(self.next_page_btn)
+
+
+        self.verticalLayout_30.addWidget(self.frame_38, 0, Qt.AlignHCenter)
+
+
+        self.horizontalLayout_22.addWidget(self.frame_37)
+
+        self.frame_51 = QFrame(self.frame_4)
+        self.frame_51.setObjectName(u"frame_51")
+        self.frame_51.setMinimumSize(QSize(69, 24))
+        self.frame_51.setMaximumSize(QSize(16777215, 16777195))
+        self.frame_51.setFrameShape(QFrame.StyledPanel)
+        self.frame_51.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_40 = QVBoxLayout(self.frame_51)
+        self.verticalLayout_40.setObjectName(u"verticalLayout_40")
+        self.label_image_grab_page = QLabel(self.frame_51)
         self.label_image_grab_page.setObjectName(u"label_image_grab_page")
         self.label_image_grab_page.setPixmap(QPixmap(u"images/test1_0_12.png"))
         self.label_image_grab_page.setScaledContents(True)
 
-        self.verticalLayout_31.addWidget(self.label_image_grab_page)
+        self.verticalLayout_40.addWidget(self.label_image_grab_page)
 
-        self.frame_39 = QFrame(self.frame_31)
+        self.frame_39 = QFrame(self.frame_51)
         self.frame_39.setObjectName(u"frame_39")
         self.frame_39.setMinimumSize(QSize(0, 36))
+        self.frame_39.setMaximumSize(QSize(200, 45))
         self.frame_39.setFrameShape(QFrame.StyledPanel)
         self.frame_39.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_42 = QHBoxLayout(self.frame_39)
@@ -4434,9 +4708,9 @@ class Ui_MainWindow(object):
         self.fullscreen_cam_grab_4.setObjectName(u"fullscreen_cam_grab_4")
         self.fullscreen_cam_grab_4.setMaximumSize(QSize(50, 50))
         self.fullscreen_cam_grab_4.setStyleSheet(u"border:None;")
-        icon16 = QIcon()
-        icon16.addFile(u"images/rotate-left.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.fullscreen_cam_grab_4.setIcon(icon16)
+        icon20 = QIcon()
+        icon20.addFile(u"images/rotate-left.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.fullscreen_cam_grab_4.setIcon(icon20)
         self.fullscreen_cam_grab_4.setIconSize(QSize(21, 40))
 
         self.horizontalLayout_42.addWidget(self.fullscreen_cam_grab_4)
@@ -4452,9 +4726,9 @@ class Ui_MainWindow(object):
         self.fullscreen_cam_grab_3.setObjectName(u"fullscreen_cam_grab_3")
         self.fullscreen_cam_grab_3.setMaximumSize(QSize(50, 50))
         self.fullscreen_cam_grab_3.setStyleSheet(u"border:None;")
-        icon17 = QIcon()
-        icon17.addFile(u"images/rotate-right.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.fullscreen_cam_grab_3.setIcon(icon17)
+        icon21 = QIcon()
+        icon21.addFile(u"images/rotate-right.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.fullscreen_cam_grab_3.setIcon(icon21)
         self.fullscreen_cam_grab_3.setIconSize(QSize(21, 40))
 
         self.horizontalLayout_42.addWidget(self.fullscreen_cam_grab_3)
@@ -4467,9 +4741,9 @@ class Ui_MainWindow(object):
         self.fullscreen_cam_grab_2.setObjectName(u"fullscreen_cam_grab_2")
         self.fullscreen_cam_grab_2.setMaximumSize(QSize(50, 50))
         self.fullscreen_cam_grab_2.setStyleSheet(u"border:None;")
-        icon18 = QIcon()
-        icon18.addFile(u"images/x-mark.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.fullscreen_cam_grab_2.setIcon(icon18)
+        icon22 = QIcon()
+        icon22.addFile(u"images/x-mark.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.fullscreen_cam_grab_2.setIcon(icon22)
         self.fullscreen_cam_grab_2.setIconSize(QSize(30, 40))
 
         self.horizontalLayout_42.addWidget(self.fullscreen_cam_grab_2)
@@ -4488,52 +4762,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_42.addWidget(self.fullscreen_cam_grab)
 
 
-        self.verticalLayout_31.addWidget(self.frame_39, 0, Qt.AlignHCenter)
+        self.verticalLayout_40.addWidget(self.frame_39, 0, Qt.AlignHCenter)
 
 
-        self.horizontalLayout_41.addWidget(self.frame_31)
-
-
-        self.verticalLayout_28.addWidget(self.frame_30)
-
-
-        self.verticalLayout_29.addWidget(self.frame_26)
-
-        self.stackedWidget_2.addWidget(self.page_1)
-        self.page_2 = QWidget()
-        self.page_2.setObjectName(u"page_2")
-        self.stackedWidget_2.addWidget(self.page_2)
-        self.page_3 = QWidget()
-        self.page_3.setObjectName(u"page_3")
-        self.stackedWidget_2.addWidget(self.page_3)
-        self.page_4 = QWidget()
-        self.page_4.setObjectName(u"page_4")
-        self.stackedWidget_2.addWidget(self.page_4)
-
-        self.verticalLayout_30.addWidget(self.stackedWidget_2)
-
-        self.frame_38 = QFrame(self.frame_37)
-        self.frame_38.setObjectName(u"frame_38")
-        self.frame_38.setMinimumSize(QSize(242, 41))
-        self.frame_38.setFrameShape(QFrame.StyledPanel)
-        self.frame_38.setFrameShadow(QFrame.Raised)
-        self.next_page_btn = QPushButton(self.frame_38)
-        self.next_page_btn.setObjectName(u"next_page_btn")
-        self.next_page_btn.setGeometry(QRect(140, 10, 80, 23))
-        icon19 = QIcon()
-        icon19.addFile(u"images/next.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.next_page_btn.setIcon(icon19)
-        self.prev_page_btn = QPushButton(self.frame_38)
-        self.prev_page_btn.setObjectName(u"prev_page_btn")
-        self.prev_page_btn.setGeometry(QRect(20, 10, 80, 23))
-        icon20 = QIcon()
-        icon20.addFile(u"images/prev.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.prev_page_btn.setIcon(icon20)
-
-        self.verticalLayout_30.addWidget(self.frame_38, 0, Qt.AlignHCenter)
-
-
-        self.horizontalLayout_22.addWidget(self.frame_37)
+        self.horizontalLayout_22.addWidget(self.frame_51)
 
 
         self.verticalLayout_26.addWidget(self.frame_4)
@@ -4691,9 +4923,13 @@ class Ui_MainWindow(object):
         self.pushButton_13.clicked.connect(self.checkBox_6.animateClick)
         self.line_new_screw.textChanged.connect(self.label_screw_name.setText)
         self.comboBox_edit_remove.currentTextChanged.connect(self.label_screw_name.setText)
+        self.horizontalSlider.valueChanged.connect(self.spinBox_3.setValue)
+        self.spinBox_3.valueChanged.connect(self.horizontalSlider.setValue)
+        self.horizontalSlider_3.valueChanged.connect(self.spinBox_5.setValue)
+        self.spinBox_5.valueChanged.connect(self.horizontalSlider_3.setValue)
 
         self.stackedWidget.setCurrentIndex(5)
-        self.stackedWidget_2.setCurrentIndex(1)
+        self.stackedWidget_2.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -4917,14 +5153,14 @@ class Ui_MainWindow(object):
         self.tool3_btn.setText(QCoreApplication.translate("MainWindow", u"TOOL 3", None))
         self.checkBox_6.setText("")
         self.pushButton_13.setText(QCoreApplication.translate("MainWindow", u"TOOL 4", None))
-        self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Camera Select", None))
-        self.camera1_select_radio.setText(QCoreApplication.translate("MainWindow", u"Camera 1", None))
-        self.camera2_select_radio.setText(QCoreApplication.translate("MainWindow", u"Camera 2", None))
-        self.connect_grab_btn.setText(QCoreApplication.translate("MainWindow", u"Connect and Grab", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"Load Image", None))
         self.line_image_address.setText("")
         self.load_image_btn.setText(QCoreApplication.translate("MainWindow", u"...", None))
         self.set_image_btn.setText(QCoreApplication.translate("MainWindow", u"Set Image", None))
+        self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Camera Select", None))
+        self.camera1_select_radio.setText(QCoreApplication.translate("MainWindow", u"Camera 1", None))
+        self.camera2_select_radio.setText(QCoreApplication.translate("MainWindow", u"Camera 2", None))
+        self.connect_grab_btn.setText(QCoreApplication.translate("MainWindow", u"Connect and Grab", None))
         self.groupBox_10.setTitle(QCoreApplication.translate("MainWindow", u"Rect 1", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"X :", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Y :", None))
@@ -4932,7 +5168,23 @@ class Ui_MainWindow(object):
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"X :", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Y :", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Threshold", None))
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"Noise filter", None))
+        self.add_page_tool2.setText("")
+        self.pushButton_2.setText("")
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Tedad Ghooshe :", None))
+        self.set_tedad_ghooshe_btn.setText(QCoreApplication.translate("MainWindow", u"Set", None))
+        self.groupBox_12.setTitle(QCoreApplication.translate("MainWindow", u"Select Mask Mode", None))
+        self.checkBox_rect.setText(QCoreApplication.translate("MainWindow", u"Rectangle", None))
+        self.checkBox_circle.setText(QCoreApplication.translate("MainWindow", u"Circle", None))
+        self.checkBox_mask.setText(QCoreApplication.translate("MainWindow", u"Mask", None))
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"Drawing ..........", None))
+        self.draw_complete_btn.setText(QCoreApplication.translate("MainWindow", u"Complete", None))
+        self.groupBox_13.setTitle(QCoreApplication.translate("MainWindow", u"Threshold", None))
+        self.groupBox_16.setTitle(QCoreApplication.translate("MainWindow", u"Noise filter", None))
+        self.complete_page_tool2_btn.setText(QCoreApplication.translate("MainWindow", u"Complete", None))
+        self.prev_page_btn.setText("")
         self.save_btn_page_grab.setText(QCoreApplication.translate("MainWindow", u"Save", None))
+        self.next_page_btn.setText("")
         self.label_image_grab_page.setText("")
 #if QT_CONFIG(tooltip)
         self.fullscreen_cam_grab_4.setToolTip(QCoreApplication.translate("MainWindow", u"clear all", None))
@@ -4950,8 +5202,6 @@ class Ui_MainWindow(object):
         self.fullscreen_cam_grab.setToolTip(QCoreApplication.translate("MainWindow", u"Full screen", None))
 #endif // QT_CONFIG(tooltip)
         self.fullscreen_cam_grab.setText("")
-        self.next_page_btn.setText("")
-        self.prev_page_btn.setText("")
         self.btn_message.setText(QCoreApplication.translate("MainWindow", u"Message", None))
         self.btn_print.setText(QCoreApplication.translate("MainWindow", u"Print", None))
         self.btn_logout.setText(QCoreApplication.translate("MainWindow", u"Logout", None))

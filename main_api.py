@@ -524,7 +524,7 @@ class API:
         #ERROR
         if not flag:
             print('Error! : screw exist already')
-
+        self.set_screw_image()
         self.update_image_grab_page()
 
     
@@ -540,14 +540,18 @@ class API:
 
     def save_screw(self):
         flag = self.ui.show_question('Save Screw', 'Are you Sure?')
-        if flag:
-            for key in self.screw_jasons.keys():
-                path = dbUtils.get_screw_path( self.screw_jasons[key].get_name() )
-                #self.screw_jasons[key].set_direction( self.screw_jasons[key].get_direction() )
-                self.screw_jasons[key].write(path)
-            
-            print('Screw Saved')
-
+        try:
+            if flag:
+                for key in self.screw_jasons.keys():
+                    path = dbUtils.get_screw_path( self.screw_jasons[key].get_name() )
+                    #self.screw_jasons[key].set_direction( self.screw_jasons[key].get_direction() )
+                    self.screw_jasons[key].write(path)
+                
+                print('Screw Saved')
+                
+                self.ui.editmode=False
+        except:
+            self.ui.set_warning('Save Eror','tool_page',level=2)
 
     
     def edit_load_screw(self):
@@ -557,7 +561,7 @@ class API:
         
         for key in self.screw_jasons.keys():
             self.screw_jasons[key].read(path, key)
-    
+        self.set_screw_image()
         self.update_image_grab_page()
             
 
@@ -565,6 +569,7 @@ class API:
         selected_camera_direction = self.ui.check_camera_selected_direction()
         path = self.ui.get_screw_image_path()
         img = cv2.imread(path)
+        # cv2.imshow()
         if img is not None:
             self.ui.set_image_page_tool_labels(img)
             self.screw_jasons[ selected_camera_direction ].set_img_path(path)

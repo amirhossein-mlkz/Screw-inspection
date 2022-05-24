@@ -1,0 +1,17 @@
+{
+    "direction": "top",
+    "img_path": "images/test1_0_12 - Copy.png",
+    "main_noise_filter": 0,
+    "main_roi": [
+        [
+            208,
+            72
+        ],
+        [
+            487,
+            215
+        ]
+    ],
+    "main_thresh": 0,
+    "name": "Milad"
+}

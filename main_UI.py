@@ -8,6 +8,7 @@
 # from PySide6.QtWidgets import *
 
 import sys
+from tabnanny import check
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import * 
 from PyQt5.QtGui import * 
@@ -60,7 +61,7 @@ from PySide6.QtGui import QPen as sQPen
 from PySide6.QtGui import QPainter as sQPainter
 from PySide6.QtGui import QCursor as sQCursor
 
-
+from Keys import UI_KEYS
 ui, _ = loadUiType("main_window.ui")
 
 
@@ -141,7 +142,7 @@ class UI_main_window(QMainWindow, ui):
 
 
         
-        
+        self.editmode=False
 
 
 
@@ -356,7 +357,17 @@ class UI_main_window(QMainWindow, ui):
         self.camera1_select_radio.clicked.connect(self.check_camera_selected_direction)
         self.camera2_select_radio.clicked.connect(self.check_camera_selected_direction)
 
+        # page tool2
 
+        self.add_page_tool2.clicked.connect(lambda:self.buttonClick2(self.add_page_tool2.objectName()))
+        self.set_tedad_ghooshe_btn.clicked.connect(lambda:self.buttonClick2(self.set_tedad_ghooshe_btn.objectName()))
+        self.draw_complete_btn.clicked.connect(lambda:self.buttonClick2(self.draw_complete_btn.objectName()))
+        self.checkBox_rect.clicked.connect(lambda:self.check_mask_type(self.checkBox_rect.objectName(),change_size=True))
+
+        self.checkBox_circle.clicked.connect(lambda:self.check_mask_type(self.checkBox_circle.objectName(),change_size=True))
+        self.checkBox_mask.clicked.connect(lambda:self.check_mask_type(self.checkBox_mask.objectName(),change_size=True))
+
+        
 
 
     def close_win(self):
@@ -592,8 +603,9 @@ class UI_main_window(QMainWindow, ui):
             self.stackedWidget.setCurrentWidget(self.page_settings)
 
         if btnName =='edit_remove_btn' :
-
-            self.animation_move(self.frame_24,300)
+            if self.editmode==False:
+                self.animation_move(self.frame_24,300)
+                # self.editmode=True
 
         if btnName =='add_btn' :
 
@@ -605,9 +617,10 @@ class UI_main_window(QMainWindow, ui):
             self.stackedWidget_2.setCurrentIndex(1)
 
         if btnName =='edit_btn' :
-
-            self.animation_move(self.frame_24,300)
-            self.stackedWidget_2.setCurrentIndex(1)
+            if self.editmode==False:
+                self.animation_move(self.frame_24,300)
+                self.stackedWidget_2.setCurrentIndex(1)
+                self.editmode=True
 
         if btnName =='next_page_btn' :
 
@@ -675,9 +688,60 @@ class UI_main_window(QMainWindow, ui):
 
         
         
-                
+    def buttonClick2(self,name):   
 
-        
+        if name=='add_page_tool2':
+            self.frame_size(self.frame_53,50)
+
+        if name=='set_tedad_ghooshe_btn':
+            self.frame_size(self.groupBox_12,70)
+
+        if name=='draw_complete_btn':
+            self.frame_size(self.frame_55,190)
+
+    def check_mask_type(self,name,change_size=False):
+
+        print('name',name)
+
+        if name=='checkBox_rect':
+
+            self.checkBox_rect.setChecked(True)
+            self.checkBox_circle.setChecked(False)
+            self.checkBox_mask.setChecked(False)
+
+            self.selected_mask_type='rect'
+
+        elif name=='checkBox_circle':
+
+            self.checkBox_rect.setChecked(False)
+            self.checkBox_circle.setChecked(True)
+            self.checkBox_mask.setChecked(False)
+
+            self.selected_mask_type='circle'
+
+        elif name=='checkBox_mask':
+
+            self.checkBox_rect.setChecked(False)
+            self.checkBox_circle.setChecked(False)
+            self.checkBox_mask.setChecked(True)
+
+            self.selected_mask_type='mask'
+
+        if change_size:
+            self.frame_size(self.frame_54,50)
+
+    def frame_size(self,f_name,size,both=True):
+
+        print('asdw')
+
+        height=f_name.height()
+        print('asdw',height)
+        if height!=size:
+            f_name.setMaximumHeight(size)
+            f_name.setMinimumHeight(size)
+
+
+
     def disable_camera_settings(self):
         self.cameraname_label.setText('No Camera Selected')
         self.camera_setting_apply_btn.setEnabled(False)
