@@ -1,7 +1,7 @@
 {
     "direction": "top",
     "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/images/test1_0_12 - Copy.png",
-    "main_noise_filter": 28,
+    "main_noise_filter": 17,
     "main_roi": [
         [
             302,
@@ -12,6 +12,6 @@
             864
         ]
     ],
-    "main_thresh": 64,
+    "main_thresh": 49,
     "name": "P1"
 }

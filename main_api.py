@@ -530,19 +530,23 @@ class API:
     
     def remove_screw(self):
         name=self.ui.label_screw_name.text()
-        dbUtils.remove_screw(name)
-        self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
+        flag = self.ui.show_question('Delete Screw', 'Are you Sure to delete {}?'.format(name))
+        if flag:
+            dbUtils.remove_screw(name)
+            self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
 
 
 
 
     def save_screw(self):
-        for key in self.screw_jasons.keys():
-            path = dbUtils.get_screw_path( self.screw_jasons[key].get_name() )
-            #self.screw_jasons[key].set_direction( self.screw_jasons[key].get_direction() )
-            self.screw_jasons[key].write(path)
-        
-        print('Screw Saved')
+        flag = self.ui.show_question('Save Screw', 'Are you Sure?')
+        if flag:
+            for key in self.screw_jasons.keys():
+                path = dbUtils.get_screw_path( self.screw_jasons[key].get_name() )
+                #self.screw_jasons[key].set_direction( self.screw_jasons[key].get_direction() )
+                self.screw_jasons[key].write(path)
+            
+            print('Screw Saved')
 
 
     

@@ -458,6 +458,8 @@ class UI_main_window(QMainWindow, ui):
             return True
         if msg == QMessageBox.No:
             return False
+        
+        
 
     def set_warning(self, text, name, level=1):                            #Show warning
         waring_labels = {
