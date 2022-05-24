@@ -9,8 +9,13 @@ class screwJson():
     
     def __init__(self,):
         self.data = {}
-
-
+        self.set_main_thresh(0)
+        self.set_main_noise_filter(0)
+        self.set_main_roi([10,10], [100,100])
+        self.set_direction('def')
+        self.set_img_path('images/defualt.jpg')
+        #self.set_img_path('images/test1_0_12.png')
+        
     #-----------------------------------------
     def read(self, path, dircetion):
         path = os.path.join(path, dircetion + '.json')
@@ -24,7 +29,7 @@ class screwJson():
     def write(self,path):    
         path = os.path.join(path, self.data['direction'] + '.json')
         with open(str(path), 'w') as f:
-            json.dump(self.data, f)#,indent=4, sort_keys=True)
+            json.dump(self.data, f ,indent=4, sort_keys=True)
             
     #-----------------------------------------
     def set_name(self,name):
@@ -56,8 +61,13 @@ class screwJson():
         self.data['main_thresh'] = thresh
         
     def get_main_thresh(self):
-        return self.self.data['main_thresh']
-    
+        return self.data['main_thresh']
+    #-----------------------------------------
+    def set_main_noise_filter(self, x):
+        self.data['main_noise_filter'] = x
+        
+    def get_main_noise_filter(self):
+        return self.data['main_noise_filter']
     #-----------------------------------------
     def set_main_roi(self,pt1,pt2):
         self.data['main_roi'] = [ list(pt1) , list(pt2) ]

@@ -580,7 +580,20 @@ class drawRect(drawShape):
                         return True
         return False
             
-            
+    
+    
+    #______________________________________________________________________________________________________
+    #exp:
+    #   upade a specfice shape
+    #
+    #args: 
+    #   shape_idx | format int | index of specific shape
+    #   shape | format [[int x1, int y1], [int x2 , int y2]]
+    #
+    #______________________________________________________________________________________________________
+    def update_shape(self, shape_idx, shape):
+        if len(self.shapes) > shape_idx:
+            self.shapes[shape_idx] = shape  
     #______________________________________________________________________________________________________
     #args: 
     #   drawing shapes

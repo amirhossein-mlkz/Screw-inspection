@@ -734,7 +734,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -784,7 +783,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -834,7 +832,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -884,7 +881,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -934,7 +930,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1021,7 +1016,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1815,7 +1809,6 @@ QPushButton:hover {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                        <stylestrategy>PreferDefault</stylestrategy>
@@ -2575,8 +2568,8 @@ QPushButton:hover {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>69</width>
-                                  <height>69</height>
+                                  <width>73</width>
+                                  <height>73</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">
@@ -3104,7 +3097,6 @@ border: 1px solid #CDCDCE;
                                   <property name="font">
                                    <font>
                                     <pointsize>8</pointsize>
-                                    <weight>50</weight>
                                     <bold>false</bold>
                                    </font>
                                   </property>
@@ -3508,7 +3500,6 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -3549,7 +3540,6 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -3645,7 +3635,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3673,7 +3662,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3701,7 +3689,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3729,7 +3716,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3757,7 +3743,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3785,7 +3770,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3813,7 +3797,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3841,7 +3824,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3869,7 +3851,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3897,7 +3878,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3925,7 +3905,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3953,7 +3932,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -3981,7 +3959,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4584,7 +4561,6 @@ QPushButton:pressed {
                                <property name="font">
                                 <font>
                                  <pointsize>10</pointsize>
-                                 <weight>75</weight>
                                  <bold>true</bold>
                                 </font>
                                </property>
@@ -5324,7 +5300,6 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
-                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -6038,7 +6013,6 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
-                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -6441,7 +6415,7 @@ QPushButton:pressed {
                                      <x>0</x>
                                      <y>0</y>
                                      <width>688</width>
-                                     <height>69</height>
+                                     <height>73</height>
                                     </rect>
                                    </property>
                                    <layout class="QHBoxLayout" name="horizontalLayout_77">
@@ -6957,7 +6931,6 @@ border: 1px solid #CDCDCE;
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
-                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -6994,7 +6967,6 @@ QPushButton:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
-                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -7567,7 +7539,6 @@ border: 1px solid #CDCDCE;
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
-                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -7714,7 +7685,7 @@ QPushButton:pressed {
                                      <x>0</x>
                                      <y>0</y>
                                      <width>688</width>
-                                     <height>69</height>
+                                     <height>73</height>
                                     </rect>
                                    </property>
                                    <layout class="QHBoxLayout" name="horizontalLayout_96">
@@ -8112,7 +8083,6 @@ border: 1px solid #CDCDCE;
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
-                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -8149,7 +8119,6 @@ QPushButton:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
-                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -8513,7 +8482,6 @@ border: 1px solid #CDCDCE;
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
-                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -9432,6 +9400,9 @@ QPushButton:pressed {
                                                           <property name="maximum">
                                                            <number>20000</number>
                                                           </property>
+                                                          <property name="singleStep">
+                                                           <number>5</number>
+                                                          </property>
                                                          </widget>
                                                         </item>
                                                        </layout>
@@ -9449,6 +9420,9 @@ QPushButton:pressed {
                                                          <widget class="QSpinBox" name="spinBox_grab_page_y_rect1">
                                                           <property name="maximum">
                                                            <number>20000</number>
+                                                          </property>
+                                                          <property name="singleStep">
+                                                           <number>5</number>
                                                           </property>
                                                          </widget>
                                                         </item>
@@ -9477,6 +9451,9 @@ QPushButton:pressed {
                                                           <property name="maximum">
                                                            <number>20000</number>
                                                           </property>
+                                                          <property name="singleStep">
+                                                           <number>5</number>
+                                                          </property>
                                                          </widget>
                                                         </item>
                                                        </layout>
@@ -9494,6 +9471,9 @@ QPushButton:pressed {
                                                          <widget class="QSpinBox" name="spinBox_grab_page_y_rect2">
                                                           <property name="maximum">
                                                            <number>20000</number>
+                                                          </property>
+                                                          <property name="singleStep">
+                                                           <number>5</number>
                                                           </property>
                                                          </widget>
                                                         </item>
@@ -9550,6 +9530,48 @@ QPushButton:pressed {
                                                  <widget class="QSpinBox" name="spinBox">
                                                   <property name="maximum">
                                                    <number>255</number>
+                                                  </property>
+                                                 </widget>
+                                                </item>
+                                               </layout>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QFrame" name="frame_50">
+                                               <property name="frameShape">
+                                                <enum>QFrame::StyledPanel</enum>
+                                               </property>
+                                               <property name="frameShadow">
+                                                <enum>QFrame::Raised</enum>
+                                               </property>
+                                               <layout class="QVBoxLayout" name="verticalLayout_38">
+                                                <item>
+                                                 <widget class="QLabel" name="label_9">
+                                                  <property name="text">
+                                                   <string>Noise filter</string>
+                                                  </property>
+                                                  <property name="alignment">
+                                                   <set>Qt::AlignCenter</set>
+                                                  </property>
+                                                 </widget>
+                                                </item>
+                                                <item>
+                                                 <widget class="QSlider" name="noiseFilterSlider_grab">
+                                                  <property name="maximum">
+                                                   <number>100</number>
+                                                  </property>
+                                                  <property name="singleStep">
+                                                   <number>1</number>
+                                                  </property>
+                                                  <property name="orientation">
+                                                   <enum>Qt::Horizontal</enum>
+                                                  </property>
+                                                 </widget>
+                                                </item>
+                                                <item>
+                                                 <widget class="QSpinBox" name="noiseAreaSpinBox">
+                                                  <property name="maximum">
+                                                   <number>100</number>
                                                   </property>
                                                  </widget>
                                                 </item>
@@ -10013,7 +10035,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -10050,7 +10071,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -10090,7 +10110,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -10169,7 +10188,6 @@ QPushButton:pressed {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>-1</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>

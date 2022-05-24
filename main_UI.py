@@ -352,8 +352,9 @@ class UI_main_window(QMainWindow, ui):
         self.load_image_btn.clicked.connect(self.buttonClick)
         self.set_image_btn.clicked.connect(self.buttonClick)
 
-        self.camera1_select_radio.clicked.connect(self.check_number)
-        self.camera2_select_radio.clicked.connect(self.check_number)
+
+        self.camera1_select_radio.clicked.connect(self.check_camera_selected_direction)
+        self.camera2_select_radio.clicked.connect(self.check_camera_selected_direction)
 
 
 
@@ -493,14 +494,29 @@ class UI_main_window(QMainWindow, ui):
         dic={}
         dic.update({'name':self.label_screw_name.text()})
         dic.update({'threshold':self.horizontalSlider_grab.value()})
-        dic.update({'rect1_x':self.spinBox_grab_page_x_rect1.value()})
-        dic.update({'rect1_y':self.spinBox_grab_page_y_rect1.value()})
-        dic.update({'rect2_x':self.spinBox_grab_page_x_rect2.value()})
-        dic.update({'rect2_y':self.spinBox_grab_page_y_rect2.value()})
+        dic.update({'x1':self.spinBox_grab_page_x_rect1.value()})
+        dic.update({'y1':self.spinBox_grab_page_y_rect1.value()})
+        dic.update({'x2':self.spinBox_grab_page_x_rect2.value()})
+        dic.update({'y2':self.spinBox_grab_page_y_rect2.value()})
 
-        print('dic',dic)
+        #print('dic',dic)
 
         return dic
+    
+    
+    def set_roi_parms_screw_page_grab(self, data):
+        self.spinBox_grab_page_x_rect1.setValue( data['x1'] )
+        self.spinBox_grab_page_y_rect1.setValue( data['y1'] )
+        self.spinBox_grab_page_x_rect2.setValue( data['x2'] )
+        self.spinBox_grab_page_y_rect2.setValue( data['y2'] )
+        #print('dic',dic)
+
+    
+    def roi_input_page_grab_connect(self,func):
+        self.spinBox_grab_page_x_rect1.valueChanged.connect(func('x1'))
+        self.spinBox_grab_page_y_rect1.valueChanged.connect(func('y1'))
+        self.spinBox_grab_page_x_rect2.valueChanged.connect(func('x2'))
+        self.spinBox_grab_page_y_rect2.valueChanged.connect(func('y2'))
         
     def  open_file_dialog(self,set_label):
 
@@ -512,9 +528,13 @@ class UI_main_window(QMainWindow, ui):
     def set_loaded_parms_page_grab(self,parms):        
         self.horizontalSlider_grab.setValue(int(parms['main_thresh']))
         self.line_image_address.setText(str(parms['img_path']))
+        self.spinBox_grab_page_x_rect1.setValue( parms['main_roi'][0][0] )
+        self.spinBox_grab_page_y_rect1.setValue( parms['main_roi'][0][1] )
+        self.spinBox_grab_page_x_rect2.setValue( parms['main_roi'][1][0] )
+        self.spinBox_grab_page_y_rect2.setValue( parms['main_roi'][1][1] )
 
 
-    def check_number(self):
+    def check_camera_selected_direction(self):
         
         # checking if it is checked
         if self.camera1_select_radio.isChecked():
@@ -522,15 +542,15 @@ class UI_main_window(QMainWindow, ui):
             # changing text of label
             # self.label.setText("It is now checked")
             self.camera1_select_radio.setChecked(True)
-            print('cam 1 select')
+            #print('cam 1 select')
             self.selected_camera_name='camera1'
-            return 'camera1'
+            return 'top'
         
         else:
             self.camera2_select_radio.setChecked(False)
-            print('cam 2 select')
+            #print('cam 2 select')
             self.selected_camera_name='camera2'
-            return 'camera2'
+            return 'side'
 
 
 
@@ -726,6 +746,9 @@ class UI_main_window(QMainWindow, ui):
 
 
 
+    def camera_select_radios_connect(self, func):
+        self.camera1_select_radio.clicked.connect( func )
+        self.camera2_select_radio.clicked.connect( func )
 
 
 

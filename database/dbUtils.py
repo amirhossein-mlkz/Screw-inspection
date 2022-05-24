@@ -27,7 +27,23 @@ def remove_screw(name):
     return False
 
 
+def clear_empty_screw():
+    for screw in os.listdir( PATH ):
+        path = os.path.join(PATH, screw)
+        if os.listdir(path) == 0:
+            shutil.rmtree(path)
 
 
+
+def creat_screw_db():
+    if not os.path.isdir(PATH):
+        os.mkdir(PATH)
+        
+        
+        
+        
+creat_screw_db()
+        
+        
 if __name__ == '__main__':
     print(get_screws_list())

@@ -4,20 +4,50 @@ import numpy as np
 from backend import cvTools
 
 
-def threshould_view(img,thresh, color=(40,127,255),  mask_roi = None):
+
+def mask_viewer(img,mask, color=(40,127,255)):
     if len(img.shape) == 2:
-        res = cv2.merge((img, img, img))
-    else:
-        res = np.copy(img)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img = cv2.merge((img, img, img))
+
         
-    #_,mask = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)
-    mask = cvTools.threshould(img, thresh, mask_roi)
-    thresh_layer = np.zeros_like(res)
+    thresh_layer = np.zeros_like(img)
     
     for i in range(3):
         thresh_layer[:,:,i] = color[i]/255 * mask
     
     thresh_layer = thresh_layer.astype(np.uint8)
-    res = cv2.addWeighted(res,0.6, thresh_layer,0.4, 1)
-    return res
+    res_select = cv2.addWeighted(img,0.4, thresh_layer,0.6, 1)
+    
+    not_mask = cv2.bitwise_not(mask)
+    res_select = cv2.bitwise_and(res_select, res_select, mask = mask)
+    res_unselect = cv2.bitwise_and(img, img, mask= not_mask)
+    
+    return res_select + res_unselect
+
+
+
+
+
+
+
+
+
+
+
+def rect_list2dict(rect):
+    rect_dict = {}
+    rect_dict['x1'] = rect[0][0]
+    rect_dict['y1'] = rect[0][1]
+    rect_dict['x2'] = rect[1][0]
+    rect_dict['y2'] = rect[1][1]
+    
+    return rect_dict
+
+
+
+def rect_dict2list(rect_dict):
+    rect = [ [rect_dict['x1'] , rect_dict['y1'] ], 
+             [rect_dict['x2'] , rect_dict['y2'] ]
+            ]
+    
+    return rect

@@ -99,7 +99,9 @@ class API:
         self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
         
         
-        self.mouse.connect_all(self.ui.label_image_grab_page, self.draw_main_roi)
+        self.mouse.connect_all(self.ui.label_image_grab_page, self.update_roi_page_grab_mouse)
+        self.ui.roi_input_page_grab_connect(self.update_roi_page_grab_input)
+        self.ui.camera_select_radios_connect(self.update_image_grab_page)
         #-------------------------------------------------------------------------------------------------------------------
 
     def test(self):
@@ -183,7 +185,7 @@ class API:
 
         self.ui.save_new_btn.clicked.connect(self.add_new_screw)
         self.ui.edit_remove_btn.clicked.connect(self.get_screw_names)
-        self.ui.edit_btn.clicked.connect(self.edit_load_parms)
+        self.ui.edit_btn.clicked.connect(self.edit_load_screw)
         self.ui.remove_screw_btn.clicked.connect(self.remove_screw)
 
         self.ui.get_parms_screw_page_grab()
@@ -192,7 +194,8 @@ class API:
 
         #grab page
 
-        self.ui.horizontalSlider_grab.valueChanged.connect(self.update_image_grab_page)
+        self.ui.horizontalSlider_grab.valueChanged.connect(self.update_main_threshould)
+        self.ui.noiseFilterSlider_grab.valueChanged.connect(self.update_main_noise_filter)
         self.ui.save_btn_page_grab.clicked.connect(self.save_screw)
 
 
@@ -472,16 +475,7 @@ class API:
 
 
     def get_screw_names(self):
-
-        content=self.db.get_all_screw()
-        print('content',content)
-
-        names=[]
-
-        for i in range(len(content)):
-            names.append(content[i]['name'])
-        
-        self.ui.set_combo_boxes(self.ui.comboBox_edit_remove,names)
+        self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
 
 
 
@@ -512,30 +506,26 @@ class API:
 
 
     def update_image(self,label_name,img):
-
         self.ui.set_image_page_tool_labels(img)
-
-
-
-
-
-
-
-
-
-
 
     #--------------------------------------------------------------------------------------------------------------
     def add_new_screw(self):
         name = self.ui.get_line_scraw_name()
         flag = dbUtils.add_screw(name)
         self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
-        self.screw_jason = screwDB.screwJson()
-        self.screw_jason.set_name(name)
+        self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
+        
+        for key in self.screw_jasons.keys():
+            path = dbUtils.get_screw_path( name )
+            self.screw_jasons[key].set_name(name)
+            self.screw_jasons[key].set_direction( key )
+            self.screw_jasons[key].write(path)
+            
         #ERROR
         if not flag:
-            print('Error! : screw exits already')
+            print('Error! : screw exist already')
 
+        self.update_image_grab_page()
 
     
     def remove_screw(self):
@@ -547,34 +537,33 @@ class API:
 
 
     def save_screw(self):
-        path = dbUtils.get_screw_path( self.screw_jason.get_name() )
-        self.screw_jason.set_direction('top')
-        self.screw_jason.write(path)
-        print(self.screw_jason.data)
+        for key in self.screw_jasons.keys():
+            path = dbUtils.get_screw_path( self.screw_jasons[key].get_name() )
+            #self.screw_jasons[key].set_direction( self.screw_jasons[key].get_direction() )
+            self.screw_jasons[key].write(path)
+        
         print('Screw Saved')
 
 
     
-    def edit_load_parms(self):
-        name = self.ui.comboBox_edit_remove.currentText()
+    def edit_load_screw(self):
         name = self.ui.comboBox_edit_remove.currentText()
         path = dbUtils.get_screw_path(name)
-        self.screw_jason = screwDB.screwJson()
-        self.screw_jason.read(path, 'top')
+        self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
         
-        
-        self.ui.set_loaded_parms_page_grab( self.screw_jason.data )
-        self.rect_roi_drawing.shapes = [self.screw_jason.get_main_roi()]
-        self.set_screw_image()
+        for key in self.screw_jasons.keys():
+            self.screw_jasons[key].read(path, key)
+    
         self.update_image_grab_page()
-        
+            
 
     def set_screw_image(self):
+        selected_camera_direction = self.ui.check_camera_selected_direction()
         path = self.ui.get_screw_image_path()
         img = cv2.imread(path)
         if img is not None:
             self.ui.set_image_page_tool_labels(img)
-            self.screw_jason.set_img_path(path)
+            self.screw_jasons[ selected_camera_direction ].set_img_path(path)
             self.rect_roi_drawing.set_img_size(img.shape[:2])
         else:
             print('Error! : image not exist')
@@ -582,31 +571,66 @@ class API:
         
         
             
-
+        
         
     def update_image_grab_page(self):
-        self.rect_roi_drawing.max_shape_count = 1
+        selected_camera_direction = self.ui.check_camera_selected_direction()
         
-        thresh = self.ui.horizontalSlider_grab.value()
-        img = self.screw_jason.img
+        parms = self.screw_jasons[selected_camera_direction].data
+        roi_rect = self.screw_jasons[selected_camera_direction].get_main_roi()
         
-        rects = self.rect_roi_drawing.shapes
-        mask = cvTools.rects2mask(img.shape[:2], rects)
-        rects = self.rect_roi_drawing.shapes
-        img = Utils.threshould_view(img, thresh, mask_roi=mask)
         
+        
+        self.ui.set_loaded_parms_page_grab( parms )
+        self.rect_roi_drawing.shapes = [ roi_rect ]
+        
+        self.set_screw_image()
+        self.update_image_grab_image()
+        
+    
+    
+    def update_image_grab_image(self):
+        
+        selected_camera_direction = self.ui.check_camera_selected_direction()
+        
+        img = self.screw_jasons[ selected_camera_direction ].img
+        thresh = self.screw_jasons[ selected_camera_direction ].get_main_thresh()
+        noise_filter = self.screw_jasons[ selected_camera_direction ].get_main_noise_filter()
+        rect = self.screw_jasons[ selected_camera_direction ].get_main_roi()
+        
+        mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
+        thresh_img = cvTools.threshould(img, thresh, mask_roi)
+        thresh_img = cvTools.filter_noise_are(thresh_img, noise_filter)
+        
+        img = Utils.mask_viewer(img, thresh_img)
+        
+        
+        # img = Utils.threshould_view(img, thresh, mask_roi=mask, noise_filter=noise_filter)
         
         img = self.rect_roi_drawing.get_image(img)
         self.ui.set_image_page_tool_labels(img)
+
         
-        self.screw_jason.set_main_thresh(thresh)
         
-        if len(rects) > 0:
-            self.screw_jason.set_main_roi(pt1=rects[0][0], pt2=rects[0][1])
         
+        
+        
+    def update_main_threshould(self):
+        selected_camera_direction = self.ui.check_camera_selected_direction()
+        thresh = self.ui.horizontalSlider_grab.value()
+        self.screw_jasons[ selected_camera_direction ].set_main_thresh(thresh)
+        self.update_image_grab_image()
     
     
-    def draw_main_roi(self,wname):
+    def update_main_noise_filter(self):
+        selected_camera_direction = self.ui.check_camera_selected_direction()
+        noise_filter = self.ui.noiseFilterSlider_grab.value()
+        self.screw_jasons[ selected_camera_direction ].set_main_noise_filter(noise_filter)
+        self.update_image_grab_image()
+    
+    
+    def update_roi_page_grab_mouse(self,wname):
+        self.rect_roi_drawing.max_shape_count = 1
         mouse_status = self.mouse.get_status()
         mouse_button = self.mouse.get_button()
         mouse_pt = self.mouse.get_relative_position()
@@ -619,7 +643,38 @@ class API:
         
         elif mouse_status == 'mouse_move' and mouse_button == 'left_btn':
             self.rect_roi_drawing.set_float_point(mouse_pt)
+        
+        shapes = self.rect_roi_drawing.shapes
+        if len(shapes) > 0:
+            rect = shapes[0]
+            rect_dict = Utils.rect_list2dict(rect)
+            self.ui.set_roi_parms_screw_page_grab(rect_dict)
             
-        self.update_image_grab_page()
+            selected_camera_direction = self.ui.check_camera_selected_direction()
+            self.screw_jasons[selected_camera_direction].set_main_roi( pt1=rect[0], pt2=rect[1] )
+        
+        self.update_image_grab_image()
+        
+        
         
     #--------------------------------------------------------------------------------------------------------------
+    def update_roi_page_grab_input(self, name):
+        def func():
+            selected_camera_direction = self.ui.check_camera_selected_direction()
+            
+            #data changed in Ui
+            data = self.ui.get_parms_screw_page_grab()
+            #data saved in json
+            rect = self.screw_jasons[selected_camera_direction].get_main_roi()
+            
+            rect_dict = Utils.rect_list2dict(rect)
+            #update param in jason that changed in UI
+            rect_dict[name] = data[name]
+            rect = Utils.rect_dict2list(rect_dict)
+            
+            self.rect_roi_drawing.update_shape(shape_idx=0,  shape=rect)
+            self.update_image_grab_image()
+            
+            self.screw_jasons[selected_camera_direction].set_main_roi(pt1=rect[0], pt2=rect[1])
+        return func
+        

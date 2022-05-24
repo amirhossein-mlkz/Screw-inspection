@@ -291,7 +291,7 @@ class dataBase:
 
 
 if __name__ == "__main__":
-    db=dataBase('root','root','localhost','saba_database')
+    db=dataBase('root','@mm@9398787515AmmA','localhost','saba_database')
 
     # db.get_col_name('996','camera_settings','id')
 
