@@ -96,12 +96,23 @@ class API:
         
         self.mouse = Mouse()
         self.rect_roi_drawing = Drawing.drawRect()
+        self.circle_roi_drawing = Drawing.drawCircel()
+        self.poly_roi_drawing = Drawing.drawPoly()
+        
+        self.roi_drawings = {
+            'rect' : self.rect_roi_drawing, 
+            'circle': self.circle_roi_drawing,
+            'poly' : self.poly_roi_drawing
+        }
+        
+        self.image_screw_setting = None
+        #-------------------------------------------------------------------------------------------------------------------
         self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
         
         
-        self.mouse.connect_all(self.ui.label_image_grab_page, self.update_roi_page_grab_mouse)
+        self.mouse.connect_all(self.ui.label_image_grab_page, self.image_setting_mouse_event)
         self.ui.roi_input_page_grab_connect(self.update_roi_page_grab_input)
-        self.ui.camera_select_radios_connect(self.update_image_grab_page)
+        self.ui.camera_select_radios_connect(self.update_setting_page1_page)
         #-------------------------------------------------------------------------------------------------------------------
 
     def test(self):
@@ -120,7 +131,7 @@ class API:
     def button_connector(self):
         
         #--------------------------------------amir---------------------------------------
-        self.ui.set_image_btn.clicked.connect(self.set_screw_image)
+        self.ui.set_image_btn.clicked.connect(self.update_main_image_path)
         
         
         
@@ -493,22 +504,30 @@ class API:
 
 
 
+#--------------------------------------------------
+#--------------------------------------------------
+#--------------------------------------------------
+#--------------------------------------------------
+#--------------------------------------------------
+#--------------------------------------------------
+#--------------------------------------------------
+#--------------------------------------------------
+#--------------------------------------------------
+#--------------------------------------------------
 
 
-
-
-
-
-
-
-
-
-
-
+    #____________________________________________________________________________________________________________
+    #                                           
+    #
+    #                                          Screw Settin Public
+    #
+    #
+    #____________________________________________________________________________________________________________
     def update_image(self,label_name,img):
         self.ui.set_image_page_tool_labels(img)
-
-    #--------------------------------------------------------------------------------------------------------------
+        
+    
+    
     def add_new_screw(self):
         name = self.ui.get_line_scraw_name()
         flag = dbUtils.add_screw(name)
@@ -524,36 +543,31 @@ class API:
         #ERROR
         if not flag:
             print('Error! : screw exist already')
-        self.set_screw_image()
-        self.update_image_grab_page()
-
+        self.update_setting_page1_page()
     
-    def remove_screw(self):
-        name=self.ui.label_screw_name.text()
-        flag = self.ui.show_question('Delete Screw', 'Are you Sure to delete {}?'.format(name))
-        if flag:
-            dbUtils.remove_screw(name)
-            self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
-
-
-
-
+    
     def save_screw(self):
         flag = self.ui.show_question('Save Screw', 'Are you Sure?')
         try:
             if flag:
                 for key in self.screw_jasons.keys():
                     path = dbUtils.get_screw_path( self.screw_jasons[key].get_name() )
-                    #self.screw_jasons[key].set_direction( self.screw_jasons[key].get_direction() )
-                    self.screw_jasons[key].write(path)
-                
+                    self.screw_jasons[key].write(path)                
                 print('Screw Saved')
-                
                 self.ui.editmode=False
         except:
             self.ui.set_warning('Save Eror','tool_page',level=2)
-
-    
+            
+            
+    def remove_screw(self):
+        name=self.ui.label_screw_name.text()
+        flag = self.ui.show_question('Delete Screw', 'Are you Sure to delete {}?'.format(name))
+        if flag:
+            dbUtils.remove_screw(name)
+            self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
+            
+            
+            
     def edit_load_screw(self):
         name = self.ui.comboBox_edit_remove.currentText()
         path = dbUtils.get_screw_path(name)
@@ -561,48 +575,51 @@ class API:
         
         for key in self.screw_jasons.keys():
             self.screw_jasons[key].read(path, key)
-        self.set_screw_image()
-        self.update_image_grab_page()
-            
+        self.update_setting_page1_page()
+        
+        
+    def image_setting_mouse_event(self,wname):
+        page_idx = self.ui.get_setting_page_idx()
+        mouse_status = self.mouse.get_status()
+        mouse_button = self.mouse.get_button()
+        mouse_pt = self.mouse.get_relative_position()
 
-    def set_screw_image(self):
-        selected_camera_direction = self.ui.check_camera_selected_direction()
-        path = self.ui.get_screw_image_path()
-        img = cv2.imread(path)
-        # cv2.imshow()
-        if img is not None:
-            self.ui.set_image_page_tool_labels(img)
-            self.screw_jasons[ selected_camera_direction ].set_img_path(path)
-            self.rect_roi_drawing.set_img_size(img.shape[:2])
-        else:
-            print('Error! : image not exist')
-            pass
-        
-        
+        if page_idx == 1:
+            self.update_roi_setting_page1_mouse(mouse_status, mouse_button , mouse_pt)
             
-        
-        
-    def update_image_grab_page(self):
+        elif page_idx == 2:
+            self.update_roi_page_Area_define(mouse_status, mouse_button , mouse_pt)
+
+
+    #____________________________________________________________________________________________________________
+    #                                           
+    #
+    #                                          Screw Settin Page1
+    #
+    #
+    #____________________________________________________________________________________________________________
+    def update_setting_page1_page(self):
         selected_camera_direction = self.ui.check_camera_selected_direction()
         
         parms = self.screw_jasons[selected_camera_direction].data
         roi_rect = self.screw_jasons[selected_camera_direction].get_main_roi()
         
+        self.update_main_image_path()
         
+        self.rect_roi_drawing.max_shape_count = 1
         
-        self.ui.set_loaded_parms_page_grab( parms )
+        self.ui.set_setting_page1_parms( parms )
         self.rect_roi_drawing.shapes = [ roi_rect ]
         
-        self.set_screw_image()
-        self.update_image_grab_image()
+        self.update_setting_page1_image()
         
     
     
-    def update_image_grab_image(self):
+    def update_setting_page1_image(self):
         
         selected_camera_direction = self.ui.check_camera_selected_direction()
         
-        img = self.screw_jasons[ selected_camera_direction ].img
+        img = self.image_screw_setting
         thresh = self.screw_jasons[ selected_camera_direction ].get_main_thresh()
         noise_filter = self.screw_jasons[ selected_camera_direction ].get_main_noise_filter()
         rect = self.screw_jasons[ selected_camera_direction ].get_main_roi()
@@ -612,61 +629,43 @@ class API:
         thresh_img = cvTools.filter_noise_are(thresh_img, noise_filter)
         
         img = Utils.mask_viewer(img, thresh_img)
-        
-        
-        # img = Utils.threshould_view(img, thresh, mask_roi=mask, noise_filter=noise_filter)
-        
         img = self.rect_roi_drawing.get_image(img)
+        
         self.ui.set_image_page_tool_labels(img)
+        
+        
 
         
-        
-        
-        
-        
     def update_main_threshould(self):
-        selected_camera_direction = self.ui.check_camera_selected_direction()
-        thresh = self.ui.horizontalSlider_grab.value()
-        self.screw_jasons[ selected_camera_direction ].set_main_thresh(thresh)
-        self.update_image_grab_image()
+            selected_camera_direction = self.ui.check_camera_selected_direction()
+            thresh = self.ui.horizontalSlider_grab.value()
+            self.screw_jasons[ selected_camera_direction ].set_main_thresh(thresh)
+            self.update_setting_page1_image()
     
     
     def update_main_noise_filter(self):
         selected_camera_direction = self.ui.check_camera_selected_direction()
         noise_filter = self.ui.noiseFilterSlider_grab.value()
         self.screw_jasons[ selected_camera_direction ].set_main_noise_filter(noise_filter)
-        self.update_image_grab_image()
+        self.update_setting_page1_image()
+        
+        
     
-    
-    def update_roi_page_grab_mouse(self,wname):
-        self.rect_roi_drawing.max_shape_count = 1
-        mouse_status = self.mouse.get_status()
-        mouse_button = self.mouse.get_button()
-        mouse_pt = self.mouse.get_relative_position()
-                
-        if  mouse_status in ['mouse_press','mouse_release'] and mouse_button == 'left_btn':
-            self.rect_roi_drawing.click(mouse_pt)
+    def update_main_image_path(self):
+        selected_camera_direction = self.ui.check_camera_selected_direction()
+        path = self.ui.get_screw_image_path()
         
-        elif mouse_status == 'mouse_press' and mouse_button == 'right_btn':
-            self.rect_roi_drawing.remove_points_or_shape(mouse_pt)
+        if cv2.imread(path) is not None:
+            self.screw_jasons[ selected_camera_direction ].set_img_path(path)
+            self.image_screw_setting = cv2.imread(path)
+            self.rect_roi_drawing.set_img_size( self.image_screw_setting.shape[:2] )
+            self.update_setting_page1_image()
+        else:
+            print('Error! : image not exist')
         
-        elif mouse_status == 'mouse_move' and mouse_button == 'left_btn':
-            self.rect_roi_drawing.set_float_point(mouse_pt)
         
-        shapes = self.rect_roi_drawing.shapes
-        if len(shapes) > 0:
-            rect = shapes[0]
-            rect_dict = Utils.rect_list2dict(rect)
-            self.ui.set_roi_parms_screw_page_grab(rect_dict)
             
-            selected_camera_direction = self.ui.check_camera_selected_direction()
-            self.screw_jasons[selected_camera_direction].set_main_roi( pt1=rect[0], pt2=rect[1] )
-        
-        self.update_image_grab_image()
-        
-        
-        
-    #--------------------------------------------------------------------------------------------------------------
+            
     def update_roi_page_grab_input(self, name):
         def func():
             selected_camera_direction = self.ui.check_camera_selected_direction()
@@ -682,8 +681,78 @@ class API:
             rect = Utils.rect_dict2list(rect_dict)
             
             self.rect_roi_drawing.update_shape(shape_idx=0,  shape=rect)
-            self.update_image_grab_image()
+            self.update_setting_page1_image()
             
             self.screw_jasons[selected_camera_direction].set_main_roi(pt1=rect[0], pt2=rect[1])
         return func
+
+
+
+    def update_roi_setting_page1_mouse(self, mouse_status, mouse_button, mouse_pt):
+        self.rect_roi_drawing.qtmouse_checker( mouse_status, mouse_button, mouse_pt )
         
+        shapes = self.rect_roi_drawing.shapes
+        if len(shapes) > 0:
+            rect = shapes[0]
+            rect_dict = Utils.rect_list2dict(rect)
+            self.ui.set_roi_parms_screw_page_grab(rect_dict)
+            
+            selected_camera_direction = self.ui.check_camera_selected_direction()
+            self.screw_jasons[selected_camera_direction].set_main_roi( pt1=rect[0], pt2=rect[1] )
+        
+        self.update_setting_page1_image()
+        
+        
+        
+        
+        
+        
+        
+    #____________________________________________________________________________________________________________
+    #                                           
+    #
+    #                                          Screw Settin Page1
+    #
+    #
+    #____________________________________________________________________________________________________________     
+        
+        
+        
+    def update_roi_page_Area_define(self , mouse_status, mouse_button , mouse_pt):
+        
+        mask_type = self.ui.selected_mask_type
+        
+        selected_camera_direction = self.ui.check_camera_selected_direction()
+        img = self.image_screw_setting
+        rect = self.screw_jasons[ selected_camera_direction ].get_main_roi()
+        crop_img = cvTools.crop_rect(img, rect)
+        
+        #self.roi_drawings[ mask_type ].set_img_size( crop_img.shape[:2] )
+         
+        self.roi_drawings[ mask_type ].qtmouse_checker( mouse_status, mouse_button, mouse_pt )
+        
+        shapes = self.roi_drawings[ mask_type ].shapes
+        
+        self.update_image_area_define_page()
+
+
+
+
+
+
+
+
+
+
+    def update_image_area_define_page(self):
+        
+        selected_camera_direction = self.ui.check_camera_selected_direction()
+        
+        img = self.screw_jasons[ selected_camera_direction ].img
+        rect = self.screw_jasons[ selected_camera_direction ].get_main_roi()
+        
+        crop_img = cvTools.crop_rect(img, rect)
+        
+              
+        crop_img = self.roi_drawings[ self.ui.selected_mask_type ].get_image(crop_img)
+        self.ui.set_image_page_tool_labels(crop_img)

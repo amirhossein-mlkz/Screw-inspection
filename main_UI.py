@@ -538,7 +538,7 @@ class UI_main_window(QMainWindow, ui):
         set_label.setText(filepath[0])
 
 
-    def set_loaded_parms_page_grab(self,parms):        
+    def set_setting_page1_parms(self,parms):        
         self.horizontalSlider_grab.setValue(int(parms['main_thresh']))
         self.line_image_address.setText(str(parms['img_path']))
         self.spinBox_grab_page_x_rect1.setValue( parms['main_roi'][0][0] )
@@ -817,7 +817,8 @@ class UI_main_window(QMainWindow, ui):
         self.camera2_select_radio.clicked.connect( func )
 
 
-
+    def get_setting_page_idx(self):
+        return self.stackedWidget_2.currentIndex()
 
 if __name__ == "__main__":
     app = QApplication()

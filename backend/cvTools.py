@@ -44,3 +44,11 @@ def rects2mask(img_sizs, rects, defualt=255):
         pt1, pt2 = rect
         mask = cv2.rectangle(mask, tuple(pt1), tuple(pt2), 255, thickness=-1)
     return mask
+
+
+
+
+def crop_rect(img, rect):
+    [[x1,y1], [x2,y2]] = rect
+    crop = img[y1:y2 , x1:x2]
+    return np.copy( crop )
