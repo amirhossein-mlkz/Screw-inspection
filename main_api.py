@@ -112,7 +112,7 @@ class API:
         
         self.mouse.connect_all(self.ui.label_image_grab_page, self.image_setting_mouse_event)
         self.ui.roi_input_page_grab_connect(self.update_roi_page_grab_input)
-        self.ui.camera_select_radios_connect(self.update_setting_page1_page)
+        self.ui.camera_select_radios_connect(self.update_setting_page1)
         #-------------------------------------------------------------------------------------------------------------------
 
     def test(self):
@@ -131,7 +131,7 @@ class API:
     def button_connector(self):
         
         #--------------------------------------amir---------------------------------------
-        self.ui.set_image_btn.clicked.connect(self.update_main_image_path)
+        self.ui.set_image_btn.clicked.connect(self.update_main_image)
         
         
         
@@ -543,7 +543,7 @@ class API:
         #ERROR
         if not flag:
             print('Error! : screw exist already')
-        self.update_setting_page1_page()
+        self.update_setting_page1()
     
     
     def save_screw(self):
@@ -575,7 +575,7 @@ class API:
         
         for key in self.screw_jasons.keys():
             self.screw_jasons[key].read(path, key)
-        self.update_setting_page1_page()
+        self.update_setting_page1()
         
         
     def image_setting_mouse_event(self,wname):
@@ -598,24 +598,24 @@ class API:
     #
     #
     #____________________________________________________________________________________________________________
-    def update_setting_page1_page(self):
+    def update_setting_page1(self):
         selected_camera_direction = self.ui.check_camera_selected_direction()
         
         parms = self.screw_jasons[selected_camera_direction].data
         roi_rect = self.screw_jasons[selected_camera_direction].get_main_roi()
         
-        self.update_main_image_path()
+        self.update_main_image()
         
         self.rect_roi_drawing.max_shape_count = 1
         
         self.ui.set_setting_page1_parms( parms )
         self.rect_roi_drawing.shapes = [ roi_rect ]
         
-        self.update_setting_page1_image()
+        self.draw_setting_page1_image()
         
     
     
-    def update_setting_page1_image(self):
+    def draw_setting_page1_image(self):
         
         selected_camera_direction = self.ui.check_camera_selected_direction()
         
@@ -640,18 +640,18 @@ class API:
             selected_camera_direction = self.ui.check_camera_selected_direction()
             thresh = self.ui.horizontalSlider_grab.value()
             self.screw_jasons[ selected_camera_direction ].set_main_thresh(thresh)
-            self.update_setting_page1_image()
+            self.draw_setting_page1_image()
     
     
     def update_main_noise_filter(self):
         selected_camera_direction = self.ui.check_camera_selected_direction()
         noise_filter = self.ui.noiseFilterSlider_grab.value()
         self.screw_jasons[ selected_camera_direction ].set_main_noise_filter(noise_filter)
-        self.update_setting_page1_image()
+        self.draw_setting_page1_image()
         
         
     
-    def update_main_image_path(self):
+    def update_main_image(self):
         selected_camera_direction = self.ui.check_camera_selected_direction()
         path = self.ui.get_screw_image_path()
         
@@ -659,7 +659,7 @@ class API:
             self.screw_jasons[ selected_camera_direction ].set_img_path(path)
             self.image_screw_setting = cv2.imread(path)
             self.rect_roi_drawing.set_img_size( self.image_screw_setting.shape[:2] )
-            self.update_setting_page1_image()
+            self.draw_setting_page1_image()
         else:
             print('Error! : image not exist')
         
@@ -681,7 +681,7 @@ class API:
             rect = Utils.rect_dict2list(rect_dict)
             
             self.rect_roi_drawing.update_shape(shape_idx=0,  shape=rect)
-            self.update_setting_page1_image()
+            self.draw_setting_page1_image()
             
             self.screw_jasons[selected_camera_direction].set_main_roi(pt1=rect[0], pt2=rect[1])
         return func
@@ -700,7 +700,7 @@ class API:
             selected_camera_direction = self.ui.check_camera_selected_direction()
             self.screw_jasons[selected_camera_direction].set_main_roi( pt1=rect[0], pt2=rect[1] )
         
-        self.update_setting_page1_image()
+        self.draw_setting_page1_image()
         
         
         
@@ -716,43 +716,4 @@ class API:
     #
     #____________________________________________________________________________________________________________     
         
-        
-        
-    def update_roi_page_Area_define(self , mouse_status, mouse_button , mouse_pt):
-        
-        mask_type = self.ui.selected_mask_type
-        
-        selected_camera_direction = self.ui.check_camera_selected_direction()
-        img = self.image_screw_setting
-        rect = self.screw_jasons[ selected_camera_direction ].get_main_roi()
-        crop_img = cvTools.crop_rect(img, rect)
-        
-        #self.roi_drawings[ mask_type ].set_img_size( crop_img.shape[:2] )
-         
-        self.roi_drawings[ mask_type ].qtmouse_checker( mouse_status, mouse_button, mouse_pt )
-        
-        shapes = self.roi_drawings[ mask_type ].shapes
-        
-        self.update_image_area_define_page()
-
-
-
-
-
-
-
-
-
-
-    def update_image_area_define_page(self):
-        
-        selected_camera_direction = self.ui.check_camera_selected_direction()
-        
-        img = self.screw_jasons[ selected_camera_direction ].img
-        rect = self.screw_jasons[ selected_camera_direction ].get_main_roi()
-        
-        crop_img = cvTools.crop_rect(img, rect)
-        
-              
-        crop_img = self.roi_drawings[ self.ui.selected_mask_type ].get_image(crop_img)
-        self.ui.set_image_page_tool_labels(crop_img)
+ 
