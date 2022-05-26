@@ -78,6 +78,25 @@ def adp_threshould(img, bsize , c,  mask_roi = None, thresh_inv = False):
 
 
 
+
+
+
+def remove_belt(mask, thresh=0.6 , left_margin = 30 , right_margin = 10):
+    h,w = mask.shape
+    cols_sum = np.sum(mask, 0) / h / 255
+    idxs = np.argwhere( cols_sum > thresh )
+    
+    start_idx = idxs.min() - left_margin
+    end_idx = idxs.max() + right_margin
+    
+    res_mask = np.copy( mask )
+    res_mask[:,start_idx:end_idx] = 0
+
+    return res_mask, (start_idx , end_idx)
+
+
+
+
 def filter_noise_area(mask, noise_filter=0):
     
     h,w = mask.shape[:2]
@@ -152,27 +171,99 @@ def extract_bigest_contour(mask):
     cnts.sort( key = lambda x:cv2.contourArea(x) , reverse=True)
     return cnts[0]        
 
+def rotate_image(image, angle):
+    image_center = tuple(np.array(image.shape[1::-1]) / 2)
+    rot_mat = cv2.getRotationMatrix2D(image_center, angle, 1.0)
+    result = cv2.warpAffine(image, rot_mat, image.shape[1::-1], flags=cv2.INTER_LINEAR)
+    return result
+
+
+def correct_rotation_angle(mask , left_or_right='left'):
+    
+    cnts,_ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    
+    #sort by area and extract two bigest contour
+    cnts.sort( key = lambda x: cv2.contourArea(x) , reverse = True)
+    cnts = cnts[:2]
+    
+    #sort contour from left to right
+    cnts.sort( key = lambda x:np.min(x, axis = 0 )[0,0] ) #sort by minimux x in each contour
+    if left_or_right == 'left':
+        screw_body = cnts[0]
+    else:
+        screw_body = cnts[-1]
+    
+    
+    box = cv2.minAreaRect(screw_body)
+    _,_,angle = box
+    # rect_cnt = cv2.boxPoints(box)
+    # rect_cnt = np.int0( rect_cnt )
+    return angle - 90
+    
+    
+
+def side_screw_bounding_rect(mask):
+    cnts,_ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) 
+    
+    cnts.sort( key = lambda x: cv2.contourArea(x) , reverse = True)
+    cnts = cnts[:2]
+    points = np.vstack( (cnts[0], cnts[1]) )
+    
+    x1,y1 = points.min(axis=0)[0]
+    x2,y2 = points.max(axis=0)[0]
+    
+    return (x1,y1) , (x2,y2)
+    
 
 
 if __name__ == '__main__':
     
-    mask_img = cv2.imread('mask.jpg', 0)
-    img = cv2.imread( 'img.jpg' , 0 )
-    # cv2.imshow('m',mask_area)
-    # cv2.imwrite('mask.jpg', mask_area)
-    # cv2.waitKey(30)
-    mask = adp_threshould( img , 11, 11 , None )
-    #mask = cvTools.filter_noise_area(mask , noise_filter )
+    # mask_img = cv2.imread('mask.jpg', 0)
+    # img = cv2.imread( 'img.jpg' , 0 )
+    # # cv2.imshow('m',mask_area)
+    # # cv2.imwrite('mask.jpg', mask_area)
+    # # cv2.waitKey(30)
+    # mask = adp_threshould( img , 11, 11 , None )
+    # #mask = cvTools.filter_noise_area(mask , noise_filter )
     
     
     
-    #img = Utils.mask_viewer(img, mask)
+    # #img = Utils.mask_viewer(img, mask)
     
-    cnts,_ = cv2.findContours(mask , cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    cnts.sort( key = lambda x:cv2.contourArea(x) , reverse=True)
+    # cnts,_ = cv2.findContours(mask , cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # cnts.sort( key = lambda x:cv2.contourArea(x) , reverse=True)
     
-    hull=cv2.convexHull (cnts[0])
-    cv2.drawContours (img , [hull] ,0, (0,0,255) , thickness=5)
+    # hull=cv2.convexHull (cnts[0])
+    # cv2.drawContours (img , [hull] ,0, (0,0,255) , thickness=5)
     
+    # cv2.waitKey(0)
+    # # cv2.imshow('mask_area', mask_area )
+    
+    
+    
+    img = cv2.imread('sample images/test1.jpg')
+    
+    mask = threshould(img, 50, None, True)
+    mask_unbelt, belt_pos = remove_belt( mask )
+    
+    angle = correct_rotation_angle(mask_unbelt)
+    
+    img = rotate_image(img,  angle  )
+    rotated_mask = rotate_image(mask_unbelt,  angle )
+    
+    
+    
+    pt1,pt2 = side_screw_bounding_rect(rotated_mask)
+    
+    img = cv2.rectangle( img , pt1, pt2, (255,0,0))
+    #img = cv2.drawContours(img, [rect_cnt], 0, (0,0,255), thickness=5)
+    
+    
+    
+    cv2.imshow('mask1', mask)
+    cv2.imshow('res_mask', mask_unbelt)
+    cv2.imshow('img', img)
     cv2.waitKey(0)
-    # cv2.imshow('mask_area', mask_area )
+    pass
+    
+    
