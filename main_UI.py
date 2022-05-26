@@ -61,6 +61,8 @@ from PySide6.QtGui import QPen as sQPen
 from PySide6.QtGui import QPainter as sQPainter
 from PySide6.QtGui import QCursor as sQCursor
 
+import texts
+
 from Keys import UI_KEYS
 ui, _ = loadUiType("main_window.ui")
 
@@ -280,7 +282,7 @@ class UI_main_window(QMainWindow, ui):
  
 
 
-    def animation_move(self,label_name,lenght):
+    def animation_move(self,label_name,lenght,size_zero=False):
 
         width=label_name.width()
         # self.stackedWidget_defect.setCurrentWidget(self.page_no)
@@ -315,6 +317,18 @@ class UI_main_window(QMainWindow, ui):
             self.group.addAnimation(self.animation_box)
             self.group.start() 
 
+        if size_zero and width!=0:
+
+            self.animation_box = QPropertyAnimation(label_name, b"minimumWidth")
+            self.animation_box.setDuration(Settings.TIME_ANIMATION)
+            self.animation_box.setStartValue(lenght)
+            self.animation_box.setEndValue(0)
+            self.animation_box.setEasingCurve(QEasingCurve.InOutQuart)
+
+
+            self.group = QParallelAnimationGroup()
+            self.group.addAnimation(self.animation_box)
+            self.group.start() 
 
     def activate_(self):
         self.closeButton.clicked.connect(self.close_win)
@@ -339,7 +353,7 @@ class UI_main_window(QMainWindow, ui):
         self.save_new_btn.clicked.connect(self.buttonClick)
         self.edit_btn.clicked.connect(self.buttonClick)
         # self.add_btn.clicked.connect(self.buttonClick)
-        self.grab_load_btn.clicked.connect(self.buttonClick)
+        # self.grab_load_btn.clicked.connect(self.buttonClick)
         self.tool1_btn.clicked.connect(self.buttonClick)
         self.tool2_btn.clicked.connect(self.buttonClick)
         self.tool3_btn.clicked.connect(self.buttonClick)
@@ -475,6 +489,7 @@ class UI_main_window(QMainWindow, ui):
     def set_warning(self, text, name, level=1):                            #Show warning
         waring_labels = {
             'tool_page': self.label_warning_tool_page,
+            
 
         }
         # print('set_warning')
@@ -606,11 +621,20 @@ class UI_main_window(QMainWindow, ui):
             if self.editmode==False:
                 self.animation_move(self.frame_24,300)
                 # self.editmode=True
-
+            else :
+                self.set_warning(texts.WARNINGS['EDIT_MODE'][self.language],'tool_page',level=2)
         if btnName =='add_btn' :
 
-            self.animation_move(self.frame_23,300)
+            if self.editmode==False:
 
+                self.animation_move(self.frame_23,300)
+            
+            else :
+                self.set_warning(texts.WARNINGS['EDIT_MODE'][self.language],'tool_page',level=2)
+
+    # def set_warning(self, text, name, level=1):                            #Show warning
+    #     waring_labels = {
+    #         'tool_page': self.label_warning_tool_page,
         if btnName =='save_new_btn' :
 
             self.animation_move(self.frame_23,300)
@@ -619,6 +643,7 @@ class UI_main_window(QMainWindow, ui):
         if btnName =='edit_btn' :
             if self.editmode==False:
                 self.animation_move(self.frame_24,300)
+                self.animation_move(self.frame_23,0)
                 self.stackedWidget_2.setCurrentIndex(1)
                 self.editmode=True
 
@@ -636,9 +661,9 @@ class UI_main_window(QMainWindow, ui):
             self.stackedWidget_2.setCurrentIndex(i-1)
 
 
-        if btnName =='grab_load_btn' :
+        # if btnName =='grab_load_btn' :
 
-            self.stackedWidget_2.setCurrentWidget(self.page)
+        #     self.stackedWidget_2.setCurrentWidget(self.page)
 
 
         if btnName =='tool1_btn' :
