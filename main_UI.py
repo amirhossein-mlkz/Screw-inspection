@@ -368,8 +368,8 @@ class UI_main_window(QMainWindow, ui):
         self.set_image_btn.clicked.connect(self.buttonClick)
 
 
-        self.camera1_select_radio.clicked.connect(self.check_camera_selected_direction)
-        self.camera2_select_radio.clicked.connect(self.check_camera_selected_direction)
+        self.connect_grab_btn.clicked.connect(self.check_camera_selected_direction)
+        self.connect_grab_side_camera.clicked.connect(self.check_camera_selected_direction)
 
         # page tool2
 
@@ -565,20 +565,21 @@ class UI_main_window(QMainWindow, ui):
     def check_camera_selected_direction(self):
         
         # checking if it is checked
-        if self.camera1_select_radio.isChecked():
+        print('adww')
+        # if self.camera1_select_radio.isChecked():
                 
-            # changing text of label
-            # self.label.setText("It is now checked")
-            self.camera1_select_radio.setChecked(True)
-            #print('cam 1 select')
-            self.selected_camera_name='camera1'
-            return 'top'
+        #     # changing text of label
+        #     # self.label.setText("It is now checked")
+        #     self.camera1_select_radio.setChecked(True)
+        #     #print('cam 1 select')
+        #     self.selected_camera_name='camera1'
+        #     return 'top'
         
-        else:
-            self.camera2_select_radio.setChecked(False)
-            #print('cam 2 select')
-            self.selected_camera_name='camera2'
-            return 'side'
+        # else:
+        #     self.camera2_select_radio.setChecked(False)
+        #     #print('cam 2 select')
+        #     self.selected_camera_name='camera2'
+        #     return 'side'
 
 
 
@@ -838,8 +839,8 @@ class UI_main_window(QMainWindow, ui):
 
 
     def camera_select_radios_connect(self, func):
-        self.camera1_select_radio.clicked.connect( func )
-        self.camera2_select_radio.clicked.connect( func )
+        self.connect_grab_btn.clicked.connect( func )
+        self.connect_grab_side_camera.clicked.connect( func )
 
 
     def get_setting_page_idx(self):
