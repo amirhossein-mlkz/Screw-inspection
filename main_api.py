@@ -114,11 +114,11 @@ class API:
         self.ui.prev_page_btn.clicked.connect(self.screw_setting_page_loader)
         
         self.mouse.connect_all(self.ui.label_image_grab_page, self.image_setting_mouse_event)
-        self.ui.main_roi_top_connect(self.main_roi_top_input)
-        # self.ui.camera_select_radios_connect(self.update_main_setting_page_top)
         
         
-        self.ui.negative_thresh_top_checkBox.toggled.connect(self.update_main_thresh_negative_top)
+        
+        
+        
         self.ui.negativeThreshSettingPage2_checkBox.toggled.connect(self.update_thresh_negative_setting_page2)
         
 
@@ -140,7 +140,7 @@ class API:
     def button_connector(self):
         
         #--------------------------------------amir---------------------------------------
-        self.ui.set_top_image_btn.clicked.connect(self.update_main_image_top)
+        
         
         
         
@@ -211,18 +211,31 @@ class API:
         self.ui.get_main_parms_screw_top()
 
 
+        # publice setting-------------------------------------------------------
+        self.ui.save_btn_page_grab.clicked.connect(self.save_screw)
 
-        #grab page
-
+        #main page top----------------------------------------------------------
+        self.ui.set_top_image_btn.clicked.connect(self.update_main_image_top)
+        self.ui.tool1_btn.clicked.connect(self.update_main_setting_page_top)
         self.ui.main_thresh_top_bar.valueChanged.connect(self.update_main_threshould_top)
         self.ui.main_noise_filter_top_Slider.valueChanged.connect(self.update_main_noise_filter_top)
-        self.ui.save_btn_page_grab.clicked.connect(self.save_screw)
+        self.ui.negative_thresh_top_checkBox.toggled.connect(self.update_main_thresh_negative_top)
+        
+        self.ui.main_roi_top_connect(self.main_roi_top_input)        
+        
+        
+        #main page side---------------------------------------------------------
+        self.ui.set_side_image_btn.clicked.connect(self.update_main_image_side)
+        self.ui.tool3_btn.clicked.connect(self.update_main_setting_page_side)
+        self.ui.main_thresh_side_bar.valueChanged.connect(self.update_main_threshould_side)
+        self.ui.main_noise_filter_side_bar.valueChanged.connect(self.update_main_noise_filter_side)
+        self.ui.negative_thresh_side_checkBox.toggled.connect(self.update_main_thresh_negative_side)
+        self.ui.main_roi_side_connect(self.main_roi_side_input)
 
 
         #setting page2
-        self.ui.threshouldSetingPage2_slider.valueChanged.connect(self.update_threshould_setting_page2)   
-        self.ui.page2_noise_filter_top_Slider.valueChanged.connect(self.update_noise_filter_setting_page2)   
-
+        #self.ui.threshouldSetingPage2_slider.valueChanged.connect(self.update_threshould_setting_page2)   
+        #self.ui.page2_noise_filter_top_Slider.valueChanged.connect(self.update_noise_filter_setting_page2)   
 
 
         
@@ -602,6 +615,9 @@ class API:
         elif page_idx == 2:
             self.update_roi_setting_page2_mouse(mouse_status, mouse_button , mouse_pt)
 
+        elif page_idx == 3:
+            self.update_main_roi_side_mouse(mouse_status, mouse_button , mouse_pt)
+            
 
     
     def screw_setting_page_loader(self):
@@ -617,7 +633,7 @@ class API:
     #____________________________________________________________________________________________________________
     #                                           
     #
-    #                                          Screw Settin Page1
+    #                                           Screw main Settin top
     #
     #
     #____________________________________________________________________________________________________________
@@ -724,7 +740,7 @@ class API:
         if len(shapes) > 0:
             rect = shapes[0]
             rect_dict = Utils.rect_list2dict(rect)
-            self.ui.set_roi_parms_screw_page_grab(rect_dict)
+            self.ui.set_main_roi_top(rect_dict)
             
             selected_camera_direction = 'top'
             self.screw_jasons[selected_camera_direction].set_main_roi( pt1=rect[0], pt2=rect[1] )
@@ -735,12 +751,128 @@ class API:
         
         
         
+    #____________________________________________________________________________________________________________
+    #                                           
+    #
+    #                                           Screw main Settin side
+    #
+    #
+    #____________________________________________________________________________________________________________
+    def update_main_setting_page_side(self):
+        selected_camera_direction = 'side'
         
+        parms = self.screw_jasons[selected_camera_direction].data
+        roi_rect = self.screw_jasons[selected_camera_direction].get_main_roi()
+        self.ui.set_main_parms_screw_side( parms ) 
+        self.rect_roi_drawing.max_shape_count = 1
+        self.rect_roi_drawing.shapes = [ roi_rect ]
+        
+        
+        self.update_main_image_side()
+        self.draw_main_setting_page_side_image()
+        
+    
+    
+    def draw_main_setting_page_side_image(self):
+        
+        selected_camera_direction = 'side'
+        
+        img = self.image_screw_setting
+        thresh = self.screw_jasons[ selected_camera_direction ].get_main_thresh()
+        noise_filter = self.screw_jasons[ selected_camera_direction ].get_main_noise_filter()
+        rect = self.screw_jasons[ selected_camera_direction ].get_main_roi()
+        inv_state = self.screw_jasons[ selected_camera_direction ].get_main_thresh_inv()
+        
+        mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
+        thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
+        thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
+        
+        img = Utils.mask_viewer(img, thresh_img)
+        img = self.rect_roi_drawing.get_image(img)
+        
+        self.ui.set_image_page_tool_labels(img) 
+        
+        
+
+        
+    def update_main_threshould_side(self):
+        selected_camera_direction = 'side'
+        thresh = self.ui.main_thresh_side_bar.value()    
+        self.screw_jasons[ selected_camera_direction ].set_main_thresh(thresh)
+        self.draw_main_setting_page_side_image()
+    
+    
+    def update_main_noise_filter_side(self):
+        selected_camera_direction = 'side'
+        noise_filter = self.ui.main_noise_filter_side_bar.value()  
+        self.screw_jasons[ selected_camera_direction ].set_main_noise_filter(noise_filter)
+        self.draw_main_setting_page_side_image()
+    
+    
+    
+    def update_main_thresh_negative_side(self):
+        selected_camera_direction = 'side'
+        state = self.ui.negative_thresh_side_checkBox.isChecked()
+        self.screw_jasons[ selected_camera_direction ].set_main_thresh_inv(state) 
+        self.draw_main_setting_page_side_image()
+        
+    
+    def update_main_image_side(self):
+        selected_camera_direction = 'side'
+        path = self.ui.get_screw_side_image_path()
+        
+        if cv2.imread(path) is not None:
+            self.screw_jasons[ selected_camera_direction ].set_img_path(path)
+            self.image_screw_setting = cv2.imread(path)
+            self.rect_roi_drawing.set_img_size( self.image_screw_setting.shape[:2] )
+            self.draw_main_setting_page_side_image()
+        else:
+            print('Error! : image not exist')
+        
+        
+            
+            
+    def main_roi_side_input(self, name):
+        def func():
+            selected_camera_direction = 'side'
+            
+            #data changed in Ui
+            data = self.ui.get_main_parms_screw_side()
+            #data saved in json
+            rect = self.screw_jasons[selected_camera_direction].get_main_roi()
+            
+            rect_dict = Utils.rect_list2dict(rect)
+            #update param in jason that changed in UI
+            rect_dict[name] = data[name]
+            rect = Utils.rect_dict2list(rect_dict)
+            
+            self.rect_roi_drawing.update_shape(shape_idx=0,  shape=rect)
+            self.draw_main_setting_page_side_image()
+            
+            self.screw_jasons[selected_camera_direction].set_main_roi(pt1=rect[0], pt2=rect[1])
+        return func
+
+
+
+    def update_main_roi_side_mouse(self, mouse_status, mouse_button, mouse_pt):
+        selected_camera_direction = 'side'
+        self.rect_roi_drawing.qtmouse_checker( mouse_status, mouse_button, mouse_pt )
+        
+        shapes = self.rect_roi_drawing.shapes
+        if len(shapes) > 0:
+            rect = shapes[0]
+            rect_dict = Utils.rect_list2dict(rect)
+            self.ui.set_main_roi_side(rect_dict)
+            self.screw_jasons[selected_camera_direction].set_main_roi( pt1=rect[0], pt2=rect[1] )
+        
+        self.draw_main_setting_page_side_image()
+        
+           
         
     #____________________________________________________________________________________________________________
     #                                           
     #
-    #                                          Screw Settin Page2
+    #                                          
     #
     #
     #____________________________________________________________________________________________________________     

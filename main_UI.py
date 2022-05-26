@@ -364,8 +364,10 @@ class UI_main_window(QMainWindow, ui):
 
         # Page grab select image
 
-        self.load_image_btn.clicked.connect(self.buttonClick)
+        self.load_image_top_btn.clicked.connect(self.buttonClick)
+        self.load_image_side_btn.clicked.connect(self.buttonClick)
         self.set_top_image_btn.clicked.connect(self.buttonClick)
+        self.set_side_image_btn.clicked.connect(self.buttonClick)
 
 
         self.connect_cam_top_btn.clicked.connect(self.check_camera_selected_direction)
@@ -529,6 +531,21 @@ class UI_main_window(QMainWindow, ui):
 
         return dic
     
+    
+    def get_main_parms_screw_side(self):
+    
+        dic={}
+        dic.update({'name':self.label_screw_name.text()})
+        dic.update({'threshold':self.main_thresh_side_bar.value()})
+        dic.update({'x1':self.spinBox_side_grab_page_x_rect1.value()})
+        dic.update({'y1':self.spinBox_side_grab_page_y_rect1.value()})
+        dic.update({'x2':self.spinBox_side_grab_page_x_rect2.value()})
+        dic.update({'y2':self.spinBox_side_grab_page_y_rect2.value()})
+
+        return dic
+    
+    
+    
     def set_main_parms_screw_top(self,parms):        
         self.main_thresh_top_bar.setValue(int(parms['main_thresh']))
         self.line_top_image_address.setText(str(parms['img_path']))
@@ -536,9 +553,21 @@ class UI_main_window(QMainWindow, ui):
         self.spinBox_top_grab_page_y_rect1.setValue( parms['main_roi'][0][1] )
         self.spinBox_top_grab_page_x_rect2.setValue( parms['main_roi'][1][0] )
         self.spinBox_top_grab_page_y_rect2.setValue( parms['main_roi'][1][1] )
+        
+        
+        
+    def set_main_parms_screw_side(self,parms):        
+        self.main_thresh_side_bar.setValue(int(parms['main_thresh']))
+        self.line_side_image_address.setText(str(parms['img_path']))
+        self.spinBox_side_grab_page_x_rect1.setValue( parms['main_roi'][0][0] )
+        self.spinBox_side_grab_page_y_rect1.setValue( parms['main_roi'][0][1] )
+        self.spinBox_side_grab_page_x_rect2.setValue( parms['main_roi'][1][0] )
+        self.spinBox_side_grab_page_y_rect2.setValue( parms['main_roi'][1][1] )
+        
+        
+        
     
     def set_main_roi_top(self, data):
-        print('data',data)
         self.spinBox_top_grab_page_x_rect1.setValue( data['x1'] )
         self.spinBox_top_grab_page_y_rect1.setValue( data['y1'] )
         self.spinBox_top_grab_page_x_rect2.setValue( data['x2'] )
@@ -546,12 +575,28 @@ class UI_main_window(QMainWindow, ui):
         #print('dic',dic)
 
     
+    def set_main_roi_side(self, data):
+        self.spinBox_side_grab_page_x_rect1.setValue( data['x1'] )
+        self.spinBox_side_grab_page_y_rect1.setValue( data['y1'] )
+        self.spinBox_side_grab_page_x_rect2.setValue( data['x2'] )
+        self.spinBox_side_grab_page_y_rect2.setValue( data['y2'] )
+        #print('dic',dic)
+
+    
+    
+    
     def main_roi_top_connect(self,func):
         self.spinBox_top_grab_page_x_rect1.valueChanged.connect(func('x1'))
         self.spinBox_top_grab_page_y_rect1.valueChanged.connect(func('y1'))
         self.spinBox_top_grab_page_x_rect2.valueChanged.connect(func('x2'))
         self.spinBox_top_grab_page_y_rect2.valueChanged.connect(func('y2'))
-        
+    
+    
+    def main_roi_side_connect(self,func):
+        self.spinBox_side_grab_page_x_rect1.valueChanged.connect(func('x1'))
+        self.spinBox_side_grab_page_y_rect1.valueChanged.connect(func('y1'))
+        self.spinBox_side_grab_page_x_rect2.valueChanged.connect(func('x2'))
+        self.spinBox_side_grab_page_y_rect2.valueChanged.connect(func('y2'))
         
         
     def  open_file_dialog(self,set_label):
@@ -683,9 +728,13 @@ class UI_main_window(QMainWindow, ui):
             self.stackedWidget_2.setCurrentWidget(self.page_3)
                 
         
-        if btnName =='load_image_btn' :
+        if btnName =='load_image_top_btn' :
 
             self.open_file_dialog(self.line_top_image_address)
+        
+        if btnName =='load_image_side_btn' :
+
+            self.open_file_dialog(self.line_side_image_address)
           
         if btnName =='set_top_image_btn' :
             pass
@@ -831,6 +880,10 @@ class UI_main_window(QMainWindow, ui):
 
     def get_screw_top_image_path(self):
         return self.line_top_image_address.text()
+    
+    def get_screw_side_image_path(self):
+        return self.line_side_image_address.text()
+
 
     
     def get_line_scraw_name(self):

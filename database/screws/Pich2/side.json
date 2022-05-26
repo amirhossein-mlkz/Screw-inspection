@@ -13,5 +13,6 @@
         ]
     ],
     "main_thresh": 0,
-    "name": "Pich1"
+    "main_thresh_inv": false,
+    "name": "Pich2"
 }
