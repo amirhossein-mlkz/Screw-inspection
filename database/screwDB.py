@@ -9,11 +9,19 @@ class screwJson():
     
     def __init__(self,):
         self.data = {}
+        self.region = {}
         self.set_main_thresh(0)
         self.set_main_noise_filter(0)
         self.set_main_roi([10,10], [100,100])
         self.set_direction('def')
         self.set_img_path('images/defualt.jpg')
+        self.set_main_thresh_inv(False)
+        
+        
+        self.set_region_thresh(0)
+        self.set_region_noise_filter(0)
+        self.set_region_thresh_inv(False)
+        
         #self.set_img_path('images/test1_0_12.png')
         
     #-----------------------------------------
@@ -62,6 +70,13 @@ class screwJson():
         
     def get_main_thresh(self):
         return self.data['main_thresh']
+    
+    #-----------------------------------------
+    def set_main_thresh_inv(self, state):
+        self.data['main_thresh_inv'] = state
+        
+    def get_main_thresh_inv(self):
+        return self.data['main_thresh_inv']
     #-----------------------------------------
     def set_main_noise_filter(self, x):
         self.data['main_noise_filter'] = x
@@ -76,7 +91,27 @@ class screwJson():
         return self.data['main_roi']
     
     #-----------------------------------------
+    def set_region_roi(self, out , inner, type):
+        self.region['out'] = out
+        self.region['in'] = inner
+        self.region['type'] = type
     
+    
+    def set_region_name(self, name):
+        self.region['name'] = name
+        
+    def set_region_thresh(self, thresh):
+        self.region['thresh'] = thresh
+        
+    def set_region_noise_filter(self, noise_filter):
+        self.region['noise_filter'] = noise_filter
+        
+    #-----------------------------------------  
+    def set_region_thresh_inv(self, state):
+        self.region['thresh_inv'] = state
+        
+    def get_region_thresh_inv(self):
+        return self.region['thresh_inv']
     
     # def create_json_dataset(self,parms):
         

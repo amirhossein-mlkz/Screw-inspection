@@ -110,9 +110,16 @@ class API:
         self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
         
         
+        self.ui.next_page_btn.clicked.connect(self.screw_setting_page_loader)
+        self.ui.prev_page_btn.clicked.connect(self.screw_setting_page_loader)
+        
         self.mouse.connect_all(self.ui.label_image_grab_page, self.image_setting_mouse_event)
         self.ui.roi_input_page_grab_connect(self.update_roi_page_grab_input)
         self.ui.camera_select_radios_connect(self.update_setting_page1)
+        
+        
+        self.ui.negativeMainThresh_checkBox.toggled.connect(self.update_main_thresh_negative)
+        self.ui.negativeThreshSettingPage2_checkBox.toggled.connect(self.update_thresh_negative_setting_page2)
         #-------------------------------------------------------------------------------------------------------------------
 
     def test(self):
@@ -210,6 +217,9 @@ class API:
         self.ui.save_btn_page_grab.clicked.connect(self.save_screw)
 
 
+        #setting page2
+        self.ui.threshouldSetingPage2_slider.valueChanged.connect(self.update_threshould_setting_page2)   
+        self.ui.noiseFilterSetingPage2_slider.valueChanged.connect(self.update_noise_filter_setting_page2)   
 
 
 
@@ -588,9 +598,20 @@ class API:
             self.update_roi_setting_page1_mouse(mouse_status, mouse_button , mouse_pt)
             
         elif page_idx == 2:
-            self.update_roi_page_Area_define(mouse_status, mouse_button , mouse_pt)
+            self.update_roi_setting_page2_mouse(mouse_status, mouse_button , mouse_pt)
 
 
+    
+    def screw_setting_page_loader(self):
+        for key in self.roi_drawings.keys():
+            self.roi_drawings[ key ].clear()
+            
+        page_idx = self.ui.get_setting_page_idx()
+        if page_idx == 1:
+            self.update_setting_page1()
+            
+        elif page_idx == 2:
+            self.update_setting_page2()
     #____________________________________________________________________________________________________________
     #                                           
     #
@@ -603,14 +624,12 @@ class API:
         
         parms = self.screw_jasons[selected_camera_direction].data
         roi_rect = self.screw_jasons[selected_camera_direction].get_main_roi()
-        
-        self.update_main_image()
-        
-        self.rect_roi_drawing.max_shape_count = 1
-        
         self.ui.set_setting_page1_parms( parms )
+        self.rect_roi_drawing.max_shape_count = 1
         self.rect_roi_drawing.shapes = [ roi_rect ]
         
+        
+        self.update_main_image()
         self.draw_setting_page1_image()
         
     
@@ -623,10 +642,11 @@ class API:
         thresh = self.screw_jasons[ selected_camera_direction ].get_main_thresh()
         noise_filter = self.screw_jasons[ selected_camera_direction ].get_main_noise_filter()
         rect = self.screw_jasons[ selected_camera_direction ].get_main_roi()
+        inv_state = self.screw_jasons[ selected_camera_direction ].get_main_thresh_inv()
         
         mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
-        thresh_img = cvTools.threshould(img, thresh, mask_roi)
-        thresh_img = cvTools.filter_noise_are(thresh_img, noise_filter)
+        thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
+        thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
         
         img = Utils.mask_viewer(img, thresh_img)
         img = self.rect_roi_drawing.get_image(img)
@@ -648,7 +668,14 @@ class API:
         noise_filter = self.ui.noiseFilterSlider_grab.value()
         self.screw_jasons[ selected_camera_direction ].set_main_noise_filter(noise_filter)
         self.draw_setting_page1_image()
-        
+    
+    
+    
+    def update_main_thresh_negative(self):
+        selected_camera_direction = self.ui.check_camera_selected_direction()
+        state = self.ui.negativeMainThresh_checkBox.isChecked()
+        self.screw_jasons[ selected_camera_direction ].set_main_thresh_inv(state) 
+        self.draw_setting_page1_image()
         
     
     def update_main_image(self):
@@ -716,4 +743,111 @@ class API:
     #
     #____________________________________________________________________________________________________________     
         
- 
+        
+        
+    def update_setting_page2(self):
+        for key in self.roi_drawings.keys():
+            self.roi_drawings[key].max_shape_count = 2
+            
+        self.update_setting_page2_image()
+        self.draw_setting_page2_image()
+        
+    
+
+    
+    def update_setting_page2_image(self):
+        selected_camera_direction = self.ui.check_camera_selected_direction()
+        
+        img_path = self.screw_jasons[ selected_camera_direction ].get_img_path()
+        rect = self.screw_jasons[ selected_camera_direction ].get_main_roi()
+        
+        self.image_screw_setting = cv2.imread(img_path)
+        self.image_screw_setting = cvTools.crop_rect(self.image_screw_setting, rect)
+        
+        for key in self.roi_drawings.keys():
+            self.roi_drawings[key].set_img_size( self.image_screw_setting.shape[:2] )
+
+    
+    
+    def draw_setting_page2_image(self):
+        selected_camera_direction = self.ui.check_camera_selected_direction()
+        
+        img = np.copy(self.image_screw_setting)
+        
+        
+        mask_type = self.ui.selected_mask_type
+        shapes = self.roi_drawings[ mask_type ].get_sorted_shapes()
+        
+        thresh = self.screw_jasons[ selected_camera_direction ].region['thresh']
+        noise_filter = self.screw_jasons[ selected_camera_direction ].region['noise_filter']
+        thresh_inv = self.screw_jasons[ selected_camera_direction ].region['thresh_inv']
+        #outer_shape =  self.screw_jasons[ selected_camera_direction ].region['out']
+        #inner_shape = self.screw_jasons[ selected_camera_direction ].region['in']
+        #shape_type = self.screw_jasons[ selected_camera_direction ].region['type']
+        #rect = self.screw_jasons[ selected_camera_direction ].region['thresh']
+        
+        if len(shapes) == 2 :
+            cv2.imshow('imggg', img)
+            cv2.waitKey(10)
+            mask_area = cvTools.mask_area(  img.shape[:2], 
+                                            shapes[1], 
+                                            shapes[0],
+                                            mask_type,
+                                            )
+
+            #mask = cvTools.adp_threshould( img , thresh, 0 , mask_area, thresh_inv )
+            mask  = cvTools.threshould( img, thresh, mask_area, thresh_inv)
+            #cvTools.filter_noise_area(mask, noise_filter)
+            
+            # cnt = cvTools.extract_bigest_contour(mask)
+            # cnt = cv2.convexHull (cnt)
+            
+            #cv2.HoughLines( mask,  )
+            
+            
+            img = Utils.mask_viewer(img, mask)
+            
+            # 
+            # cv2.drawContours (img , [cnt] ,0, (0,0,255) , thickness=5)
+            
+            
+
+        img = self.roi_drawings[ self.ui.selected_mask_type ].get_image( img )
+        self.ui.set_image_page_tool_labels(img)
+
+
+    def update_roi_setting_page2_mouse(self , mouse_status, mouse_button , mouse_pt):
+        
+        mask_type = self.ui.selected_mask_type
+        self.roi_drawings[ mask_type ].qtmouse_checker( mouse_status, mouse_button, mouse_pt )
+
+        self.draw_setting_page2_image()
+
+
+    
+    def update_threshould_setting_page2(self):
+            selected_camera_direction = self.ui.check_camera_selected_direction()
+            thresh = self.ui.threshouldSetingPage2_slider.value()
+            
+            self.screw_jasons[ selected_camera_direction ].set_region_thresh( thresh )
+            self.draw_setting_page2_image()
+    
+
+    def update_noise_filter_setting_page2(self):
+            selected_camera_direction = self.ui.check_camera_selected_direction()
+            noise_area = self.ui.noiseFilterSetingPage2_slider.value()
+            
+            self.screw_jasons[ selected_camera_direction ].set_region_noise_filter( noise_area )
+            
+            print(noise_area)
+            self.draw_setting_page2_image()   
+
+
+
+
+    def update_thresh_negative_setting_page2(self):
+        selected_camera_direction = self.ui.check_camera_selected_direction()
+        state = self.ui.negativeThreshSettingPage2_checkBox.isChecked()
+        self.screw_jasons[ selected_camera_direction ].set_region_thresh_inv(state) 
+        self.draw_setting_page2_image()
+    

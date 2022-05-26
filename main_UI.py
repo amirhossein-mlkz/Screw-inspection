@@ -145,7 +145,7 @@ class UI_main_window(QMainWindow, ui):
         self.editmode=False
 
 
-
+        self.check_mask_type(self.checkBox_circle.objectName(),change_size=True)
     # def showPassword(self, show):
     #     echo=str(self.password.echoMode()).split(".", 4)[-1]
 
@@ -725,7 +725,7 @@ class UI_main_window(QMainWindow, ui):
             self.checkBox_circle.setChecked(False)
             self.checkBox_mask.setChecked(True)
 
-            self.selected_mask_type='mask'
+            self.selected_mask_type='poly'
 
         if change_size:
             self.frame_size(self.frame_54,50)

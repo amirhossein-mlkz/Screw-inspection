@@ -9538,6 +9538,13 @@ QPushButton:pressed {
                                                   </property>
                                                  </widget>
                                                 </item>
+                                                <item>
+                                                 <widget class="QCheckBox" name="negativeMainThresh_checkBox">
+                                                  <property name="text">
+                                                   <string>Negative</string>
+                                                  </property>
+                                                 </widget>
+                                                </item>
                                                </layout>
                                               </widget>
                                              </item>
@@ -9824,6 +9831,9 @@ QPushButton:pressed {
                                             <property name="text">
                                              <string>Rectangle</string>
                                             </property>
+                                            <property name="checked">
+                                             <bool>true</bool>
+                                            </property>
                                            </widget>
                                           </item>
                                           <item>
@@ -9915,16 +9925,36 @@ QPushButton:pressed {
                                             </property>
                                             <layout class="QHBoxLayout" name="horizontalLayout_52">
                                              <item>
-                                              <widget class="QSlider" name="horizontalSlider">
+                                              <widget class="QSlider" name="threshouldSetingPage2_slider">
+                                               <property name="maximum">
+                                                <number>255</number>
+                                               </property>
+                                               <property name="value">
+                                                <number>21</number>
+                                               </property>
                                                <property name="orientation">
                                                 <enum>Qt::Horizontal</enum>
                                                </property>
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QSpinBox" name="spinBox_3"/>
+                                              <widget class="QSpinBox" name="spinBox_3">
+                                               <property name="maximum">
+                                                <number>255</number>
+                                               </property>
+                                               <property name="value">
+                                                <number>5</number>
+                                               </property>
+                                              </widget>
                                              </item>
                                             </layout>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QCheckBox" name="negativeThreshSettingPage2_checkBox">
+                                            <property name="text">
+                                             <string>Negative</string>
+                                            </property>
                                            </widget>
                                           </item>
                                           <item>
@@ -9934,14 +9964,27 @@ QPushButton:pressed {
                                             </property>
                                             <layout class="QHBoxLayout" name="horizontalLayout_53">
                                              <item>
-                                              <widget class="QSlider" name="horizontalSlider_3">
+                                              <widget class="QSlider" name="noiseFilterSetingPage2_slider">
+                                               <property name="maximum">
+                                                <number>100</number>
+                                               </property>
+                                               <property name="value">
+                                                <number>5</number>
+                                               </property>
                                                <property name="orientation">
                                                 <enum>Qt::Horizontal</enum>
+                                               </property>
+                                               <property name="tickInterval">
+                                                <number>5</number>
                                                </property>
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QSpinBox" name="spinBox_5"/>
+                                              <widget class="QSpinBox" name="spinBox_5">
+                                               <property name="maximum">
+                                                <number>100</number>
+                                               </property>
+                                              </widget>
                                              </item>
                                             </layout>
                                            </widget>
@@ -10765,7 +10808,7 @@ QPushButton:pressed {
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSlider</sender>
+   <sender>threshouldSetingPage2_slider</sender>
    <signal>valueChanged(int)</signal>
    <receiver>spinBox_3</receiver>
    <slot>setValue(int)</slot>
@@ -10783,7 +10826,7 @@ QPushButton:pressed {
   <connection>
    <sender>spinBox_3</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>horizontalSlider</receiver>
+   <receiver>threshouldSetingPage2_slider</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -10797,7 +10840,7 @@ QPushButton:pressed {
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSlider_3</sender>
+   <sender>noiseFilterSetingPage2_slider</sender>
    <signal>valueChanged(int)</signal>
    <receiver>spinBox_5</receiver>
    <slot>setValue(int)</slot>
@@ -10815,7 +10858,7 @@ QPushButton:pressed {
   <connection>
    <sender>spinBox_5</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>horizontalSlider_3</receiver>
+   <receiver>noiseFilterSetingPage2_slider</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
