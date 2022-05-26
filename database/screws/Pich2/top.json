@@ -1,5 +1,5 @@
 {
-    "direction": "side",
+    "direction": "top",
     "img_path": "images/defualt.jpg",
     "main_noise_filter": 0,
     "main_roi": [
@@ -13,5 +13,6 @@
         ]
     ],
     "main_thresh": 0,
-    "name": "Pich1"
+    "main_thresh_inv": false,
+    "name": "Pich2"
 }

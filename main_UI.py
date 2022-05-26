@@ -364,11 +364,13 @@ class UI_main_window(QMainWindow, ui):
 
         # Page grab select image
 
-        self.load_image_btn.clicked.connect(self.buttonClick)
-        self.set_image_btn.clicked.connect(self.buttonClick)
+        self.load_image_top_btn.clicked.connect(self.buttonClick)
+        self.load_image_side_btn.clicked.connect(self.buttonClick)
+        self.set_top_image_btn.clicked.connect(self.buttonClick)
+        self.set_side_image_btn.clicked.connect(self.buttonClick)
 
 
-        self.connect_grab_btn.clicked.connect(self.check_camera_selected_direction)
+        self.connect_cam_top_btn.clicked.connect(self.check_camera_selected_direction)
         self.connect_grab_side_camera.clicked.connect(self.check_camera_selected_direction)
 
         # page tool2
@@ -478,7 +480,11 @@ class UI_main_window(QMainWindow, ui):
 
 
     def show_question(self, title, message):
+<<<<<<< HEAD
         msg = QMessageBox.question(self, title, message, QMessageBox.Yes | QMessageBox.No|QMessageBox.Close)
+=======
+        msg = QMessageBox.question(self, title, message, QMessageBox.Cancel | QMessageBox.No| QMessageBox.Yes)
+>>>>>>> 69083efb8416a61619bc918bdae61ff38fbad121
         if msg == QMessageBox.Yes:
             return True
         if msg == QMessageBox.No:
@@ -517,34 +523,85 @@ class UI_main_window(QMainWindow, ui):
 
     # Page Grab
 
-    def get_parms_screw_page_grab(self):
+    def get_main_parms_screw_top(self):
 
         dic={}
         dic.update({'name':self.label_screw_name.text()})
-        dic.update({'threshold':self.horizontalSlider_grab.value()})
-        dic.update({'x1':self.spinBox_grab_page_x_rect1.value()})
-        dic.update({'y1':self.spinBox_grab_page_y_rect1.value()})
-        dic.update({'x2':self.spinBox_grab_page_x_rect2.value()})
-        dic.update({'y2':self.spinBox_grab_page_y_rect2.value()})
-
-        #print('dic',dic)
+        dic.update({'threshold':self.main_thresh_top_bar.value()})
+        dic.update({'x1':self.spinBox_top_grab_page_x_rect1.value()})
+        dic.update({'y1':self.spinBox_top_grab_page_y_rect1.value()})
+        dic.update({'x2':self.spinBox_top_grab_page_x_rect2.value()})
+        dic.update({'y2':self.spinBox_top_grab_page_y_rect2.value()})
 
         return dic
     
     
-    def set_roi_parms_screw_page_grab(self, data):
-        self.spinBox_grab_page_x_rect1.setValue( data['x1'] )
-        self.spinBox_grab_page_y_rect1.setValue( data['y1'] )
-        self.spinBox_grab_page_x_rect2.setValue( data['x2'] )
-        self.spinBox_grab_page_y_rect2.setValue( data['y2'] )
+    def get_main_parms_screw_side(self):
+    
+        dic={}
+        dic.update({'name':self.label_screw_name.text()})
+        dic.update({'threshold':self.main_thresh_side_bar.value()})
+        dic.update({'x1':self.spinBox_side_grab_page_x_rect1.value()})
+        dic.update({'y1':self.spinBox_side_grab_page_y_rect1.value()})
+        dic.update({'x2':self.spinBox_side_grab_page_x_rect2.value()})
+        dic.update({'y2':self.spinBox_side_grab_page_y_rect2.value()})
+
+        return dic
+    
+    
+    
+    def set_main_parms_screw_top(self,parms):        
+        self.main_thresh_top_bar.setValue(int(parms['main_thresh']))
+        self.line_top_image_address.setText(str(parms['img_path']))
+        self.spinBox_top_grab_page_x_rect1.setValue( parms['main_roi'][0][0] )
+        self.spinBox_top_grab_page_y_rect1.setValue( parms['main_roi'][0][1] )
+        self.spinBox_top_grab_page_x_rect2.setValue( parms['main_roi'][1][0] )
+        self.spinBox_top_grab_page_y_rect2.setValue( parms['main_roi'][1][1] )
+        
+        
+        
+    def set_main_parms_screw_side(self,parms):        
+        self.main_thresh_side_bar.setValue(int(parms['main_thresh']))
+        self.line_side_image_address.setText(str(parms['img_path']))
+        self.spinBox_side_grab_page_x_rect1.setValue( parms['main_roi'][0][0] )
+        self.spinBox_side_grab_page_y_rect1.setValue( parms['main_roi'][0][1] )
+        self.spinBox_side_grab_page_x_rect2.setValue( parms['main_roi'][1][0] )
+        self.spinBox_side_grab_page_y_rect2.setValue( parms['main_roi'][1][1] )
+        
+        
+        
+    
+    def set_main_roi_top(self, data):
+        self.spinBox_top_grab_page_x_rect1.setValue( data['x1'] )
+        self.spinBox_top_grab_page_y_rect1.setValue( data['y1'] )
+        self.spinBox_top_grab_page_x_rect2.setValue( data['x2'] )
+        self.spinBox_top_grab_page_y_rect2.setValue( data['y2'] )
         #print('dic',dic)
 
     
-    def roi_input_page_grab_connect(self,func):
-        self.spinBox_grab_page_x_rect1.valueChanged.connect(func('x1'))
-        self.spinBox_grab_page_y_rect1.valueChanged.connect(func('y1'))
-        self.spinBox_grab_page_x_rect2.valueChanged.connect(func('x2'))
-        self.spinBox_grab_page_y_rect2.valueChanged.connect(func('y2'))
+    def set_main_roi_side(self, data):
+        self.spinBox_side_grab_page_x_rect1.setValue( data['x1'] )
+        self.spinBox_side_grab_page_y_rect1.setValue( data['y1'] )
+        self.spinBox_side_grab_page_x_rect2.setValue( data['x2'] )
+        self.spinBox_side_grab_page_y_rect2.setValue( data['y2'] )
+        #print('dic',dic)
+
+    
+    
+    
+    def main_roi_top_connect(self,func):
+        self.spinBox_top_grab_page_x_rect1.valueChanged.connect(func('x1'))
+        self.spinBox_top_grab_page_y_rect1.valueChanged.connect(func('y1'))
+        self.spinBox_top_grab_page_x_rect2.valueChanged.connect(func('x2'))
+        self.spinBox_top_grab_page_y_rect2.valueChanged.connect(func('y2'))
+    
+    
+    def main_roi_side_connect(self,func):
+        self.spinBox_side_grab_page_x_rect1.valueChanged.connect(func('x1'))
+        self.spinBox_side_grab_page_y_rect1.valueChanged.connect(func('y1'))
+        self.spinBox_side_grab_page_x_rect2.valueChanged.connect(func('x2'))
+        self.spinBox_side_grab_page_y_rect2.valueChanged.connect(func('y2'))
+        
         
     def  open_file_dialog(self,set_label):
 
@@ -553,13 +610,6 @@ class UI_main_window(QMainWindow, ui):
         set_label.setText(filepath[0])
 
 
-    def set_setting_page1_parms(self,parms):        
-        self.horizontalSlider_grab.setValue(int(parms['main_thresh']))
-        self.line_image_address.setText(str(parms['img_path']))
-        self.spinBox_grab_page_x_rect1.setValue( parms['main_roi'][0][0] )
-        self.spinBox_grab_page_y_rect1.setValue( parms['main_roi'][0][1] )
-        self.spinBox_grab_page_x_rect2.setValue( parms['main_roi'][1][0] )
-        self.spinBox_grab_page_y_rect2.setValue( parms['main_roi'][1][1] )
 
 
     def check_camera_selected_direction(self):
@@ -682,13 +732,17 @@ class UI_main_window(QMainWindow, ui):
             self.stackedWidget_2.setCurrentWidget(self.page_3)
                 
         
-        if btnName =='load_image_btn' :
+        if btnName =='load_image_top_btn' :
 
-            self.open_file_dialog(self.line_image_address)
+            self.open_file_dialog(self.line_top_image_address)
+        
+        if btnName =='load_image_side_btn' :
+
+            self.open_file_dialog(self.line_side_image_address)
           
-        if btnName =='set_image_btn' :
+        if btnName =='set_top_image_btn' :
             pass
-            #self.set_image_label(self.label_3,cv2.imread(self.line_image_address.text()))              
+            #self.set_image_label(self.label_3,cv2.imread(self.line_top_image_address.text()))              
 
 
 
@@ -828,8 +882,12 @@ class UI_main_window(QMainWindow, ui):
     
         
 
-    def get_screw_image_path(self):
-        return self.line_image_address.text()
+    def get_screw_top_image_path(self):
+        return self.line_top_image_address.text()
+    
+    def get_screw_side_image_path(self):
+        return self.line_side_image_address.text()
+
 
     
     def get_line_scraw_name(self):
@@ -839,13 +897,29 @@ class UI_main_window(QMainWindow, ui):
 
 
     def camera_select_radios_connect(self, func):
-        self.connect_grab_btn.clicked.connect( func )
+        self.connect_cam_top_btn.clicked.connect( func )
         self.connect_grab_side_camera.clicked.connect( func )
 
 
-    def get_setting_page_idx(self):
-        return self.stackedWidget_2.currentIndex()
+    def get_setting_page_idx(self,direction=False):
+        if direction:
+            pages_dict={'1':'top','2':'top','3':'side'}
+            idx=self.stackedWidget_2.currentIndex()
+            
+            
+            return pages_dict[str(idx)]
+         
+        else:
+            return  self.stackedWidget_2.currentIndex()  
+        
 
+
+    def get_page_cam_name(self):
+        
+        index=self.stackedWidget_2.currentIndex()
+        
+        
+        
 if __name__ == "__main__":
     app = QApplication()
     win = UI_main_window()
