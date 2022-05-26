@@ -1,7 +1,7 @@
 {
     "direction": "top",
-    "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/New folder/41x_0_6.png",
-    "main_noise_filter": 25,
+    "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/images/test1_0_12 - Copy.png",
+    "main_noise_filter": 38,
     "main_roi": [
         [
             292,
@@ -12,7 +12,7 @@
             810
         ]
     ],
-    "main_thresh": 116,
+    "main_thresh": 94,
     "main_thresh_inv": false,
     "name": "Pich1"
 }

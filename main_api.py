@@ -114,12 +114,14 @@ class API:
         self.ui.prev_page_btn.clicked.connect(self.screw_setting_page_loader)
         
         self.mouse.connect_all(self.ui.label_image_grab_page, self.image_setting_mouse_event)
-        self.ui.roi_input_page_grab_connect(self.update_roi_page_grab_input)
-        self.ui.camera_select_radios_connect(self.update_setting_page1)
+        self.ui.main_roi_top_connect(self.main_roi_top_input)
+        # self.ui.camera_select_radios_connect(self.update_main_setting_page_top)
         
         
-        self.ui.negativeMainThresh_checkBox.toggled.connect(self.update_main_thresh_negative)
+        self.ui.negative_thresh_top_checkBox.toggled.connect(self.update_main_thresh_negative_top)
         self.ui.negativeThreshSettingPage2_checkBox.toggled.connect(self.update_thresh_negative_setting_page2)
+        
+
         #-------------------------------------------------------------------------------------------------------------------
 
     def test(self):
@@ -127,7 +129,7 @@ class API:
         path = 'images/test1_0_12 - Copy.png'
         # self.image_cam_1=cv2.imread('images/imge/dineniso14583.png')
         # self.image_cam_2=cv2.imread('images/imge/Screw-Flat-Head-6-x-1-2-Key-II_1.jpg')
-        self.ui.line_image_address.setText(path)
+        self.ui.line_top_image_address.setText(path)
         # self.ui.set_image_page_tool_labels(self.ui.camera_1,self.image_cam_1)     
         # self.ui.set_image_page_tool_labels(self.ui.camera_2,self.image_cam_2)     
 
@@ -138,7 +140,7 @@ class API:
     def button_connector(self):
         
         #--------------------------------------amir---------------------------------------
-        self.ui.set_image_btn.clicked.connect(self.update_main_image)
+        self.ui.set_top_image_btn.clicked.connect(self.update_main_image_top)
         
         
         
@@ -206,20 +208,20 @@ class API:
         self.ui.edit_btn.clicked.connect(self.edit_load_screw)
         self.ui.remove_screw_btn.clicked.connect(self.remove_screw)
 
-        self.ui.get_parms_screw_page_grab()
+        self.ui.get_main_parms_screw_top()
 
 
 
         #grab page
 
-        self.ui.horizontalSlider_grab.valueChanged.connect(self.update_main_threshould)
-        self.ui.noiseFilterSlider_grab.valueChanged.connect(self.update_main_noise_filter)
+        self.ui.main_thresh_top_bar.valueChanged.connect(self.update_main_threshould_top)
+        self.ui.main_noise_filter_top_Slider.valueChanged.connect(self.update_main_noise_filter_top)
         self.ui.save_btn_page_grab.clicked.connect(self.save_screw)
 
 
         #setting page2
         self.ui.threshouldSetingPage2_slider.valueChanged.connect(self.update_threshould_setting_page2)   
-        self.ui.noiseFilterSetingPage2_slider.valueChanged.connect(self.update_noise_filter_setting_page2)   
+        self.ui.page2_noise_filter_top_Slider.valueChanged.connect(self.update_noise_filter_setting_page2)   
 
 
 
@@ -553,7 +555,7 @@ class API:
         #ERROR
         if not flag:
             print('Error! : screw exist already')
-        self.update_setting_page1()
+        self.update_main_setting_page_top()
     
     
     def save_screw(self):
@@ -585,7 +587,7 @@ class API:
         
         for key in self.screw_jasons.keys():
             self.screw_jasons[key].read(path, key)
-        self.update_setting_page1()
+        self.update_main_setting_page_top()
         
         
     def image_setting_mouse_event(self,wname):
@@ -595,7 +597,7 @@ class API:
         mouse_pt = self.mouse.get_relative_position()
 
         if page_idx == 1:
-            self.update_roi_setting_page1_mouse(mouse_status, mouse_button , mouse_pt)
+            self.update_main_roi_top_mouse(mouse_status, mouse_button , mouse_pt)
             
         elif page_idx == 2:
             self.update_roi_setting_page2_mouse(mouse_status, mouse_button , mouse_pt)
@@ -608,7 +610,7 @@ class API:
             
         page_idx = self.ui.get_setting_page_idx()
         if page_idx == 1:
-            self.update_setting_page1()
+            self.update_main_setting_page_top()
             
         elif page_idx == 2:
             self.update_setting_page2()
@@ -619,24 +621,24 @@ class API:
     #
     #
     #____________________________________________________________________________________________________________
-    def update_setting_page1(self):
-        selected_camera_direction = self.ui.check_camera_selected_direction()
+    def update_main_setting_page_top(self):
+        selected_camera_direction = 'top'
         
         parms = self.screw_jasons[selected_camera_direction].data
         roi_rect = self.screw_jasons[selected_camera_direction].get_main_roi()
-        self.ui.set_setting_page1_parms( parms )
+        self.ui.set_main_parms_screw_top( parms )
         self.rect_roi_drawing.max_shape_count = 1
         self.rect_roi_drawing.shapes = [ roi_rect ]
         
         
-        self.update_main_image()
-        self.draw_setting_page1_image()
+        self.update_main_image_top()
+        self.draw_main_setting_page_top_image()
         
     
     
-    def draw_setting_page1_image(self):
+    def draw_main_setting_page_top_image(self):
         
-        selected_camera_direction = self.ui.check_camera_selected_direction()
+        selected_camera_direction = 'top'
         
         img = self.image_screw_setting
         thresh = self.screw_jasons[ selected_camera_direction ].get_main_thresh()
@@ -656,49 +658,49 @@ class API:
         
 
         
-    def update_main_threshould(self):
-            selected_camera_direction = self.ui.check_camera_selected_direction()
-            thresh = self.ui.horizontalSlider_grab.value()
-            self.screw_jasons[ selected_camera_direction ].set_main_thresh(thresh)
-            self.draw_setting_page1_image()
+    def update_main_threshould_top(self):
+        selected_camera_direction = 'top'
+        thresh = self.ui.main_thresh_top_bar.value()
+        self.screw_jasons[ selected_camera_direction ].set_main_thresh(thresh)
+        self.draw_main_setting_page_top_image()
     
     
-    def update_main_noise_filter(self):
-        selected_camera_direction = self.ui.check_camera_selected_direction()
-        noise_filter = self.ui.noiseFilterSlider_grab.value()
+    def update_main_noise_filter_top(self):
+        selected_camera_direction = 'top'
+        noise_filter = self.ui.main_noise_filter_top_Slider.value()
         self.screw_jasons[ selected_camera_direction ].set_main_noise_filter(noise_filter)
-        self.draw_setting_page1_image()
+        self.draw_main_setting_page_top_image()
     
     
     
-    def update_main_thresh_negative(self):
-        selected_camera_direction = self.ui.check_camera_selected_direction()
-        state = self.ui.negativeMainThresh_checkBox.isChecked()
+    def update_main_thresh_negative_top(self):
+        selected_camera_direction = 'top'
+        state = self.ui.negative_thresh_top_checkBox.isChecked()
         self.screw_jasons[ selected_camera_direction ].set_main_thresh_inv(state) 
-        self.draw_setting_page1_image()
+        self.draw_main_setting_page_top_image()
         
     
-    def update_main_image(self):
-        selected_camera_direction = self.ui.check_camera_selected_direction()
-        path = self.ui.get_screw_image_path()
+    def update_main_image_top(self):
+        selected_camera_direction = 'top'
+        path = self.ui.get_screw_top_image_path()
         
         if cv2.imread(path) is not None:
             self.screw_jasons[ selected_camera_direction ].set_img_path(path)
             self.image_screw_setting = cv2.imread(path)
             self.rect_roi_drawing.set_img_size( self.image_screw_setting.shape[:2] )
-            self.draw_setting_page1_image()
+            self.draw_main_setting_page_top_image()
         else:
             print('Error! : image not exist')
         
         
             
             
-    def update_roi_page_grab_input(self, name):
+    def main_roi_top_input(self, name):
         def func():
-            selected_camera_direction = self.ui.check_camera_selected_direction()
+            selected_camera_direction = 'top'
             
             #data changed in Ui
-            data = self.ui.get_parms_screw_page_grab()
+            data = self.ui.get_main_parms_screw_top()
             #data saved in json
             rect = self.screw_jasons[selected_camera_direction].get_main_roi()
             
@@ -708,14 +710,14 @@ class API:
             rect = Utils.rect_dict2list(rect_dict)
             
             self.rect_roi_drawing.update_shape(shape_idx=0,  shape=rect)
-            self.draw_setting_page1_image()
+            self.draw_main_setting_page_top_image()
             
             self.screw_jasons[selected_camera_direction].set_main_roi(pt1=rect[0], pt2=rect[1])
         return func
 
 
 
-    def update_roi_setting_page1_mouse(self, mouse_status, mouse_button, mouse_pt):
+    def update_main_roi_top_mouse(self, mouse_status, mouse_button, mouse_pt):
         self.rect_roi_drawing.qtmouse_checker( mouse_status, mouse_button, mouse_pt )
         
         shapes = self.rect_roi_drawing.shapes
@@ -724,10 +726,10 @@ class API:
             rect_dict = Utils.rect_list2dict(rect)
             self.ui.set_roi_parms_screw_page_grab(rect_dict)
             
-            selected_camera_direction = self.ui.check_camera_selected_direction()
+            selected_camera_direction = 'top'
             self.screw_jasons[selected_camera_direction].set_main_roi( pt1=rect[0], pt2=rect[1] )
         
-        self.draw_setting_page1_image()
+        self.draw_main_setting_page_top_image()
         
         
         
@@ -738,7 +740,7 @@ class API:
     #____________________________________________________________________________________________________________
     #                                           
     #
-    #                                          Screw Settin Page1
+    #                                          Screw Settin Page2
     #
     #
     #____________________________________________________________________________________________________________     
@@ -756,7 +758,7 @@ class API:
 
     
     def update_setting_page2_image(self):
-        selected_camera_direction = self.ui.check_camera_selected_direction()
+        selected_camera_direction = 'top'
         
         img_path = self.screw_jasons[ selected_camera_direction ].get_img_path()
         rect = self.screw_jasons[ selected_camera_direction ].get_main_roi()
@@ -770,7 +772,7 @@ class API:
     
     
     def draw_setting_page2_image(self):
-        selected_camera_direction = self.ui.check_camera_selected_direction()
+        selected_camera_direction = 'top'
         
         img = np.copy(self.image_screw_setting)
         
@@ -826,7 +828,7 @@ class API:
 
     
     def update_threshould_setting_page2(self):
-            selected_camera_direction = self.ui.check_camera_selected_direction()
+            selected_camera_direction = 'top'
             thresh = self.ui.threshouldSetingPage2_slider.value()
             
             self.screw_jasons[ selected_camera_direction ].set_region_thresh( thresh )
@@ -834,8 +836,8 @@ class API:
     
 
     def update_noise_filter_setting_page2(self):
-            selected_camera_direction = self.ui.check_camera_selected_direction()
-            noise_area = self.ui.noiseFilterSetingPage2_slider.value()
+            selected_camera_direction = 'top'
+            noise_area = self.ui.page2_noise_filter_top_Slider.value()
             
             self.screw_jasons[ selected_camera_direction ].set_region_noise_filter( noise_area )
             
@@ -846,7 +848,7 @@ class API:
 
 
     def update_thresh_negative_setting_page2(self):
-        selected_camera_direction = self.ui.check_camera_selected_direction()
+        selected_camera_direction = 'top'
         state = self.ui.negativeThreshSettingPage2_checkBox.isChecked()
         self.screw_jasons[ selected_camera_direction ].set_region_thresh_inv(state) 
         self.draw_setting_page2_image()
