@@ -106,6 +106,7 @@ class API:
         }
         
         self.image_screw_setting = None
+        self.rotate_correction = False
         #-------------------------------------------------------------------------------------------------------------------
         self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
         
@@ -231,6 +232,8 @@ class API:
         self.ui.main_noise_filter_side_bar.valueChanged.connect(self.update_main_noise_filter_side)
         self.ui.negative_thresh_side_checkBox.toggled.connect(self.update_main_thresh_negative_side)
         self.ui.main_roi_side_connect(self.main_roi_side_input)
+        
+        self.ui.rotate_correction_side_btn.clicked.connect(self.update_rotated_image)
 
 
         #setting page2
@@ -786,6 +789,19 @@ class API:
         mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
         thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
+        if self.rotate_correction:
+            mask_unbelt, belt_pos = cvTools.remove_belt( thresh_img )
+    
+            angle = cvTools.correct_rotation_angle(mask_unbelt)
+            
+            img = cvTools.rotate_image(img,  angle  )
+            thresh_img = cvTools.rotate_image(thresh_img,  angle )
+            rotated_mask = cvTools.rotate_image(mask_unbelt,  angle )
+            
+    
+            pt1,pt2 = cvTools.side_screw_bounding_rect(rotated_mask)
+    
+            img = cv2.rectangle( img , pt1, pt2, (0,255,0),thickness=6)
         
         img = Utils.mask_viewer(img, thresh_img)
         img = self.rect_roi_drawing.get_image(img)
@@ -793,7 +809,9 @@ class API:
         self.ui.set_image_page_tool_labels(img) 
         
         
-
+    def update_rotated_image(self):
+        self.rotate_correction = not( self.rotate_correction )
+        self.draw_main_setting_page_side_image()
         
     def update_main_threshould_side(self):
         selected_camera_direction = 'side'
