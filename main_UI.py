@@ -124,7 +124,9 @@ class UI_main_window(QMainWindow, ui):
                             ,self.trigger_combo, self.maxbuffer_spinbox, self.packetdelay_spinbox\
                                 , self.packetsize_spinbox, self.transmissiondelay_spinbox, self.ip_lineedit, self.serial_number_combo, self.camera_setting_connect_btn]
 
+        self.pages_dict={'1':['top','main'],'2':['top','page_2'],'3':['side','main']}
         
+        # pages_dict={'1':'main','2':'page_2','3':'main'}
         
 
         
@@ -897,13 +899,20 @@ class UI_main_window(QMainWindow, ui):
         self.connect_grab_side_camera.clicked.connect( func )
 
 
-    def get_setting_page_idx(self,direction=False):
+    def get_setting_page_idx(self,direction=False,page_name=False):
         if direction:
-            pages_dict={'1':'top','2':'top','3':'side'}
+            
             idx=self.stackedWidget_2.currentIndex()
             
             
-            return pages_dict[str(idx)]
+            return self.pages_dict[str(idx)][0]
+        
+        if page_name:
+            
+            
+            idx=self.stackedWidget_2.currentIndex()
+            return self.pages_dict[str(idx)][1]
+            
          
         else:
             return  self.stackedWidget_2.currentIndex()  
@@ -914,7 +923,37 @@ class UI_main_window(QMainWindow, ui):
         
         index=self.stackedWidget_2.currentIndex()
         
+    def get_sliders(self,name):
         
+        direction=self.get_setting_page_idx(direction=True)
+        page_name =self.get_setting_page_idx(page_name=True)
+        
+        obj = eval(f'self.{page_name}_{name}_{direction}_bar')
+        
+        return obj
+        
+        
+    def get_sliders_value(self,name):
+        
+        direction=self.get_setting_page_idx(direction=True)
+        page_name =self.get_setting_page_idx(page_name=True)
+        
+        x=eval(f'self.{page_name}_{name}_{direction}_bar.value()')
+        print('get_sliders',x)
+                
+        return x
+        
+        
+    
+    def connect_sliders(self,name,func):
+        
+        obj_name=self.get_sliders(name)
+        
+        obj_name.valueChanged.connect(func)
+        
+        
+        
+        # eval()
         
 if __name__ == "__main__":
     app = QApplication()
