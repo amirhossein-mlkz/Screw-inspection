@@ -478,7 +478,7 @@ class UI_main_window(QMainWindow, ui):
 
 
     def show_question(self, title, message):
-        msg = QMessageBox.question(self, title, message, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        msg = QMessageBox.question(self, title, message, QMessageBox.Yes | QMessageBox.No|QMessageBox.Close)
         if msg == QMessageBox.Yes:
             return True
         if msg == QMessageBox.No:
