@@ -4636,10 +4636,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_32.addWidget(self.spinBox, 0, Qt.AlignHCenter)
 
-        self.btn_negative0_1_top = QCheckBox(self.frame_40)
-        self.btn_negative0_1_top.setObjectName(u"btn_negative0_1_top")
+        self.btn_thresh_inv0_1_top = QCheckBox(self.frame_40)
+        self.btn_thresh_inv0_1_top.setObjectName(u"btn_thresh_inv0_1_top")
 
-        self.verticalLayout_32.addWidget(self.btn_negative0_1_top)
+        self.verticalLayout_32.addWidget(self.btn_thresh_inv0_1_top)
 
 
         self.verticalLayout_34.addWidget(self.frame_40)
@@ -4869,10 +4869,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_41.addWidget(self.groupBox_13)
 
-        self.btn_negative0_2_top = QCheckBox(self.frame_55)
-        self.btn_negative0_2_top.setObjectName(u"btn_negative0_2_top")
+        self.btn_thresh_inv0_2_top = QCheckBox(self.frame_55)
+        self.btn_thresh_inv0_2_top.setObjectName(u"btn_thresh_inv0_2_top")
 
-        self.verticalLayout_41.addWidget(self.btn_negative0_2_top)
+        self.verticalLayout_41.addWidget(self.btn_thresh_inv0_2_top)
 
         self.groupBox_16 = QGroupBox(self.frame_55)
         self.groupBox_16.setObjectName(u"groupBox_16")
@@ -5190,11 +5190,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_110 = QHBoxLayout(self.frame_73)
         self.horizontalLayout_110.setObjectName(u"horizontalLayout_110")
         self.horizontalLayout_110.setContentsMargins(0, 0, -1, 0)
-        self.btn_negative0_1_side = QCheckBox(self.frame_73)
-        self.btn_negative0_1_side.setObjectName(u"btn_negative0_1_side")
-        self.btn_negative0_1_side.setMaximumSize(QSize(87, 16777215))
+        self.btn_thresh_inv0_1_side = QCheckBox(self.frame_73)
+        self.btn_thresh_inv0_1_side.setObjectName(u"btn_thresh_inv0_1_side")
+        self.btn_thresh_inv0_1_side.setMaximumSize(QSize(87, 16777215))
 
-        self.horizontalLayout_110.addWidget(self.btn_negative0_1_side)
+        self.horizontalLayout_110.addWidget(self.btn_thresh_inv0_1_side)
 
         self.bar_thresh0_1_side = QSlider(self.frame_73)
         self.bar_thresh0_1_side.setObjectName(u"bar_thresh0_1_side")
@@ -5675,7 +5675,7 @@ class Ui_MainWindow(object):
         self.noiseAreaSpinBox.valueChanged.connect(self.bar_noise_filter0_1_top.setValue)
 
         self.stackedWidget.setCurrentIndex(5)
-        self.stackedWidget_2.setCurrentIndex(3)
+        self.stackedWidget_2.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -5922,7 +5922,7 @@ class Ui_MainWindow(object):
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"X :", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Y :", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Threshold", None))
-        self.btn_negative0_1_top.setText(QCoreApplication.translate("MainWindow", u"Negative", None))
+        self.btn_thresh_inv0_1_top.setText(QCoreApplication.translate("MainWindow", u"Negative", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Noise filter", None))
         self.btn_add_area0_2_top.setText("")
         self.btn_remove_area0_2_top.setText("")
@@ -5936,7 +5936,7 @@ class Ui_MainWindow(object):
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Drawing ..........", None))
         self.btn_draw_complete0_2_top.setText(QCoreApplication.translate("MainWindow", u"Complete", None))
         self.groupBox_13.setTitle(QCoreApplication.translate("MainWindow", u"Threshold", None))
-        self.btn_negative0_2_top.setText(QCoreApplication.translate("MainWindow", u"Negative", None))
+        self.btn_thresh_inv0_2_top.setText(QCoreApplication.translate("MainWindow", u"Negative", None))
         self.groupBox_16.setTitle(QCoreApplication.translate("MainWindow", u"Noise filter", None))
         self.btn_complete0_2_top.setText(QCoreApplication.translate("MainWindow", u"Complete", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Side camera", None))
@@ -5954,7 +5954,7 @@ class Ui_MainWindow(object):
         self.label_18.setText(QCoreApplication.translate("MainWindow", u"X :", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Y :", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Threshold", None))
-        self.btn_negative0_1_side.setText(QCoreApplication.translate("MainWindow", u"Negative", None))
+        self.btn_thresh_inv0_1_side.setText(QCoreApplication.translate("MainWindow", u"Negative", None))
         self.label_22.setText(QCoreApplication.translate("MainWindow", u"Noise filter", None))
         self.btn_rotate_correction0_1_side.setText(QCoreApplication.translate("MainWindow", u"  Rotate Correction  ", None))
         self.label_23.setText(QCoreApplication.translate("MainWindow", u"Lenght :", None))

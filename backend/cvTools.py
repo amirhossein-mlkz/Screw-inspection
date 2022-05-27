@@ -118,8 +118,10 @@ def rects2mask(img_size, rects, defualt=255):
     if len(rects) == 0:
         mask+= defualt
     for rect in rects:
-        pt1, pt2 = rect
-        mask = cv2.rectangle(mask, tuple(pt1), tuple(pt2), 255, thickness=-1)
+        if len(rect)==2:
+            pt1, pt2 = rect
+            if len(pt1) == 2 and len(pt2) == 2:
+                mask = cv2.rectangle(mask, tuple(pt1), tuple(pt2), 255, thickness=-1)
     return mask
 
 

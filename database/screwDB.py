@@ -9,9 +9,12 @@ IMG_PATH_DEF = 'images/defualt.jpg'
 class screwJson():
     
     def __init__(self,):
+        
+        self.setting_key = 'settings'
+        
         self.data = {
             
-            'settings': 
+            self.setting_key: 
             {
                 
             }
@@ -27,7 +30,7 @@ class screwJson():
             file = json.load(jfile)
         
         self.data = file
-        self.img = cv2.imread( self.data['img_path'] )
+        self.img = cv2.imread( self.get_img_path() )
         
 
     def write(self,path):    
@@ -43,9 +46,12 @@ class screwJson():
         return self.data.get('name', '') 
     
     #-----------------------------------------
-    def set_img_path(self,path):
+    def set_img_path(self,path, page=None):
         self.img = cv2.imread(path)
         self.data['img_path'] = path
+        if page is not None:
+            self.check_and_build_page( page )
+            self.data[self.setting_key][page]['img_path'] = path
     
     def get_img_path(self):
         return self.data.get('img_path', IMG_PATH_DEF)
@@ -53,6 +59,12 @@ class screwJson():
     
     def get_img(self):
         return self.img
+    
+    
+    def check_and_build_page(self, page_name):
+        if self.data[self.setting_key].get(page_name, None) is None:
+            self.data[self.setting_key][page_name] = {}
+    
     #-----------------------------------------
     def set_direction(self, dir):
         self.data['direction'] = dir
@@ -62,11 +74,12 @@ class screwJson():
     
     #-----------------------------------------
     def set_thresh(self, page, value, idx=0):
-        self.data['setting'][page]['thresh{}'.format(idx)] = value
+        self.check_and_build_page( page )
+        self.data[self.setting_key][page]['thresh{}'.format(idx)] = value
         
         
     def get_thresh(self, page, idx=0):
-        settings = self.data['setting']
+        settings = self.data[self.setting_key]
         if settings.get(page, None) is None:
             return 0
         page_setting = settings.get(page)
@@ -74,42 +87,49 @@ class screwJson():
     
     #-----------------------------------------
     def set_thresh_inv(self, page, value, idx=0):
-        self.data['setting'][page]['thresh_inv{}'.format(idx)] = value
+        self.check_and_build_page( page )
+        self.data[self.setting_key][page]['thresh_inv{}'.format(idx)] = value
         
         
         
     def get_thresh_inv(self, page, idx=0):
-        settings = self.data['setting']
+        settings = self.data[self.setting_key]
         if settings.get(page, None) is None:
             return False
         page_setting = settings.get(page)
         return page_setting.get( 'thresh_inv{}'.format(idx) , False)
     #-----------------------------------------
     def set_noise_filter(self, page, value, idx=0):
-        self.data['setting'][page]['noise_filter{}'.format(idx)] = value
+        self.check_and_build_page( page )
+        self.data[self.setting_key][page]['noise_filter{}'.format(idx)] = value
         
     def get_noise_filter(self, page, idx=0):
-        settings = self.data['setting']
+        settings = self.data[self.setting_key]
         if settings.get(page, None) is None:
             return 0
         page_setting = settings.get(page)
         return page_setting.get( 'noise_filter{}'.format(idx) , 0)
     #-----------------------------------------
     def set_rect_roi(self, page, pt1, pt2, idx=0):
-        self.data['setting'][page]['rect_roi{}'.format(idx)] = [ list(pt1), list(pt2) ]
+        self.check_and_build_page( page )
+        if len(pt1) == 0 or len(pt2) == 0:
+            rect = []
+        else:
+            rect = [ list(pt1), list(pt2) ]
+        self.data[self.setting_key][page]['rect_roi{}'.format(idx)] = rect
     
     def get_rect_roi(self, page, idx=0):
-        settings = self.data['setting']
+        settings = self.data[self.setting_key]
         if settings.get(page, None) is None:
-            return [[0,0], [100,100]]
+            return [[], []]
         page_setting = settings.get(page)
-        return page_setting.get( 'rect_roi{}'.format(idx) , [[0,0], [100,100]])
+        return page_setting.get( 'rect_roi{}'.format(idx) , [[], []])
     
     
     
     #-----------------------------------------
     def get_setting(self, page):
-        settings = self.data['setting']
+        settings = self.data[self.setting_key]
         return settings.get( page , {})
 
     
