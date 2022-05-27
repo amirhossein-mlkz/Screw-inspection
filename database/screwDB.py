@@ -16,18 +16,7 @@ class screwJson():
                 
             }
         }
-        self.region = {}
-        self.set_main_thresh(0)
-        self.set_main_noise_filter(0)
-        self.set_main_roi([10,10], [100,100])
-        self.set_direction('def')
-        self.set_img_path('')
-        self.set_main_thresh_inv(False)
-        
-        
-        self.set_region_thresh(0)
-        self.set_region_noise_filter(0)
-        self.set_region_thresh_inv(False)
+
         
         #self.set_img_path('images/test1_0_12.png')
         
