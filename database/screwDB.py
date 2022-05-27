@@ -4,23 +4,19 @@ import os
 
 import cv2
 
+IMG_PATH_DEF = 'images/defualt.jpg'
 
 class screwJson():
     
     def __init__(self,):
-        self.data = {}
-        self.region = {}
-        self.set_main_thresh(0)
-        self.set_main_noise_filter(0)
-        self.set_main_roi([10,10], [100,100])
-        self.set_direction('def')
-        self.set_img_path('images/defualt.jpg')
-        self.set_main_thresh_inv(False)
-        
-        
-        self.set_region_thresh(0)
-        self.set_region_noise_filter(0)
-        self.set_region_thresh_inv(False)
+        self.data = {
+            
+            'settings': 
+            {
+                
+            }
+        }
+
         
         #self.set_img_path('images/test1_0_12.png')
         
@@ -44,7 +40,7 @@ class screwJson():
         self.data['name'] = name
     
     def get_name(self):
-        return self.data['name'] 
+        return self.data.get('name', '') 
     
     #-----------------------------------------
     def set_img_path(self,path):
@@ -52,7 +48,7 @@ class screwJson():
         self.data['img_path'] = path
     
     def get_img_path(self):
-        return self.data['img_path'] 
+        return self.data.get('img_path', IMG_PATH_DEF)
     #-----------------------------------------
     
     def get_img(self):
@@ -65,63 +61,50 @@ class screwJson():
         return self.data['direction'] 
     
     #-----------------------------------------
-    def set_main_thresh(self, thresh):
-        self.data['main_thresh'] = thresh
+    def set_thresh(self, page, value, idx=0):
+        self.data['setting'][page]['thresh{}'.format(idx)] = value
         
-    def get_main_thresh(self):
-        return self.data['main_thresh']
+        
+    def get_thresh(self, page, idx=0):
+        settings = self.data['setting']
+        if settings.get(page, None) is None:
+            return 0
+        page_setting = settings.get(page)
+        return page_setting.get( 'thresh{}'.format(idx) , 0)
     
     #-----------------------------------------
-    def set_main_thresh_inv(self, state):
-        self.data['main_thresh_inv'] = state
+    def set_thresh_inv(self, page, value, idx=0):
+        self.data['setting'][page]['thresh_inv{}'.format(idx)] = value
         
-    def get_main_thresh_inv(self):
-        return self.data['main_thresh_inv']
+        
+        
+    def get_thresh_inv(self, page, idx=0):
+        settings = self.data['setting']
+        if settings.get(page, None) is None:
+            return 0
+        page_setting = settings.get(page)
+        return page_setting.get( 'thresh_inv{}'.format(idx) , 0)
     #-----------------------------------------
-    def set_main_noise_filter(self, x):
-        self.data['main_noise_filter'] = x
+    def set_noise_filter(self, page, value, idx=0):
+        self.data['setting'][page]['noise_filter{}'.format(idx)] = value
         
-    def get_main_noise_filter(self):
-        return self.data['main_noise_filter']
+    def get_noise_filter(self, page, idx=0):
+        settings = self.data['setting']
+        if settings.get(page, None) is None:
+            return 0
+        page_setting = settings.get(page)
+        return page_setting.get( 'noise_filter{}'.format(idx) , 0)
     #-----------------------------------------
-    def set_main_roi(self,pt1,pt2):
-        self.data['main_roi'] = [ list(pt1) , list(pt2) ]
+    def set_rect_roi(self, page, pt1, pt2, idx=0):
+        self.data['setting'][page]['rect_roi{}'.format(idx)] = [ list(pt1), list(pt2) ]
     
-    def get_main_roi(self):
-        return self.data['main_roi']
+    def get_rect_roi(self, page, idx=0):
+        settings = self.data['setting']
+        if settings.get(page, None) is None:
+            return [[0,0], [100,100]]
+        page_setting = settings.get(page)
+        return page_setting.get( 'rect_roi{}'.format(idx) , [[0,0], [100,100]])
     
-    #-----------------------------------------
-    def set_region_roi(self, out , inner, type):
-        self.region['out'] = out
-        self.region['in'] = inner
-        self.region['type'] = type
-    
-    
-    def set_region_name(self, name):
-        self.region['name'] = name
-        
-    def set_region_thresh(self, thresh):
-        self.region['thresh'] = thresh
-        
-    def set_region_noise_filter(self, noise_filter):
-        self.region['noise_filter'] = noise_filter
-        
-    #-----------------------------------------  
-    def set_region_thresh_inv(self, state):
-        self.region['thresh_inv'] = state
-        
-    def get_region_thresh_inv(self):
-        return self.region['thresh_inv']
-    
-    # def create_json_dataset(self,parms):
-        
-
-    #     self.set_name(parms['name']) 
-    #     self.set_img_path(parms['img_path']) 
-    #     #self.set_img(parms['img']) 
-    #     self.set_main_roi(parms['main_roi']) 
-
-
 
     #     self.dataset_details['basic']=self.main_parms
     #     self.dataset_details['classification']=self.classification_details
