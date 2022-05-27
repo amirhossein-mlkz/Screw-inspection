@@ -1608,7 +1608,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents_3 = QWidget()
         self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 69, 69))
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 92, 69))
         self.horizontalLayout_29 = QHBoxLayout(self.scrollAreaWidgetContents_3)
         self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
         self.tableWidget_users = QTableWidget(self.scrollAreaWidgetContents_3)
@@ -3183,7 +3183,7 @@ class Ui_MainWindow(object):
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollAreaWidgetContents_5 = QWidget()
         self.scrollAreaWidgetContents_5.setObjectName(u"scrollAreaWidgetContents_5")
-        self.scrollAreaWidgetContents_5.setGeometry(QRect(0, 0, 688, 69))
+        self.scrollAreaWidgetContents_5.setGeometry(QRect(0, 0, 92, 69))
         self.horizontalLayout_77 = QHBoxLayout(self.scrollAreaWidgetContents_5)
         self.horizontalLayout_77.setObjectName(u"horizontalLayout_77")
         self.tableWidget_defects = QTableWidget(self.scrollAreaWidgetContents_5)
@@ -3734,7 +3734,7 @@ class Ui_MainWindow(object):
         self.scrollArea_5.setWidgetResizable(True)
         self.scrollAreaWidgetContents_7 = QWidget()
         self.scrollAreaWidgetContents_7.setObjectName(u"scrollAreaWidgetContents_7")
-        self.scrollAreaWidgetContents_7.setGeometry(QRect(0, 0, 688, 69))
+        self.scrollAreaWidgetContents_7.setGeometry(QRect(0, 0, 92, 69))
         self.horizontalLayout_96 = QHBoxLayout(self.scrollAreaWidgetContents_7)
         self.horizontalLayout_96.setObjectName(u"horizontalLayout_96")
         self.tableWidget_defectgroups = QTableWidget(self.scrollAreaWidgetContents_7)
@@ -5257,11 +5257,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_35.addWidget(self.frame_63)
 
-        self.pushButton_4 = QPushButton(self.frame_58)
-        self.pushButton_4.setObjectName(u"pushButton_4")
-        self.pushButton_4.setMinimumSize(QSize(0, 27))
+        self.rotate_correction_side_btn = QPushButton(self.frame_58)
+        self.rotate_correction_side_btn.setObjectName(u"rotate_correction_side_btn")
+        self.rotate_correction_side_btn.setMinimumSize(QSize(0, 27))
 
-        self.verticalLayout_35.addWidget(self.pushButton_4, 0, Qt.AlignHCenter)
+        self.verticalLayout_35.addWidget(self.rotate_correction_side_btn, 0, Qt.AlignHCenter)
 
         self.verticalSpacer_8 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
@@ -5354,7 +5354,7 @@ class Ui_MainWindow(object):
         self.frame_68.raise_()
         self.frame_27.raise_()
         self.line_16.raise_()
-        self.pushButton_4.raise_()
+        self.rotate_correction_side_btn.raise_()
         self.frame_65.raise_()
         self.frame_59.raise_()
         self.frame_63.raise_()
@@ -5674,8 +5674,8 @@ class Ui_MainWindow(object):
         self.main_noise_filter_top_Slider.valueChanged.connect(self.noiseAreaSpinBox.setValue)
         self.noiseAreaSpinBox.valueChanged.connect(self.main_noise_filter_top_Slider.setValue)
 
-        self.stackedWidget.setCurrentIndex(0)
-        self.stackedWidget_2.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(5)
+        self.stackedWidget_2.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -5956,7 +5956,7 @@ class Ui_MainWindow(object):
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Threshold", None))
         self.negative_thresh_side_checkBox.setText(QCoreApplication.translate("MainWindow", u"Negative", None))
         self.label_22.setText(QCoreApplication.translate("MainWindow", u"Noise filter", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"  Rotate Correction  ", None))
+        self.rotate_correction_side_btn.setText(QCoreApplication.translate("MainWindow", u"  Rotate Correction  ", None))
         self.label_23.setText(QCoreApplication.translate("MainWindow", u"Lenght :", None))
         self.lenght_side_cam_1.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.label_24.setText(QCoreApplication.translate("MainWindow", u"Lenght :", None))

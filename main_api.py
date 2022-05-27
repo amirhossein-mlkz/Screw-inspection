@@ -106,6 +106,7 @@ class API:
         }
         
         self.image_screw_setting = None
+        self.rotate_correction = False
         #-------------------------------------------------------------------------------------------------------------------
         self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
         
@@ -217,7 +218,7 @@ class API:
         #main page top----------------------------------------------------------
         self.ui.set_top_image_btn.clicked.connect(self.update_main_image_top)
         self.ui.tool1_btn.clicked.connect(self.update_main_setting_page_top)
-        self.ui.main_thresh_top_bar.valueChanged.connect(self.update_main_threshould_top)
+        # self.ui.main_thresh_top_bar.valueChanged.connect(self.update_main_threshould_top)
         self.ui.main_noise_filter_top_Slider.valueChanged.connect(self.update_main_noise_filter_top)
         self.ui.negative_thresh_top_checkBox.toggled.connect(self.update_main_thresh_negative_top)
         
@@ -227,17 +228,20 @@ class API:
         #main page side---------------------------------------------------------
         self.ui.set_side_image_btn.clicked.connect(self.update_main_image_side)
         self.ui.tool3_btn.clicked.connect(self.update_main_setting_page_side)
-        self.ui.main_thresh_side_bar.valueChanged.connect(self.update_main_threshould_side)
+        # self.ui.main_thresh_side_bar.valueChanged.connect(self.update_main_threshould_side)
         self.ui.main_noise_filter_side_bar.valueChanged.connect(self.update_main_noise_filter_side)
         self.ui.negative_thresh_side_checkBox.toggled.connect(self.update_main_thresh_negative_side)
         self.ui.main_roi_side_connect(self.main_roi_side_input)
+        
+        self.ui.rotate_correction_side_btn.clicked.connect(self.update_rotated_image)
 
+        self.ui.connect_sliders('thresh',self.update_threshould)
 
         #setting page2
         #self.ui.threshouldSetingPage2_slider.valueChanged.connect(self.update_threshould_setting_page2)   
         #self.ui.page2_noise_filter_top_Slider.valueChanged.connect(self.update_noise_filter_setting_page2)   
 
-
+        self.ui.get_sliders('thresh')
         
     # dashboard page
     #------------------------------------------------------------------------------------------------------------------------
@@ -787,6 +791,19 @@ class API:
         mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
         thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
+        if self.rotate_correction:
+            mask_unbelt, belt_pos = cvTools.remove_belt( thresh_img )
+    
+            angle = cvTools.correct_rotation_angle(mask_unbelt)
+            
+            img = cvTools.rotate_image(img,  angle  )
+            thresh_img = cvTools.rotate_image(thresh_img,  angle )
+            rotated_mask = cvTools.rotate_image(mask_unbelt,  angle )
+            
+    
+            pt1,pt2 = cvTools.side_screw_bounding_rect(rotated_mask)
+    
+            img = cv2.rectangle( img , pt1, pt2, (0,255,0),thickness=6)
         
         img = Utils.mask_viewer(img, thresh_img)
         img = self.rect_roi_drawing.get_image(img)
@@ -794,13 +811,21 @@ class API:
         self.ui.set_image_page_tool_labels(img) 
         
         
-
+    def update_rotated_image(self):
+        self.rotate_correction = not( self.rotate_correction )
+        self.draw_main_setting_page_side_image()
         
     def update_main_threshould_side(self):
         selected_camera_direction = 'side'
         thresh = self.ui.main_thresh_side_bar.value()    
         self.screw_jasons[ selected_camera_direction ].set_main_thresh(thresh)
         self.draw_main_setting_page_side_image()
+        
+    def update_threshould(self):
+        page_name=self.ui.get_setting_page_idx(page_name=True)
+        direction=self.ui.get_setting_page_idx(direction=True)
+        print(page_name,direction)
+        print('asdwad')
     
     
     def update_main_noise_filter_side(self):
