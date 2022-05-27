@@ -9632,7 +9632,7 @@ QPushButton:pressed {
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>3</number>
+                                   <number>2</number>
                                   </property>
                                   <widget class="QWidget" name="page_0"/>
                                   <widget class="QWidget" name="page_1_top">
@@ -10032,7 +10032,7 @@ QPushButton:pressed {
                                                  </widget>
                                                 </item>
                                                 <item>
-                                                 <widget class="QCheckBox" name="btn_negative0_1_top">
+                                                 <widget class="QCheckBox" name="btn_thresh_inv0_1_top">
                                                   <property name="text">
                                                    <string>Negative</string>
                                                   </property>
@@ -10436,7 +10436,7 @@ QPushButton:pressed {
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QCheckBox" name="btn_negative0_2_top">
+                                           <widget class="QCheckBox" name="btn_thresh_inv0_2_top">
                                             <property name="text">
                                              <string>Negative</string>
                                             </property>
@@ -11076,7 +11076,7 @@ QPushButton:pressed {
                                               <number>0</number>
                                              </property>
                                              <item>
-                                              <widget class="QCheckBox" name="btn_negative0_1_side">
+                                              <widget class="QCheckBox" name="btn_thresh_inv0_1_side">
                                                <property name="maximumSize">
                                                 <size>
                                                  <width>87</width>

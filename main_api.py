@@ -120,7 +120,7 @@ class API:
         
         
         
-        self.ui.btn_negative0_2_top.toggled.connect(self.update_thresh_negative_setting_page2)
+        # self.ui.btn_negative0_2_top.toggled.connect(self.update_thresh_negative_setting_page2)
         
 
         #-------------------------------------------------------------------------------------------------------------------
@@ -220,9 +220,9 @@ class API:
         self.ui.btn_page_1_top.clicked.connect(self.update_main_setting_page_top)
         self.ui.bar_thresh0_1_top.valueChanged.connect(self.update_main_threshould_top)
         self.ui.bar_noise_filter0_1_top.valueChanged.connect(self.update_main_noise_filter_top)
-        self.ui.btn_negative0_1_top.toggled.connect(self.update_main_thresh_negative_top)
-        
-        self.ui.main_roi_top_connect(self.main_roi_top_input)        
+        # self.ui.btn_negative0_1_top.toggled.connect(self.update_main_thresh_negative_top)
+        self.ui.checkbox_connect('thresh_inv', self.update_main_thresh_negative_top )
+        self.ui.roi_connect(self.main_roi_top_input)        
         
         
         #Page 1_side----------------------------------------------------------
@@ -230,8 +230,8 @@ class API:
         self.ui.btn_page_1_side.clicked.connect(self.update_main_setting_page_side)
         self.ui.bar_thresh0_1_side.valueChanged.connect(self.update_main_threshould_side)
         self.ui.bar_noise_filter0_1_side.valueChanged.connect(self.update_main_noise_filter_side)
-        self.ui.btn_negative0_1_side.toggled.connect(self.update_main_thresh_negative_side)
-        self.ui.main_roi_side_connect(self.main_roi_side_input)
+        # self.ui.btn_negative0_1_side.toggled.connect(self.update_main_thresh_negative_side)
+        self.ui.roi_connect(self.main_roi_side_input)
         
         self.ui.btn_rotate_correction0_1_side.clicked.connect(self.update_rotated_image)
 
@@ -680,7 +680,7 @@ class API:
         
     def update_main_threshould_top(self):
         selected_camera_direction = 'top'
-        thresh = self.ui.bar_thresh0_1_top.value()
+        thresh = self.ui.get_sliders_value('thresh')
         self.screw_jasons[ selected_camera_direction ].set_main_thresh(thresh)
         self.draw_main_setting_page_top_image()
     
@@ -695,7 +695,7 @@ class API:
     
     def update_main_thresh_negative_top(self):
         selected_camera_direction = 'top'
-        state = self.ui.btn_negative0_1_top.isChecked()
+        state = self.ui.get_checkbox_value('thresh_inv')
         self.screw_jasons[ selected_camera_direction ].set_main_thresh_inv(state) 
         self.draw_main_setting_page_top_image()
         
@@ -720,10 +720,11 @@ class API:
             selected_camera_direction = 'top'
             
             #data changed in Ui
-            data = self.ui.get_main_parms_screw_top()
+            data = self.ui.get_roi_value()#ba in keke kar mikarde
+
             #data saved in json
             rect = self.screw_jasons[selected_camera_direction].get_main_roi()
-            
+            print('dataAPI',data)
             rect_dict = Utils.rect_list2dict(rect)
             #update param in jason that changed in UI
             rect_dict[name] = data[name]
@@ -745,7 +746,7 @@ class API:
         if len(shapes) > 0:
             rect = shapes[0]
             rect_dict = Utils.rect_list2dict(rect)
-            self.ui.set_main_roi_top(rect_dict)
+            self.ui.set_roi_value(rect_dict)
             
             selected_camera_direction = 'top'
             self.screw_jasons[selected_camera_direction].set_main_roi( pt1=rect[0], pt2=rect[1] )
@@ -888,7 +889,7 @@ class API:
         if len(shapes) > 0:
             rect = shapes[0]
             rect_dict = Utils.rect_list2dict(rect)
-            self.ui.set_main_roi_side(rect_dict)
+            self.ui.set_roi_value(rect_dict)
             self.screw_jasons[selected_camera_direction].set_main_roi( pt1=rect[0], pt2=rect[1] )
         
         self.draw_main_setting_page_side_image()

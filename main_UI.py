@@ -62,8 +62,7 @@ from PySide6.QtGui import QPainter as sQPainter
 from PySide6.QtGui import QCursor as sQCursor
 
 import texts
-
-from Keys import UI_KEYS
+from backend import Utils
 ui, _ = loadUiType("main_window.ui")
 
 
@@ -124,9 +123,10 @@ class UI_main_window(QMainWindow, ui):
                             ,self.trigger_combo, self.maxbuffer_spinbox, self.packetdelay_spinbox\
                                 , self.packetsize_spinbox, self.transmissiondelay_spinbox, self.ip_lineedit, self.serial_number_combo, self.camera_setting_connect_btn]
 
-        self.pages_dict={'1':['top','main'],'2':['top','page_2'],'3':['side','main']}
+        self.page_dict={'1':'1_top','2':'2_top','3':'1_side'}
+        self.roi_name=['x1','y1','x2','y2']
         
-        # pages_dict={'1':'main','2':'page_2','3':'main'}
+        # page_dict={'1':'main','2':'page_2','3':'main'}
         
 
         
@@ -154,9 +154,8 @@ class UI_main_window(QMainWindow, ui):
     #     echo=str(self.password.echoMode()).split(".", 4)[-1]
 
 
-        for widget in self.stackedWidget_2.children():
-            # if isinstance(widget, QLineEdit):
-                print ("linedit: %s " %(widget.objectName()))
+        # self.roi_connect()
+        self.test()
 
 
 
@@ -574,42 +573,10 @@ class UI_main_window(QMainWindow, ui):
         self.spin_roi_y1_1_side.setValue( parms['main_roi'][0][1] )
         self.spin_roi_x2_1_side.setValue( parms['main_roi'][1][0] )
         self.spin_roi_y2_1_side.setValue( parms['main_roi'][1][1] )
-        
-        
-        
-    
-    def set_main_roi_top(self, data):
-        self.spin_roi_x1_1_top.setValue( data['x1'] )
-        self.spin_roi_y1_1_top.setValue( data['y1'] )
-        self.spin_roi_x2_1_top.setValue( data['x2'] )
-        self.spin_roi_y2_1_top.setValue( data['y2'] )
-        #print('dic',dic)
 
-    
-    def set_main_roi_side(self, data):
-        self.spin_roi_x1_1_side.setValue( data['x1'] )
-        self.spin_roi_y1_1_side.setValue( data['y1'] )
-        self.spin_roi_x2_1_side.setValue( data['x2'] )
-        self.spin_roi_y2_1_side.setValue( data['y2'] )
-        #print('dic',dic)
 
-    
-    
-    
-    def main_roi_top_connect(self,func):
-        self.spin_roi_x1_1_top.valueChanged.connect(func('x1'))
-        self.spin_roi_y1_1_top.valueChanged.connect(func('y1'))
-        self.spin_roi_x2_1_top.valueChanged.connect(func('x2'))
-        self.spin_roi_y2_1_top.valueChanged.connect(func('y2'))
-    
-    
-    def main_roi_side_connect(self,func):
-        self.spin_roi_x1_1_side.valueChanged.connect(func('x1'))
-        self.spin_roi_y1_1_side.valueChanged.connect(func('y1'))
-        self.spin_roi_x2_1_side.valueChanged.connect(func('x2'))
-        self.spin_roi_y2_1_side.valueChanged.connect(func('y2'))
-        
-        
+
+          
     def  open_file_dialog(self,set_label):
 
         filepath = QFileDialog.getOpenFileName(self, 'Select a File')
@@ -621,22 +588,7 @@ class UI_main_window(QMainWindow, ui):
 
     def check_camera_selected_direction(self):
         
-        # checking if it is checked
         print('adww')
-        # if self.camera1_select_radio.isChecked():
-                
-        #     # changing text of label
-        #     # self.label.setText("It is now checked")
-        #     self.camera1_select_radio.setChecked(True)
-        #     #print('cam 1 select')
-        #     self.selected_camera_name='camera1'
-        #     return 'top'
-        
-        # else:
-        #     self.camera2_select_radio.setChecked(False)
-        #     #print('cam 2 select')
-        #     self.selected_camera_name='camera2'
-        #     return 'side'
 
 
 
@@ -909,18 +861,19 @@ class UI_main_window(QMainWindow, ui):
 
 
     def get_setting_page_idx(self,direction=False,page_name=False):
+
         if direction:
             
             idx=self.stackedWidget_2.currentIndex()
             
             
-            return self.pages_dict[str(idx)][0]
+            return self.page_dict[str(idx)]
         
         if page_name:
             
             
             idx=self.stackedWidget_2.currentIndex()
-            return self.pages_dict[str(idx)][1]
+            return self.page_dict[str(idx)]
             
          
         else:
@@ -931,41 +884,208 @@ class UI_main_window(QMainWindow, ui):
     def get_page_cam_name(self):
         
         index=self.stackedWidget_2.currentIndex()
-        
-    # def get_sliders(self,name):
 
-    #     print('test')
+
+
+
+    #Slider utils ----------------------------------------------------------------
+
+    def get_sliders(self,name):
+
+        print('test')
         
-    #     direction=self.get_setting_page_idx(direction=True)
-    #     page_name =self.get_setting_page_idx(page_name=True)
+        direction=self.get_setting_page_idx(direction=True)
+        page_name =self.get_setting_page_idx(page_name=True)
         
-    #     obj = eval(f'self.{page_name}_{name}_{direction}_bar')
+        obj = eval(f'self.{page_name}_{name}_{direction}_bar')
         
-    #     return obj
+        return obj
         
+            
+    def get_sliders_value(self,name, page_name = None, direction = None,count=0):
+            
+            if direction is None:
+                direction = self.get_setting_page_idx(direction=True)
+            
+            if page_name is None:
+                page_name =self.get_setting_page_idx(page_name=True)
+            
+            x=self.sliders['{}'.format(name)]['bar_{}{}_{}'.format(name, count, page_name)].value()
+            print('value',x)
+            return x
+
+    def set_sliders_value(self,name,value, page_name = None, direction = None,count=0):
+            
+            if direction is None:
+                direction = self.get_setting_page_idx(direction=True)
+            
+            if page_name is None:
+                page_name =self.get_setting_page_idx(page_name=True)
+            
+            self.sliders['{}'.format(name)]['bar_{}{}_{}'.format(name, count, page_name)].setValue(value)
+
+
+    def connect_sliders(self,name,func):
+
+        for obj_name in self.sliders[name]:
         
-    # def get_sliders_value(self,name):
+            self.self.sliders[name][obj_name].valueChanged.connect(func)
+
+    #///////////////////////////////////////////////////////////////////////////// 
+    #ROI utils -----------------------------------------------------------------------------------
+
+    def set_roi_value(self,data, page_name = None):
+
+        if page_name is None:
+            page_name =self.get_setting_page_idx(page_name=True)
         
-    #     direction=self.get_setting_page_idx(direction=True)
-    #     page_name =self.get_setting_page_idx(page_name=True)
+        # print('page_name:set',page_name,self.spins['roi'][0]['spin_roi_{}_{}'.format(0,page_name)])
+
+        for roi_name in self.roi_name:
+            
+            try:
+                self.spins['roi'][roi_name]['spin_roi_{}_{}'.format(roi_name,page_name)].setValue(data[roi_name])   
+            except:
+                pass
+
+    def get_roi_value(self, page_name = None):
+
+        if page_name is None:
+            page_name =self.get_setting_page_idx(page_name=True)
+        dict_values={}
+        for roi_name in self.roi_name:
+            
+            try:
+                value=self.spins['roi'][roi_name]['spin_roi_{}_{}'.format(roi_name,page_name)].value() 
+                dict_values.update({roi_name:value})
+            except:
+                pass
         
-    #     x=eval(f'self.{page_name}_{name}_{direction}_bar.value()')
-    #     print('get_sliders',x)
+        return dict_values
                 
-    #     return x
-        
-        
+
+    def roi_connect(self,func):
+        for page_name in self.page_dict.keys():
+
+            for roi_name in self.roi_name:
+            
+                try:
+                    
+                    self.spins['roi'][roi_name]['spin_roi_{}_{}'.format(roi_name,self.page_dict[page_name])].valueChanged.connect(func('{}'.format(roi_name)))
+
+                except:
+                    pass
+            
     
-    # def connect_sliders(self,name,func):
+
+
+
+
+    #//////////////////////////////////////////////////////////////////////////////////////////////
+    #Checkbox utils -----------------------------------------------------------------------------------        
+    def get_checkbox_value(self, name, page_name = None, idx=0):
+
+        if page_name is None:
+            page_name =self.get_setting_page_idx(page_name=True)
+   
+
+        obj = self.checkboxes[name]['btn_{}{}_{}'.format(name, idx, page_name)]
+        return obj.isChecked()
+
+
+    def set_checkbox_value(self, name, value:bool,  page_name = None, idx=0):
+
+        if page_name is None:
+            page_name =self.get_setting_page_idx(page_name=True)
+   
+
+        obj = self.checkboxes[name]['btn_{}{}_{}'.format(name, idx, page_name)]
+        obj.setChecked( value )
         
-    #     obj_name=self.get_sliders(name)
         
-    #     obj_name.valueChanged.connect(func)
+    def checkbox_connect(self, name, func, idx=0):
         
+        for page_name in self.page_dict.values():
+            
+            obj = self.checkboxes[name]['btn_{}{}_{}'.format(name, idx, page_name)]
+            
+            obj.toggled.connect( func )
+
+    #//////////////////////////////////////////////////////////////////////////////////////////////
+    
+
+    def set_setting_page_parms(self, parms, page_name = None):
         
-        
+        if page_name is None:
+            page_name =self.get_setting_page_idx(page_name=True)
+
+        for name, value in parms.items():
+            print('name',name)
+            if name in ['thresh', 'noise_filter']:
+                self.set_sliders_value(name, value, page_name)
+            if name in ['roi']:
+                self.set_roi_value(Utils.rect_list2dict(value), page_name)
+    
+    
+            if name in ['thresh_inv']:
+                self.set_checkbox_value(name,value,page_name)
+    
+    
+    
         # eval()
-        
+        # 
+    def test(self):
+
+        self.sliders={
+            'thresh':{
+                'bar_thresh0_1_top':self.bar_thresh0_1_top,
+                'bar_thresh0_2_top':self.bar_thresh0_2_top,
+                'bar_thresh0_1_side':self.bar_thresh0_1_side,
+            },
+            'noise_filter':{
+                'bar_noise_filter0_1_top':self.bar_noise_filter0_1_top,
+                'bar_noise_filter0_2_top':self.bar_noise_filter0_2_top,
+                'bar_noise_filter0_1_side':self.bar_noise_filter0_1_side,
+            }
+        }
+        self.spins={
+            'roi':
+                {
+                    'x1':
+                    {
+                        'spin_roi_x1_1_top': self.spin_roi_x1_1_top , 
+                        'spin_roi_x1_1_side': self.spin_roi_x1_1_side 
+                    },
+                    'x2':
+                    {
+                        'spin_roi_x2_1_top': self.spin_roi_x2_1_top , 
+                        'spin_roi_x2_1_side': self.spin_roi_x2_1_side 
+                    },
+                    'y1':
+                    {
+                        'spin_roi_y1_1_top': self.spin_roi_y1_1_top , 
+                        'spin_roi_y1_1_side': self.spin_roi_y1_1_side 
+                    },
+                    'y2':
+                    {
+                        'spin_roi_y2_1_top': self.spin_roi_y2_1_top ,
+                        'spin_roi_y2_1_side': self.spin_roi_y2_1_side 
+                    }
+                }
+        }
+
+
+        self.checkboxes = {
+
+            'thresh_inv':
+            {
+                'btn_thresh_inv0_1_top': self.btn_thresh_inv0_1_top,
+                'btn_thresh_inv0_2_top': self.btn_thresh_inv0_2_top,
+                'btn_thresh_inv0_1_side': self.btn_thresh_inv0_1_side
+            }
+        }
+  
+
 if __name__ == "__main__":
     app = QApplication()
     win = UI_main_window()
