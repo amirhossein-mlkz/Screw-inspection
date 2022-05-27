@@ -944,17 +944,24 @@ class UI_main_window(QMainWindow, ui):
     #     return obj
         
         
-    # def get_sliders_value(self,name):
+    def get_sliders_value(self,name, page_name = None, direction = None):
         
-    #     direction=self.get_setting_page_idx(direction=True)
-    #     page_name =self.get_setting_page_idx(page_name=True)
+        if direction is None:
+            direction = self.get_setting_page_idx(direction=True)
         
-    #     x=eval(f'self.{page_name}_{name}_{direction}_bar.value()')
-    #     print('get_sliders',x)
-                
-    #     return x
+        if page_name is None:
+            page_name =self.get_setting_page_idx(page_name=True)
         
         
+        x=eval(f'self.{page_name}_{name}_{direction}_bar.value()')  
+        return x
+        
+    
+    
+    
+    
+    
+    
     
     # def connect_sliders(self,name,func):
         

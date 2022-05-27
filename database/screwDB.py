@@ -81,9 +81,9 @@ class screwJson():
     def get_thresh_inv(self, page, idx=0):
         settings = self.data['setting']
         if settings.get(page, None) is None:
-            return 0
+            return False
         page_setting = settings.get(page)
-        return page_setting.get( 'thresh_inv{}'.format(idx) , 0)
+        return page_setting.get( 'thresh_inv{}'.format(idx) , False)
     #-----------------------------------------
     def set_noise_filter(self, page, value, idx=0):
         self.data['setting'][page]['noise_filter{}'.format(idx)] = value
@@ -104,6 +104,14 @@ class screwJson():
             return [[0,0], [100,100]]
         page_setting = settings.get(page)
         return page_setting.get( 'rect_roi{}'.format(idx) , [[0,0], [100,100]])
+    
+    
+    
+    #-----------------------------------------
+    def get_setting(self, page):
+        settings = self.data['setting']
+        return settings.get( page , {})
+
     
 
     #     self.dataset_details['basic']=self.main_parms

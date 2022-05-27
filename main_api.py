@@ -755,7 +755,76 @@ class API:
         
         
         
+    #____________________________________________________________________________________________________________
+    #                                           
+    #
+    #                                           New API
+    #
+    #
+    #____________________________________________________________________________________________________________ 
+    def update_threshould(self):
+        page_name = self.ui.get_setting_page_idx(page_name = True)
+        direction = self.ui.get_setting_page_idx(direction = True)
         
+        thresh = self.ui.get_sliders_value('thresh')
+        self.screw_jasons[ direction ].set_thresh( page_name, thresh )        
+
+        self.setting_image_updater()
+    
+     
+
+    def update_noise_filter(self):
+        page_name = self.ui.get_setting_page_idx(page_name = True)
+        direction = self.ui.get_setting_page_idx(direction = True)
+        
+        noise_filter = self.ui.get_sliders_value('noise_filter')
+        self.screw_jasons[ direction ].set_thresh( page_name, noise_filter )  
+        
+        self.setting_image_updater()
+    
+    
+    
+    def update_thresh_inv(self):
+        page_name = self.ui.get_setting_page_idx(page_name = True)
+        direction = self.ui.get_setting_page_idx(direction = True)
+        
+        state = False        
+        self.screw_jasons[ direction ].set_thresh_inv( page_name, state )
+        
+        self.setting_image_updater()
+        
+        
+    
+    def update_roi_mouse(self, mouse_status, mouse_button, mouse_pt):
+        
+        self.rect_roi_drawing.qtmouse_checker( mouse_status, mouse_button, mouse_pt )
+        self.setting_image_updater()
+
+    
+    def update_setting_page_info(self):
+        page_name = self.ui.get_setting_page_idx(page_name = True)
+        direction = self.ui.get_setting_page_idx(direction = True)
+        
+        parms = self.screw_jasons[ direction ].get_setting( page_name )
+        
+        #send parms to ui updater
+        
+        #roi_rect = self.screw_jasons[selected_camera_direction].get_main_roi()
+        #self.rect_roi_drawing.max_shape_count = 1
+        #self.rect_roi_drawing.shapes = [ roi_rect ]
+        
+        
+        self.update_main_image_side()
+        self.draw_main_setting_page_side_image()
+    
+    
+    
+    def setting_image_updater(self):
+        page_name = self.ui.get_setting_page_idx(page_name = True)
+        if page_name == 'top1':
+            pass
+    
+    
     #____________________________________________________________________________________________________________
     #                                           
     #
@@ -821,11 +890,6 @@ class API:
         self.screw_jasons[ selected_camera_direction ].set_main_thresh(thresh)
         self.draw_main_setting_page_side_image()
         
-    def update_threshould(self):
-        page_name=self.ui.get_setting_page_idx(page_name=True)
-        direction=self.ui.get_setting_page_idx(direction=True)
-        print(page_name,direction)
-        print('asdwad')
     
     
     def update_main_noise_filter_side(self):
