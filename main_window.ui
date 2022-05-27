@@ -734,6 +734,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -783,6 +784,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -832,6 +834,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -881,6 +884,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -930,6 +934,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1016,6 +1021,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1809,6 +1815,7 @@ QPushButton:hover {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                        <stylestrategy>PreferDefault</stylestrategy>
@@ -3594,6 +3601,7 @@ border: 1px solid #CDCDCE;
                                   <property name="font">
                                    <font>
                                     <pointsize>8</pointsize>
+                                    <weight>50</weight>
                                     <bold>false</bold>
                                    </font>
                                   </property>
@@ -3997,6 +4005,7 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
+                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -4037,6 +4046,7 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
+                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -4132,6 +4142,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4159,6 +4170,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4186,6 +4198,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4213,6 +4226,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4240,6 +4254,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4267,6 +4282,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4294,6 +4310,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4321,6 +4338,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4348,6 +4366,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4375,6 +4394,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4402,6 +4422,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4429,6 +4450,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4456,6 +4478,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -5058,6 +5081,7 @@ QPushButton:pressed {
                                <property name="font">
                                 <font>
                                  <pointsize>10</pointsize>
+                                 <weight>75</weight>
                                  <bold>true</bold>
                                 </font>
                                </property>
@@ -5797,6 +5821,7 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
+                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -6510,6 +6535,7 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
+                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -7428,6 +7454,7 @@ border: 1px solid #CDCDCE;
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
+                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -7464,6 +7491,7 @@ QPushButton:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
+                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -8036,6 +8064,7 @@ border: 1px solid #CDCDCE;
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
+                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -8580,6 +8609,7 @@ border: 1px solid #CDCDCE;
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
+                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -8616,6 +8646,7 @@ QPushButton:pressed {
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
+                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -8979,6 +9010,7 @@ border: 1px solid #CDCDCE;
                                      <property name="font">
                                       <font>
                                        <pointsize>8</pointsize>
+                                       <weight>50</weight>
                                        <bold>false</bold>
                                       </font>
                                      </property>
@@ -9406,7 +9438,7 @@ QPushButton:pressed {
                                        </widget>
                                       </item>
                                       <item>
-                                       <widget class="QPushButton" name="tool1_btn">
+                                       <widget class="QPushButton" name="btn_page_1_top">
                                         <property name="minimumSize">
                                          <size>
                                           <width>0</width>
@@ -9444,7 +9476,7 @@ QPushButton:pressed {
                                        </widget>
                                       </item>
                                       <item>
-                                       <widget class="QPushButton" name="tool2_btn">
+                                       <widget class="QPushButton" name="btn_page_2_top">
                                         <property name="minimumSize">
                                          <size>
                                           <width>0</width>
@@ -9482,7 +9514,7 @@ QPushButton:pressed {
                                        </widget>
                                       </item>
                                       <item>
-                                       <widget class="QPushButton" name="tool3_btn">
+                                       <widget class="QPushButton" name="btn_page_1_side">
                                         <property name="minimumSize">
                                          <size>
                                           <width>0</width>
@@ -9520,7 +9552,7 @@ QPushButton:pressed {
                                        </widget>
                                       </item>
                                       <item>
-                                       <widget class="QPushButton" name="pushButton_13">
+                                       <widget class="QPushButton" name="btn_page_2_side">
                                         <property name="minimumSize">
                                          <size>
                                           <width>0</width>
@@ -9603,7 +9635,7 @@ QPushButton:pressed {
                                    <number>3</number>
                                   </property>
                                   <widget class="QWidget" name="page_0"/>
-                                  <widget class="QWidget" name="page_1">
+                                  <widget class="QWidget" name="page_1_top">
                                    <layout class="QVBoxLayout" name="verticalLayout_29">
                                     <item>
                                      <widget class="QFrame" name="frame_26">
@@ -9675,7 +9707,7 @@ QPushButton:pressed {
                                              <item>
                                               <layout class="QHBoxLayout" name="horizontalLayout_24">
                                                <item>
-                                                <widget class="QLineEdit" name="line_top_image_address">
+                                                <widget class="QLineEdit" name="line_image_address0_1_top">
                                                  <property name="minimumSize">
                                                   <size>
                                                    <width>210</width>
@@ -9694,7 +9726,7 @@ QPushButton:pressed {
                                                 </widget>
                                                </item>
                                                <item>
-                                                <widget class="QToolButton" name="load_image_top_btn">
+                                                <widget class="QToolButton" name="btn_load_image0_1_top">
                                                  <property name="text">
                                                   <string>...</string>
                                                  </property>
@@ -9703,7 +9735,7 @@ QPushButton:pressed {
                                               </layout>
                                              </item>
                                              <item>
-                                              <widget class="QPushButton" name="set_top_image_btn">
+                                              <widget class="QPushButton" name="btn_set_image0_1_top">
                                                <property name="minimumSize">
                                                 <size>
                                                  <width>82</width>
@@ -9737,7 +9769,7 @@ QPushButton:pressed {
                                               <number>0</number>
                                              </property>
                                              <item alignment="Qt::AlignRight">
-                                              <widget class="QPushButton" name="connect_cam_top_btn">
+                                              <widget class="QPushButton" name="btn_connect_camera0_1_top">
                                                <property name="minimumSize">
                                                 <size>
                                                  <width>129</width>
@@ -9862,7 +9894,7 @@ QPushButton:pressed {
                                                          </widget>
                                                         </item>
                                                         <item>
-                                                         <widget class="QSpinBox" name="spinBox_top_grab_page_x_rect1">
+                                                         <widget class="QSpinBox" name="spin_roi_x1_1_top">
                                                           <property name="maximum">
                                                            <number>20000</number>
                                                           </property>
@@ -9883,7 +9915,7 @@ QPushButton:pressed {
                                                          </widget>
                                                         </item>
                                                         <item>
-                                                         <widget class="QSpinBox" name="spinBox_top_grab_page_y_rect1">
+                                                         <widget class="QSpinBox" name="spin_roi_y1_1_top">
                                                           <property name="maximum">
                                                            <number>20000</number>
                                                           </property>
@@ -9913,7 +9945,7 @@ QPushButton:pressed {
                                                          </widget>
                                                         </item>
                                                         <item>
-                                                         <widget class="QSpinBox" name="spinBox_top_grab_page_x_rect2">
+                                                         <widget class="QSpinBox" name="spin_roi_x2_1_top">
                                                           <property name="maximum">
                                                            <number>20000</number>
                                                           </property>
@@ -9934,7 +9966,7 @@ QPushButton:pressed {
                                                          </widget>
                                                         </item>
                                                         <item>
-                                                         <widget class="QSpinBox" name="spinBox_top_grab_page_y_rect2">
+                                                         <widget class="QSpinBox" name="spin_roi_y2_1_top">
                                                           <property name="maximum">
                                                            <number>20000</number>
                                                           </property>
@@ -9977,7 +10009,7 @@ QPushButton:pressed {
                                                  </widget>
                                                 </item>
                                                 <item>
-                                                 <widget class="QSlider" name="main_thresh_top_bar">
+                                                 <widget class="QSlider" name="bar_thresh0_1_top">
                                                   <property name="minimumSize">
                                                    <size>
                                                     <width>0</width>
@@ -10000,7 +10032,7 @@ QPushButton:pressed {
                                                  </widget>
                                                 </item>
                                                 <item>
-                                                 <widget class="QCheckBox" name="negative_thresh_top_checkBox">
+                                                 <widget class="QCheckBox" name="btn_negative0_1_top">
                                                   <property name="text">
                                                    <string>Negative</string>
                                                   </property>
@@ -10029,7 +10061,7 @@ QPushButton:pressed {
                                                  </widget>
                                                 </item>
                                                 <item>
-                                                 <widget class="QSlider" name="main_noise_filter_top_Slider">
+                                                 <widget class="QSlider" name="bar_noise_filter0_1_top">
                                                   <property name="maximum">
                                                    <number>100</number>
                                                   </property>
@@ -10075,7 +10107,7 @@ QPushButton:pressed {
                                     </item>
                                    </layout>
                                   </widget>
-                                  <widget class="QWidget" name="page_2">
+                                  <widget class="QWidget" name="page_2_top">
                                    <layout class="QVBoxLayout" name="verticalLayout_31">
                                     <item>
                                      <widget class="QFrame" name="frame_31">
@@ -10093,7 +10125,7 @@ QPushButton:pressed {
                                       </property>
                                       <layout class="QHBoxLayout" name="horizontalLayout_40">
                                        <item>
-                                        <widget class="QPushButton" name="add_page_tool2">
+                                        <widget class="QPushButton" name="btn_add_area0_2_top">
                                          <property name="maximumSize">
                                           <size>
                                            <width>26</width>
@@ -10120,7 +10152,7 @@ QPushButton:pressed {
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QComboBox" name="comboBox">
+                                        <widget class="QComboBox" name="combo_set_area0_2_top">
                                          <property name="minimumSize">
                                           <size>
                                            <width>191</width>
@@ -10136,7 +10168,7 @@ QPushButton:pressed {
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QPushButton" name="pushButton_2">
+                                        <widget class="QPushButton" name="btn_remove_area0_2_top">
                                          <property name="maximumSize">
                                           <size>
                                            <width>26</width>
@@ -10197,7 +10229,7 @@ QPushButton:pressed {
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QLineEdit" name="areaNamePage2_line"/>
+                                           <widget class="QLineEdit" name="line_name_area0_2_top"/>
                                           </item>
                                          </layout>
                                         </widget>
@@ -10243,10 +10275,10 @@ QPushButton:pressed {
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="tedad_ghooshe_tool2"/>
+                                           <widget class="QSpinBox" name="spin_corner_area0_2_top"/>
                                           </item>
                                           <item>
-                                           <widget class="QPushButton" name="set_tedad_ghooshe_btn">
+                                           <widget class="QPushButton" name="btn_set_corner0_2_top">
                                             <property name="maximumSize">
                                              <size>
                                               <width>60</width>
@@ -10280,7 +10312,7 @@ QPushButton:pressed {
                                          </property>
                                          <layout class="QHBoxLayout" name="horizontalLayout_56">
                                           <item>
-                                           <widget class="QCheckBox" name="checkBox_rect">
+                                           <widget class="QCheckBox" name="check_rect0_2_top">
                                             <property name="text">
                                              <string>Rectangle</string>
                                             </property>
@@ -10290,14 +10322,14 @@ QPushButton:pressed {
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QCheckBox" name="checkBox_circle">
+                                           <widget class="QCheckBox" name="check_circle0_2_top">
                                             <property name="text">
                                              <string>Circle</string>
                                             </property>
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QCheckBox" name="checkBox_mask">
+                                           <widget class="QCheckBox" name="check_mask0_2_top">
                                             <property name="text">
                                              <string>Mask</string>
                                             </property>
@@ -10335,7 +10367,7 @@ QPushButton:pressed {
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QPushButton" name="draw_complete_btn">
+                                           <widget class="QPushButton" name="btn_draw_complete0_2_top">
                                             <property name="maximumSize">
                                              <size>
                                               <width>86</width>
@@ -10378,7 +10410,7 @@ QPushButton:pressed {
                                             </property>
                                             <layout class="QHBoxLayout" name="horizontalLayout_52">
                                              <item>
-                                              <widget class="QSlider" name="threshouldSetingPage2_slider">
+                                              <widget class="QSlider" name="bar_thresh0_2_top">
                                                <property name="maximum">
                                                 <number>255</number>
                                                </property>
@@ -10404,7 +10436,7 @@ QPushButton:pressed {
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QCheckBox" name="negativeThreshSettingPage2_checkBox">
+                                           <widget class="QCheckBox" name="btn_negative0_2_top">
                                             <property name="text">
                                              <string>Negative</string>
                                             </property>
@@ -10417,7 +10449,7 @@ QPushButton:pressed {
                                             </property>
                                             <layout class="QHBoxLayout" name="horizontalLayout_53">
                                              <item>
-                                              <widget class="QSlider" name="page2_noise_filter_top_Slider">
+                                              <widget class="QSlider" name="bar_noise_filter0_2_top">
                                                <property name="maximum">
                                                 <number>100</number>
                                                </property>
@@ -10474,7 +10506,7 @@ QPushButton:pressed {
                                          </property>
                                          <layout class="QVBoxLayout" name="verticalLayout_43">
                                           <item>
-                                           <widget class="QPushButton" name="complete_page_tool2_btn">
+                                           <widget class="QPushButton" name="btn_complete0_2_top">
                                             <property name="minimumSize">
                                              <size>
                                               <width>113</width>
@@ -10494,7 +10526,7 @@ QPushButton:pressed {
                                     </item>
                                    </layout>
                                   </widget>
-                                  <widget class="QWidget" name="page_3">
+                                  <widget class="QWidget" name="page_1_side">
                                    <layout class="QVBoxLayout" name="verticalLayout_53">
                                     <item>
                                      <widget class="QFrame" name="frame_58">
@@ -10572,7 +10604,7 @@ QPushButton:pressed {
                                              <item>
                                               <layout class="QHBoxLayout" name="horizontalLayout_92">
                                                <item>
-                                                <widget class="QLineEdit" name="line_side_image_address">
+                                                <widget class="QLineEdit" name="line_image_address0_1_side">
                                                  <property name="minimumSize">
                                                   <size>
                                                    <width>210</width>
@@ -10591,7 +10623,7 @@ QPushButton:pressed {
                                                 </widget>
                                                </item>
                                                <item>
-                                                <widget class="QToolButton" name="load_image_side_btn">
+                                                <widget class="QToolButton" name="btn_load_image0_1_side">
                                                  <property name="text">
                                                   <string>...</string>
                                                  </property>
@@ -10600,7 +10632,7 @@ QPushButton:pressed {
                                               </layout>
                                              </item>
                                              <item>
-                                              <widget class="QPushButton" name="set_side_image_btn">
+                                              <widget class="QPushButton" name="btn_set_image0_1_side">
                                                <property name="minimumSize">
                                                 <size>
                                                  <width>82</width>
@@ -10646,7 +10678,7 @@ QPushButton:pressed {
                                               <number>0</number>
                                              </property>
                                              <item alignment="Qt::AlignRight">
-                                              <widget class="QPushButton" name="connect_grab_side_camera">
+                                              <widget class="QPushButton" name="btn_connect_camera0_1_side">
                                                <property name="minimumSize">
                                                 <size>
                                                  <width>129</width>
@@ -10789,7 +10821,7 @@ QPushButton:pressed {
                                                     <number>0</number>
                                                    </property>
                                                    <item>
-                                                    <widget class="QPushButton" name="pushButton">
+                                                    <widget class="QPushButton" name="btn_automatic0_1_side">
                                                      <property name="enabled">
                                                       <bool>false</bool>
                                                      </property>
@@ -10799,7 +10831,7 @@ QPushButton:pressed {
                                                     </widget>
                                                    </item>
                                                    <item>
-                                                    <widget class="QPushButton" name="pushButton_3">
+                                                    <widget class="QPushButton" name="btn_manual0_1_side">
                                                      <property name="text">
                                                       <string>Manual</string>
                                                      </property>
@@ -10860,7 +10892,7 @@ QPushButton:pressed {
                                                          </widget>
                                                         </item>
                                                         <item>
-                                                         <widget class="QSpinBox" name="spinBox_side_grab_page_x_rect1">
+                                                         <widget class="QSpinBox" name="spin_roi_x1_1_side">
                                                           <property name="maximum">
                                                            <number>20000</number>
                                                           </property>
@@ -10881,7 +10913,7 @@ QPushButton:pressed {
                                                          </widget>
                                                         </item>
                                                         <item>
-                                                         <widget class="QSpinBox" name="spinBox_side_grab_page_y_rect1">
+                                                         <widget class="QSpinBox" name="spin_roi_y1_1_side">
                                                           <property name="maximum">
                                                            <number>20000</number>
                                                           </property>
@@ -10926,7 +10958,7 @@ QPushButton:pressed {
                                                          </widget>
                                                         </item>
                                                         <item>
-                                                         <widget class="QSpinBox" name="spinBox_side_grab_page_x_rect2">
+                                                         <widget class="QSpinBox" name="spin_roi_x2_1_side">
                                                           <property name="maximum">
                                                            <number>20000</number>
                                                           </property>
@@ -10947,7 +10979,7 @@ QPushButton:pressed {
                                                          </widget>
                                                         </item>
                                                         <item>
-                                                         <widget class="QSpinBox" name="spinBox_side_grab_page_y_rect2">
+                                                         <widget class="QSpinBox" name="spin_roi_y2_1_side">
                                                           <property name="maximum">
                                                            <number>20000</number>
                                                           </property>
@@ -11044,7 +11076,7 @@ QPushButton:pressed {
                                               <number>0</number>
                                              </property>
                                              <item>
-                                              <widget class="QCheckBox" name="negative_thresh_side_checkBox">
+                                              <widget class="QCheckBox" name="btn_negative0_1_side">
                                                <property name="maximumSize">
                                                 <size>
                                                  <width>87</width>
@@ -11057,7 +11089,7 @@ QPushButton:pressed {
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QSlider" name="main_thresh_side_bar">
+                                              <widget class="QSlider" name="bar_thresh0_1_side">
                                                <property name="minimumSize">
                                                 <size>
                                                  <width>0</width>
@@ -11138,7 +11170,7 @@ QPushButton:pressed {
                                               <number>0</number>
                                              </property>
                                              <item>
-                                              <widget class="QSlider" name="main_noise_filter_side_bar">
+                                              <widget class="QSlider" name="bar_noise_filter0_1_side">
                                                <property name="minimumSize">
                                                 <size>
                                                  <width>0</width>
@@ -11167,7 +11199,7 @@ QPushButton:pressed {
                                         </widget>
                                        </item>
                                        <item alignment="Qt::AlignHCenter">
-                                        <widget class="QPushButton" name="rotate_correction_side_btn">
+                                        <widget class="QPushButton" name="btn_rotate_correction0_1_side">
                                          <property name="minimumSize">
                                           <size>
                                            <width>0</width>
@@ -11315,7 +11347,7 @@ QPushButton:pressed {
                                       <zorder>frame_68</zorder>
                                       <zorder>frame_27</zorder>
                                       <zorder>line_16</zorder>
-                                      <zorder>rotate_correction_side_btn</zorder>
+                                      <zorder>btn_rotate_correction0_1_side</zorder>
                                       <zorder>frame_65</zorder>
                                       <zorder>frame_59</zorder>
                                       <zorder>frame_63</zorder>
@@ -11759,6 +11791,7 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
+                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -11795,6 +11828,7 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
+                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -11834,6 +11868,7 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
+                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -11912,6 +11947,7 @@ QPushButton:pressed {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>-1</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -11979,7 +12015,7 @@ QPushButton:pressed {
  </resources>
  <connections>
   <connection>
-   <sender>tool1_btn</sender>
+   <sender>btn_page_1_top</sender>
    <signal>clicked()</signal>
    <receiver>checkBox_3</receiver>
    <slot>animateClick()</slot>
@@ -11989,13 +12025,13 @@ QPushButton:pressed {
      <y>185</y>
     </hint>
     <hint type="destinationlabel">
-     <x>167</x>
-     <y>197</y>
+     <x>177</x>
+     <y>183</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>main_thresh_top_bar</sender>
+   <sender>bar_thresh0_1_top</sender>
    <signal>valueChanged(int)</signal>
    <receiver>spinBox</receiver>
    <slot>setValue(int)</slot>
@@ -12013,7 +12049,7 @@ QPushButton:pressed {
   <connection>
    <sender>spinBox</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>main_thresh_top_bar</receiver>
+   <receiver>bar_thresh0_1_top</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -12027,7 +12063,7 @@ QPushButton:pressed {
    </hints>
   </connection>
   <connection>
-   <sender>tool2_btn</sender>
+   <sender>btn_page_2_top</sender>
    <signal>clicked()</signal>
    <receiver>checkBox_4</receiver>
    <slot>animateClick()</slot>
@@ -12043,7 +12079,7 @@ QPushButton:pressed {
    </hints>
   </connection>
   <connection>
-   <sender>tool3_btn</sender>
+   <sender>btn_page_1_side</sender>
    <signal>clicked()</signal>
    <receiver>checkBox_5</receiver>
    <slot>animateClick()</slot>
@@ -12053,24 +12089,24 @@ QPushButton:pressed {
      <y>287</y>
     </hint>
     <hint type="destinationlabel">
-     <x>181</x>
-     <y>309</y>
+     <x>177</x>
+     <y>285</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_13</sender>
+   <sender>btn_page_2_side</sender>
    <signal>clicked()</signal>
    <receiver>checkBox_6</receiver>
    <slot>animateClick()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>257</x>
-     <y>367</y>
+     <y>338</y>
     </hint>
     <hint type="destinationlabel">
-     <x>181</x>
-     <y>365</y>
+     <x>177</x>
+     <y>336</y>
     </hint>
    </hints>
   </connection>
@@ -12085,8 +12121,8 @@ QPushButton:pressed {
      <y>101</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1004</x>
-     <y>117</y>
+     <x>994</x>
+     <y>111</y>
     </hint>
    </hints>
   </connection>
@@ -12101,168 +12137,168 @@ QPushButton:pressed {
      <y>95</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1004</x>
-     <y>117</y>
+     <x>994</x>
+     <y>111</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>threshouldSetingPage2_slider</sender>
+   <sender>bar_thresh0_2_top</sender>
    <signal>valueChanged(int)</signal>
    <receiver>spinBox_3</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>591</x>
-     <y>521</y>
+     <y>486</y>
     </hint>
     <hint type="destinationlabel">
-     <x>646</x>
-     <y>521</y>
+     <x>648</x>
+     <y>490</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>spinBox_3</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>threshouldSetingPage2_slider</receiver>
+   <receiver>bar_thresh0_2_top</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
-     <y>521</y>
+     <x>648</x>
+     <y>490</y>
     </hint>
     <hint type="destinationlabel">
      <x>591</x>
-     <y>521</y>
+     <y>486</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>page2_noise_filter_top_Slider</sender>
+   <sender>bar_noise_filter0_2_top</sender>
    <signal>valueChanged(int)</signal>
    <receiver>spinBox_5</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>591</x>
-     <y>603</y>
+     <y>584</y>
     </hint>
     <hint type="destinationlabel">
-     <x>646</x>
-     <y>603</y>
+     <x>648</x>
+     <y>588</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>spinBox_5</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>page2_noise_filter_top_Slider</receiver>
+   <receiver>bar_noise_filter0_2_top</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
-     <y>603</y>
+     <x>648</x>
+     <y>588</y>
     </hint>
     <hint type="destinationlabel">
      <x>591</x>
-     <y>603</y>
+     <y>584</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>main_thresh_side_bar</sender>
+   <sender>bar_thresh0_1_side</sender>
    <signal>actionTriggered(int)</signal>
    <receiver>spinBox_4</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>544</x>
-     <y>474</y>
+     <x>613</x>
+     <y>519</y>
     </hint>
     <hint type="destinationlabel">
-     <x>642</x>
-     <y>479</y>
+     <x>670</x>
+     <y>516</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>spinBox_6</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>main_noise_filter_side_bar</receiver>
+   <receiver>bar_noise_filter0_1_side</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>632</x>
-     <y>558</y>
+     <x>670</x>
+     <y>590</y>
     </hint>
     <hint type="destinationlabel">
-     <x>570</x>
-     <y>553</y>
+     <x>613</x>
+     <y>595</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>main_noise_filter_side_bar</sender>
+   <sender>bar_noise_filter0_1_side</sender>
    <signal>valueChanged(int)</signal>
    <receiver>spinBox_6</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>590</x>
-     <y>564</y>
+     <x>613</x>
+     <y>595</y>
     </hint>
     <hint type="destinationlabel">
-     <x>633</x>
-     <y>563</y>
+     <x>670</x>
+     <y>590</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>spinBox_4</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>main_thresh_side_bar</receiver>
+   <receiver>bar_thresh0_1_side</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>658</x>
-     <y>479</y>
+     <x>670</x>
+     <y>516</y>
     </hint>
     <hint type="destinationlabel">
-     <x>603</x>
-     <y>484</y>
+     <x>613</x>
+     <y>519</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>main_noise_filter_top_Slider</sender>
+   <sender>bar_noise_filter0_1_top</sender>
    <signal>valueChanged(int)</signal>
    <receiver>noiseAreaSpinBox</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>512</x>
-     <y>616</y>
+     <x>660</x>
+     <y>610</y>
     </hint>
     <hint type="destinationlabel">
-     <x>511</x>
-     <y>651</y>
+     <x>524</x>
+     <y>639</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>noiseAreaSpinBox</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>main_noise_filter_top_Slider</receiver>
+   <receiver>bar_noise_filter0_1_top</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>487</x>
-     <y>651</y>
+     <x>524</x>
+     <y>639</y>
     </hint>
     <hint type="destinationlabel">
-     <x>457</x>
-     <y>618</y>
+     <x>660</x>
+     <y>610</y>
     </hint>
    </hints>
   </connection>

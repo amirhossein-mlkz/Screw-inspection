@@ -149,12 +149,16 @@ class UI_main_window(QMainWindow, ui):
         self.editmode=False
 
 
-        self.check_mask_type(self.checkBox_circle.objectName(),change_size=True)
+        self.check_mask_type(self.check_circle0_2_top.objectName(),change_size=True)
     # def showPassword(self, show):
     #     echo=str(self.password.echoMode()).split(".", 4)[-1]
 
 
-        
+        for widget in self.stackedWidget_2.children():
+            # if isinstance(widget, QLineEdit):
+                print ("linedit: %s " %(widget.objectName()))
+
+
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
@@ -356,36 +360,41 @@ class UI_main_window(QMainWindow, ui):
         self.edit_btn.clicked.connect(self.buttonClick)
         # self.add_btn.clicked.connect(self.buttonClick)
         # self.grab_load_btn.clicked.connect(self.buttonClick)
-        self.tool1_btn.clicked.connect(self.buttonClick)
-        self.tool2_btn.clicked.connect(self.buttonClick)
-        self.tool3_btn.clicked.connect(self.buttonClick)
+
+
+
+
+
+        # page tools
+        self.btn_page_1_top.clicked.connect(self.buttonClick)
+        self.btn_page_2_top.clicked.connect(self.buttonClick)
+        self.btn_page_1_side.clicked.connect(self.buttonClick)
         self.next_page_btn.clicked.connect(self.buttonClick)
         self.prev_page_btn.clicked.connect(self.buttonClick)
 
 
 
-        # Page grab select image
+        # Page 1_main
 
-        self.load_image_top_btn.clicked.connect(self.buttonClick)
-        self.load_image_side_btn.clicked.connect(self.buttonClick)
-        self.set_top_image_btn.clicked.connect(self.buttonClick)
-        self.set_side_image_btn.clicked.connect(self.buttonClick)
+        self.btn_load_image0_1_top.clicked.connect(self.buttonClick)
 
 
-        self.connect_cam_top_btn.clicked.connect(self.check_camera_selected_direction)
-        self.connect_grab_side_camera.clicked.connect(self.check_camera_selected_direction)
-
-        # page tool2
-
-        self.add_page_tool2.clicked.connect(lambda:self.buttonClick2(self.add_page_tool2.objectName()))
-        self.set_tedad_ghooshe_btn.clicked.connect(lambda:self.buttonClick2(self.set_tedad_ghooshe_btn.objectName()))
-        self.draw_complete_btn.clicked.connect(lambda:self.buttonClick2(self.draw_complete_btn.objectName()))
-        self.checkBox_rect.clicked.connect(lambda:self.check_mask_type(self.checkBox_rect.objectName(),change_size=True))
-
-        self.checkBox_circle.clicked.connect(lambda:self.check_mask_type(self.checkBox_circle.objectName(),change_size=True))
-        self.checkBox_mask.clicked.connect(lambda:self.check_mask_type(self.checkBox_mask.objectName(),change_size=True))
+        # page 2_main
 
         
+
+        self.btn_add_area0_2_top.clicked.connect(lambda:self.buttonClick2(self.btn_add_area0_2_top.objectName()))
+        self.btn_set_corner0_2_top.clicked.connect(lambda:self.buttonClick2(self.btn_set_corner0_2_top.objectName()))
+        self.btn_draw_complete0_2_top.clicked.connect(lambda:self.buttonClick2(self.btn_draw_complete0_2_top.objectName()))
+        self.check_rect0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_rect0_2_top.objectName(),change_size=True))
+
+        self.check_circle0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_circle0_2_top.objectName(),change_size=True))
+        self.check_mask0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_mask0_2_top.objectName(),change_size=True))
+
+
+        # page 1_side
+
+        self.btn_load_image0_1_side.clicked.connect(self.buttonClick)  
 
 
     def close_win(self):
@@ -519,17 +528,17 @@ class UI_main_window(QMainWindow, ui):
 
 
 
-    # Page Grab
+    # Page 1_top
 
     def get_main_parms_screw_top(self):
 
         dic={}
         dic.update({'name':self.label_screw_name.text()})
-        dic.update({'threshold':self.main_thresh_top_bar.value()})
-        dic.update({'x1':self.spinBox_top_grab_page_x_rect1.value()})
-        dic.update({'y1':self.spinBox_top_grab_page_y_rect1.value()})
-        dic.update({'x2':self.spinBox_top_grab_page_x_rect2.value()})
-        dic.update({'y2':self.spinBox_top_grab_page_y_rect2.value()})
+        dic.update({'threshold':self.bar_thresh0_1_top.value()})
+        dic.update({'x1':self.spin_roi_x1_1_top.value()})
+        dic.update({'y1':self.spin_roi_y1_1_top.value()})
+        dic.update({'x2':self.spin_roi_x2_1_top.value()})
+        dic.update({'y2':self.spin_roi_y2_1_top.value()})
 
         return dic
     
@@ -538,67 +547,67 @@ class UI_main_window(QMainWindow, ui):
     
         dic={}
         dic.update({'name':self.label_screw_name.text()})
-        dic.update({'threshold':self.main_thresh_side_bar.value()})
-        dic.update({'x1':self.spinBox_side_grab_page_x_rect1.value()})
-        dic.update({'y1':self.spinBox_side_grab_page_y_rect1.value()})
-        dic.update({'x2':self.spinBox_side_grab_page_x_rect2.value()})
-        dic.update({'y2':self.spinBox_side_grab_page_y_rect2.value()})
+        dic.update({'threshold':self.bar_thresh0_1_side.value()})
+        dic.update({'x1':self.spin_roi_x1_1_side.value()})
+        dic.update({'y1':self.spin_roi_y1_1_side.value()})
+        dic.update({'x2':self.spin_roi_x2_1_side.value()})
+        dic.update({'y2':self.spin_roi_y2_1_side.value()})
 
         return dic
     
     
     
     def set_main_parms_screw_top(self,parms):        
-        self.main_thresh_top_bar.setValue(int(parms['main_thresh']))
-        self.line_top_image_address.setText(str(parms['img_path']))
-        self.spinBox_top_grab_page_x_rect1.setValue( parms['main_roi'][0][0] )
-        self.spinBox_top_grab_page_y_rect1.setValue( parms['main_roi'][0][1] )
-        self.spinBox_top_grab_page_x_rect2.setValue( parms['main_roi'][1][0] )
-        self.spinBox_top_grab_page_y_rect2.setValue( parms['main_roi'][1][1] )
+        self.bar_thresh0_1_top.setValue(int(parms['main_thresh']))
+        self.line_image_address0_1_top.setText(str(parms['img_path']))
+        self.spin_roi_x1_1_top.setValue( parms['main_roi'][0][0] )
+        self.spin_roi_y1_1_top.setValue( parms['main_roi'][0][1] )
+        self.spin_roi_x2_1_top.setValue( parms['main_roi'][1][0] )
+        self.spin_roi_y2_1_top.setValue( parms['main_roi'][1][1] )
         
         
         
     def set_main_parms_screw_side(self,parms):        
-        self.main_thresh_side_bar.setValue(int(parms['main_thresh']))
-        self.line_side_image_address.setText(str(parms['img_path']))
-        self.spinBox_side_grab_page_x_rect1.setValue( parms['main_roi'][0][0] )
-        self.spinBox_side_grab_page_y_rect1.setValue( parms['main_roi'][0][1] )
-        self.spinBox_side_grab_page_x_rect2.setValue( parms['main_roi'][1][0] )
-        self.spinBox_side_grab_page_y_rect2.setValue( parms['main_roi'][1][1] )
+        self.bar_thresh0_1_side.setValue(int(parms['main_thresh']))
+        self.line_image_address0_1_side.setText(str(parms['img_path']))
+        self.spin_roi_x1_1_side.setValue( parms['main_roi'][0][0] )
+        self.spin_roi_y1_1_side.setValue( parms['main_roi'][0][1] )
+        self.spin_roi_x2_1_side.setValue( parms['main_roi'][1][0] )
+        self.spin_roi_y2_1_side.setValue( parms['main_roi'][1][1] )
         
         
         
     
     def set_main_roi_top(self, data):
-        self.spinBox_top_grab_page_x_rect1.setValue( data['x1'] )
-        self.spinBox_top_grab_page_y_rect1.setValue( data['y1'] )
-        self.spinBox_top_grab_page_x_rect2.setValue( data['x2'] )
-        self.spinBox_top_grab_page_y_rect2.setValue( data['y2'] )
+        self.spin_roi_x1_1_top.setValue( data['x1'] )
+        self.spin_roi_y1_1_top.setValue( data['y1'] )
+        self.spin_roi_x2_1_top.setValue( data['x2'] )
+        self.spin_roi_y2_1_top.setValue( data['y2'] )
         #print('dic',dic)
 
     
     def set_main_roi_side(self, data):
-        self.spinBox_side_grab_page_x_rect1.setValue( data['x1'] )
-        self.spinBox_side_grab_page_y_rect1.setValue( data['y1'] )
-        self.spinBox_side_grab_page_x_rect2.setValue( data['x2'] )
-        self.spinBox_side_grab_page_y_rect2.setValue( data['y2'] )
+        self.spin_roi_x1_1_side.setValue( data['x1'] )
+        self.spin_roi_y1_1_side.setValue( data['y1'] )
+        self.spin_roi_x2_1_side.setValue( data['x2'] )
+        self.spin_roi_y2_1_side.setValue( data['y2'] )
         #print('dic',dic)
 
     
     
     
     def main_roi_top_connect(self,func):
-        self.spinBox_top_grab_page_x_rect1.valueChanged.connect(func('x1'))
-        self.spinBox_top_grab_page_y_rect1.valueChanged.connect(func('y1'))
-        self.spinBox_top_grab_page_x_rect2.valueChanged.connect(func('x2'))
-        self.spinBox_top_grab_page_y_rect2.valueChanged.connect(func('y2'))
+        self.spin_roi_x1_1_top.valueChanged.connect(func('x1'))
+        self.spin_roi_y1_1_top.valueChanged.connect(func('y1'))
+        self.spin_roi_x2_1_top.valueChanged.connect(func('x2'))
+        self.spin_roi_y2_1_top.valueChanged.connect(func('y2'))
     
     
     def main_roi_side_connect(self,func):
-        self.spinBox_side_grab_page_x_rect1.valueChanged.connect(func('x1'))
-        self.spinBox_side_grab_page_y_rect1.valueChanged.connect(func('y1'))
-        self.spinBox_side_grab_page_x_rect2.valueChanged.connect(func('x2'))
-        self.spinBox_side_grab_page_y_rect2.valueChanged.connect(func('y2'))
+        self.spin_roi_x1_1_side.valueChanged.connect(func('x1'))
+        self.spin_roi_y1_1_side.valueChanged.connect(func('y1'))
+        self.spin_roi_x2_1_side.valueChanged.connect(func('x2'))
+        self.spin_roi_y2_1_side.valueChanged.connect(func('y2'))
         
         
     def  open_file_dialog(self,set_label):
@@ -715,32 +724,32 @@ class UI_main_window(QMainWindow, ui):
         #     self.stackedWidget_2.setCurrentWidget(self.page)
 
 
-        if btnName =='tool1_btn' :
+        if btnName =='btn_page_1_top' :
 
-            self.stackedWidget_2.setCurrentWidget(self.page_1)
-
-
-        if btnName =='tool2_btn' :
-
-            self.stackedWidget_2.setCurrentWidget(self.page_2)
+            self.stackedWidget_2.setCurrentWidget(self.page_1_top)
 
 
-        if btnName =='tool3_btn' :
+        if btnName =='btn_page_2_top' :
 
-            self.stackedWidget_2.setCurrentWidget(self.page_3)
+            self.stackedWidget_2.setCurrentWidget(self.page_2_top)
+
+
+        if btnName =='btn_page_1_side' :
+
+            self.stackedWidget_2.setCurrentWidget(self.page_1_side)
                 
         
-        if btnName =='load_image_top_btn' :
+        if btnName =='btn_load_image0_1_top' :
 
-            self.open_file_dialog(self.line_top_image_address)
+            self.open_file_dialog(self.line_image_address0_1_top)
         
-        if btnName =='load_image_side_btn' :
+        if btnName =='btn_load_image0_1_side' :
 
-            self.open_file_dialog(self.line_side_image_address)
+            self.open_file_dialog(self.line_image_address0_1_side)
           
         if btnName =='set_top_image_btn' :
             pass
-            #self.set_image_label(self.label_3,cv2.imread(self.line_top_image_address.text()))              
+            #self.set_image_label(self.label_3,cv2.imread(self.line_image_address0_1_top.text()))              
 
 
 
@@ -768,40 +777,40 @@ class UI_main_window(QMainWindow, ui):
         
     def buttonClick2(self,name):   
 
-        if name=='add_page_tool2':
+        if name=='btn_add_area0_2_top':
             self.frame_size(self.frame_53,50)
 
-        if name=='set_tedad_ghooshe_btn':
+        if name=='btn_set_corner0_2_top':
             self.frame_size(self.groupBox_12,70)
 
-        if name=='draw_complete_btn':
+        if name=='btn_draw_complete0_2_top':
             self.frame_size(self.frame_55,190)
 
     def check_mask_type(self,name,change_size=False):
 
         print('name',name)
 
-        if name=='checkBox_rect':
+        if name=='check_rect0_2_top':
 
-            self.checkBox_rect.setChecked(True)
-            self.checkBox_circle.setChecked(False)
-            self.checkBox_mask.setChecked(False)
+            self.check_rect0_2_top.setChecked(True)
+            self.check_circle0_2_top.setChecked(False)
+            self.check_mask0_2_top.setChecked(False)
 
             self.selected_mask_type='rect'
 
-        elif name=='checkBox_circle':
+        elif name=='check_circle0_2_top':
 
-            self.checkBox_rect.setChecked(False)
-            self.checkBox_circle.setChecked(True)
-            self.checkBox_mask.setChecked(False)
+            self.check_rect0_2_top.setChecked(False)
+            self.check_circle0_2_top.setChecked(True)
+            self.check_mask0_2_top.setChecked(False)
 
             self.selected_mask_type='circle'
 
-        elif name=='checkBox_mask':
+        elif name=='check_mask0_2_top':
 
-            self.checkBox_rect.setChecked(False)
-            self.checkBox_circle.setChecked(False)
-            self.checkBox_mask.setChecked(True)
+            self.check_rect0_2_top.setChecked(False)
+            self.check_circle0_2_top.setChecked(False)
+            self.check_mask0_2_top.setChecked(True)
 
             self.selected_mask_type='poly'
 
@@ -881,10 +890,10 @@ class UI_main_window(QMainWindow, ui):
         
 
     def get_screw_top_image_path(self):
-        return self.line_top_image_address.text()
+        return self.line_image_address0_1_top.text()
     
     def get_screw_side_image_path(self):
-        return self.line_side_image_address.text()
+        return self.line_image_address0_1_side.text()
 
 
     
@@ -923,33 +932,35 @@ class UI_main_window(QMainWindow, ui):
         
         index=self.stackedWidget_2.currentIndex()
         
-    def get_sliders(self,name):
+    # def get_sliders(self,name):
+
+    #     print('test')
         
-        direction=self.get_setting_page_idx(direction=True)
-        page_name =self.get_setting_page_idx(page_name=True)
+    #     direction=self.get_setting_page_idx(direction=True)
+    #     page_name =self.get_setting_page_idx(page_name=True)
         
-        obj = eval(f'self.{page_name}_{name}_{direction}_bar')
+    #     obj = eval(f'self.{page_name}_{name}_{direction}_bar')
         
-        return obj
+    #     return obj
         
         
-    def get_sliders_value(self,name):
+    # def get_sliders_value(self,name):
         
-        direction=self.get_setting_page_idx(direction=True)
-        page_name =self.get_setting_page_idx(page_name=True)
+    #     direction=self.get_setting_page_idx(direction=True)
+    #     page_name =self.get_setting_page_idx(page_name=True)
         
-        x=eval(f'self.{page_name}_{name}_{direction}_bar.value()')
-        print('get_sliders',x)
+    #     x=eval(f'self.{page_name}_{name}_{direction}_bar.value()')
+    #     print('get_sliders',x)
                 
-        return x
+    #     return x
         
         
     
-    def connect_sliders(self,name,func):
+    # def connect_sliders(self,name,func):
         
-        obj_name=self.get_sliders(name)
+    #     obj_name=self.get_sliders(name)
         
-        obj_name.valueChanged.connect(func)
+    #     obj_name.valueChanged.connect(func)
         
         
         

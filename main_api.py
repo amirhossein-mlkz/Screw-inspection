@@ -120,7 +120,7 @@ class API:
         
         
         
-        self.ui.negativeThreshSettingPage2_checkBox.toggled.connect(self.update_thresh_negative_setting_page2)
+        self.ui.btn_negative0_2_top.toggled.connect(self.update_thresh_negative_setting_page2)
         
 
         #-------------------------------------------------------------------------------------------------------------------
@@ -130,7 +130,7 @@ class API:
         path = 'images/test1_0_12 - Copy.png'
         # self.image_cam_1=cv2.imread('images/imge/dineniso14583.png')
         # self.image_cam_2=cv2.imread('images/imge/Screw-Flat-Head-6-x-1-2-Key-II_1.jpg')
-        self.ui.line_top_image_address.setText(path)
+        self.ui.line_image_address0_1_top.setText(path)
         # self.ui.set_image_page_tool_labels(self.ui.camera_1,self.image_cam_1)     
         # self.ui.set_image_page_tool_labels(self.ui.camera_2,self.image_cam_2)     
 
@@ -215,33 +215,33 @@ class API:
         # publice setting-------------------------------------------------------
         self.ui.save_btn_page_grab.clicked.connect(self.save_screw)
 
-        #main page top----------------------------------------------------------
-        self.ui.set_top_image_btn.clicked.connect(self.update_main_image_top)
-        self.ui.tool1_btn.clicked.connect(self.update_main_setting_page_top)
-        # self.ui.main_thresh_top_bar.valueChanged.connect(self.update_main_threshould_top)
-        self.ui.main_noise_filter_top_Slider.valueChanged.connect(self.update_main_noise_filter_top)
-        self.ui.negative_thresh_top_checkBox.toggled.connect(self.update_main_thresh_negative_top)
+        #Page 1_top----------------------------------------------------------
+        self.ui.btn_set_image0_1_top.clicked.connect(self.update_main_image_top)
+        self.ui.btn_page_1_top.clicked.connect(self.update_main_setting_page_top)
+        self.ui.bar_thresh0_1_top.valueChanged.connect(self.update_main_threshould_top)
+        self.ui.bar_noise_filter0_1_top.valueChanged.connect(self.update_main_noise_filter_top)
+        self.ui.btn_negative0_1_top.toggled.connect(self.update_main_thresh_negative_top)
         
         self.ui.main_roi_top_connect(self.main_roi_top_input)        
         
         
-        #main page side---------------------------------------------------------
-        self.ui.set_side_image_btn.clicked.connect(self.update_main_image_side)
-        self.ui.tool3_btn.clicked.connect(self.update_main_setting_page_side)
-        # self.ui.main_thresh_side_bar.valueChanged.connect(self.update_main_threshould_side)
-        self.ui.main_noise_filter_side_bar.valueChanged.connect(self.update_main_noise_filter_side)
-        self.ui.negative_thresh_side_checkBox.toggled.connect(self.update_main_thresh_negative_side)
+        #Page 1_side----------------------------------------------------------
+        self.ui.btn_set_image0_1_side.clicked.connect(self.update_main_image_side)
+        self.ui.btn_page_1_side.clicked.connect(self.update_main_setting_page_side)
+        self.ui.bar_thresh0_1_side.valueChanged.connect(self.update_main_threshould_side)
+        self.ui.bar_noise_filter0_1_side.valueChanged.connect(self.update_main_noise_filter_side)
+        self.ui.btn_negative0_1_side.toggled.connect(self.update_main_thresh_negative_side)
         self.ui.main_roi_side_connect(self.main_roi_side_input)
         
-        self.ui.rotate_correction_side_btn.clicked.connect(self.update_rotated_image)
+        self.ui.btn_rotate_correction0_1_side.clicked.connect(self.update_rotated_image)
 
-        self.ui.connect_sliders('thresh',self.update_threshould)
+        # self.ui.connect_sliders('thresh',self.update_threshould)
 
         #setting page2
         #self.ui.threshouldSetingPage2_slider.valueChanged.connect(self.update_threshould_setting_page2)   
         #self.ui.page2_noise_filter_top_Slider.valueChanged.connect(self.update_noise_filter_setting_page2)   
 
-        self.ui.get_sliders('thresh')
+        # self.ui.get_sliders('thresh')
         
     # dashboard page
     #------------------------------------------------------------------------------------------------------------------------
@@ -680,14 +680,14 @@ class API:
         
     def update_main_threshould_top(self):
         selected_camera_direction = 'top'
-        thresh = self.ui.main_thresh_top_bar.value()
+        thresh = self.ui.bar_thresh0_1_top.value()
         self.screw_jasons[ selected_camera_direction ].set_main_thresh(thresh)
         self.draw_main_setting_page_top_image()
     
     
     def update_main_noise_filter_top(self):
         selected_camera_direction = 'top'
-        noise_filter = self.ui.main_noise_filter_top_Slider.value()
+        noise_filter = self.ui.bar_noise_filter0_1_top.value()
         self.screw_jasons[ selected_camera_direction ].set_main_noise_filter(noise_filter)
         self.draw_main_setting_page_top_image()
     
@@ -695,7 +695,7 @@ class API:
     
     def update_main_thresh_negative_top(self):
         selected_camera_direction = 'top'
-        state = self.ui.negative_thresh_top_checkBox.isChecked()
+        state = self.ui.btn_negative0_1_top.isChecked()
         self.screw_jasons[ selected_camera_direction ].set_main_thresh_inv(state) 
         self.draw_main_setting_page_top_image()
         
@@ -817,7 +817,7 @@ class API:
         
     def update_main_threshould_side(self):
         selected_camera_direction = 'side'
-        thresh = self.ui.main_thresh_side_bar.value()    
+        thresh = self.ui.bar_thresh0_1_side.value()    
         self.screw_jasons[ selected_camera_direction ].set_main_thresh(thresh)
         self.draw_main_setting_page_side_image()
         
@@ -830,7 +830,7 @@ class API:
     
     def update_main_noise_filter_side(self):
         selected_camera_direction = 'side'
-        noise_filter = self.ui.main_noise_filter_side_bar.value()  
+        noise_filter = self.ui.bar_noise_filter0_1_side.value()  
         self.screw_jasons[ selected_camera_direction ].set_main_noise_filter(noise_filter)
         self.draw_main_setting_page_side_image()
     
@@ -838,7 +838,7 @@ class API:
     
     def update_main_thresh_negative_side(self):
         selected_camera_direction = 'side'
-        state = self.ui.negative_thresh_side_checkBox.isChecked()
+        state = self.ui.btn_negative0_1_side.isChecked()
         self.screw_jasons[ selected_camera_direction ].set_main_thresh_inv(state) 
         self.draw_main_setting_page_side_image()
         
@@ -1007,7 +1007,7 @@ class API:
 
     def update_thresh_negative_setting_page2(self):
         selected_camera_direction = 'top'
-        state = self.ui.negativeThreshSettingPage2_checkBox.isChecked()
+        state = self.ui.btn_negative0_2_top.isChecked()
         self.screw_jasons[ selected_camera_direction ].set_region_thresh_inv(state) 
         self.draw_setting_page2_image()
     
