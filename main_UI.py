@@ -63,6 +63,7 @@ from PySide6.QtGui import QCursor as sQCursor
 
 import texts
 from backend import Utils
+import Keys
 ui, _ = loadUiType("main_window.ui")
 
 
@@ -91,11 +92,11 @@ class UI_main_window(QMainWindow, ui):
         self.login_flag = False
         self.camera_connect_flag = False
 
-        # dashboard button ids
-        # self.dash_buttons = [self.camera_setting_btn,self.calibration_setting_btn, self.plc_setting_btn\
-        #                     , self.defect_setting_btn, self.users_setting_btn, self.level2_setting_btn\
-        #                     ,self.general_setting_btn, self.storage_setting_btn]
-        # side-bar button ids
+        #   Define and set UI_KEYS
+
+        Keys.object_dict_builder(self)
+
+
         self.side_buttons = [self.side_camera_setting_btn, self.side_tool_setting_btn\
                             ,self.side_users_setting_btn,self.side_general_setting_btn, self.side_dashboard_btn]
 
@@ -109,7 +110,7 @@ class UI_main_window(QMainWindow, ui):
         self.main_login_btn.setIcon(sQPixmap.fromImage(sQImage('images/login_white.png')))
         # APP NAME
         # ///////////////////////////////////////////////////////////////
-        title = "SABA - settings"
+        title = "Screw - Utils"
 
         self.setWindowTitle(title)
 
@@ -118,17 +119,12 @@ class UI_main_window(QMainWindow, ui):
 
         self.set_combo_boxes_2()
 
-        self.camera_params = [self.gain_spinbox, self.expo_spinbox, self.width_spinbox\
-                            , self.height_spinbox, self.offsetx_spinbox, self.offsety_spinbox\
-                            ,self.trigger_combo, self.maxbuffer_spinbox, self.packetdelay_spinbox\
-                                , self.packetsize_spinbox, self.transmissiondelay_spinbox, self.ip_lineedit, self.serial_number_combo, self.camera_setting_connect_btn]
-
-        self.pages_name_dict={'1':'1_top','2':'2_top','3':'1_side'}
-        self.pages_dircetion_dict={'1':'top','2':'top','3':'side'}
+        self.pages_name_dict={'1':'1_top','2':'2_top','3':'1_side','4':'2_side','5':'3_side','6':'4_side'}
+        self.pages_dircetion_dict={'1':'top','2':'top','3':'side','4':'side','5':'side','6':'side'}
         self.roi_name=['x1','y1','x2','y2']
-        
-        # page_dict={'1':'main','2':'page_2','3':'main'}
-        
+        self.limit_name=['min','max']
+
+        self.combo_exist={'1_top':False,'2_top':True,'1_side':False,'2_side':False,'3_side':False,'4_side':True}
 
         
         # SET LANGUAGE
@@ -139,25 +135,10 @@ class UI_main_window(QMainWindow, ui):
         self._old_pos = None
 
 
-        # Page Tool Image Labels
-        # //////////////////////////
-        self.image_labels={
-            'page_grab':self.label_image_grab_page
-        }        
-
-
-        
         self.editmode=False
 
 
         self.check_mask_type(self.check_circle0_2_top.objectName(),change_size=True)
-    # def showPassword(self, show):
-    #     echo=str(self.password.echoMode()).split(".", 4)[-1]
-
-
-        # self.roi_connect()
-        self.object_dict_builder()
-
 
 
     def mousePressEvent(self, event):
@@ -176,26 +157,11 @@ class UI_main_window(QMainWindow, ui):
 
 
 
-    # Label Dorsa
-        # ///////////////////////////////////////////////     
-
-    #///////////////////// LANGUAGE
-    # def set_language(self):
-    #     print(detect_lenguage.language())
-    #     if detect_lenguage.language()=='Persian(فارسی)':
-    #         detect_lenguage.main_window(self)
-    
- 
-    # ///////////////////////////////////////////////     
-
     def leftmenu(self):
 
 
         width=self.leftMenuBg.width()
-        # self.stackedWidget_defect.setCurrentWidget(self.page_no)
-        # self.stackedWidget_defect.setMaximumHeight(60)
-        # x=self.stackedWidget_defect.height()
-        #print('height',height)
+
         if width ==0:
     
             # print('if')
@@ -237,9 +203,9 @@ class UI_main_window(QMainWindow, ui):
             self.group.addAnimation(self.left_box_3)
             self.group.addAnimation(self.left_box_4)
             self.group.addAnimation(self.left_box_5)
-            # self.group.addAnimation(self.right_box)
+
             self.group.start()    
-            #print('no ani')
+
         else :
 
             # print('else')
@@ -282,19 +248,16 @@ class UI_main_window(QMainWindow, ui):
             self.group.addAnimation(self.left_box_3)
             self.group.addAnimation(self.left_box_4)
             self.group.addAnimation(self.left_box_5)
-            # self.group.addAnimation(self.right_box)
+
             self.group.start()    
-            #print('no ani')
+
  
 
 
     def animation_move(self,label_name,lenght,size_zero=False):
 
         width=label_name.width()
-        # self.stackedWidget_defect.setCurrentWidget(self.page_no)
-        # self.stackedWidget_defect.setMaximumHeight(60)
-        # x=self.stackedWidget_defect.height()
-        #print('height',height)
+
         if width ==0:
 
 
@@ -358,8 +321,7 @@ class UI_main_window(QMainWindow, ui):
         self.edit_remove_btn.clicked.connect(self.buttonClick)
         self.save_new_btn.clicked.connect(self.buttonClick)
         self.edit_btn.clicked.connect(self.buttonClick)
-        # self.add_btn.clicked.connect(self.buttonClick)
-        # self.grab_load_btn.clicked.connect(self.buttonClick)
+
 
 
 
@@ -369,6 +331,9 @@ class UI_main_window(QMainWindow, ui):
         self.btn_page0_1_top.clicked.connect(self.buttonClick)
         self.btn_page0_2_top.clicked.connect(self.buttonClick)
         self.btn_page0_1_side.clicked.connect(self.buttonClick)
+        self.btn_page0_2_side.clicked.connect(self.buttonClick)
+        self.btn_page0_3_side.clicked.connect(self.buttonClick)
+        self.btn_page0_4_side.clicked.connect(self.buttonClick)
         self.next_page_btn.clicked.connect(self.buttonClick)
         self.prev_page_btn.clicked.connect(self.buttonClick)
 
@@ -383,11 +348,11 @@ class UI_main_window(QMainWindow, ui):
 
         
 
-        self.btn_add_area0_2_top.clicked.connect(lambda:self.buttonClick2(self.btn_add_area0_2_top.objectName()))
-        self.btn_set_corner0_2_top.clicked.connect(lambda:self.buttonClick2(self.btn_set_corner0_2_top.objectName()))
-        self.btn_draw_complete0_2_top.clicked.connect(lambda:self.buttonClick2(self.btn_draw_complete0_2_top.objectName()))
-        self.check_rect0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_rect0_2_top.objectName(),change_size=True))
+        self.btn_add_area0_2_top.clicked.connect(self.buttonClick)
+        self.btn_set_corner0_2_top.clicked.connect(self.buttonClick)
+        self.btn_draw_complete0_2_top.clicked.connect(self.buttonClick)
 
+        self.check_rect0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_rect0_2_top.objectName(),change_size=True))
         self.check_circle0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_circle0_2_top.objectName(),change_size=True))
         self.check_mask0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_mask0_2_top.objectName(),change_size=True))
 
@@ -395,6 +360,13 @@ class UI_main_window(QMainWindow, ui):
         # page 1_side
 
         self.btn_load_image0_1_side.clicked.connect(self.buttonClick)  
+
+
+
+        # page 4_side  btn_add_area0_4_side
+
+        self.btn_add_area0_4_side.clicked.connect(self.buttonClick)
+        self.btn_complete_area_4_side.clicked.connect(self.buttonClick)
 
 
     def close_win(self):
@@ -431,27 +403,6 @@ class UI_main_window(QMainWindow, ui):
                 b.setText('Enable')
             else:
                 b.setText('Disable')
-
-
-    def selected_camera(self,s):
-        
-
-        for i in range(1,25):
-            if i<13:
-                eval('self.camera%s_btn_2'%i).setIcon(QIcon('images/camtop.png'))
-            else:
-                eval('self.camera%s_btn_2'%i).setIcon(QIcon('images/cambtm.png'))
-
-        cam_num=s
-
-        if int(s)<13:
-            eval('self.camera%s_btn_2'%cam_num).setIcon(QIcon('images/camtop_actived.png'))
-
-        else :
-            eval('self.camera%s_btn_2'%cam_num).setIcon(QIcon('images/cambtm_actived.png'))
-
-
-
 
 
     # User Managment page --------------------------------
@@ -656,10 +607,10 @@ class UI_main_window(QMainWindow, ui):
                 self.animation_move(self.frame_24,300)
                 self.animation_move(self.frame_23,0)
                 self.stackedWidget_2.setCurrentIndex(1)
+                self.set_label(self.label_status_mode,'Edit Mode')
                 self.editmode=True
 
         if btnName =='next_page_btn' :
-
             i=self.stackedWidget_2.currentIndex()
             print(i)
             self.stackedWidget_2.setCurrentIndex(i+1)
@@ -670,12 +621,6 @@ class UI_main_window(QMainWindow, ui):
             i=self.stackedWidget_2.currentIndex()
             print(i)
             self.stackedWidget_2.setCurrentIndex(i-1)
-
-
-        # if btnName =='grab_load_btn' :
-
-        #     self.stackedWidget_2.setCurrentWidget(self.page)
-
 
         if btnName =='btn_page0_1_top' :
 
@@ -690,8 +635,20 @@ class UI_main_window(QMainWindow, ui):
         if btnName =='btn_page0_1_side' :
 
             self.stackedWidget_2.setCurrentWidget(self.page_1_side)
-                
-        
+
+        if btnName =='btn_page0_2_side' :
+
+            self.stackedWidget_2.setCurrentWidget(self.page_2_side)    
+
+        if btnName =='btn_page0_3_side' :
+
+            self.stackedWidget_2.setCurrentWidget(self.page_3_side)    
+
+        if btnName =='btn_page0_4_side' :
+
+            self.stackedWidget_2.setCurrentWidget(self.page_4_side)
+
+
         if btnName =='btn_load_image0_1_top' :
 
             self.open_file_dialog(self.line_img_path0_1_top)
@@ -703,40 +660,23 @@ class UI_main_window(QMainWindow, ui):
         if btnName =='set_top_image_btn' :
             pass
 
-
-
-
-
-        # if btnName =='camera1_btn_11':
-        if btnName[:6] == 'camera' and btnName != 'camera_setting_btn':
-            camera_id = btnName[6:8]
-            #self.left_bar_clear()
-            #self.Data_auquzation_btn.setStyleSheet("background-image: url(:/icons/images/icons/graber.png);background-color: rgb(212, 212, 212);color:rgp(0,0,0);")
-            if not self.camera_setting_apply_btn.isEnabled() or (self.cameraname_label.text()!='No Camera Selected' and self.cameraname_label.text()[-2:]!=camera_id):
-                
-                self.cameraname_label.setText('Cam%s' % camera_id)
-                #self.change_camera_btn_icon(camera_id, active=True)
-                self.camera_setting_apply_btn.setEnabled(True)
-                self.camera_setting_connect_btn.setStyleSheet("background-color:{}; border:Transparent".format(colors_pallete.successfull_green))
-                self.set_button_enable_or_disable(self.camera_params, enable=True)
-            else:
-                self.disable_camera_settings()
-                #self.change_camera_btn_icon(camera_id, active=False)
-
-        
-
-        
-        
-    def buttonClick2(self,name):   
-
-        if name=='btn_add_area0_2_top':
+        if btnName=='btn_add_area0_2_top':
             self.frame_size(self.frame_53,50)
 
-        if name=='btn_set_corner0_2_top':
+        if btnName=='btn_set_corner0_2_top':
             self.frame_size(self.groupBox_12,70)
 
-        if name=='btn_draw_complete0_2_top':
+        if btnName=='btn_draw_complete0_2_top':
             self.frame_size(self.frame_55,190)
+
+
+        if btnName=='btn_add_area0_4_side':
+            self.frame_size(self.frame_141,310)
+
+        if btnName=='btn_complete_area_4_side':
+            self.frame_size(self.frame_141,0)
+   
+        
 
     def check_mask_type(self,name,change_size=False):
 
@@ -769,24 +709,16 @@ class UI_main_window(QMainWindow, ui):
         if change_size:
             self.frame_size(self.frame_54,50)
 
+
     def frame_size(self,f_name,size,both=True):
 
-        print('asdw')
 
         height=f_name.height()
-        print('asdw',height)
+
         if height!=size:
             f_name.setMaximumHeight(size)
             f_name.setMinimumHeight(size)
 
-
-
-    def disable_camera_settings(self):
-        self.cameraname_label.setText('No Camera Selected')
-        self.camera_setting_apply_btn.setEnabled(False)
-        self.camera_setting_connect_btn.setStyleSheet("background-color:{}; border:Transparent".format(colors_pallete.disabled_btn))
-        self.set_button_enable_or_disable(self.camera_params, enable=False)
-        
 
     
     def set_button_enable_or_disable(self, names, enable=True):
@@ -815,23 +747,10 @@ class UI_main_window(QMainWindow, ui):
 
     def set_image_page_tool_labels(self,img):
 
-        list_image_labels=list(self.image_labels.values())
-        for i in range(len(list_image_labels)):
-            self.set_image_label(list_image_labels[i],img)
 
+        self.set_image_label(self.label_image_grab_page,img)
 
-
-
-    def change_camera_btn_icon(self, camera_id, active=False):
-        image_active_id = 'images/cambtm_actived.png' if int(camera_id)>12 else 'images/camtop_actived.png'    
-
-        for cam_id in camera_funcs.all_camera_ids:
-            image_deactive_id = 'images/cambtm.png' if int(cam_id)>12 else 'images/camtop.png'
-            eval('self.camera%s_btn' % cam_id).setIcon(QIcon(image_deactive_id))
-            
-        if active:    
-            eval('self.camera%s_btn' % camera_id).setIcon(QIcon(image_active_id))
-
+        self.img_page_tool=img
     
     
     
@@ -952,9 +871,39 @@ class UI_main_window(QMainWindow, ui):
                     pass
             
     
+    #///////////////////////////////////////////////////////////////////////////// 
+    #Limit Utils ---------------------------------------------
 
+    def set_limit_value(self,data, page_name = None):
 
+        if page_name is None:
+            page_name =self.get_setting_page_idx(page_name=True)
+        
+        # print('page_name:set',page_name,self.spins['roi'][0]['spin_roi_{}_{}'.format(0,page_name)])
 
+        for limit_name in self.limit_name:
+            
+            try:
+                obj = self.spins['limit'][limit_name]['spin_roi_{}_{}'.format(limit_name,page_name)]
+                obj.setValue(data[limit_name])   
+            except:
+                pass
+
+    def get_limit_value(self, page_name = None):
+
+        if page_name is None:
+            page_name =self.get_setting_page_idx(page_name=True)
+        dict_values={}
+        for limit_name in self.limit_name:
+            
+            try:
+                value=self.spins['limit'][limit_name]['spin_roi_{}_{}'.format(limit_name,page_name)].value() 
+                dict_values.update({limit_name:value})
+            except:
+                pass
+        
+        return dict_values
+                
 
     #//////////////////////////////////////////////////////////////////////////////////////////////
     #Checkbox utils -----------------------------------------------------------------------------------        
@@ -981,10 +930,14 @@ class UI_main_window(QMainWindow, ui):
     def checkbox_connect(self, name, func, idx=0):
         
         for page_name in self.pages_name_dict.values():
+
+            try:
             
-            obj = self.checkboxes[name]['btn_{}{}_{}'.format(name, idx, page_name)]
-            
-            obj.toggled.connect( func )
+                obj = self.checkboxes[name]['btn_{}{}_{}'.format(name, idx, page_name)]
+                
+                obj.toggled.connect( func )
+            except:
+                pass
 
     #//////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -1045,91 +998,7 @@ class UI_main_window(QMainWindow, ui):
                 self.set_line_value(name, value, page_name)
                 
     
-    
-    
-        # eval()
-        # 
-    def object_dict_builder(self):
 
-        self.sliders={
-            'thresh':{
-                'bar_thresh0_1_top':self.bar_thresh0_1_top,
-                'bar_thresh0_2_top':self.bar_thresh0_2_top,
-                'bar_thresh0_1_side':self.bar_thresh0_1_side,
-            },
-            'noise_filter':{
-                'bar_noise_filter0_1_top':self.bar_noise_filter0_1_top,
-                'bar_noise_filter0_2_top':self.bar_noise_filter0_2_top,
-                'bar_noise_filter0_1_side':self.bar_noise_filter0_1_side,
-            }
-        }
-        self.spins={
-            'roi':
-                {
-                    'x1':
-                    {
-                        'spin_roi_x1_1_top': self.spin_roi_x1_1_top , 
-                        'spin_roi_x1_1_side': self.spin_roi_x1_1_side 
-                    },
-                    'x2':
-                    {
-                        'spin_roi_x2_1_top': self.spin_roi_x2_1_top , 
-                        'spin_roi_x2_1_side': self.spin_roi_x2_1_side 
-                    },
-                    'y1':
-                    {
-                        'spin_roi_y1_1_top': self.spin_roi_y1_1_top , 
-                        'spin_roi_y1_1_side': self.spin_roi_y1_1_side 
-                    },
-                    'y2':
-                    {
-                        'spin_roi_y2_1_top': self.spin_roi_y2_1_top ,
-                        'spin_roi_y2_1_side': self.spin_roi_y2_1_side 
-                    }
-                }
-        }
-
-
-        self.checkboxes = {
-
-            'thresh_inv':
-            {
-                'btn_thresh_inv0_1_top': self.btn_thresh_inv0_1_top,
-                'btn_thresh_inv0_2_top': self.btn_thresh_inv0_2_top,
-                'btn_thresh_inv0_1_side': self.btn_thresh_inv0_1_side
-            }
-        }
-        
-        
-        
-        self.lines = {
-            
-            'img_path' :
-            {
-                'line_img_path0_1_side' : self.line_img_path0_1_side,
-                'line_img_path0_1_top' : self.line_img_path0_1_top
-            }
-        }
-        
-        
-        
-        
-        self.buttons = {
-            'set_img':
-                {
-                    'btn_set_img0_1_top' : self.btn_set_img0_1_top,
-                    'btn_set_img0_1_side' : self.btn_set_img0_1_side,
-                },
-                
-            'page':
-                {
-                    'btn_page0_1_top': self.btn_page0_1_top,
-                    'btn_page0_2_top': self.btn_page0_2_top,
-                    'btn_page0_1_side': self.btn_page0_1_side,
-                    'btn_page0_2_side': self.btn_page0_2_side,
-                    
-                }
-        }
   
 
 if __name__ == "__main__":

@@ -58,7 +58,17 @@ class API:
         
         #------------------------------------------------------------------------------------------------------------------------
         # database module api
-        self.db = database_utils.dataBaseUtils()
+        import platform
+        os=platform.platform()
+        print('os',os[:5])
+        if os[:5] =='Linux':
+            print('linux')
+
+            self.db = database_utils.dataBaseUtils(password='password')
+        
+        else:
+            self.db = database_utils.dataBaseUtils(password='@mm@9398787515AmmA')
+
         
         #------------------------------------------------------------------------------------------------------------------------
         # start-up functions
@@ -193,9 +203,10 @@ class API:
         self.ui.setting_defects_apply_btn.clicked.connect(lambda: self.apply_changed_appearance_params(mode='defects'))
         self.ui.side_general_setting_btn.clicked.connect(lambda: self.load_appearance_params_on_start(mainsetting_page=True))
 
-        #Fullscreen
+        #Fullscreen  
         self.ui.fullscreen_cam_1.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam_1))
         self.ui.fullscreen_cam2.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam2))
+        self.ui.fullscreen_page_tools.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_page_tools))
 
 
         #tools page
@@ -499,9 +510,11 @@ class API:
 
 
     def show_full_screen(self,cam_num):
+        
 
-        fullscreen_dict={'fullscreen_cam_1':self.image_cam_1,'fullscreen_cam2':self.image_cam_2}
-
+        # fullscreen_dict={'fullscreen_cam_1':self.image_cam_1,'fullscreen_cam2':self.image_cam_2,'fullscreen_page_tools':self.ui.img_page_tool}
+        fullscreen_dict={'fullscreen_page_tools':self.ui.img_page_tool}
+        print('cam_num',fullscreen_dict[str(cam_num.objectName())])
         self.win_fullscreen = FullScreen_UI(fullscreen_dict[str(cam_num.objectName())])
         # full_screen_obj.show()
         self.win_fullscreen.show()
@@ -558,6 +571,7 @@ class API:
                     path = dbUtils.get_screw_path( self.screw_jasons[key].get_name() )
                     self.screw_jasons[key].write(path)                
                 print('Screw Saved')
+                self.ui.set_label(self.label_status_mode,'')
                 self.ui.editmode=False
         except:
             self.ui.set_warning('Save Eror','tool_page',level=2)
