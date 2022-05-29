@@ -564,18 +564,36 @@ class API:
     
     
     def save_screw(self):
-        flag = self.ui.show_question('Save Screw', 'Are you Sure?')
-        try:
+        if self.ui.editmode:
+            flag = self.ui.show_save_question('Save Screw', 'Do you want to Save screw ?')
+        # try:
             if flag:
                 for key in self.screw_jasons.keys():
                     path = dbUtils.get_screw_path( self.screw_jasons[key].get_name() )
-                    self.screw_jasons[key].write(path)                
+                    self.screw_jasons[key].write(path)  
+    
                 print('Screw Saved')
-                self.ui.set_label(self.label_status_mode,'')
+                self.ui.show_warning('Save Screw','Successfully Save')
                 self.ui.editmode=False
-        except:
-            self.ui.set_warning('Save Eror','tool_page',level=2)
+                self.ui.enable_bar_btn_tool_page(False)   
+                self.ui.set_label(self.ui.label_status_mode,'')   
+                self.ui.stackedWidget_2.setCurrentIndex(0)
+                # frame_save_btns
+                self.ui.frame_size(self.ui.frame_save_btns,0)
+            if flag==False:
+
+                print('disacrd')
+                self.ui.show_warning('Save Screw','Screw Settings Restored')
+
+            if flag==None:
+
+                print('cancel')
             
+            # except:
+            #     self.ui.set_warning('Save Eror','tool_page',level=2)
+            #     self.ui.show_warning('Save Screw','Eror Save')
+        else :
+            self.ui.show_warning('Save Screw','First Edit Mode')
             
     def remove_screw(self):
         name=self.ui.label_screw_name.text()

@@ -87,7 +87,8 @@ def object_dict_builder(ui_object):
                 'spin_max_diameter_x_4_side':self.spin_max_diameter_x_4_side,
                 'spin_max_diameter_y_4_side':self.spin_max_distance_3_side
             }
-        }
+        },
+        'spin_best_3_side':self.spin_best_3_side
 
     }
 
@@ -99,7 +100,17 @@ def object_dict_builder(ui_object):
             'btn_thresh_inv0_1_top': self.btn_thresh_inv0_1_top,
             'btn_thresh_inv0_2_top': self.btn_thresh_inv0_2_top,
             'btn_thresh_inv0_1_side': self.btn_thresh_inv0_1_side
-        }
+        },
+        'page':
+        {
+            'checkbox_page0_1_top': self.checkbox_page0_1_top,
+            'checkbox_page0_2_top': self.checkbox_page0_2_top,
+            'checkbox_page0_1_side': self.checkbox_page0_1_side,
+            'checkbox_page0_2_side': self.checkbox_page0_2_side,
+            'checkbox_page0_3_side': self.checkbox_page0_3_side,
+            'checkbox_page0_4_side': self.checkbox_page0_4_side,
+            
+        },       
     }
     
     
@@ -151,7 +162,8 @@ def object_dict_builder(ui_object):
                 'btn_remove_area0_2_top':self.btn_remove_area0_2_top,
                 'btn_remove_area0_4_side':self.btn_remove_area0_4_side,
 
-            }           
+            }    
+               
     }
 
     self.labels={
@@ -172,10 +184,10 @@ def object_dict_builder(ui_object):
     }
 
     self.combo_boxes={
-        'area':
+        'set_area':
         {
-            'combo_set_area_2_top':self.combo_set_area_2_top,
-            'combo_set_area_4_side':self.combo_set_area_4_side,
+            'combo_set_area0_2_top':self.combo_set_area0_2_top,
+            'combo_set_area0_4_side':self.combo_set_area0_4_side,
 
         }
     }

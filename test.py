@@ -1,27 +1,31 @@
 
+import cv2
 
-import time
-
-time1=time.time()
-
-for i in range(10000):
-
-    
-
-    eval(str(i*25))
+print(cv2.__version__)
 
 
-time2=time.time()
+# import time
 
-for i in range(10000):
+# time1=time.time()
+
+# for i in range(10000):
 
     
 
-    str(i*25)
-
-time3=time.time()
+#     eval(str(i*25))
 
 
-print('eval',time2-time1)
+# time2=time.time()
 
-print('not eval',time3-time2)
+# for i in range(10000):
+
+    
+
+#     str(i*25)
+
+# time3=time.time()
+
+
+# print('eval',time2-time1)
+
+# print('not eval',time3-time2)

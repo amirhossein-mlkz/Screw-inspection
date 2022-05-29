@@ -28,7 +28,7 @@ import time
 from PyQt5.QtGui import QPainter
 import os
 
-from regex import F
+# from regex import F
 import main_api
 import cv2
 from qt_material import apply_stylesheet
@@ -128,6 +128,19 @@ class UI_main_window(QMainWindow, ui):
 
         self.combo_exist={'1_top':False,'2_top':True,'1_side':False,'2_side':False,'3_side':False,'4_side':True}
 
+        
+        self.tool_btn_bar_side={'lenght':self.frame_36,'btn_male':self.btn_page0_3_side,'Male_Thread':self.frame_78,'btn_lenght':self.btn_page0_2_side,'Diameter':self.frame_79,}
+        self.tool_btn_bar_top=frames={'area':self.frame_34}
+
+
+        # self.get_sub_page_name()
+
+
+        # self.enable_bar_btn_side()
+        # self.enable_bar_btn_top()
+
+        # self.get_activate_pages()
+        self.enable_bar_btn_tool_page()
         
         # SET LANGUAGE
         #//////////////////////////////////////////////
@@ -450,7 +463,19 @@ class UI_main_window(QMainWindow, ui):
         if msg == QMessageBox.No:
             return False
         
-        
+    def show_save_question(self, title, message):
+
+        msg = QMessageBox.question(self, title, message, QMessageBox.Cancel| QMessageBox.SaveAll|QMessageBox.Discard)
+        if msg == QMessageBox.Cancel:
+            return None
+        if msg == QMessageBox.SaveAll:
+            return True       
+        if msg == QMessageBox.Discard:
+            return False  
+
+    def show_warning(self, title, message):
+        msg = QMessageBox.question(self, title, message,QMessageBox.Ok)
+                    
 
     def set_warning(self, text, name, level=1):                            #Show warning
         waring_labels = {
@@ -584,6 +609,7 @@ class UI_main_window(QMainWindow, ui):
         if btnName =='edit_remove_btn' :
             if self.editmode==False:
                 self.animation_move(self.frame_24,300)
+                self.enable_bar_btn_tool_page(False)
                 # self.editmode=True
             else :
                 self.set_warning(texts.WARNINGS['EDIT_MODE'][self.language],'tool_page',level=2)
@@ -611,6 +637,9 @@ class UI_main_window(QMainWindow, ui):
                 self.stackedWidget_2.setCurrentIndex(1)
                 self.set_label(self.label_status_mode,'Edit Mode')
                 self.editmode=True
+                self.enable_bar_btn_tool_page()
+                self.frame_size(self.frame_save_btns,57)
+
 
         if btnName =='next_page_btn' :
             i=self.stackedWidget_2.currentIndex()
@@ -723,10 +752,6 @@ class UI_main_window(QMainWindow, ui):
 
 
     
-    def set_button_enable_or_disable(self, names, enable=True):
-        
-        for name in names:
-            name.setEnabled(enable)
 
 
     def set_label(self,label_name,msg):
@@ -792,13 +817,60 @@ class UI_main_window(QMainWindow, ui):
         else:
             return  self.stackedWidget_2.currentIndex()  
         
+    def set_button_enable_or_disable(self, names, enable=True):
 
-
-    def get_page_cam_name(self):
+        print('all name',names)
         
-        index=self.stackedWidget_2.currentIndex()
+        for name in names.values():
+            print('name',name)
+            name.setEnabled(enable)
 
 
+    def enable_bar_btn_tool_page(self,enable=True,top=True,side=True):
+        if top:
+            self.set_button_enable_or_disable(self.tool_btn_bar_top,enable)
+        if side:
+            self.set_button_enable_or_disable(self.tool_btn_bar_side,enable)
+
+
+    def get_activate_pages(self):
+
+        for page_name in self.pages_name_dict.values():
+            x=self.checkboxes['page']['checkbox_page0_{}'.format(page_name)].isChecked()
+            print(self.checkboxes['page']['checkbox_page0_{}'.format(page_name)],x)
+
+
+    #Combobox utils ----------------------------------------------------------------  
+    def get_sub_page_name(self,page_name = None):
+
+            if page_name is None:
+                page_name =self.get_setting_page_idx(page_name=True)
+            combo_exist=self.combo_exist[page_name]  
+            if combo_exist:
+                print('exis')
+                str=self.get_combobox_text('set_area')
+                return str
+            else:
+                return None
+                          
+    def get_combobox_text(self,name, page_name = None, count=0):
+            
+            
+            if page_name is None:
+                page_name =self.get_setting_page_idx(page_name=True)
+            try:
+                combo_object=self.combo_boxes['{}'.format(name)]['combo_{}{}_{}'.format(name, count, page_name)]
+                str=combo_object.currentText()
+
+                return str
+            except:
+                return None
+    def set_combobox_text(self,name,list_data, page_name = None ,count=0):
+            
+            if page_name is None:
+                page_name =self.get_setting_page_idx(page_name=True)
+            
+            self.combo_boxes['{}'.format(name)]['combo_{}{}_{}'.format(name, count, page_name)].addItems(list_data)
 
 
     #Slider utils ----------------------------------------------------------------            
@@ -908,6 +980,38 @@ class UI_main_window(QMainWindow, ui):
         
         return dict_values
                 
+
+
+    # Spin Utils -------------------------------------------------
+    def set_spins_value(self,data, name, page_name = None):
+
+        if page_name is None:
+            page_name =self.get_setting_page_idx(page_name=True)
+        
+        # print('page_name:set',page_name,self.spins['roi'][0]['spin_roi_{}_{}'.format(0,page_name)])
+
+        # for limit_name in self.limit_name:
+            
+        try:
+            obj = self.spins['spin_{}_{}'.format(name, page_name)]
+            obj.setValue(data)   
+        except:
+            pass
+
+    def get_limit_value(self,name,  page_name = None):
+
+        if page_name is None:
+            page_name =self.get_setting_page_idx(page_name=True)
+        dict_values={}
+        try:
+            value=self.spins['spin_{}_{}'.format(name, page_name)].value() 
+            dict_values.update({'value':value})
+        except:
+            pass
+        
+        return dict_values
+                
+   
 
     #//////////////////////////////////////////////////////////////////////////////////////////////
     #Checkbox utils -----------------------------------------------------------------------------------        

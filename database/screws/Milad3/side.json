@@ -1,0 +1,34 @@
+{
+    "direction": "side",
+    "img_path": "/media/milad/PYTHON/my project/Screw-inspection/sample images/New folder/31x_1_2.png",
+    "name": "Milad3",
+    "settings": {
+        "1_side": {
+            "img_path": "/media/milad/PYTHON/my project/Screw-inspection/sample images/New folder/31x_1_2.png",
+            "rect_roi0": [
+                [
+                    27,
+                    79
+                ],
+                [
+                    1359,
+                    462
+                ]
+            ],
+            "thresh0": 86,
+            "thresh_inv0": true
+        },
+        "2_side": {
+            "rect_roi0": [
+                [
+                    15,
+                    72
+                ],
+                [
+                    208,
+                    76
+                ]
+            ]
+        }
+    }
+}
