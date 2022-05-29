@@ -82,13 +82,17 @@ def adp_threshould(img, bsize , c,  mask_roi = None, thresh_inv = False):
 
 
 
-def remove_belt(mask, thresh=0.6 , left_margin = 30 , right_margin = 10):
-    h,w = mask.shape
-    cols_sum = np.sum(mask, 0) / h / 255
+def remove_belt(mask, rect_roi, thresh=0.6 , left_margin = 30 , right_margin = 10):
+    crop_mask = crop_rect( mask, rect_roi ) 
+    h,w = crop_mask.shape
+    cols_sum = np.sum(crop_mask, axis = 0) / h / 255
     idxs = np.argwhere( cols_sum > thresh )
     
     start_idx = idxs.min() - left_margin
     end_idx = idxs.max() + right_margin
+    
+    start_idx += rect_roi[0][0]
+    end_idx += rect_roi[0][0]
     
     res_mask = np.copy( mask )
     res_mask[:,start_idx:end_idx] = 0
@@ -160,7 +164,7 @@ def shapes_drawer(shape_type, color, thickness=-1):
     return func
 
 
-def crop_rect(img, rect):
+def crop_rect(img, rect):    
     [[x1,y1], [x2,y2]] = rect
     crop = img[y1:y2 , x1:x2]
     return np.copy( crop )
@@ -278,45 +282,50 @@ def find_screw_thread(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
 
 
 
-def find_horizental_edges(mask , rect_roi ):
+def find_vertical_edges(mask , rect_roi ):
     ys, xs = np.nonzero( crop_rect( mask, rect_roi ) )
     pts = np.vstack((xs,ys)).transpose()
+    if len(pts)>50:
+        right_pts = np.array ( pd.DataFrame(pts).groupby(1).max().reset_index().values.tolist()) #return point with max x and same y
+        right_pts = np.array([right_pts[:,1],right_pts[:,0]]).transpose()
+
+        left_pts = np.array ( pd.DataFrame(pts).groupby(1).min().reset_index().values.tolist()) #return point with max x and same y
+        left_pts = np.array([left_pts[:,1],left_pts[:,0]]).transpose()
+        
+        start_point = np.array(rect_roi[0])
+        
+        right_pts = right_pts + start_point
+        left_pts = left_pts + start_point
+        return left_pts, right_pts
     
-    right_pts = np.array ( pd.DataFrame(pts).groupby(1).max().reset_index().values.tolist()) #return point with max x and same y
-    right_pts = np.array([right_pts[:,1],right_pts[:,0]]).transpose()
-
-    left_pts = np.array ( pd.DataFrame(pts).groupby(1).min().reset_index().values.tolist()) #return point with max x and same y
-    left_pts = np.array([left_pts[:,1],left_pts[:,0]]).transpose()
-    
-    start_point = np.array(rect_roi[0])
-    
-    right_pts = right_pts + start_point
-    left_pts = left_pts + start_point
-    return left_pts, right_pts
+    return [],[]
 
 
 
-def find_vertical_edges(mask, rect_roi):
+def find_horizental_edges(mask, rect_roi):
     ys, xs = np.nonzero( crop_rect( mask, rect_roi ) )
     pts = np.vstack((xs,ys)).transpose()
-    up_edge_pts = np.array ( pd.DataFrame(pts).groupby(0).min().reset_index().values.tolist()) #return point with min y and same x
-    down_edge_pts = np.array ( pd.DataFrame(pts).groupby(0).max().reset_index().values.tolist()) #return point with min y and same x
-    
-    
-    start_point = np.array(rect_roi[0])
-    up_edge_pts = up_edge_pts + start_point
-    down_edge_pts = down_edge_pts + start_point
-    return up_edge_pts, down_edge_pts
+    if len(pts)>50:
+        up_edge_pts = np.array ( pd.DataFrame(pts).groupby(0).min().reset_index().values.tolist()) #return point with min y and same x
+        down_edge_pts = np.array ( pd.DataFrame(pts).groupby(0).max().reset_index().values.tolist()) #return point with min y and same x
+        
+        
+        start_point = np.array(rect_roi[0])
+        up_edge_pts = up_edge_pts + start_point
+        down_edge_pts = down_edge_pts + start_point
+        return up_edge_pts, down_edge_pts
+    return [], []
 
-
-def draw_vertical_point(img, pts, color, thicknes=4):
-    for i in range(-thicknes//2, thicknes//2):
-        img[ pts[:,1], pts[:,0] + i] = color
+def draw_vertical_point(img, pts_group, color, thicknes=4):
+    for pts in pts_group:
+        for i in range(-thicknes//2, thicknes//2):
+            img[ pts[:,1], pts[:,0] + i] = color
     return img
 
-def draw_horizental_point(img, pts, color, thicknes=4):
-    for i in range(-thicknes//2, thicknes//2):
-        img[ pts[:,1] + i , pts[:,0]] = color
+def draw_horizental_point(img, pts_group, color, thicknes=4):
+    for pts in pts_group:
+        for i in range(-thicknes//2, thicknes//2):
+            img[ pts[:,1] + i , pts[:,0]] = color
     return img
 
 
@@ -324,6 +333,42 @@ def draw_points(img, pts, color, radius=4):
     for pt in pts:
         cv2.circle(img, tuple(pt), radius, color, thickness=-1)
     return img
+
+
+
+
+
+
+def preprocessing_img_json( img, json, direction):
+    thresh = json.get_thresh('1_{}'.format( direction ) )
+    noise_filter = json.get_noise_filter( '1_{}'.format( direction )  )
+    rect_roi_main = json.get_rect_roi( '1_{}'.format( direction ) )
+    inv_state = json.get_thresh_inv('1_{}'.format( direction ) )
+    
+    mask_roi = rects2mask(img.shape[:2], [rect_roi_main])
+    thresh_img = threshould(img, thresh, mask_roi, inv_state)
+    thresh_img = filter_noise_area(thresh_img, noise_filter)
+    #--------------------------------------------------------------------------------------
+    #correct rotation
+    #--------------------------------------------------------------------------------------
+    mask_unbelt, _ = remove_belt( thresh_img,rect_roi_main, thresh=0.7 )
+    angle, _ = correct_rotation_angle(mask_unbelt)
+    thresh_img = rotate_image(thresh_img,  angle   )
+    img = rotate_image(img,  angle   )
+
+    return img, thresh_img, angle
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 if __name__ == '__main__':
     from matplotlib import pyplot as plt
@@ -354,15 +399,14 @@ if __name__ == '__main__':
     img[ left_pts[:,1] , left_pts[:,0] ] = [0,0,255]
     img[ right_pts[:,1] , right_pts[:,0] ] = [0,0,255]
 
-    img = draw_vertical_point(img, left_pts , (0,0,255), 2 )
-    img = draw_vertical_point(img, right_pts , (0,0,255), 2 )
+    img = draw_vertical_point(img, [left_pts, right_pts] , (0,0,255), 2 )
     #--------------------------------------------------------
     radiuse_body_roi = [ [660, 130] , [910, 380] ]
     
     up_pts, down_pts = find_vertical_edges(thresh_mask, radiuse_body_roi)
     
-    img = draw_horizental_point(img, up_pts , (0,255,0), 2 )
-    img = draw_horizental_point(img, down_pts , (0,255,0), 2 )
+    img = draw_horizental_point(img, [up_pts, down_pts] , (0,255,0), 2 )
+    
     
     #--------------------------------------------------------
     rezve_rect_roi = [ [100, 60] , [550, 400] ]
@@ -393,7 +437,7 @@ if __name__ == '__main__':
     # # cv2.imwrite('mask.jpg', mask_area)
     # # cv2.waitKey(30)
     # mask = adp_threshould( img , 11, 11 , None )
-    # #mask = cvTools.filter_noise_area(mask , noise_filter )
+    # #mask = filter_noise_area(mask , noise_filter )
     
     
     

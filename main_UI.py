@@ -27,6 +27,8 @@ import threading
 import time
 from PyQt5.QtGui import QPainter
 import os
+
+from regex import F
 import main_api
 import cv2
 from qt_material import apply_stylesheet
@@ -728,7 +730,7 @@ class UI_main_window(QMainWindow, ui):
 
 
     def set_label(self,label_name,msg):
-    
+        msg = str( msg )
         label_name.setText(msg)
  
     def get_label(self,label_name):
@@ -837,7 +839,9 @@ class UI_main_window(QMainWindow, ui):
             
             try:
                 obj = self.spins['roi'][roi_name]['spin_roi_{}_{}'.format(roi_name,page_name)]
-                obj.setValue(data[roi_name])   
+                #obj.setUpdatesEnabled(False)
+                obj.setValue(data[roi_name])
+                #obj.setUpdatesEnabled(True)   
             except:
                 pass
 
@@ -874,7 +878,7 @@ class UI_main_window(QMainWindow, ui):
     #///////////////////////////////////////////////////////////////////////////// 
     #Limit Utils ---------------------------------------------
 
-    def set_limit_value(self,data, page_name = None):
+    def set_limit_value(self,data, name, page_name = None):
 
         if page_name is None:
             page_name =self.get_setting_page_idx(page_name=True)
@@ -884,12 +888,12 @@ class UI_main_window(QMainWindow, ui):
         for limit_name in self.limit_name:
             
             try:
-                obj = self.spins['limit'][limit_name]['spin_roi_{}_{}'.format(limit_name,page_name)]
+                obj = self.spins['limit'][limit_name]['spin_{}_{}_{}'.format(limit_name,name, page_name)]
                 obj.setValue(data[limit_name])   
             except:
                 pass
 
-    def get_limit_value(self, page_name = None):
+    def get_limit_value(self,name,  page_name = None):
 
         if page_name is None:
             page_name =self.get_setting_page_idx(page_name=True)
@@ -897,7 +901,7 @@ class UI_main_window(QMainWindow, ui):
         for limit_name in self.limit_name:
             
             try:
-                value=self.spins['limit'][limit_name]['spin_roi_{}_{}'.format(limit_name,page_name)].value() 
+                value=self.spins['limit'][limit_name]['spin_{}_{}_{}'.format(limit_name,name, page_name)].value() 
                 dict_values.update({limit_name:value})
             except:
                 pass

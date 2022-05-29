@@ -39,24 +39,36 @@ def object_dict_builder(ui_object):
                 'x1':
                 {
                     'spin_roi_x1_1_top': self.spin_roi_x1_1_top , 
-                    'spin_roi_x1_1_side': self.spin_roi_x1_1_side 
+                    'spin_roi_x1_1_side': self.spin_roi_x1_1_side,
+                    'spin_roi_x1_2_side' : self.spin_roi_x1_2_side,
+                    'spin_roi_x1_3_side' : self.spin_roi_x1_3_side,
+                    
                 },
                 'x2':
                 {
                     'spin_roi_x2_1_top': self.spin_roi_x2_1_top , 
-                    'spin_roi_x2_1_side': self.spin_roi_x2_1_side 
+                    'spin_roi_x2_1_side': self.spin_roi_x2_1_side ,
+                    'spin_roi_x2_2_side' : self.spin_roi_x2_2_side,
+                    'spin_roi_x2_3_side' : self.spin_roi_x2_3_side,
                 },
                 'y1':
                 {
                     'spin_roi_y1_1_top': self.spin_roi_y1_1_top , 
-                    'spin_roi_y1_1_side': self.spin_roi_y1_1_side 
+                    'spin_roi_y1_1_side': self.spin_roi_y1_1_side,
+                    'spin_roi_y1_2_side' : self.spin_roi_y1_2_side,
+                    'spin_roi_y1_3_side' : self.spin_roi_y1_3_side,
                 },
                 'y2':
                 {
                     'spin_roi_y2_1_top': self.spin_roi_y2_1_top ,
-                    'spin_roi_y2_1_side': self.spin_roi_y2_1_side 
+                    'spin_roi_y2_1_side': self.spin_roi_y2_1_side,
+                    'spin_roi_y2_2_side' : self.spin_roi_y2_2_side,
+                    'spin_roi_y2_3_side' : self.spin_roi_y2_3_side,
                 }
             },
+            
+            
+            
         'limit':{
             'min':{
                 'spin_min_lenght_2_side':self.spin_min_lenght_2_side,

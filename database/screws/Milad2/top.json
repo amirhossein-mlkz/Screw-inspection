@@ -1,5 +1,18 @@
 {
     "direction": "top",
     "name": "Milad2",
-    "settings": {}
+    "settings": {
+        "1_top": {
+            "rect_roi0": [
+                [
+                    73,
+                    85
+                ],
+                [
+                    503,
+                    319
+                ]
+            ]
+        }
+    }
 }

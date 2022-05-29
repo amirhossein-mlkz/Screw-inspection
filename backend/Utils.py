@@ -53,3 +53,13 @@ def rect_dict2list(rect_dict):
             ]
     
     return rect
+
+
+
+
+def is_rect(rect):
+    if len(rect) == 2:
+        if len(rect[0]) == 2 and len(rect[1]) == 2:
+            return True
+    return False
+    
