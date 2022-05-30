@@ -340,10 +340,10 @@ def draw_points(img, pts, color, radius=4):
 
 
 def preprocessing_img_json( img, json, direction):
-    thresh = json.get_thresh('1_{}'.format( direction ) )
-    noise_filter = json.get_noise_filter( '1_{}'.format( direction )  )
-    rect_roi_main = json.get_rect_roi( '1_{}'.format( direction ) )
-    inv_state = json.get_thresh_inv('1_{}'.format( direction ) )
+    thresh = json.get_thresh('1_{}'.format( direction ), None )
+    noise_filter = json.get_noise_filter( '1_{}'.format( direction ), None  )
+    rect_roi_main = json.get_rect_roi( '1_{}'.format( direction ), None )
+    inv_state = json.get_thresh_inv('1_{}'.format( direction ), None )
     
     mask_roi = rects2mask(img.shape[:2], [rect_roi_main])
     thresh_img = threshould(img, thresh, mask_roi, inv_state)

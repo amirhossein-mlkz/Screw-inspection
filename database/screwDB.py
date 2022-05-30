@@ -1,4 +1,5 @@
 
+from email.policy import default
 import json
 import os
 
@@ -46,12 +47,17 @@ class screwJson():
         return self.data.get('name', '') 
     
     #-----------------------------------------
-    def set_img_path(self,path, page=None):
+    def set_img_path(self,path, page=None, subpage = None):
         self.img = cv2.imread(path)
         self.data['img_path'] = path
         if page is not None:
             self.check_and_build_page( page )
-            self.data[self.setting_key][page]['img_path'] = path
+            if subpage is not None:
+                self.check_and_build_subpage(page, subpage)
+                self.data[self.setting_key][page][subpage]['img_path'] = path
+            else:
+                self.data[self.setting_key][page]['img_path'] = path
+            
     
     def get_img_path(self):
         return self.data.get('img_path', IMG_PATH_DEF)
@@ -64,6 +70,37 @@ class screwJson():
     def check_and_build_page(self, page_name):
         if self.data[self.setting_key].get(page_name, None) is None:
             self.data[self.setting_key][page_name] = {}
+            
+    
+    def check_and_build_subpage(self, page_name, subpage):
+        if self.data[self.setting_key][page_name].get(page_name, None) is None:
+            self.data[ self.setting_key ] [ page_name][ subpage ] = {}
+            
+    #-----------------------------------------
+    def set_value(self, page , subpage, name, value):
+        self.check_and_build_page( page )
+        if subpage is not None:
+            self.check_and_build_subpage(page, subpage)
+            self.data[self.setting_key][page][subpage][name] = value
+        else:
+            self.data[self.setting_key][page][name] = value
+    
+    
+    
+    def get_value(self, page , subpage, name, defualt_value):
+        settings = self.data[self.setting_key]
+        if settings.get(page, None) is None:
+            return defualt_value
+        else:
+            page_setting = settings.get(page)
+            if subpage is None:
+                return page_setting.get( name, defualt_value )
+            
+            else:
+                if page_setting.get(subpage, None) is None:
+                    return defualt_value
+                else:
+                    return page_setting[subpage].get( name, default)
     
     #-----------------------------------------
     def set_direction(self, dir):
@@ -73,64 +110,64 @@ class screwJson():
         return self.data['direction'] 
     
     #-----------------------------------------
-    def set_thresh(self, page, value, idx=0):
-        self.check_and_build_page( page )
-        self.data[self.setting_key][page]['thresh{}'.format(idx)] = value
+    def set_thresh(self, page, subpage, value, idx=0):
+        name = 'thresh{}'.format(idx)
+        self.set_value( page, subpage, name, value)
         
         
-    def get_thresh(self, page, idx=0):
-        settings = self.data[self.setting_key]
-        if settings.get(page, None) is None:
-            return 0
-        page_setting = settings.get(page)
-        return page_setting.get( 'thresh{}'.format(idx) , 0)
+    def get_thresh(self, page, subpage, idx=0):
+        name =  'thresh{}'.format(idx)
+        return self.get_value( page, subpage, name, 0)
+        
     
     #-----------------------------------------
-    def set_thresh_inv(self, page, value, idx=0):
-        self.check_and_build_page( page )
-        self.data[self.setting_key][page]['thresh_inv{}'.format(idx)] = value
+    def set_thresh_inv(self, page, subpage, value, idx=0):
+        name = 'thresh_inv{}'.format(idx)
+        self.set_value( page, subpage, name, value)
         
         
         
-    def get_thresh_inv(self, page, idx=0):
-        settings = self.data[self.setting_key]
-        if settings.get(page, None) is None:
-            return False
-        page_setting = settings.get(page)
-        return page_setting.get( 'thresh_inv{}'.format(idx) , False)
+    def get_thresh_inv(self, page, subpage,  idx=0):
+        name = 'thresh_inv{}'.format(idx)
+        return self.get_value( page, subpage, name, False)
+    
     #-----------------------------------------
-    def set_noise_filter(self, page, value, idx=0):
-        self.check_and_build_page( page )
-        self.data[self.setting_key][page]['noise_filter{}'.format(idx)] = value
+    def set_noise_filter(self, page, subpage, value, idx=0):
+        name = 'noise_filter{}'.format(idx)  
+        self.set_value( page, subpage, name, value)
         
-    def get_noise_filter(self, page, idx=0):
-        settings = self.data[self.setting_key]
-        if settings.get(page, None) is None:
-            return 0
-        page_setting = settings.get(page)
-        return page_setting.get( 'noise_filter{}'.format(idx) , 0)
+        
+        
+        
+    def get_noise_filter(self, page, subpage, idx=0):
+        name = 'noise_filter{}'.format(idx)
+        return self.get_value( page, subpage, name, 0)
     #-----------------------------------------
-    def set_rect_roi(self, page, pt1, pt2, idx=0):
-        self.check_and_build_page( page )
+    def set_rect_roi(self, page, subpage,  pt1, pt2, idx=0):
         if len(pt1) == 0 or len(pt2) == 0:
-            rect = []
+                value = []
         else:
-            rect = [ list(pt1), list(pt2) ]
-        self.data[self.setting_key][page]['rect_roi{}'.format(idx)] = rect
+            value = [ list(pt1), list(pt2) ]
+
+        name = 'rect_roi{}'.format(idx)
+        self.set_value( page, subpage, name, value)
     
-    def get_rect_roi(self, page, idx=0):
-        settings = self.data[self.setting_key]
-        if settings.get(page, None) is None:
-            return [[], []]
-        page_setting = settings.get(page)
-        return page_setting.get( 'rect_roi{}'.format(idx) , [[], []])
+    
+    
+    
+    def get_rect_roi(self, page, subpage, idx=0):
+        name = 'rect_roi{}'.format(idx)
+        return self.get_value( page, subpage, name, [[],[]])
     
     
     
     #-----------------------------------------
-    def get_setting(self, page):
+    def get_setting(self, page, subpage):
         settings = self.data[self.setting_key]
-        return settings.get( page , {})
+        if subpage is None:
+            return settings.get( page , {})
+        else:
+            return settings[page].get( subpage  )
 
     
 
