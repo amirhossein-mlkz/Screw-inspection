@@ -9,6 +9,7 @@
 
 import sys
 from tabnanny import check
+from traceback import print_tb
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import * 
 from PyQt5.QtGui import * 
@@ -124,7 +125,7 @@ class UI_main_window(QMainWindow, ui):
         self.pages_name_dict={'1':'1_top','2':'2_top','3':'1_side','4':'2_side','5':'3_side','6':'4_side'}
         self.pages_dircetion_dict={'1':'top','2':'top','3':'side','4':'side','5':'side','6':'side'}
         self.roi_name=['x1','y1','x2','y2']
-        self.limit_name=['min','max']
+        self.limit_types=['min','max']
 
         self.combo_exist={'1_top':False,'2_top':True,'1_side':False,'2_side':False,'3_side':False,'4_side':True}
 
@@ -140,7 +141,7 @@ class UI_main_window(QMainWindow, ui):
         # self.enable_bar_btn_top()
 
         # self.get_activate_pages()
-        self.enable_bar_btn_tool_page()
+        #self.enable_bar_btn_tool_page()
         
         # SET LANGUAGE
         #//////////////////////////////////////////////
@@ -380,7 +381,7 @@ class UI_main_window(QMainWindow, ui):
 
         # page 4_side  btn_add_area0_4_side
 
-        self.btn_add_area0_4_side.clicked.connect(self.buttonClick)
+        self.btn_add_region0_4_side.clicked.connect(self.buttonClick)
         self.btn_complete_area_4_side.clicked.connect(self.buttonClick)
 
 
@@ -818,18 +819,14 @@ class UI_main_window(QMainWindow, ui):
             return  self.stackedWidget_2.currentIndex()  
         
     def set_button_enable_or_disable(self, names, enable=True):
-
-        print('all name',names)
-        
         for name in names.values():
-            print('name',name)
             name.setEnabled(enable)
 
 
-    def enable_bar_btn_tool_page(self,enable=True,top=True,side=True):
-        if top:
+    def enable_bar_btn_tool_page(self,direction, enable=True ):
+        if direction == 'top':
             self.set_button_enable_or_disable(self.tool_btn_bar_top,enable)
-        if side:
+        if direction == 'side':
             self.set_button_enable_or_disable(self.tool_btn_bar_side,enable)
 
 
@@ -847,48 +844,112 @@ class UI_main_window(QMainWindow, ui):
                 page_name =self.get_setting_page_idx(page_name=True)
             combo_exist=self.combo_exist[page_name]  
             if combo_exist:
-                print('exis')
-                str=self.get_combobox_text('set_area')
-                return str
+                #print('exis')
+                #str=self.get_combobox_text('set_area')
+                if self.get_selected_list_pack_count('sub_pages') == 0:
+                    return 'none'
+                return self.get_selected_list_pack_item('sub_pages')
             else:
                 return None
                           
-    def get_combobox_text(self,name, page_name = None, count=0):
+    def get_combobox_text(self,name, page_name = None, idx=0):
             
             
             if page_name is None:
                 page_name =self.get_setting_page_idx(page_name=True)
             try:
-                combo_object=self.combo_boxes['{}'.format(name)]['combo_{}{}_{}'.format(name, count, page_name)]
+                combo_object=self.combo_boxes['{}'.format(name)]['combo_{}{}_{}'.format(name, idx, page_name)]
                 str=combo_object.currentText()
 
                 return str
             except:
                 return None
-    def set_combobox_text(self,name,list_data, page_name = None ,count=0):
+    def set_combobox_text(self,name,list_data, page_name = None ,idx=0):
             
             if page_name is None:
                 page_name =self.get_setting_page_idx(page_name=True)
             
-            self.combo_boxes['{}'.format(name)]['combo_{}{}_{}'.format(name, count, page_name)].addItems(list_data)
+            self.combo_boxes['{}'.format(name)]['combo_{}{}_{}'.format(name, idx, page_name)].addItems(list_data)
 
 
+    #-----------------------------------------------------------------------------
+    def get_selected_list_pack_item(self, name, page_name=None, idx=0):
+        if page_name is None:
+                page_name =self.get_setting_page_idx(page_name=True)
+        return self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].currentText()
+    
+    def set_selected_list_pack_item(self, name, item, page_name=None, idx=0):
+        if page_name is None:
+                page_name =self.get_setting_page_idx(page_name=True)
+        return self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].setCurrentText(str(item))
+    
+    def get_selected_list_pack_count(self, name, page_name=None, idx=0):
+        if page_name is None:
+                page_name =self.get_setting_page_idx(page_name=True)
+        return self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].count()
+    
+    
+    def set_list_pack_items(self, name, items, page_name=None, idx=0):
+        if page_name is None:
+                page_name =self.get_setting_page_idx(page_name=True)
+        self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].blockSignals(True)
+        self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].clear()
+        self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].addItems(items)
+        self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].blockSignals(False)
+        
+    def get_list_pack_input(self, name, page_name=None, idx=0):
+        if page_name is None:
+                page_name =self.get_setting_page_idx(page_name=True)
+        
+        return self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['input'].text().lower()
+        
+    
+    def set_list_pack_input(self, name, text, page_name=None, idx=0):
+        if page_name is None:
+                page_name =self.get_setting_page_idx(page_name=True)
+        
+        return self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['input'].setText(text)
+    
+    
+    
+    def connect_list_pack(self, name, func, idx=0):
+        
+        for page_name in self.pages_name_dict.values():
+            
+            try:
+                self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['add_btn'].clicked.connect(func('add'))
+                self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['remove_btn'].clicked.connect(func('remove'))
+                self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].currentTextChanged.connect(func('select'))
+
+            except:
+                pass
+    
+    
+    #info labels ----------------------------------------------------------------            
+    def set_stetting_page_label_info(self, data, page_name = None):
+        if page_name is None:
+                page_name =self.get_setting_page_idx(page_name=True)
+        
+        for name, value in data.items():
+            obj = self.labels['show_infoes'][page_name][ 'label_{}_{}'.format(name, page_name) ]
+            obj.setText( str(value) )
+    
     #Slider utils ----------------------------------------------------------------            
-    def get_sliders_value(self,name, page_name = None, count=0):
+    def get_sliders_value(self,name, page_name = None, idx=0):
             
             
             if page_name is None:
                 page_name =self.get_setting_page_idx(page_name=True)
             
-            x=self.sliders['{}'.format(name)]['bar_{}{}_{}'.format(name, count, page_name)].value()
+            x=self.sliders['{}'.format(name)]['bar_{}{}_{}'.format(name, idx, page_name)].value()
             return x
 
-    def set_sliders_value(self,name,value, page_name = None ,count=0):
+    def set_sliders_value(self,name,value, page_name = None ,idx=0):
             
             if page_name is None:
                 page_name =self.get_setting_page_idx(page_name=True)
             
-            self.sliders['{}'.format(name)]['bar_{}{}_{}'.format(name, count, page_name)].setValue(value)
+            self.sliders['{}'.format(name)]['bar_{}{}_{}'.format(name, idx, page_name)].setValue(value)
 
 
     def connect_sliders(self,name,func):
@@ -911,9 +972,9 @@ class UI_main_window(QMainWindow, ui):
             
             try:
                 obj = self.spins['roi'][roi_name]['spin_roi_{}_{}'.format(roi_name,page_name)]
-                #obj.setUpdatesEnabled(False)
+                obj.blockSignals(True)
                 obj.setValue(data[roi_name])
-                #obj.setUpdatesEnabled(True)   
+                obj.blockSignals(False)
             except:
                 pass
 
@@ -950,35 +1011,59 @@ class UI_main_window(QMainWindow, ui):
     #///////////////////////////////////////////////////////////////////////////// 
     #Limit Utils ---------------------------------------------
 
-    def set_limit_value(self,data, name, page_name = None):
+    def set_limit_value(self,data, page_name = None):
 
         if page_name is None:
             page_name =self.get_setting_page_idx(page_name=True)
         
         # print('page_name:set',page_name,self.spins['roi'][0]['spin_roi_{}_{}'.format(0,page_name)])
-
-        for limit_name in self.limit_name:
+        for limit_type in data.keys():
+            for name, value in data[limit_type].items():    
+                try:
+                    obj = self.spins['limit'][limit_type][page_name]['spin_{}_{}_{}'.format(limit_type,name, page_name)]
+                    obj.blockSignals(True)
+                    obj.setValue( value )   
+                    obj.blockSignals(False)
+                except:
+                    pass
             
-            try:
-                obj = self.spins['limit'][limit_name]['spin_{}_{}_{}'.format(limit_name,name, page_name)]
-                obj.setValue(data[limit_name])   
-            except:
-                pass
-
-    def get_limit_value(self,name,  page_name = None):
+            
+            
+            
+    def get_limit_value(self, page_name = None):
 
         if page_name is None:
             page_name =self.get_setting_page_idx(page_name=True)
-        dict_values={}
-        for limit_name in self.limit_name:
-            
-            try:
-                value=self.spins['limit'][limit_name]['spin_{}_{}_{}'.format(limit_name,name, page_name)].value() 
-                dict_values.update({limit_name:value})
-            except:
-                pass
+        
+        dict_values = {}
+        for limit_type in self.limit_types:
+            dict_values.update( { limit_type : {} } )
+            for name, obj in self.spins['limit'][limit_type][page_name].items():
+                try:
+                    name = name[ len( 'spin_' + limit_type + '_' ) : ] #spin_min_lenght_2_side -> lenght_2_side
+                    name = name[ : name.rfind(page_name) - 1 ] #lenght_2_side -> lenght ( -1 is for '_' after name )
+                    value = obj.value()
+                    dict_values[limit_type].update( {name:value} )
+                except:
+                    pass
         
         return dict_values
+    
+    
+    
+    def connect_limit_spin(self, func):
+        
+        for limit_type in self.limit_types:
+            for page_name in self.spins['limit'][limit_type].keys():
+                for name, obj in self.spins['limit'][limit_type][page_name].items():
+                    #spin_min_lenght_2_side
+                    try:
+                        name = name[ len( 'spin_' + limit_type + '_' ) : ] #spin_min_lenght_2_side -> lenght_2_side
+                        name = name[ : name.rfind(page_name) - 1 ] #lenght_2_side -> lenght ( -1 is for '_' after name )
+                        obj.valueChanged.connect(func( limit_type, name ))
+                    except:
+                        pass
+
                 
 
 
@@ -990,28 +1075,14 @@ class UI_main_window(QMainWindow, ui):
         
         # print('page_name:set',page_name,self.spins['roi'][0]['spin_roi_{}_{}'.format(0,page_name)])
 
-        # for limit_name in self.limit_name:
+        # for limit_name in self.limit_types:
             
         try:
             obj = self.spins['spin_{}_{}'.format(name, page_name)]
             obj.setValue(data)   
         except:
             pass
-
-    def get_limit_value(self,name,  page_name = None):
-
-        if page_name is None:
-            page_name =self.get_setting_page_idx(page_name=True)
-        dict_values={}
-        try:
-            value=self.spins['spin_{}_{}'.format(name, page_name)].value() 
-            dict_values.update({'value':value})
-        except:
-            pass
-        
-        return dict_values
                 
-   
 
     #//////////////////////////////////////////////////////////////////////////////////////////////
     #Checkbox utils -----------------------------------------------------------------------------------        
@@ -1092,21 +1163,38 @@ class UI_main_window(QMainWindow, ui):
             page_name =self.get_setting_page_idx(page_name=True)
 
         for name, value in parms.items():
-            if name in ['thresh', 'noise_filter']:
-                self.set_sliders_value(name, value, page_name)
-            if name in ['roi']:
+            name, idx = self.deasmble_name_and_idx( name )
+            if name in ['thresh_inv'] :
+                self.set_checkbox_value(name,value,page_name,idx=idx)
+                
+            elif name in ['thresh', 'noise_filter'] :
+                self.set_sliders_value(name, value, page_name, idx=idx)
+                
+            elif name in  ['img_path'] :
+                self.set_line_value(name, value, page_name,idx=idx)
+                
+            elif 'roi' in name:
                 self.set_roi_value(Utils.rect_list2dict(value), page_name)
-    
-    
-            if name in ['thresh_inv']:
-                self.set_checkbox_value(name,value,page_name)
                 
             
-            if name in ['img_path']:
-                self.set_line_value(name, value, page_name)
-                
+            elif 'limit' in name:
+                self.set_limit_value(value, page_name)
     
 
+            
+            
+                
+    
+    
+    
+    def deasmble_name_and_idx(self,inpt):
+        for i in range(len(inpt)):
+            if inpt[i] in '0123456789':
+                break
+            
+            if i == (len(inpt) - 1):
+                return inpt,0
+        return inpt[:i] , inpt[i:]
   
 
 if __name__ == "__main__":

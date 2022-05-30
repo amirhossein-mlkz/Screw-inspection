@@ -734,7 +734,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -784,7 +783,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -834,7 +832,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -884,7 +881,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -934,7 +930,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1021,7 +1016,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1815,7 +1809,6 @@ QPushButton:hover {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                        <stylestrategy>PreferDefault</stylestrategy>
@@ -3072,8 +3065,8 @@ QPushButton:hover {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>276</width>
-                                  <height>702</height>
+                                  <width>73</width>
+                                  <height>73</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">
@@ -3601,7 +3594,6 @@ border: 1px solid #CDCDCE;
                                   <property name="font">
                                    <font>
                                     <pointsize>8</pointsize>
-                                    <weight>50</weight>
                                     <bold>false</bold>
                                    </font>
                                   </property>
@@ -4005,7 +3997,6 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -4046,7 +4037,6 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -4142,7 +4132,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4170,7 +4159,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4198,7 +4186,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4226,7 +4213,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4254,7 +4240,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4282,7 +4267,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4310,7 +4294,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4338,7 +4321,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4366,7 +4348,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4394,7 +4375,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4422,7 +4402,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4450,7 +4429,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -4478,7 +4456,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -5081,7 +5058,6 @@ QPushButton:pressed {
                                <property name="font">
                                 <font>
                                  <pointsize>10</pointsize>
-                                 <weight>75</weight>
                                  <bold>true</bold>
                                 </font>
                                </property>
@@ -5821,7 +5797,6 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
-                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -6535,7 +6510,6 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
-                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -7737,7 +7711,7 @@ QPushButton:pressed {
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>1</number>
+                                   <number>6</number>
                                   </property>
                                   <widget class="QWidget" name="page_0"/>
                                   <widget class="QWidget" name="page_1_top">
@@ -9356,131 +9330,12 @@ QPushButton:pressed {
                                          </property>
                                         </spacer>
                                        </item>
-                                       <item>
-                                        <widget class="QFrame" name="frame_65">
-                                         <property name="minimumSize">
-                                          <size>
-                                           <width>0</width>
-                                           <height>61</height>
-                                          </size>
-                                         </property>
-                                         <property name="frameShape">
-                                          <enum>QFrame::StyledPanel</enum>
-                                         </property>
-                                         <property name="frameShadow">
-                                          <enum>QFrame::Raised</enum>
-                                         </property>
-                                         <layout class="QHBoxLayout" name="horizontalLayout_71">
-                                          <item>
-                                           <widget class="QFrame" name="frame_66">
-                                            <property name="frameShape">
-                                             <enum>QFrame::StyledPanel</enum>
-                                            </property>
-                                            <property name="frameShadow">
-                                             <enum>QFrame::Raised</enum>
-                                            </property>
-                                            <layout class="QHBoxLayout" name="horizontalLayout_81">
-                                             <item>
-                                              <widget class="QLabel" name="label_23">
-                                               <property name="text">
-                                                <string>Lenght :</string>
-                                               </property>
-                                              </widget>
-                                             </item>
-                                             <item>
-                                              <widget class="QLabel" name="line_lenght_side_cam_1">
-                                               <property name="text">
-                                                <string>-</string>
-                                               </property>
-                                              </widget>
-                                             </item>
-                                             <item>
-                                              <widget class="Line" name="line_14">
-                                               <property name="orientation">
-                                                <enum>Qt::Vertical</enum>
-                                               </property>
-                                              </widget>
-                                             </item>
-                                             <item>
-                                              <widget class="QLabel" name="label_24">
-                                               <property name="text">
-                                                <string>Lenght :</string>
-                                               </property>
-                                              </widget>
-                                             </item>
-                                             <item>
-                                              <widget class="QLabel" name="line_lenght_side_cam_2">
-                                               <property name="text">
-                                                <string>-</string>
-                                               </property>
-                                              </widget>
-                                             </item>
-                                             <item>
-                                              <widget class="QLabel" name="label_27">
-                                               <property name="text">
-                                                <string>Lenght :</string>
-                                               </property>
-                                              </widget>
-                                             </item>
-                                             <item>
-                                              <widget class="QLabel" name="lenght_side_cam_3">
-                                               <property name="text">
-                                                <string>-</string>
-                                               </property>
-                                              </widget>
-                                             </item>
-                                            </layout>
-                                           </widget>
-                                          </item>
-                                          <item>
-                                           <widget class="Line" name="line_15">
-                                            <property name="orientation">
-                                             <enum>Qt::Vertical</enum>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item>
-                                           <widget class="QFrame" name="frame_67">
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>90</width>
-                                              <height>16777215</height>
-                                             </size>
-                                            </property>
-                                            <property name="frameShape">
-                                             <enum>QFrame::StyledPanel</enum>
-                                            </property>
-                                            <property name="frameShadow">
-                                             <enum>QFrame::Raised</enum>
-                                            </property>
-                                            <layout class="QHBoxLayout" name="horizontalLayout_87">
-                                             <item>
-                                              <widget class="QLabel" name="label_28">
-                                               <property name="text">
-                                                <string>Count :</string>
-                                               </property>
-                                              </widget>
-                                             </item>
-                                             <item>
-                                              <widget class="QLabel" name="count_rezve_side_camera">
-                                               <property name="text">
-                                                <string>-</string>
-                                               </property>
-                                              </widget>
-                                             </item>
-                                            </layout>
-                                           </widget>
-                                          </item>
-                                         </layout>
-                                        </widget>
-                                       </item>
                                       </layout>
                                       <zorder>frame_61</zorder>
                                       <zorder>frame_68</zorder>
                                       <zorder>frame_27</zorder>
                                       <zorder>line_16</zorder>
                                       <zorder>btn_rotate_correction0_1_side</zorder>
-                                      <zorder>frame_65</zorder>
                                       <zorder>frame_59</zorder>
                                       <zorder>frame_63</zorder>
                                       <zorder>label_13</zorder>
@@ -10124,7 +9979,7 @@ QPushButton:pressed {
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_min_lenght_3_side">
+                                        <widget class="QSpinBox" name="spin_min_thread_lenght_3_side">
                                          <property name="maximumSize">
                                           <size>
                                            <width>50</width>
@@ -10147,7 +10002,7 @@ QPushButton:pressed {
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_max_lenght_3_side">
+                                        <widget class="QSpinBox" name="spin_max_thread_lenght_3_side">
                                          <property name="maximumSize">
                                           <size>
                                            <width>50</width>
@@ -10196,7 +10051,7 @@ QPushButton:pressed {
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_min_thread_3_side_2">
+                                        <widget class="QSpinBox" name="spin_min_thread_count_3_side">
                                          <property name="maximumSize">
                                           <size>
                                            <width>50</width>
@@ -10219,7 +10074,7 @@ QPushButton:pressed {
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_max_thread_3_side">
+                                        <widget class="QSpinBox" name="spin_max_thread_count_3_side">
                                          <property name="maximumSize">
                                           <size>
                                            <width>50</width>
@@ -10268,7 +10123,7 @@ QPushButton:pressed {
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_min_distance_3_side">
+                                        <widget class="QSpinBox" name="spin_min_thread_distance_3_side">
                                          <property name="maximumSize">
                                           <size>
                                            <width>50</width>
@@ -10291,7 +10146,7 @@ QPushButton:pressed {
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_max_distance_3_side">
+                                        <widget class="QSpinBox" name="spin_max_thread_distance_3_side">
                                          <property name="maximumSize">
                                           <size>
                                            <width>50</width>
@@ -10349,7 +10204,7 @@ QPushButton:pressed {
                                       </property>
                                       <layout class="QHBoxLayout" name="horizontalLayout_125">
                                        <item>
-                                        <widget class="QPushButton" name="btn_add_area0_4_side">
+                                        <widget class="QPushButton" name="btn_add_region0_4_side">
                                          <property name="maximumSize">
                                           <size>
                                            <width>26</width>
@@ -10376,7 +10231,7 @@ QPushButton:pressed {
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QComboBox" name="combo_set_area0_4_side">
+                                        <widget class="QComboBox" name="combo_regions_name0_4_side">
                                          <property name="minimumSize">
                                           <size>
                                            <width>191</width>
@@ -10392,7 +10247,7 @@ QPushButton:pressed {
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QPushButton" name="btn_remove_area0_4_side">
+                                        <widget class="QPushButton" name="btn_remove_region0_4_side">
                                          <property name="maximumSize">
                                           <size>
                                            <width>26</width>
@@ -10458,7 +10313,7 @@ QPushButton:pressed {
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QLineEdit" name="line_name_area0_4_side"/>
+                                           <widget class="QLineEdit" name="line_name_region0_4_side"/>
                                           </item>
                                          </layout>
                                         </widget>
@@ -10680,7 +10535,7 @@ QPushButton:pressed {
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="spin_min_diameter_x_4_side">
+                                           <widget class="QSpinBox" name="spin_min_body_diameter_4_side">
                                             <property name="maximumSize">
                                              <size>
                                               <width>50</width>
@@ -10703,79 +10558,7 @@ QPushButton:pressed {
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="spin_max_diameter_x_4_side">
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>50</width>
-                                              <height>16777215</height>
-                                             </size>
-                                            </property>
-                                            <property name="maximum">
-                                             <number>20000</number>
-                                            </property>
-                                            <property name="singleStep">
-                                             <number>5</number>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                         </layout>
-                                        </widget>
-                                       </item>
-                                       <item>
-                                        <widget class="QFrame" name="frame_139">
-                                         <property name="frameShape">
-                                          <enum>QFrame::StyledPanel</enum>
-                                         </property>
-                                         <property name="frameShadow">
-                                          <enum>QFrame::Raised</enum>
-                                         </property>
-                                         <layout class="QHBoxLayout" name="horizontalLayout_144">
-                                          <item>
-                                           <widget class="QLabel" name="label_86">
-                                            <property name="text">
-                                             <string>Diameter Y: :</string>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item alignment="Qt::AlignHCenter">
-                                           <widget class="QLabel" name="label_diameter_y_4_side">
-                                            <property name="text">
-                                             <string>-</string>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item>
-                                           <widget class="QLabel" name="label_89">
-                                            <property name="text">
-                                             <string>Min</string>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item>
-                                           <widget class="QSpinBox" name="spin_min_diameter_y_4_side">
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>50</width>
-                                              <height>16777215</height>
-                                             </size>
-                                            </property>
-                                            <property name="maximum">
-                                             <number>20000</number>
-                                            </property>
-                                            <property name="singleStep">
-                                             <number>5</number>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item>
-                                           <widget class="QLabel" name="label_90">
-                                            <property name="text">
-                                             <string>Max</string>
-                                            </property>
-                                           </widget>
-                                          </item>
-                                          <item>
-                                           <widget class="QSpinBox" name="spin_max_diameter_y_4_side">
+                                           <widget class="QSpinBox" name="spin_max_body_diameter_4_side">
                                             <property name="maximumSize">
                                              <size>
                                               <width>50</width>
@@ -11256,7 +11039,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -11293,7 +11075,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -11333,7 +11114,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -11412,7 +11192,6 @@ QPushButton:pressed {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>-1</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -11486,44 +11265,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>408</x>
-     <y>180</y>
+     <x>646</x>
+     <y>521</y>
     </hint>
     <hint type="destinationlabel">
-     <x>408</x>
-     <y>180</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBox_5</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>bar_noise_filter0_2_top</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>408</x>
-     <y>180</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>408</x>
-     <y>180</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>bar_thresh0_1_side</sender>
-   <signal>actionTriggered(int)</signal>
-   <receiver>spinBox_4</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>613</x>
-     <y>519</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>670</x>
-     <y>516</y>
+     <x>591</x>
+     <y>521</y>
     </hint>
    </hints>
   </connection>
@@ -11534,12 +11281,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>408</x>
-     <y>180</y>
+     <x>529</x>
+     <y>664</y>
     </hint>
     <hint type="destinationlabel">
-     <x>408</x>
-     <y>180</y>
+     <x>658</x>
+     <y>633</y>
     </hint>
    </hints>
   </connection>
@@ -11554,24 +11301,8 @@ QPushButton:pressed {
      <y>101</y>
     </hint>
     <hint type="destinationlabel">
-     <x>994</x>
-     <y>111</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBox_4</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>bar_thresh0_1_side</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>670</x>
-     <y>516</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>613</x>
-     <y>519</y>
+     <x>1004</x>
+     <y>117</y>
     </hint>
    </hints>
   </connection>
@@ -11582,12 +11313,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>408</x>
-     <y>180</y>
+     <x>658</x>
+     <y>633</y>
     </hint>
     <hint type="destinationlabel">
-     <x>408</x>
-     <y>180</y>
+     <x>529</x>
+     <y>664</y>
     </hint>
    </hints>
   </connection>
@@ -11602,40 +11333,8 @@ QPushButton:pressed {
      <y>95</y>
     </hint>
     <hint type="destinationlabel">
-     <x>994</x>
-     <y>111</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBox_6</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>bar_noise_filter0_1_side</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>670</x>
-     <y>590</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>613</x>
-     <y>595</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>bar_noise_filter0_1_side</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBox_6</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>613</x>
-     <y>595</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>670</x>
-     <y>590</y>
+     <x>1004</x>
+     <y>117</y>
     </hint>
    </hints>
   </connection>
@@ -11646,12 +11345,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>408</x>
-     <y>180</y>
+     <x>529</x>
+     <y>525</y>
     </hint>
     <hint type="destinationlabel">
-     <x>408</x>
-     <y>180</y>
+     <x>658</x>
+     <y>494</y>
     </hint>
    </hints>
   </connection>
@@ -11662,12 +11361,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>408</x>
-     <y>180</y>
+     <x>591</x>
+     <y>521</y>
     </hint>
     <hint type="destinationlabel">
-     <x>408</x>
-     <y>180</y>
+     <x>646</x>
+     <y>521</y>
     </hint>
    </hints>
   </connection>
@@ -11678,12 +11377,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>408</x>
-     <y>180</y>
+     <x>591</x>
+     <y>603</y>
     </hint>
     <hint type="destinationlabel">
-     <x>408</x>
-     <y>180</y>
+     <x>646</x>
+     <y>603</y>
     </hint>
    </hints>
   </connection>
@@ -11694,12 +11393,28 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>408</x>
-     <y>180</y>
+     <x>658</x>
+     <y>494</y>
     </hint>
     <hint type="destinationlabel">
-     <x>408</x>
-     <y>180</y>
+     <x>529</x>
+     <y>525</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_5</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_noise_filter0_2_top</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>646</x>
+     <y>603</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>591</x>
+     <y>603</y>
     </hint>
    </hints>
   </connection>
@@ -11710,12 +11425,28 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>588</x>
-     <y>496</y>
+     <x>584</x>
+     <y>499</y>
     </hint>
     <hint type="destinationlabel">
-     <x>651</x>
-     <y>503</y>
+     <x>642</x>
+     <y>505</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_4</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_1_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>641</x>
+     <y>494</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>598</x>
+     <y>492</y>
     </hint>
    </hints>
   </connection>
@@ -11726,12 +11457,28 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>567</x>
-     <y>574</y>
+     <x>594</x>
+     <y>582</y>
     </hint>
     <hint type="destinationlabel">
-     <x>657</x>
-     <y>578</y>
+     <x>640</x>
+     <y>580</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_6</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_noise_filter0_1_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>643</x>
+     <y>566</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>577</x>
+     <y>571</y>
     </hint>
    </hints>
   </connection>

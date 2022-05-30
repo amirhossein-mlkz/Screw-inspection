@@ -273,11 +273,13 @@ def find_screw_thread(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
                     max_pt = [min_pt[0] , min_pt[1] ]
     
     rezve_pts_l, rezve_pts_h = np.array(rezve_pts_l), np.array(rezve_pts_h)          
+    if len(rezve_pts_h) > 0 and len(rezve_pts_l) > 0:
+        start_point = np.array(rect_roi[0])
+        rezve_pts_l = rezve_pts_l + start_point
+        rezve_pts_h = rezve_pts_h + start_point
+        return rezve_pts_l, rezve_pts_h
     
-    start_point = np.array(rect_roi[0])
-    rezve_pts_l = rezve_pts_l + start_point
-    rezve_pts_h = rezve_pts_h + start_point
-    return rezve_pts_l, rezve_pts_h
+    return [],[]
 
 
 

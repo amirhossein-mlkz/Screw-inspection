@@ -3,6 +3,8 @@ import math
 
 
 def horizontal_distance( pts1,pts2, decimals=2):
+    if len(pts1) == 0 or len(pts2) == 0:
+        return 0,0,0,[]
     dist = np.round( abs(pts1[:,0] - pts2[:,0]) , decimals )
     min_dist = dist.min()
     max_dist = dist.max()
@@ -13,6 +15,8 @@ def horizontal_distance( pts1,pts2, decimals=2):
 
 
 def vertical_distance( pts1,pts2, decimals=2):
+    if len(pts1) == 0 or len(pts2) == 0:
+        return 0,0,0,[]
     dist = np.round( abs(pts1[:,1] - pts2[:,1]) , decimals )
     min_dist = dist.min()
     max_dist = dist.max()
@@ -24,6 +28,8 @@ def vertical_distance( pts1,pts2, decimals=2):
 
 
 def thread_step_distance(pts, decimals=2):
+    if len(pts) < 2:
+        return 0,0,0,[]
     pts1 = np.copy(pts[:-1])
     pts2 = np.copy(pts[1:])
     return horizontal_distance(pts1, pts2, decimals)

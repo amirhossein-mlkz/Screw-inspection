@@ -100,7 +100,7 @@ class screwJson():
                 if page_setting.get(subpage, None) is None:
                     return defualt_value
                 else:
-                    return page_setting[subpage].get( name, default)
+                    return page_setting[subpage].get( name, defualt_value)
     
     #-----------------------------------------
     def set_direction(self, dir):
@@ -160,6 +160,24 @@ class screwJson():
         return self.get_value( page, subpage, name, [[],[]])
     
     
+    #-----------------------------------------
+    def set_limits(self, page, subpage,  data):
+        name = 'limits'
+        self.set_value( page, subpage, name, data)
+    
+    
+    
+    
+    def get_limits(self, page, subpage):
+        name = 'limits'
+        return self.get_value( page, subpage, name, {'min':{}, 'max':{}})
+    
+    
+    def get_limit(self, name, page, subpage):
+        name = 'limits'
+        parms = self.get_value( page, subpage, name, {'min':{}, 'max':{}})
+        return {'min': parms['min'].get(name,0) , 
+                'max': parms['max'].get(name,0)}
     
     #-----------------------------------------
     def get_setting(self, page, subpage):
@@ -167,9 +185,20 @@ class screwJson():
         if subpage is None:
             return settings.get( page , {})
         else:
-            return settings[page].get( subpage  )
+            return settings.get( page , {}).get( subpage, {}  )
 
+    #-----------------------------------------
+    def add_subpage(self, page, subpage):
+        self.check_and_build_page(page)
+        self.check_and_build_subpage(page, subpage)
     
+    def remove_subpage(self, page, subpage):
+        self.check_and_build_page(page)
+        self.data[self.setting_key][page].pop( subpage, None )
+    
+    def get_subpages(self, page):
+        self.check_and_build_page(page)
+        return list(self.data[self.setting_key][page].keys())
 
     #     self.dataset_details['basic']=self.main_parms
     #     self.dataset_details['classification']=self.classification_details
