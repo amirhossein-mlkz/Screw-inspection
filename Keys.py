@@ -43,6 +43,8 @@ def object_dict_builder(ui_object):
                     'spin_roi_x1_2_side' : self.spin_roi_x1_2_side,
                     'spin_roi_x1_3_side' : self.spin_roi_x1_3_side,
                     'spin_roi_x1_4_side' : self.spin_roi_x1_4_side,
+                    'spin_roi_x1_5_side' : self.spin_roi_x1_5_side,
+                    'spin_roi_x1_6_side' : self.spin_roi_x1_6_side,
                     
                 },
                 'x2':
@@ -52,6 +54,8 @@ def object_dict_builder(ui_object):
                     'spin_roi_x2_2_side' : self.spin_roi_x2_2_side,
                     'spin_roi_x2_3_side' : self.spin_roi_x2_3_side,
                     'spin_roi_x2_4_side' : self.spin_roi_x2_4_side,
+                    'spin_roi_x2_5_side' : self.spin_roi_x2_5_side,
+                    'spin_roi_x2_6_side' : self.spin_roi_x2_6_side,
                 },
                 'y1':
                 {
@@ -60,6 +64,8 @@ def object_dict_builder(ui_object):
                     'spin_roi_y1_2_side' : self.spin_roi_y1_2_side,
                     'spin_roi_y1_3_side' : self.spin_roi_y1_3_side,
                     'spin_roi_y1_4_side' : self.spin_roi_y1_4_side,
+                    'spin_roi_y1_5_side' : self.spin_roi_y1_5_side,
+                    'spin_roi_y1_6_side' : self.spin_roi_y1_6_side,
                 },
                 'y2':
                 {
@@ -68,6 +74,8 @@ def object_dict_builder(ui_object):
                     'spin_roi_y2_2_side' : self.spin_roi_y2_2_side,
                     'spin_roi_y2_3_side' : self.spin_roi_y2_3_side,
                     'spin_roi_y2_4_side' : self.spin_roi_y2_4_side,
+                    'spin_roi_y2_5_side' : self.spin_roi_y2_5_side,
+                    'spin_roi_y2_6_side' : self.spin_roi_y2_6_side,
                 }
             },
             
@@ -91,7 +99,11 @@ def object_dict_builder(ui_object):
                     'spin_min_body_diameter_4_side':self.spin_min_body_diameter_4_side,    
                     
                 },
-                
+
+                '6_side':{
+                    'spin_min_damage_6_side':self.spin_min_damage_6_side,    
+                    
+                },                
 
             },
             'max':{
@@ -109,9 +121,16 @@ def object_dict_builder(ui_object):
                 '4_side':{
                 'spin_max_body_diameter_4_side':self.spin_max_body_diameter_4_side,
                 },
+
+                '6_side':{
+                'spin_max_damage_6_side':self.spin_max_damage_6_side,
+                
+                },
             }
         },
-        'spin_best_3_side':self.spin_best_3_side
+        'spin_best_3_side':self.spin_best_3_side,
+        'spin_jump_5_side':self.spin_jump_5_side
+
 
     }
 
@@ -230,7 +249,15 @@ def object_dict_builder(ui_object):
                 'input': self.line_name_region0_4_side,
                 'combo': self.combo_regions_name0_4_side,
                 
+            },
+            'lp_sub_pages0_6_side': {
+                'add_btn': self.btn_add_region0_6_side,
+                'remove_btn': self.btn_remove_region0_6_side,
+                'input': self.line_name_region0_6_side,
+                'combo': self.combo_regions_name0_6_side,
+                
             }
+            
             
         
         

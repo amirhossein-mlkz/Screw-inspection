@@ -34,6 +34,8 @@ class FullScreen_UI(QMainWindow, ui):
         self.win_set_geometry()
         self._old_pos = None
 
+        self.maxmize_minimize()
+
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
             self._old_pos = event.pos()

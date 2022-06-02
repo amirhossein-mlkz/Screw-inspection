@@ -579,11 +579,13 @@ class API:
                 print('Screw Saved')
                 self.ui.show_warning('Save Screw','Successfully Save')
                 self.ui.editmode=False
-                self.ui.enable_bar_btn_tool_page(False)   
                 self.ui.set_label(self.ui.label_status_mode,'')   
                 self.ui.stackedWidget_2.setCurrentIndex(0)
                 # frame_save_btns
                 self.ui.frame_size(self.ui.frame_save_btns,0)
+                self.ui.tool_btn_clear()
+                self.ui.enable_bar_btn_tool_page('top',False)   
+                self.ui.enable_bar_btn_tool_page('side',False)  
             if flag==False:
 
                 print('disacrd')
