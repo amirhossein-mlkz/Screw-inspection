@@ -2884,12 +2884,12 @@ QPushButton:hover {
                                   </property>
                                   <layout class="QVBoxLayout" name="verticalLayout_60">
                                    <item>
-                                    <widget class="QTableWidget" name="tableWidget">
+                                    <widget class="QTableWidget" name="table_live_top0_liv_page">
                                      <property name="styleSheet">
                                       <string notr="true">QTableWidget {	
 	padding: 1px;
 	border-radius:1px;
-	gridline-color: rgb(40,70,160);
+	gridline-color: rgb(230,230,230);
 	border-bottom: 1px solid rgb(180,180,180);
 
 }
@@ -2897,7 +2897,7 @@ QTableWidget::item{
 	border-color: rgb(180,180,108);
 	padding-left: 5px;
 	padding-right: 5px;
-	gridline-color: rgb(180,180,108);
+	gridline-color: rgb(30,30,30);
 }
 QHeaderView::section:horizontal
 {
@@ -2963,7 +2963,46 @@ QTableWidget::item:selected{
                                   </property>
                                   <layout class="QVBoxLayout" name="verticalLayout_59">
                                    <item>
-                                    <widget class="QTableWidget" name="tableWidget_3">
+                                    <widget class="QTableWidget" name="table_live_side0_liv_page">
+                                     <property name="styleSheet">
+                                      <string notr="true">QTableWidget {	
+	padding: 1px;
+	border-radius:1px;
+	gridline-color: rgb(230,230,230);
+	border-bottom: 1px solid rgb(180,180,180);
+
+}
+QTableWidget::item{
+	border-color: rgb(180,180,108);
+	padding-left: 5px;
+	padding-right: 5px;
+	gridline-color: rgb(30,30,30);
+}
+QHeaderView::section:horizontal
+{
+    border-right: 0px solid rgb(80,0,0);
+	padding: 3px;
+    background-color: rgb(30,30,30);
+	border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+	color:rgb(255,255,255);
+}
+QHeaderView::section:vertical
+{
+    border: 1px solid rgb(0,0,0);
+padding: 3px;
+border-left: none;
+border-top: none;
+border-down: none;
+background-color: Transparent;
+color:rgb(0,0,0);
+
+}
+QTableWidget::item:selected{
+	background-color: rgb(70,135,230);
+	color : White;
+}</string>
+                                     </property>
                                      <property name="rowCount">
                                       <number>14</number>
                                      </property>

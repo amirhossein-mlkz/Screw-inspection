@@ -1475,16 +1475,16 @@ class Ui_MainWindow(object):
         self.frame_76.setFrameShadow(QFrame.Raised)
         self.verticalLayout_60 = QVBoxLayout(self.frame_76)
         self.verticalLayout_60.setObjectName(u"verticalLayout_60")
-        self.tableWidget = QTableWidget(self.frame_76)
-        if (self.tableWidget.columnCount() < 4):
-            self.tableWidget.setColumnCount(4)
-        if (self.tableWidget.rowCount() < 14):
-            self.tableWidget.setRowCount(14)
-        self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setStyleSheet(u"QTableWidget {	\n"
+        self.table_live_top0_liv_page = QTableWidget(self.frame_76)
+        if (self.table_live_top0_liv_page.columnCount() < 4):
+            self.table_live_top0_liv_page.setColumnCount(4)
+        if (self.table_live_top0_liv_page.rowCount() < 14):
+            self.table_live_top0_liv_page.setRowCount(14)
+        self.table_live_top0_liv_page.setObjectName(u"table_live_top0_liv_page")
+        self.table_live_top0_liv_page.setStyleSheet(u"QTableWidget {	\n"
 "	padding: 1px;\n"
 "	border-radius:1px;\n"
-"	gridline-color: rgb(40,70,160);\n"
+"	gridline-color: rgb(230,230,230);\n"
 "	border-bottom: 1px solid rgb(180,180,180);\n"
 "\n"
 "}\n"
@@ -1492,7 +1492,7 @@ class Ui_MainWindow(object):
 "	border-color: rgb(180,180,108);\n"
 "	padding-left: 5px;\n"
 "	padding-right: 5px;\n"
-"	gridline-color: rgb(180,180,108);\n"
+"	gridline-color: rgb(30,30,30);\n"
 "}\n"
 "QHeaderView::section:horizontal\n"
 "{\n"
@@ -1518,10 +1518,10 @@ class Ui_MainWindow(object):
 "	background-color: rgb(70,135,230);\n"
 "	color : White;\n"
 "}")
-        self.tableWidget.setRowCount(14)
-        self.tableWidget.setColumnCount(4)
+        self.table_live_top0_liv_page.setRowCount(14)
+        self.table_live_top0_liv_page.setColumnCount(4)
 
-        self.verticalLayout_60.addWidget(self.tableWidget)
+        self.verticalLayout_60.addWidget(self.table_live_top0_liv_page)
 
 
         self.horizontalLayout_72.addWidget(self.frame_76)
@@ -1532,16 +1532,53 @@ class Ui_MainWindow(object):
         self.frame_77.setFrameShadow(QFrame.Raised)
         self.verticalLayout_59 = QVBoxLayout(self.frame_77)
         self.verticalLayout_59.setObjectName(u"verticalLayout_59")
-        self.tableWidget_3 = QTableWidget(self.frame_77)
-        if (self.tableWidget_3.columnCount() < 4):
-            self.tableWidget_3.setColumnCount(4)
-        if (self.tableWidget_3.rowCount() < 14):
-            self.tableWidget_3.setRowCount(14)
-        self.tableWidget_3.setObjectName(u"tableWidget_3")
-        self.tableWidget_3.setRowCount(14)
-        self.tableWidget_3.setColumnCount(4)
+        self.table_live_side0_liv_page = QTableWidget(self.frame_77)
+        if (self.table_live_side0_liv_page.columnCount() < 4):
+            self.table_live_side0_liv_page.setColumnCount(4)
+        if (self.table_live_side0_liv_page.rowCount() < 14):
+            self.table_live_side0_liv_page.setRowCount(14)
+        self.table_live_side0_liv_page.setObjectName(u"table_live_side0_liv_page")
+        self.table_live_side0_liv_page.setStyleSheet(u"QTableWidget {	\n"
+"	padding: 1px;\n"
+"	border-radius:1px;\n"
+"	gridline-color: rgb(230,230,230);\n"
+"	border-bottom: 1px solid rgb(180,180,180);\n"
+"\n"
+"}\n"
+"QTableWidget::item{\n"
+"	border-color: rgb(180,180,108);\n"
+"	padding-left: 5px;\n"
+"	padding-right: 5px;\n"
+"	gridline-color: rgb(30,30,30);\n"
+"}\n"
+"QHeaderView::section:horizontal\n"
+"{\n"
+"    border-right: 0px solid rgb(80,0,0);\n"
+"	padding: 3px;\n"
+"    background-color: rgb(30,30,30);\n"
+"	border-top-left-radius: 7px;\n"
+"    border-top-right-radius: 7px;\n"
+"	color:rgb(255,255,255);\n"
+"}\n"
+"QHeaderView::section:vertical\n"
+"{\n"
+"    border: 1px solid rgb(0,0,0);\n"
+"padding: 3px;\n"
+"border-left: none;\n"
+"border-top: none;\n"
+"border-down: none;\n"
+"background-color: Transparent;\n"
+"color:rgb(0,0,0);\n"
+"\n"
+"}\n"
+"QTableWidget::item:selected{\n"
+"	background-color: rgb(70,135,230);\n"
+"	color : White;\n"
+"}")
+        self.table_live_side0_liv_page.setRowCount(14)
+        self.table_live_side0_liv_page.setColumnCount(4)
 
-        self.verticalLayout_59.addWidget(self.tableWidget_3)
+        self.verticalLayout_59.addWidget(self.table_live_side0_liv_page)
 
 
         self.horizontalLayout_72.addWidget(self.frame_77)

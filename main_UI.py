@@ -162,6 +162,10 @@ class UI_main_window(QMainWindow, ui):
 
         self.check_mask_type(self.check_circle0_2_top.objectName(),change_size=True)
 
+        # Live page
+
+        self.set_tables(self.table_live_top0_liv_page,['a','b'])
+
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
@@ -1297,6 +1301,38 @@ class UI_main_window(QMainWindow, ui):
                 return inpt,0
         return inpt[:i] , inpt[i:]
   
+
+
+    def set_tables(self,table_name,headers,values=False):
+
+
+
+        table_name.setHorizontalHeaderLabels(headers)
+        table_name.setRowCount(0)
+        table_name.verticalHeader().setVisible(True)
+        table_name.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+      #  headers = ['defect', 'count', 'des']
+
+        table_item = QTableWidgetItem()
+        str1=[]
+        if values:
+            table_name.setRowCount(len(values))
+            for i in values:
+                str1.append(i[0])  
+
+            for row, string in enumerate(str1):
+            #  print (row,string)
+                table_item = QTableWidgetItem(str(string))
+                #table_item.setData(Qt.DisplayRole, str(string))
+                table_item.setFlags(Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
+                table_item.setCheckState(Qt.CheckState.Unchecked)
+                table_name.setItem(row,0,table_item)
+
+            table_name.setRowCount(row+1)
+
+
+
+
 
 
 if __name__ == "__main__":
