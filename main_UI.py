@@ -133,6 +133,8 @@ class UI_main_window(QMainWindow, ui):
         self.tool_btn_bar_side={'lenght':self.frame_36,'btn_male':self.btn_page0_3_side,'Male_Thread':self.frame_78,'btn_lenght':self.btn_page0_2_side,'Diameter':self.frame_79,'screw_head':self.frame_104,'side_damage':self.frame_112}
         self.tool_btn_bar_top=frames={'area':self.frame_34}
 
+        
+
 
         # self.get_sub_page_name()
 
@@ -140,7 +142,7 @@ class UI_main_window(QMainWindow, ui):
         # self.enable_bar_btn_side()
         # self.enable_bar_btn_top()
 
-        # self.get_activate_pages()
+        self.get_activate_pages()
         # self.enable_bar_btn_tool_page('top',enable=False)
         # self.enable_bar_btn_tool_page('side',enable=False)
         # print('1')
@@ -926,9 +928,14 @@ class UI_main_window(QMainWindow, ui):
 
     def get_activate_pages(self):
 
+        checked_btns=[]
+
         for page_name in self.pages_name_dict.values():
             x=self.checkboxes['page']['checkbox_page0_{}'.format(page_name)].isChecked()
-            print(self.checkboxes['page']['checkbox_page0_{}'.format(page_name)],x)
+            if x:
+                checked_btns.append(self.checkboxes['page']['checkbox_page0_{}'.format(page_name)].objectName())
+        print('checked_btns',checked_btns)
+        return checked_btns
 
 
     #Combobox utils ----------------------------------------------------------------  
@@ -1290,6 +1297,7 @@ class UI_main_window(QMainWindow, ui):
                 return inpt,0
         return inpt[:i] , inpt[i:]
   
+
 
 if __name__ == "__main__":
     app = QApplication()

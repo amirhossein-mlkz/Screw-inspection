@@ -151,6 +151,8 @@ def object_dict_builder(ui_object):
             'checkbox_page0_2_side': self.checkbox_page0_2_side,
             'checkbox_page0_3_side': self.checkbox_page0_3_side,
             'checkbox_page0_4_side': self.checkbox_page0_4_side,
+            'checkbox_page0_5_side': self.checkbox_page0_5_side,
+            'checkbox_page0_6_side': self.checkbox_page0_6_side,
             
         },       
     }
@@ -259,7 +261,8 @@ def object_dict_builder(ui_object):
             }
             
             
-        
+    
         
 
     }
+
