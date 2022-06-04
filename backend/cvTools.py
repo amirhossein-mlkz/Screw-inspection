@@ -1,7 +1,5 @@
-from turtle import left
+
 import cv2
-from cv2 import circle
-from cv2 import contourArea
 import numpy as np
 import pandas as pd
 THRESH_C = 7
@@ -108,7 +106,7 @@ def filter_noise_area(mask, noise_filter=0):
     area = h * w
     noise_area = area / 10 * (noise_filter/100) #Optioanl Formula
     cnts,_ = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
-    
+    cnts = list(cnts)
     res_cnts = list( filter(lambda x: cv2.contourArea(x)>noise_area , cnts) )
     res_mask = np.zeros_like(mask)
     res_mask = cv2.drawContours(res_mask, res_cnts, -1, 255,-1)
@@ -175,6 +173,7 @@ def crop_rect(img, rect):
 
 def extract_bigest_contour(mask):
     cnts,_ = cv2.findContours(mask , cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = list(cnts)
     cnts.sort( key = lambda x:cv2.contourArea(x) , reverse=True)
     return cnts[0]        
 
@@ -188,7 +187,8 @@ def rotate_image(image, angle):
 def correct_rotation_angle(mask , left_or_right='left'):
     
     cnts,_ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    
+    cnts = list(cnts)
+    cnts = list(cnts)
     #sort by area and extract two bigest contour
     cnts.sort( key = lambda x: cv2.contourArea(x) , reverse = True)
     cnts = cnts[:2]
@@ -216,7 +216,7 @@ def correct_rotation_angle(mask , left_or_right='left'):
 
 def side_screw_bounding_rect(mask):
     cnts,_ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) 
-    
+    cnts = list(cnts)
     cnts.sort( key = lambda x: cv2.contourArea(x) , reverse = True)
     cnts = cnts[:2]
     points = np.vstack( (cnts[0], cnts[1]) )
@@ -283,6 +283,57 @@ def find_screw_thread(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
 
 
 
+def find_head_vertival_pts(mask, rect_roi, jump_thresh = 10, percentage=0.5, side='bottom'):
+    ys, xs = np.nonzero( crop_rect( mask, rect_roi ) )
+    pts = np.vstack((xs,ys)).transpose()
+    start_point = np.array(rect_roi[0])
+
+    if len(pts)>50:
+        right_pts = np.array ( pd.DataFrame(pts).groupby(1).max().reset_index().values.tolist()) #return point with max x and same y
+        right_pts = np.array([right_pts[:,1],right_pts[:,0]]).transpose()
+        right_pts = right_pts + start_point
+
+        points_cout = len(right_pts)
+        start_top_idx1 = 0
+        step = 3
+        for i in range(points_cout//2, step, -1):
+            if abs( right_pts[i , 0] - right_pts[i-step:i, 0 ].mean()  ) > 15:
+                start_top_idx1 = i
+
+        start_top_idx2 = 0
+        
+        for i in range(points_cout//2, points_cout-step):
+            if abs( right_pts[i , 0] - right_pts[i:i+step, 0 ].mean()  ) > 15:
+               start_top_idx2 = i
+
+        
+        len_top = start_top_idx2 - start_top_idx1
+        top_head_pts = right_pts[ int(start_top_idx1 + len_top * (1-percentage)/2) : int(start_top_idx2 - len_top * (1-percentage)/2)]
+
+        #----------------------------------------------------------------------------
+        if side == 'top':
+            _pts_ = np.array ( pd.DataFrame(pts).groupby(0).min().reset_index().values.tolist()) 
+            _pts_ = start_point + _pts_
+
+        else:
+            _pts_ = np.array ( pd.DataFrame(pts).groupby(0).max().reset_index().values.tolist()) 
+            _pts_ = start_point + _pts_
+
+        points_cout = len(_pts_)
+        h_pt2 = _pts_[0]
+        step = 3
+        for i in range(points_cout-10, step, -1):
+            if abs( _pts_[i , 1] - _pts_[i-step:i, 1 ].mean()  ) > jump_thresh:
+                h_pt2 = _pts_[i]
+                break
+
+
+        bottom_head_pts = np.copy(top_head_pts)
+        bottom_head_pts[:,0] = h_pt2[0]  
+        return bottom_head_pts, top_head_pts
+    
+    return [],[]
+
 
 def find_vertical_edges(mask , rect_roi ):
     ys, xs = np.nonzero( crop_rect( mask, rect_roi ) )
@@ -317,6 +368,21 @@ def find_horizental_edges(mask, rect_roi):
         down_edge_pts = down_edge_pts + start_point
         return up_edge_pts, down_edge_pts
     return [], []
+
+
+
+def get_bigest_area(mask, rect_roi):
+    crop_mask = crop_rect( mask, rect_roi )
+    cnts,_ = cv2.findContours(crop_mask , cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = list(cnts)
+    cnts.sort( key = lambda x:cv2.contourArea(x) , reverse=True)
+
+    cnt_area = cv2.contourArea( cnts[0] ) / 10
+    # crop_area = abs((rect_roi[0][0] - rect_roi[1][0]) * (rect_roi[0][1] - rect_roi[1][1]))
+    # res = cnt_area / crop_area
+    # res = np.round(res, 3)
+    return int(cnt_area)
+
 
 def draw_vertical_point(img, pts_group, color, thicknes=4):
     for pts in pts_group:
@@ -363,9 +429,16 @@ def preprocessing_img_json( img, json, direction):
     
     
     
+def draw_head_diameter(img, pt1, pt2, color, thickness=3, line_lenght=10):
+
+    x1,y1 = pt1
+    img = cv2.line( img, (x1-line_lenght,y1) ,   (x1+line_lenght, y1), color, thickness=thickness  )   
     
-    
-    
+    x2,y2 = pt2
+    img = cv2.line( img, (x2-line_lenght,y2) ,   (x2+line_lenght, y2), color, thickness=thickness  )
+
+    img = cv2.line( img, pt1, pt2, color, thickness)
+    return img
     
     
     
@@ -388,37 +461,41 @@ if __name__ == '__main__':
     
     
     #--------------------------------------------------------
-    mask_unbelt, belt_pos = remove_belt( thresh_mask )
+    mask_unbelt, belt_pos = remove_belt( thresh_mask, rect )
     angle, box = correct_rotation_angle(mask_unbelt)
     thresh_mask = rotate_image(thresh_mask,  angle   )
     img = rotate_image(img,  angle   )
     
     
     #--------------------------------------------------------
-    total_lenght_roi = [ [20, 220] , [1360, 290] ]
-    left_pts, right_pts = find_horizental_edges(thresh_mask, total_lenght_roi)
+    # total_lenght_roi = [ [20, 220] , [1360, 290] ]
+    # left_pts, right_pts = find_horizental_edges(thresh_mask, total_lenght_roi)
     
-    img[ left_pts[:,1] , left_pts[:,0] ] = [0,0,255]
-    img[ right_pts[:,1] , right_pts[:,0] ] = [0,0,255]
+    # img[ left_pts[:,1] , left_pts[:,0] ] = [0,0,255]
+    # img[ right_pts[:,1] , right_pts[:,0] ] = [0,0,255]
 
-    img = draw_vertical_point(img, [left_pts, right_pts] , (0,0,255), 2 )
+    # img = draw_vertical_point(img, [left_pts, right_pts] , (0,0,255), 2 )
     #--------------------------------------------------------
-    radiuse_body_roi = [ [660, 130] , [910, 380] ]
+    # radiuse_body_roi = [ [660, 130] , [910, 380] ]
     
-    up_pts, down_pts = find_vertical_edges(thresh_mask, radiuse_body_roi)
+    # up_pts, down_pts = find_vertical_edges(thresh_mask, radiuse_body_roi)
     
-    img = draw_horizental_point(img, [up_pts, down_pts] , (0,255,0), 2 )
+    # img = draw_horizental_point(img, [up_pts, down_pts] , (0,255,0), 2 )
     
     
     #--------------------------------------------------------
-    rezve_rect_roi = [ [100, 60] , [550, 400] ]
-    male_thread_l, male_thread_h = find_screw_thread( thresh_mask, rezve_rect_roi,  min_diff=5)
+    # rezve_rect_roi = [ [100, 60] , [550, 400] ]
+    # male_thread_l, male_thread_h = find_screw_thread( thresh_mask, rezve_rect_roi,  min_diff=5)
     
-    img = draw_points(img, male_thread_h, (230,200,150), 3)
-    img = draw_points(img, male_thread_l, (0,50,200), 3)
+    # img = draw_points(img, male_thread_h, (230,200,150), 3)
+    # img = draw_points(img, male_thread_l, (0,50,200), 3)
     #--------------------------------------------------------
-    
-    
+    head_roi2 = [[1120,100],[1320,450]]
+    mask2 = np.copy( thresh_mask )
+    bottom_head_pts, top_head_pts = find_head_vertival_pts(mask2, head_roi2, jump_thresh=10)
+    img = draw_vertical_point(img, [top_head_pts, bottom_head_pts], (0,100,200), 3)
+    # up_edge_pts = np.array( pd.Dat
+    #for i in range()
     
     
         
