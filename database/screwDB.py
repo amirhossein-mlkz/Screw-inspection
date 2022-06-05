@@ -73,7 +73,7 @@ class screwJson():
             
     
     def check_and_build_subpage(self, page_name, subpage):
-        if self.data[self.setting_key][page_name].get(page_name, None) is None:
+        if self.data[self.setting_key][page_name].get(subpage, None) is None:
             self.data[ self.setting_key ] [ page_name][ subpage ] = {}
             
     #-----------------------------------------
@@ -179,6 +179,13 @@ class screwJson():
         return {'min': parms['min'].get(name,0) , 
                 'max': parms['max'].get(name,0)}
     
+
+    #-----------------------------------------
+    def set_numerical_parm(self, page, subpage, name,  value ):
+        self.set_value( page, subpage, name, value)
+        
+    def get_numerical_parm(self, page, subpage, name):
+        return self.get_value( page, subpage, name, 0)
     #-----------------------------------------
     def get_setting(self, page, subpage):
         settings = self.data[self.setting_key]

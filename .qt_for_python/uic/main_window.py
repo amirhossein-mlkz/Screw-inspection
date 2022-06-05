@@ -18,16 +18,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QComboBox,
     QFrame, QGridLayout, QGroupBox, QHBoxLayout,
     QHeaderView, QLabel, QLineEdit, QMainWindow,
-    QPushButton, QScrollArea, QSizePolicy, QSlider,
-    QSpacerItem, QSpinBox, QStackedWidget, QTableWidget,
-    QTableWidgetItem, QToolButton, QVBoxLayout, QWidget)
+    QPushButton, QRadioButton, QScrollArea, QSizePolicy,
+    QSlider, QSpacerItem, QSpinBox, QStackedWidget,
+    QTableWidget, QTableWidgetItem, QToolButton, QVBoxLayout,
+    QWidget)
 import resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1351, 841)
+        MainWindow.resize(1357, 841)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setStyleSheet(u"/* /////////////////////////////////////////////////////////////////////////////////////////////////\n"
@@ -1662,7 +1663,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents_3 = QWidget()
         self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 276, 702))
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 92, 71))
         self.horizontalLayout_29 = QHBoxLayout(self.scrollAreaWidgetContents_3)
         self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
         self.tableWidget_users = QTableWidget(self.scrollAreaWidgetContents_3)
@@ -3974,10 +3975,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_32.addWidget(self.spinBox, 0, Qt.AlignHCenter)
 
-        self.btn_thresh_inv0_1_top = QCheckBox(self.frame_40)
-        self.btn_thresh_inv0_1_top.setObjectName(u"btn_thresh_inv0_1_top")
+        self.checkbox_thresh_inv0_1_top = QCheckBox(self.frame_40)
+        self.checkbox_thresh_inv0_1_top.setObjectName(u"checkbox_thresh_inv0_1_top")
 
-        self.verticalLayout_32.addWidget(self.btn_thresh_inv0_1_top)
+        self.verticalLayout_32.addWidget(self.checkbox_thresh_inv0_1_top)
 
 
         self.verticalLayout_34.addWidget(self.frame_40)
@@ -4207,10 +4208,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_41.addWidget(self.groupBox_13)
 
-        self.btn_thresh_inv0_2_top = QCheckBox(self.frame_55)
-        self.btn_thresh_inv0_2_top.setObjectName(u"btn_thresh_inv0_2_top")
+        self.checkbox_thresh_inv0_2_top = QCheckBox(self.frame_55)
+        self.checkbox_thresh_inv0_2_top.setObjectName(u"checkbox_thresh_inv0_2_top")
 
-        self.verticalLayout_41.addWidget(self.btn_thresh_inv0_2_top)
+        self.verticalLayout_41.addWidget(self.checkbox_thresh_inv0_2_top)
 
         self.groupBox_16 = QGroupBox(self.frame_55)
         self.groupBox_16.setObjectName(u"groupBox_16")
@@ -4536,11 +4537,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_110 = QHBoxLayout(self.frame_73)
         self.horizontalLayout_110.setObjectName(u"horizontalLayout_110")
         self.horizontalLayout_110.setContentsMargins(0, 0, -1, 0)
-        self.btn_thresh_inv0_1_side = QCheckBox(self.frame_73)
-        self.btn_thresh_inv0_1_side.setObjectName(u"btn_thresh_inv0_1_side")
-        self.btn_thresh_inv0_1_side.setMaximumSize(QSize(87, 16777215))
+        self.checkbox_thresh_inv0_1_side = QCheckBox(self.frame_73)
+        self.checkbox_thresh_inv0_1_side.setObjectName(u"checkbox_thresh_inv0_1_side")
+        self.checkbox_thresh_inv0_1_side.setMaximumSize(QSize(87, 16777215))
 
-        self.horizontalLayout_110.addWidget(self.btn_thresh_inv0_1_side)
+        self.horizontalLayout_110.addWidget(self.checkbox_thresh_inv0_1_side)
 
         self.bar_thresh0_1_side = QSlider(self.frame_73)
         self.bar_thresh0_1_side.setObjectName(u"bar_thresh0_1_side")
@@ -5525,15 +5526,15 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_71.addWidget(self.label_23)
 
-        self.check_out0_5_side = QCheckBox(self.frame_65)
-        self.check_out0_5_side.setObjectName(u"check_out0_5_side")
+        self.rbtn_top_5_side = QRadioButton(self.frame_65)
+        self.rbtn_top_5_side.setObjectName(u"rbtn_top_5_side")
 
-        self.horizontalLayout_71.addWidget(self.check_out0_5_side)
+        self.horizontalLayout_71.addWidget(self.rbtn_top_5_side)
 
-        self.check_in0_5_side = QCheckBox(self.frame_65)
-        self.check_in0_5_side.setObjectName(u"check_in0_5_side")
+        self.rbtn_bottom_5_side = QRadioButton(self.frame_65)
+        self.rbtn_bottom_5_side.setObjectName(u"rbtn_bottom_5_side")
 
-        self.horizontalLayout_71.addWidget(self.check_in0_5_side)
+        self.horizontalLayout_71.addWidget(self.rbtn_bottom_5_side)
 
 
         self.verticalLayout_83.addWidget(self.frame_65)
@@ -5545,10 +5546,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_83.addWidget(self.line_14)
 
-        self.spin_jump_5_side = QSpinBox(self.frame_38)
-        self.spin_jump_5_side.setObjectName(u"spin_jump_5_side")
+        self.spin_jump_thresh_5_side = QSpinBox(self.frame_38)
+        self.spin_jump_thresh_5_side.setObjectName(u"spin_jump_thresh_5_side")
 
-        self.verticalLayout_83.addWidget(self.spin_jump_5_side, 0, Qt.AlignHCenter)
+        self.verticalLayout_83.addWidget(self.spin_jump_thresh_5_side, 0, Qt.AlignHCenter)
 
         self.verticalSpacer_12 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
@@ -5749,10 +5750,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_165.addWidget(self.label_27)
 
-        self.label_diameter_x_6_side = QLabel(self.frame_137)
-        self.label_diameter_x_6_side.setObjectName(u"label_diameter_x_6_side")
+        self.label_area_6_side = QLabel(self.frame_137)
+        self.label_area_6_side.setObjectName(u"label_area_6_side")
 
-        self.horizontalLayout_165.addWidget(self.label_diameter_x_6_side, 0, Qt.AlignHCenter)
+        self.horizontalLayout_165.addWidget(self.label_area_6_side, 0, Qt.AlignHCenter)
 
         self.label_104 = QLabel(self.frame_137)
         self.label_104.setObjectName(u"label_104")
@@ -6101,8 +6102,8 @@ class Ui_MainWindow(object):
         self.bar_noise_filter0_1_side.valueChanged.connect(self.spinBox_6.setValue)
         self.spinBox_6.valueChanged.connect(self.bar_noise_filter0_1_side.setValue)
 
-        self.stackedWidget.setCurrentIndex(0)
-        self.stackedWidget_2.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(5)
+        self.stackedWidget_2.setCurrentIndex(8)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -6293,7 +6294,7 @@ class Ui_MainWindow(object):
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"X :", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Y :", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Threshold", None))
-        self.btn_thresh_inv0_1_top.setText(QCoreApplication.translate("MainWindow", u"Negative", None))
+        self.checkbox_thresh_inv0_1_top.setText(QCoreApplication.translate("MainWindow", u"Negative", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Noise filter", None))
         self.btn_add_area0_2_top.setText("")
         self.btn_remove_area0_2_top.setText("")
@@ -6307,7 +6308,7 @@ class Ui_MainWindow(object):
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Drawing ..........", None))
         self.btn_draw_complete0_2_top.setText(QCoreApplication.translate("MainWindow", u"Complete", None))
         self.groupBox_13.setTitle(QCoreApplication.translate("MainWindow", u"Threshold", None))
-        self.btn_thresh_inv0_2_top.setText(QCoreApplication.translate("MainWindow", u"Negative", None))
+        self.checkbox_thresh_inv0_2_top.setText(QCoreApplication.translate("MainWindow", u"Negative", None))
         self.groupBox_16.setTitle(QCoreApplication.translate("MainWindow", u"Noise filter", None))
         self.btn_complete0_2_top.setText(QCoreApplication.translate("MainWindow", u"Complete", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Side camera", None))
@@ -6325,7 +6326,7 @@ class Ui_MainWindow(object):
         self.label_18.setText(QCoreApplication.translate("MainWindow", u"X :", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Y :", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Threshold", None))
-        self.btn_thresh_inv0_1_side.setText(QCoreApplication.translate("MainWindow", u"Negative", None))
+        self.checkbox_thresh_inv0_1_side.setText(QCoreApplication.translate("MainWindow", u"Negative", None))
         self.label_22.setText(QCoreApplication.translate("MainWindow", u"Noise filter", None))
         self.btn_rotate_correction0_1_side.setText(QCoreApplication.translate("MainWindow", u"  Rotate Correction  ", None))
         self.label_46.setText(QCoreApplication.translate("MainWindow", u"Side Lenght", None))
@@ -6384,9 +6385,9 @@ class Ui_MainWindow(object):
         self.label_86.setText(QCoreApplication.translate("MainWindow", u"Y :", None))
         self.label_87.setText(QCoreApplication.translate("MainWindow", u"X :", None))
         self.label_88.setText(QCoreApplication.translate("MainWindow", u"Y :", None))
-        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Out / In :", None))
-        self.check_out0_5_side.setText(QCoreApplication.translate("MainWindow", u"Out", None))
-        self.check_in0_5_side.setText(QCoreApplication.translate("MainWindow", u"In", None))
+        self.label_23.setText(QCoreApplication.translate("MainWindow", u"top/bottom edge:", None))
+        self.rbtn_top_5_side.setText(QCoreApplication.translate("MainWindow", u"Top", None))
+        self.rbtn_bottom_5_side.setText(QCoreApplication.translate("MainWindow", u"Bottom", None))
         self.label_24.setText(QCoreApplication.translate("MainWindow", u"Side Damage", None))
         self.btn_add_region0_6_side.setText("")
         self.btn_remove_region0_6_side.setText("")
@@ -6397,7 +6398,7 @@ class Ui_MainWindow(object):
         self.label_101.setText(QCoreApplication.translate("MainWindow", u"X :", None))
         self.label_102.setText(QCoreApplication.translate("MainWindow", u"Y :", None))
         self.label_27.setText(QCoreApplication.translate("MainWindow", u"Area     :", None))
-        self.label_diameter_x_6_side.setText(QCoreApplication.translate("MainWindow", u"-", None))
+        self.label_area_6_side.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.label_104.setText(QCoreApplication.translate("MainWindow", u"Min", None))
         self.label_105.setText(QCoreApplication.translate("MainWindow", u"Max", None))
         self.btn_complete_area_6_side.setText(QCoreApplication.translate("MainWindow", u"    Complete    ", None))

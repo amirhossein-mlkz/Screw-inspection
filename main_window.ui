@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1351</width>
+    <width>1357</width>
     <height>841</height>
    </rect>
   </property>
@@ -2166,7 +2166,7 @@ QPushButton:hover {
                          <string notr="true">background-color : #F3F6FE;</string>
                         </property>
                         <property name="currentIndex">
-                         <number>0</number>
+                         <number>5</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -3141,8 +3141,8 @@ True
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>276</width>
-                                  <height>702</height>
+                                  <width>92</width>
+                                  <height>71</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">
@@ -8168,7 +8168,7 @@ QPushButton:disabled{
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>0</number>
+                                   <number>8</number>
                                   </property>
                                   <widget class="QWidget" name="page"/>
                                   <widget class="QWidget" name="page_1_top">
@@ -8568,7 +8568,7 @@ QPushButton:disabled{
                                                  </widget>
                                                 </item>
                                                 <item>
-                                                 <widget class="QCheckBox" name="btn_thresh_inv0_1_top">
+                                                 <widget class="QCheckBox" name="checkbox_thresh_inv0_1_top">
                                                   <property name="text">
                                                    <string>Negative</string>
                                                   </property>
@@ -8972,7 +8972,7 @@ QPushButton:disabled{
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QCheckBox" name="btn_thresh_inv0_2_top">
+                                           <widget class="QCheckBox" name="checkbox_thresh_inv0_2_top">
                                             <property name="text">
                                              <string>Negative</string>
                                             </property>
@@ -9645,7 +9645,7 @@ QPushButton:disabled{
                                               <number>0</number>
                                              </property>
                                              <item>
-                                              <widget class="QCheckBox" name="btn_thresh_inv0_1_side">
+                                              <widget class="QCheckBox" name="checkbox_thresh_inv0_1_side">
                                                <property name="maximumSize">
                                                 <size>
                                                  <width>87</width>
@@ -11321,21 +11321,21 @@ QPushButton:disabled{
                                           <item>
                                            <widget class="QLabel" name="label_23">
                                             <property name="text">
-                                             <string>Out / In :</string>
+                                             <string>top/bottom edge:</string>
                                             </property>
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QCheckBox" name="check_out0_5_side">
+                                           <widget class="QRadioButton" name="rbtn_top_5_side">
                                             <property name="text">
-                                             <string>Out</string>
+                                             <string>Top</string>
                                             </property>
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QCheckBox" name="check_in0_5_side">
+                                           <widget class="QRadioButton" name="rbtn_bottom_5_side">
                                             <property name="text">
-                                             <string>In</string>
+                                             <string>Bottom</string>
                                             </property>
                                            </widget>
                                           </item>
@@ -11350,7 +11350,7 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item alignment="Qt::AlignHCenter">
-                                        <widget class="QSpinBox" name="spin_jump_5_side"/>
+                                        <widget class="QSpinBox" name="spin_jump_thresh_5_side"/>
                                        </item>
                                        <item>
                                         <spacer name="verticalSpacer_12">
@@ -11712,7 +11712,7 @@ QPushButton:disabled{
                                            </widget>
                                           </item>
                                           <item alignment="Qt::AlignHCenter">
-                                           <widget class="QLabel" name="label_diameter_x_6_side">
+                                           <widget class="QLabel" name="label_area_6_side">
                                             <property name="text">
                                              <string>-</string>
                                             </property>

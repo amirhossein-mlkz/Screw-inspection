@@ -93,7 +93,7 @@ class UI_main_window(QMainWindow, ui):
         self.calibration_image = None
 
 
-        self.login_flag = False
+        self.login_flag = True
         self.camera_connect_flag = False
 
         #   Define and set UI_KEYS
@@ -128,7 +128,7 @@ class UI_main_window(QMainWindow, ui):
         self.roi_name=['x1','y1','x2','y2']
         self.limit_types=['min','max']
 
-        self.combo_exist={'1_top':False,'2_top':True,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':False}
+        self.combo_exist={'1_top':False,'2_top':True,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':True}
 
         
         self.tool_btn_bar_side={'lenght':self.frame_36,'btn_male':self.btn_page0_3_side,'Male_Thread':self.frame_78,'btn_lenght':self.btn_page0_2_side,'Diameter':self.frame_79,'screw_head':self.frame_104,'side_damage':self.frame_112}
@@ -400,9 +400,9 @@ class UI_main_window(QMainWindow, ui):
 
         # page 5_side
 
-        
-        self.check_out0_5_side.clicked.connect(lambda:self.check_in_out(self.check_out0_5_side.objectName()))
-        self.check_in0_5_side.clicked.connect(lambda:self.check_in_out(self.check_in0_5_side.objectName()))
+        #???????????????/
+        #self.check_out0_5_side.clicked.connect(lambda:self.check_in_out(self.check_out0_5_side.objectName()))
+        #self.check_in0_5_side.clicked.connect(lambda:self.check_in_out(self.check_in0_5_side.objectName()))
 
 
         # page 6_side  
@@ -821,6 +821,8 @@ class UI_main_window(QMainWindow, ui):
         if change_size:
             self.frame_size(self.frame_54,50)
  
+
+
     def check_in_out(self,name):
 
         print('name',name)
@@ -901,25 +903,17 @@ class UI_main_window(QMainWindow, ui):
 
 
     def get_setting_page_idx(self,direction=False,page_name=False):
-
+        
+        idx = self.stackedWidget_2.currentIndex()  
         if direction:
-            
-            idx=self.stackedWidget_2.currentIndex()
-            
-            
             return self.pages_dircetion_dict[str(idx)]
         
         if page_name:
-            
-            
-            idx=self.stackedWidget_2.currentIndex()
-            print('idx',idx)
-            print('self.pages_name_dict[str(idx)]',self.pages_name_dict[str(idx)])
             return self.pages_name_dict[str(idx)]
             
          
         else:
-            return  self.stackedWidget_2.currentIndex()  
+            return idx
         
     def set_button_enable_or_disable(self, names, enable=True):
         for name in names.values():
@@ -929,7 +923,6 @@ class UI_main_window(QMainWindow, ui):
     def enable_bar_btn_tool_page(self,direction, enable=True ):
         if direction == 'top':
             self.set_button_enable_or_disable(self.tool_btn_bar_top,enable)
-            print('asdasd  top')
         if direction == 'side':
             self.set_button_enable_or_disable(self.tool_btn_bar_side,enable)
 
@@ -948,14 +941,10 @@ class UI_main_window(QMainWindow, ui):
 
     #Combobox utils ----------------------------------------------------------------  
     def get_sub_page_name(self,page_name = None):
-
             if page_name is None:
                 page_name =self.get_setting_page_idx(page_name=True)
             combo_exist=self.combo_exist[page_name]  
             if combo_exist:
-                #print('exis')
-                #str=self.get_combobox_text('set_area')
-                print('page_name',page_name)
                 if self.get_selected_list_pack_count('sub_pages') == 0:
                     return 'none'
                 return self.get_selected_list_pack_item('sub_pages')
@@ -998,7 +987,7 @@ class UI_main_window(QMainWindow, ui):
                 page_name =self.get_setting_page_idx(page_name=True)
         return self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].count()
     
-    
+
     def set_list_pack_items(self, name, items, page_name=None, idx=0):
         if page_name is None:
                 page_name =self.get_setting_page_idx(page_name=True)
@@ -1178,22 +1167,62 @@ class UI_main_window(QMainWindow, ui):
 
 
     # Spin Utils -------------------------------------------------
-    def set_spins_value(self,data, name, page_name = None):
+    def set_spins_parms_value(self, name, value, page_name = None):
 
         if page_name is None:
             page_name =self.get_setting_page_idx(page_name=True)
-        
-        # print('page_name:set',page_name,self.spins['roi'][0]['spin_roi_{}_{}'.format(0,page_name)])
-
-        # for limit_name in self.limit_types:
-            
         try:
-            obj = self.spins['spin_{}_{}'.format(name, page_name)]
-            obj.setValue(data)   
+            obj = self.spins['parms'][page_name]['spin_{}_{}'.format(name, page_name)]
+            obj.setValue(value)   
         except:
             pass
                 
 
+    def get_spins_parms_value(self, name, page_name = None):
+
+        if page_name is None:
+            page_name =self.get_setting_page_idx(page_name=True)
+        try:
+            obj = self.spins['parms'][page_name]['spin_{}_{}'.format(name, page_name)]
+            return obj.value()   
+        except:
+            return 0
+
+
+    def connect_spins_parm(self, func):
+        for page_name in self.spins['parms'].keys():
+            for name, obj in self.spins['parms'][page_name].items():
+                try:
+                    name = name[ len( 'spin_') : ] #spin_jump_thresh_5_side -> jump_thresh_5_side
+                    name = name[ : name.rfind(page_name) - 1 ] #jump_thresh_5_side -> jump_thresh ( -1 is for '_' after name )
+                    obj.valueChanged.connect(func( name ))
+                except:
+                    pass
+
+
+
+
+    #Checkbox utils -----------------------------------------------------------------------------------        
+    def check_in_out(self,name):
+
+        print('name',name)
+
+        if name=='check_out0_5_side':
+
+            self.check_out0_5_side.setChecked(True)
+            self.check_in0_5_side.setChecked(False)
+
+            self.selected_area='out'
+
+        elif name=='check_in0_5_side':
+
+            self.check_rect0_2_top.setChecked(False)
+            self.check_in0_5_side.setChecked(True)
+            self.check_out0_5_side.setChecked(False)
+
+            self.selected_area='in'
+
+        return self.selected_area
     #//////////////////////////////////////////////////////////////////////////////////////////////
     #Checkbox utils -----------------------------------------------------------------------------------        
     def get_checkbox_value(self, name, page_name = None, idx=0):
@@ -1202,7 +1231,7 @@ class UI_main_window(QMainWindow, ui):
             page_name =self.get_setting_page_idx(page_name=True)
    
 
-        obj = self.checkboxes[name]['btn_{}{}_{}'.format(name, idx, page_name)]
+        obj = self.checkboxes[name]['checkbox_{}{}_{}'.format(name, idx, page_name)]
         return obj.isChecked()
 
 
@@ -1212,7 +1241,7 @@ class UI_main_window(QMainWindow, ui):
             page_name =self.get_setting_page_idx(page_name=True)
    
 
-        obj = self.checkboxes[name]['btn_{}{}_{}'.format(name, idx, page_name)]
+        obj = self.checkboxes[name]['checkbox_{}{}_{}'.format(name, idx, page_name)]
         obj.setChecked( value )
         
         
@@ -1222,7 +1251,7 @@ class UI_main_window(QMainWindow, ui):
 
             try:
             
-                obj = self.checkboxes[name]['btn_{}{}_{}'.format(name, idx, page_name)]
+                obj = self.checkboxes[name]['checkbox_{}{}_{}'.format(name, idx, page_name)]
                 
                 obj.toggled.connect( func )
             except:
@@ -1282,6 +1311,9 @@ class UI_main_window(QMainWindow, ui):
                 
             elif name in  ['img_path'] :
                 self.set_line_value(name, value, page_name,idx=idx)
+
+            elif name in ['jump_thresh']:
+                self.set_spins_parms_value(name, value)
                 
             elif 'roi' in name:
                 self.set_roi_value(Utils.rect_list2dict(value), page_name)

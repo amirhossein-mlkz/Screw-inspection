@@ -128,9 +128,18 @@ def object_dict_builder(ui_object):
                 },
             }
         },
-        'spin_best_3_side':self.spin_best_3_side,
-        'spin_jump_5_side':self.spin_jump_5_side
 
+
+        'parms':{
+            
+            '3_side':{
+            'spin_best_3_side':self.spin_best_3_side,
+            },
+        
+            '5_side':{
+            'spin_jump_thresh_5_side':self.spin_jump_thresh_5_side
+            },
+        }
 
     }
 
@@ -139,9 +148,9 @@ def object_dict_builder(ui_object):
 
         'thresh_inv':
         {
-            'btn_thresh_inv0_1_top': self.btn_thresh_inv0_1_top,
-            'btn_thresh_inv0_2_top': self.btn_thresh_inv0_2_top,
-            'btn_thresh_inv0_1_side': self.btn_thresh_inv0_1_side
+            'checkbox_thresh_inv0_1_top': self.checkbox_thresh_inv0_1_top,
+            'checkbox_thresh_inv0_2_top': self.checkbox_thresh_inv0_2_top,
+            'checkbox_thresh_inv0_1_side': self.checkbox_thresh_inv0_1_side
         },
         'page':
         {
@@ -193,6 +202,8 @@ def object_dict_builder(ui_object):
                 'btn_page0_2_side': self.btn_page0_2_side,
                 'btn_page0_3_side': self.btn_page0_3_side,
                 'btn_page0_4_side': self.btn_page0_4_side,
+                'btn_page0_5_side': self.btn_page0_5_side,
+                'btn_page0_6_side': self.btn_page0_6_side,
                 
             },
         'add':
@@ -235,6 +246,12 @@ def object_dict_builder(ui_object):
                 #         'label_diameter_x_4_side':self.label_diameter_x_4_side,
                 #         'label_diameter_y_4_side':self.label_diameter_y_4_side,
                 #     }
+
+
+                '6_side':
+                {
+                    'label_area_6_side': self.label_area_6_side
+                }
                 
                 
             }
@@ -266,3 +283,6 @@ def object_dict_builder(ui_object):
 
     }
 
+
+
+    
