@@ -7,6 +7,7 @@
 
 # from PySide6.QtWidgets import *
 
+from re import I
 import sys
 from tabnanny import check
 from traceback import print_tb
@@ -164,7 +165,8 @@ class UI_main_window(QMainWindow, ui):
 
         # Live page
 
-        self.set_tables(self.table_live_top0_liv_page,['a','b'])
+        self.set_tables(self.table_live_top0_liv_page,['a','b'],['1','2'])
+        self.set_tables(self.table_live_side0_liv_page,['a','b'],['1','2'])
 
 
     def mousePressEvent(self, event):
@@ -911,6 +913,8 @@ class UI_main_window(QMainWindow, ui):
             
             
             idx=self.stackedWidget_2.currentIndex()
+            print('idx',idx)
+            print('self.pages_name_dict[str(idx)]',self.pages_name_dict[str(idx)])
             return self.pages_name_dict[str(idx)]
             
          
@@ -951,6 +955,7 @@ class UI_main_window(QMainWindow, ui):
             if combo_exist:
                 #print('exis')
                 #str=self.get_combobox_text('set_area')
+                print('page_name',page_name)
                 if self.get_selected_list_pack_count('sub_pages') == 0:
                     return 'none'
                 return self.get_selected_list_pack_item('sub_pages')
@@ -1317,18 +1322,18 @@ class UI_main_window(QMainWindow, ui):
         str1=[]
         if values:
             table_name.setRowCount(len(values))
-            for i in values:
-                str1.append(i[0])  
+            for i in range(len(values)):
+                str1.append(values[i])  
 
-            for row, string in enumerate(str1):
+            # for row, string in enumerate(str1):
             #  print (row,string)
-                table_item = QTableWidgetItem(str(string))
+                table_item = QTableWidgetItem(str(values[i]))
                 #table_item.setData(Qt.DisplayRole, str(string))
-                table_item.setFlags(Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
-                table_item.setCheckState(Qt.CheckState.Unchecked)
-                table_name.setItem(row,0,table_item)
+                # table_item.setFlags(Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
+                # table_item.setCheckState(Qt.CheckState.Unchecked)
+                table_name.setItem(i,0,table_item)
 
-            table_name.setRowCount(row+1)
+            table_name.setRowCount(i+1)
 
 
 

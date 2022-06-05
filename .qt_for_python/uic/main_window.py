@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1328, 841)
+        MainWindow.resize(1351, 841)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setStyleSheet(u"/* /////////////////////////////////////////////////////////////////////////////////////////////////\n"
@@ -1478,47 +1478,99 @@ class Ui_MainWindow(object):
         self.table_live_top0_liv_page = QTableWidget(self.frame_76)
         if (self.table_live_top0_liv_page.columnCount() < 4):
             self.table_live_top0_liv_page.setColumnCount(4)
-        if (self.table_live_top0_liv_page.rowCount() < 14):
-            self.table_live_top0_liv_page.setRowCount(14)
+        if (self.table_live_top0_liv_page.rowCount() < 9):
+            self.table_live_top0_liv_page.setRowCount(9)
         self.table_live_top0_liv_page.setObjectName(u"table_live_top0_liv_page")
-        self.table_live_top0_liv_page.setStyleSheet(u"QTableWidget {	\n"
-"	padding: 1px;\n"
-"	border-radius:1px;\n"
-"	gridline-color: rgb(230,230,230);\n"
-"	border-bottom: 1px solid rgb(180,180,180);\n"
+        self.table_live_top0_liv_page.setStyleSheet(u"\n"
+"QTableView {\n"
+"    color: #828282;\n"
+"    border: 1px solid #b6b6b6;\n"
+"    gridline-color: #f5f5f5;\n"
+"    background-color: Transparent;\n"
+"    selection-color: #828282;\n"
+"    selection-background-color: #adc5ed;\n"
+"    border-radius: 3px;\n"
+"    padding: 0px;\n"
+"    margin: 0px;\n"
+"}\n"
 "\n"
+"QTableView::item:hover  {\n"
+"    background: #abb0b7;\n"
 "}\n"
-"QTableWidget::item{\n"
-"	border-color: rgb(180,180,108);\n"
-"	padding-left: 5px;\n"
-"	padding-right: 5px;\n"
-"	gridline-color: rgb(30,30,30);\n"
-"}\n"
-"QHeaderView::section:horizontal\n"
-"{\n"
-"    border-right: 0px solid rgb(80,0,0);\n"
-"	padding: 3px;\n"
-"    background-color: rgb(30,30,30);\n"
-"	border-top-left-radius: 7px;\n"
-"    border-top-right-radius: 7px;\n"
-"	color:rgb(255,255,255);\n"
-"}\n"
-"QHeaderView::section:vertical\n"
-"{\n"
-"    border: 1px solid rgb(0,0,0);\n"
-"padding: 3px;\n"
-"border-left: none;\n"
-"border-top: none;\n"
-"border-down: none;\n"
-"background-color: Transparent;\n"
-"color:rgb(0,0,0);\n"
 "\n"
+"QTableView::item:disabled  {\n"
+"    color: #e6e6e6;\n"
 "}\n"
-"QTableWidget::item:selected{\n"
-"	background-color: rgb(70,135,230);\n"
-"	color : White;\n"
-"}")
-        self.table_live_top0_liv_page.setRowCount(14)
+"\n"
+"QTableView::item:selected  {\n"
+"    color: #1b3774;\n"
+"    background-color: #7cabf9;\n"
+"}\n"
+"\n"
+"/* when editing a cell: */\n"
+"QTableView QLineEdit {\n"
+"    color: #828282;\n"
+"    background-color: #b3b8bf;\n"
+"    border-radius: 0px;\n"
+"    margin: 0px;\n"
+"    padding: 0px;\n"
+"}\n"
+"\n"
+"QHeaderView {\n"
+"    border: none;\n"
+"    background-color: #828282;\n"
+"    border-top-left-radius: 3px;\n"
+"    border-top-right-radius: 3px;\n"
+"    border-bottom-left-radius: 0px;\n"
+"    border-bottom-right-radius: 0px;\n"
+"    margin: 0px;\n"
+"    padding: 0px;\n"
+""
+                        "}\n"
+"\n"
+"QHeaderView::section  {\n"
+"    background-color: transparent;\n"
+"    color: #ffffff;\n"
+"    border: 1px solid transparent;\n"
+"    border-radius: 0px;\n"
+"    text-align: center;\n"
+"}\n"
+"\n"
+"QHeaderView::section::vertical  {\n"
+"    padding: 0px 6px 0px 6px;\n"
+"    border-bottom: 1px solid #b6b6b6;\n"
+"}\n"
+"\n"
+"QHeaderView::section::vertical:first {\n"
+"    border-top: 1px solid  #b6b6b6;\n"
+"}\n"
+"\n"
+"QHeaderView::section::vertical:last {\n"
+"    border-bottom: none;\n"
+"}\n"
+"\n"
+"QHeaderView::section::vertical:only-one {\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"QHeaderView::section::horizontal  {\n"
+"    padding: 0px 0px 0px 6px;\n"
+"    border-right: 1px solid #b6b6b6;\n"
+"}\n"
+"\n"
+"QHeaderView::section::horizontal:first {\n"
+"    border-left: 1px solid #b6b6b6;\n"
+"}\n"
+"\n"
+"QHeaderView::section::horizontal:last {\n"
+"    border-left: none;\n"
+"}\n"
+"\n"
+"QHeaderView::section::horizontal:only-one {\n"
+"    border: none;\n"
+"}\n"
+"")
+        self.table_live_top0_liv_page.setRowCount(9)
         self.table_live_top0_liv_page.setColumnCount(4)
 
         self.verticalLayout_60.addWidget(self.table_live_top0_liv_page)
@@ -1526,60 +1578,48 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_72.addWidget(self.frame_76)
 
+        self.table_live_side0_liv_page = QTableWidget(self.frame_67)
+        if (self.table_live_side0_liv_page.columnCount() < 4):
+            self.table_live_side0_liv_page.setColumnCount(4)
+        if (self.table_live_side0_liv_page.rowCount() < 9):
+            self.table_live_side0_liv_page.setRowCount(9)
+        self.table_live_side0_liv_page.setObjectName(u"table_live_side0_liv_page")
+        self.table_live_side0_liv_page.setStyleSheet(u"QWidget {\n"
+"    background-color: #333333;\n"
+"    color: #fffff8;\n"
+"}\n"
+"\n"
+"QHeaderView::section {\n"
+"    background-color: #646464;\n"
+"    padding: 4px;\n"
+"    border: 1px solid #fffff8;\n"
+"    font-size: 14pt;\n"
+"}\n"
+"\n"
+"QTableWidget {\n"
+"    gridline-color: #fffff8;\n"
+"    font-size: 12pt;\n"
+"}\n"
+"\n"
+"QTableWidget QTableCornerButton::section {\n"
+"    background-color: #646464;\n"
+"    border: 1px solid #fffff8;\n"
+"}\n"
+"QTableView::setRowHidden{\n"
+"True\n"
+"}")
+        self.table_live_side0_liv_page.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.table_live_side0_liv_page.setRowCount(9)
+        self.table_live_side0_liv_page.setColumnCount(4)
+
+        self.horizontalLayout_72.addWidget(self.table_live_side0_liv_page)
+
         self.frame_77 = QFrame(self.frame_67)
         self.frame_77.setObjectName(u"frame_77")
         self.frame_77.setFrameShape(QFrame.StyledPanel)
         self.frame_77.setFrameShadow(QFrame.Raised)
         self.verticalLayout_59 = QVBoxLayout(self.frame_77)
         self.verticalLayout_59.setObjectName(u"verticalLayout_59")
-        self.table_live_side0_liv_page = QTableWidget(self.frame_77)
-        if (self.table_live_side0_liv_page.columnCount() < 4):
-            self.table_live_side0_liv_page.setColumnCount(4)
-        if (self.table_live_side0_liv_page.rowCount() < 14):
-            self.table_live_side0_liv_page.setRowCount(14)
-        self.table_live_side0_liv_page.setObjectName(u"table_live_side0_liv_page")
-        self.table_live_side0_liv_page.setStyleSheet(u"QTableWidget {	\n"
-"	padding: 1px;\n"
-"	border-radius:1px;\n"
-"	gridline-color: rgb(230,230,230);\n"
-"	border-bottom: 1px solid rgb(180,180,180);\n"
-"\n"
-"}\n"
-"QTableWidget::item{\n"
-"	border-color: rgb(180,180,108);\n"
-"	padding-left: 5px;\n"
-"	padding-right: 5px;\n"
-"	gridline-color: rgb(30,30,30);\n"
-"}\n"
-"QHeaderView::section:horizontal\n"
-"{\n"
-"    border-right: 0px solid rgb(80,0,0);\n"
-"	padding: 3px;\n"
-"    background-color: rgb(30,30,30);\n"
-"	border-top-left-radius: 7px;\n"
-"    border-top-right-radius: 7px;\n"
-"	color:rgb(255,255,255);\n"
-"}\n"
-"QHeaderView::section:vertical\n"
-"{\n"
-"    border: 1px solid rgb(0,0,0);\n"
-"padding: 3px;\n"
-"border-left: none;\n"
-"border-top: none;\n"
-"border-down: none;\n"
-"background-color: Transparent;\n"
-"color:rgb(0,0,0);\n"
-"\n"
-"}\n"
-"QTableWidget::item:selected{\n"
-"	background-color: rgb(70,135,230);\n"
-"	color : White;\n"
-"}")
-        self.table_live_side0_liv_page.setRowCount(14)
-        self.table_live_side0_liv_page.setColumnCount(4)
-
-        self.verticalLayout_59.addWidget(self.table_live_side0_liv_page)
-
 
         self.horizontalLayout_72.addWidget(self.frame_77)
 
@@ -1622,7 +1662,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents_3 = QWidget()
         self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 67, 67))
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 276, 702))
         self.horizontalLayout_29 = QHBoxLayout(self.scrollAreaWidgetContents_3)
         self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
         self.tableWidget_users = QTableWidget(self.scrollAreaWidgetContents_3)
@@ -3707,6 +3747,9 @@ class Ui_MainWindow(object):
         self.stackedWidget_2 = QStackedWidget(self.frame_37)
         self.stackedWidget_2.setObjectName(u"stackedWidget_2")
         self.stackedWidget_2.setMinimumSize(QSize(200, 0))
+        self.page = QWidget()
+        self.page.setObjectName(u"page")
+        self.stackedWidget_2.addWidget(self.page)
         self.page_1_top = QWidget()
         self.page_1_top.setObjectName(u"page_1_top")
         self.verticalLayout_29 = QVBoxLayout(self.page_1_top)
@@ -6059,7 +6102,7 @@ class Ui_MainWindow(object):
         self.spinBox_6.valueChanged.connect(self.bar_noise_filter0_1_side.setValue)
 
         self.stackedWidget.setCurrentIndex(0)
-        self.stackedWidget_2.setCurrentIndex(7)
+        self.stackedWidget_2.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1328</width>
+    <width>1351</width>
     <height>841</height>
    </rect>
   </property>
@@ -2886,55 +2886,101 @@ QPushButton:hover {
                                    <item>
                                     <widget class="QTableWidget" name="table_live_top0_liv_page">
                                      <property name="styleSheet">
-                                      <string notr="true">QTableWidget {	
-	padding: 1px;
-	border-radius:1px;
-	gridline-color: rgb(230,230,230);
-	border-bottom: 1px solid rgb(180,180,180);
+                                      <string notr="true">
+QTableView {
+    color: #828282;
+    border: 1px solid #b6b6b6;
+    gridline-color: #f5f5f5;
+    background-color: Transparent;
+    selection-color: #828282;
+    selection-background-color: #adc5ed;
+    border-radius: 3px;
+    padding: 0px;
+    margin: 0px;
+}
 
+QTableView::item:hover  {
+    background: #abb0b7;
 }
-QTableWidget::item{
-	border-color: rgb(180,180,108);
-	padding-left: 5px;
-	padding-right: 5px;
-	gridline-color: rgb(30,30,30);
-}
-QHeaderView::section:horizontal
-{
-    border-right: 0px solid rgb(80,0,0);
-	padding: 3px;
-    background-color: rgb(30,30,30);
-	border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
-	color:rgb(255,255,255);
-}
-QHeaderView::section:vertical
-{
-    border: 1px solid rgb(0,0,0);
-padding: 3px;
-border-left: none;
-border-top: none;
-border-down: none;
-background-color: Transparent;
-color:rgb(0,0,0);
 
+QTableView::item:disabled  {
+    color: #e6e6e6;
 }
-QTableWidget::item:selected{
-	background-color: rgb(70,135,230);
-	color : White;
-}</string>
+
+QTableView::item:selected  {
+    color: #1b3774;
+    background-color: #7cabf9;
+}
+
+/* when editing a cell: */
+QTableView QLineEdit {
+    color: #828282;
+    background-color: #b3b8bf;
+    border-radius: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+
+QHeaderView {
+    border: none;
+    background-color: #828282;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+
+QHeaderView::section  {
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 0px;
+    text-align: center;
+}
+
+QHeaderView::section::vertical  {
+    padding: 0px 6px 0px 6px;
+    border-bottom: 1px solid #b6b6b6;
+}
+
+QHeaderView::section::vertical:first {
+    border-top: 1px solid  #b6b6b6;
+}
+
+QHeaderView::section::vertical:last {
+    border-bottom: none;
+}
+
+QHeaderView::section::vertical:only-one {
+    border: none;
+}
+
+QHeaderView::section::horizontal  {
+    padding: 0px 0px 0px 6px;
+    border-right: 1px solid #b6b6b6;
+}
+
+QHeaderView::section::horizontal:first {
+    border-left: 1px solid #b6b6b6;
+}
+
+QHeaderView::section::horizontal:last {
+    border-left: none;
+}
+
+QHeaderView::section::horizontal:only-one {
+    border: none;
+}
+</string>
                                      </property>
                                      <property name="rowCount">
-                                      <number>14</number>
+                                      <number>9</number>
                                      </property>
                                      <property name="columnCount">
                                       <number>4</number>
                                      </property>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
                                      <row/>
                                      <row/>
                                      <row/>
@@ -2954,6 +3000,58 @@ QTableWidget::item:selected{
                                  </widget>
                                 </item>
                                 <item>
+                                 <widget class="QTableWidget" name="table_live_side0_liv_page">
+                                  <property name="styleSheet">
+                                   <string notr="true">QWidget {
+    background-color: #333333;
+    color: #fffff8;
+}
+
+QHeaderView::section {
+    background-color: #646464;
+    padding: 4px;
+    border: 1px solid #fffff8;
+    font-size: 14pt;
+}
+
+QTableWidget {
+    gridline-color: #fffff8;
+    font-size: 12pt;
+}
+
+QTableWidget QTableCornerButton::section {
+    background-color: #646464;
+    border: 1px solid #fffff8;
+}
+QTableView::setRowHidden{
+True
+}</string>
+                                  </property>
+                                  <property name="editTriggers">
+                                   <set>QAbstractItemView::NoEditTriggers</set>
+                                  </property>
+                                  <property name="rowCount">
+                                   <number>9</number>
+                                  </property>
+                                  <property name="columnCount">
+                                   <number>4</number>
+                                  </property>
+                                  <row/>
+                                  <row/>
+                                  <row/>
+                                  <row/>
+                                  <row/>
+                                  <row/>
+                                  <row/>
+                                  <row/>
+                                  <row/>
+                                  <column/>
+                                  <column/>
+                                  <column/>
+                                  <column/>
+                                 </widget>
+                                </item>
+                                <item>
                                  <widget class="QFrame" name="frame_77">
                                   <property name="frameShape">
                                    <enum>QFrame::StyledPanel</enum>
@@ -2961,75 +3059,7 @@ QTableWidget::item:selected{
                                   <property name="frameShadow">
                                    <enum>QFrame::Raised</enum>
                                   </property>
-                                  <layout class="QVBoxLayout" name="verticalLayout_59">
-                                   <item>
-                                    <widget class="QTableWidget" name="table_live_side0_liv_page">
-                                     <property name="styleSheet">
-                                      <string notr="true">QTableWidget {	
-	padding: 1px;
-	border-radius:1px;
-	gridline-color: rgb(230,230,230);
-	border-bottom: 1px solid rgb(180,180,180);
-
-}
-QTableWidget::item{
-	border-color: rgb(180,180,108);
-	padding-left: 5px;
-	padding-right: 5px;
-	gridline-color: rgb(30,30,30);
-}
-QHeaderView::section:horizontal
-{
-    border-right: 0px solid rgb(80,0,0);
-	padding: 3px;
-    background-color: rgb(30,30,30);
-	border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
-	color:rgb(255,255,255);
-}
-QHeaderView::section:vertical
-{
-    border: 1px solid rgb(0,0,0);
-padding: 3px;
-border-left: none;
-border-top: none;
-border-down: none;
-background-color: Transparent;
-color:rgb(0,0,0);
-
-}
-QTableWidget::item:selected{
-	background-color: rgb(70,135,230);
-	color : White;
-}</string>
-                                     </property>
-                                     <property name="rowCount">
-                                      <number>14</number>
-                                     </property>
-                                     <property name="columnCount">
-                                      <number>4</number>
-                                     </property>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <column/>
-                                     <column/>
-                                     <column/>
-                                     <column/>
-                                    </widget>
-                                   </item>
-                                  </layout>
+                                  <layout class="QVBoxLayout" name="verticalLayout_59"/>
                                  </widget>
                                 </item>
                                </layout>
@@ -3111,8 +3141,8 @@ QTableWidget::item:selected{
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>67</width>
-                                  <height>67</height>
+                                  <width>276</width>
+                                  <height>702</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">
@@ -8138,8 +8168,9 @@ QPushButton:disabled{
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>7</number>
+                                   <number>0</number>
                                   </property>
+                                  <widget class="QWidget" name="page"/>
                                   <widget class="QWidget" name="page_1_top">
                                    <layout class="QVBoxLayout" name="verticalLayout_29">
                                     <item>
