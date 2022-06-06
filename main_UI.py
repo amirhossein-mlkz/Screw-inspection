@@ -164,9 +164,12 @@ class UI_main_window(QMainWindow, ui):
         self.check_mask_type(self.check_circle0_2_top.objectName(),change_size=True)
 
         # Live page
+        w = self.table_live_live_page
+        w.setFont(QFont('Arial', 60))
 
-        self.set_tables(self.table_live_top0_liv_page,['a','b'],['1','2'])
-        self.set_tables(self.table_live_side0_liv_page,['a','b'],['1','2'])
+        self.set_tables(self.table_live_live_page,['Name','Min','Value','Max','Smaller','Bigger'],['1','2'])
+
+        # self.set_img_btns(self.side_tool_setting_btn,'images/setting_main_window/bug.png')
 
 
     def mousePressEvent(self, event):
@@ -597,7 +600,23 @@ class UI_main_window(QMainWindow, ui):
 
 
 
+    def clear_side_btns(self,current_page):
 
+        self.white_side_images_path=['images/setting_main_window/dashboard_white.png','images/setting_main_window/plc_setting_white.png',\
+            'images/setting_main_window/camera_setting_white.png','images/setting_main_window/users_setting_white.png','images/setting_main_window/general_setting_white.png']
+
+        self.side_buttons = [ self.side_dashboard_btn, self.side_tool_setting_btn,self.side_camera_setting_btn\
+                    ,self.side_users_setting_btn,self.side_general_setting_btn,]
+
+        for i in range(len(self.side_buttons)):
+
+            self.set_img_btns(self.side_buttons[i],self.white_side_images_path[i])
+
+        # current_idx=self.stackedWidget.currentIndex()
+        # print('current_idx',current_idx)
+        # print('current_idx',current_idx,str(self.white_side_images_path[current_idx]).replace('_white',''))
+
+        self.set_img_btns(self.side_buttons[current_page],self.white_side_images_path[current_page].replace('_white',''))
 
 
 
@@ -611,23 +630,32 @@ class UI_main_window(QMainWindow, ui):
 
         if btnName =='side_camera_setting_btn' and self.stackedWidget.currentWidget()!=self.page_camera_setting:
 
+            self.clear_side_btns(current_page=2)
+
             self.stackedWidget.setCurrentWidget(self.page_camera_setting)
         
         if btnName =='side_dashboard_btn' and self.stackedWidget.currentWidget()!=self.page_dashboard:
+            self.clear_side_btns(current_page=0)
 
             self.stackedWidget.setCurrentWidget(self.page_dashboard)
 
         if btnName =='side_users_setting_btn' :
 
+            self.clear_side_btns(current_page=3)
+
+
             self.stackedWidget.setCurrentWidget(self.page_users_setting)
 
 
         if btnName =='side_tool_setting_btn' :
+            self.clear_side_btns(current_page=1)
+
 
             self.stackedWidget.setCurrentWidget(self.page_tools)
 
         
         if btnName =='side_general_setting_btn' :
+            self.clear_side_btns(current_page=4)
 
             self.stackedWidget.setCurrentWidget(self.page_settings)
 
@@ -883,7 +911,8 @@ class UI_main_window(QMainWindow, ui):
 
         self.img_page_tool=img
     
-    
+    def set_img_btns(self,btn_name,img_path):
+        btn_name.setIcon(sQPixmap.fromImage(sQImage('{}'.format(img_path))))
     
     def clear_new_scew_line(self):
         self.line_new_screw.text = ''
