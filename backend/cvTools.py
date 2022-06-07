@@ -387,10 +387,11 @@ def get_bigest_area(mask, rect_roi):
     return int(cnt_area)
 
 
-def draw_vertical_point(img, pts_group, color, thicknes=4):
+def draw_vertical_point(img, pts_group, color, thicknes=4, close = False):
     for pts in pts_group:
         for i in range(-thicknes//2, thicknes//2):
             img[ pts[:,1], pts[:,0] + i] = color
+
     return img
 
 def draw_horizental_point(img, pts_group, color, thicknes=4):

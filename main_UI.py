@@ -167,11 +167,11 @@ class UI_main_window(QMainWindow, ui):
         w = self.table_live_live_page
         w.setFont(QFont('Arial', 60))
 
-        self.col_parms=['name','min','max','avg','min_limit','max_limit']
+        self.col_parms=['name','min','max','avg','limit_min','limit_max']
 
         self.set_header_live_table(self.table_live_live_page,self.col_parms)
 
-        self.set_live_table(self.table_live_live_page,['1','2'])
+        #self.set_live_table(self.table_live_live_page,['1','2'])
 
         # self.set_img_btns(self.side_tool_setting_btn,'images/setting_main_window/bug.png')
 
@@ -1382,39 +1382,39 @@ class UI_main_window(QMainWindow, ui):
 
     def set_live_table(self,table_name,values=False):
 
-        values=[{
-                    'name':'p1',
-                    'min':10,
-                    'max':20,
-                    'avg':30,
-                    'min_limit':40,
-                    'max_limit':50
-                },
-                {
-                    'name':'p2',
-                    'min':10,
-                    'max':20,
-                    'avg':30,
-                    'min_limit':40,
-                    'max_limit':50
-                } ,
-                {
-                    'name':'p2',
-                    'min':10,
-                    'max':20,
-                    'avg':30,
-                    'min_limit':40,
-                    'max_limit':50
-                } ,
-                {
-                    'name':'p2',
-                    'min':10,
-                    'max':20,
-                    'avg':30,
-                    'min_limit':40,
-                    'max_limit':50
-                } 
-                ]
+        # values=[{
+        #             'name':'p1',
+        #             'min':10,
+        #             'max':20,
+        #             'avg':30,
+        #             'min_limit':40,
+        #             'max_limit':50
+        #         },
+        #         {
+        #             'name':'p2',
+        #             'min':10,
+        #             'max':20,
+        #             'avg':30,
+        #             'min_limit':40,
+        #             'max_limit':50
+        #         } ,
+        #         {
+        #             'name':'p2',
+        #             'min':10,
+        #             'max':20,
+        #             'avg':30,
+        #             'min_limit':40,
+        #             'max_limit':50
+        #         } ,
+        #         {
+        #             'name':'p2',
+        #             'min':10,
+        #             'max':20,
+        #             'avg':30,
+        #             'min_limit':40,
+        #             'max_limit':50
+        #         } 
+        #         ]
 
 
         i=0
@@ -1427,7 +1427,7 @@ class UI_main_window(QMainWindow, ui):
             table_name.setRowCount(len(values))
             for id,page_value in enumerate(values):
                 for col_id , col_value in enumerate(self.col_parms) :
-                    print(page_value['min'])
+                    #print(page_value['min'])
 
                     table_item = QTableWidgetItem(str(page_value[col_value]))
                     table_name.setItem(id,col_id,table_item)
@@ -1446,6 +1446,9 @@ class UI_main_window(QMainWindow, ui):
         self.set_image_label(self.lives['labels']['selected_img'][direction],img)
 
 
+    def set_main_image_live_page(self,direction,img):
+
+        self.set_image_label(self.lives['labels']['live_img'][direction],img)
 
 
 

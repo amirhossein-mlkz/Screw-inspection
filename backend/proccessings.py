@@ -38,7 +38,7 @@ def preprocessing_img_json( img, json, direction):
 
 
 
-def proccessing_body_lenght( thresh_img, jsondb):
+def proccessing_body_lenght( thresh_img, jsondb, img=None):
     page_name = '2_side'
     subpage_name = None
     
@@ -48,8 +48,10 @@ def proccessing_body_lenght( thresh_img, jsondb):
     if Utils.is_rect(rect_roi_2):
         left_pts, right_pts = cvTools.find_vertical_edges(thresh_img, rect_roi_2)
         if len(left_pts) > 0 and len(right_pts) > 0:
-            #img = cvTools.draw_vertical_point( img , [left_pts, right_pts], color=(0,0,255), thicknes=5 )
             min_dist, max_dist, avg_dist, _ = mathTools.horizontal_distance( left_pts, right_pts )
+
+            if img is not None:
+                img = cvTools.draw_vertical_point( img , [left_pts, right_pts], color=(0,0,255), thicknes=5 )
 
     
     res_dict = {'name': 'screw body length',
@@ -59,12 +61,12 @@ def proccessing_body_lenght( thresh_img, jsondb):
                 'max': max_dist,
                 'avg': avg_dist }
 
-    return [res_dict]
+    return [res_dict], img
         
     
 
     
-def proccessing_thread_male( thresh_img, jsondb):
+def proccessing_thread_male( thresh_img, jsondb, img=None):
     page_name = '3_side'
     subpage_name = None
     rect_roi_2 = jsondb.get_rect_roi( page_name, subpage_name)
@@ -102,8 +104,13 @@ def proccessing_thread_male( thresh_img, jsondb):
                     'max': len(male_thread_h),
                     'avg': len(male_thread_h) }
 
+        if img is not None:
+            img = cvTools.draw_points(img, male_thread_h, (0,50,150), 3)
+            img = cvTools.draw_points(img, male_thread_l, (200,0,200), 3)
+
+
         result.append( res_dict )
-        return result
+        return result, img
 
 
         #info = {'thread_lenght': avg_d,  'count_thread':len(male_thread_h) , 'step_distance':avg_s}
@@ -111,7 +118,7 @@ def proccessing_thread_male( thresh_img, jsondb):
         #img = cvTools.draw_points(img, male_thread_l, (200,0,200), 3)
 
         
-def proccessing_side_diameters( thresh_img, jsondb):
+def proccessing_side_diameters( thresh_img, jsondb, img=None):
     page_name = '4_side'
     results = []
     for subpage_name in jsondb.get_subpages(page_name):
@@ -128,6 +135,10 @@ def proccessing_side_diameters( thresh_img, jsondb):
                             'min': min_d,
                             'max': max_d,
                             'avg': avg_d }
+                
+
+                if img is not None:
+                    img = cvTools.draw_horizental_point( img, [left_pts, right_pts], (0,0,255), thicknes=5 )
             
             else:
                 res_dict = {
@@ -139,12 +150,12 @@ def proccessing_side_diameters( thresh_img, jsondb):
                             'avg': -1 }
             results.append( res_dict )
     
-    return results
+    return results, img
 
 
 
 
-def preprocessing_side_damage( thresh_img, jsondb):
+def preprocessing_side_damage( thresh_img, jsondb, img=None):
     page_name = '6_side'
     results = []
     for subpage_name in jsondb.get_subpages(page_name):
@@ -162,23 +173,25 @@ def preprocessing_side_damage( thresh_img, jsondb):
             
             results.append(res_dict)
     
-    return results
+    return results, img
 
 
 
 
 
 
-
+def preprocessing_empty(thresh_img, jsondb, img=None):
+    return [], img
 
 
 
 
 
 tools_dict = {
+            '1_side': preprocessing_empty,
             '2_side': proccessing_body_lenght,
             '3_side': proccessing_thread_male,
             '4_side': proccessing_side_diameters,
-            '5_side': None,
+            '5_side': preprocessing_empty,
             '6_side': preprocessing_side_damage,
         }

@@ -125,6 +125,8 @@ class API:
         self.mouse.connect_all(self.ui.label_image_grab_page, self.image_setting_mouse_event)
         
         
+        #???????????????????????????????????????????????//
+        self.proccessing_live(None,None)
         
         
         
@@ -1126,16 +1128,15 @@ class API:
 
     def proccessing_live(self, img, direction):
         img = cv2.imread('sample images/New folder/31x_1_4.png')
-        dircetion = 'side'
+        direction = 'side'
 
-        img, thresh_img,_ = proccessings.preprocessing_img_json( img, self.screw_jasons[direction], dircetion )
-
+        img, thresh_img,_ = proccessings.preprocessing_img_json( img, self.screw_jasons[direction], direction )
+        img = Utils.mask_viewer(img, thresh_img, color=(0,100,0))
         results = []
         for active_tool in self.screw_jasons[direction].get_active_tools():
-            result = proccessings.tools_dict[active_tool]( thresh_img, self.screw_jasons[dircetion] )
+            result, img = proccessings.tools_dict[active_tool]( thresh_img, self.screw_jasons[direction], img )
             results.extend(result)
 
         results.sort( key = lambda x:x['name'])
-
-
-            
+        self.ui.set_live_table( self.ui.table_live_live_page, results )
+        self.ui.set_main_image_live_page( direction, img )

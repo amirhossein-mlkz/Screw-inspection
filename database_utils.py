@@ -8,7 +8,8 @@ import os
 
 
 class dataBaseUtils():
-    def __init__(self,user_name='root',password='root') :
+    def __init__(self,user_name='root',password='@mm@9398787515AmmA') :
+        password='@mm@9398787515AmmA'
         self.db=database.dataBase(user_name,password,'localhost','screw')
 
         self.page_grab='screw_page_grab'
@@ -182,12 +183,12 @@ if __name__ == '__main__':
 
     # db.remove_users(user)
 
-    data={'name':'asghar'}
+    #data={'name':'asghar'}
 
-    db.add_screw(data)
+    #db.add_screw(data)
 
-    x=db.search_page_1('asghar')
-    print('x',x)
+    #x=db.search_page_1('asghar')
+    #print('x',x)
 
     # x=db.get_dataset_path()
 

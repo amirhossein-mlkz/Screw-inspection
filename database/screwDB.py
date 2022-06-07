@@ -174,8 +174,8 @@ class screwJson():
     
     
     def get_limit(self, name, page, subpage):
-        name = 'limits'
-        parms = self.get_value( page, subpage, name, {'min':{}, 'max':{}})
+        _name_ = 'limits'
+        parms = self.get_value( page, subpage, _name_, {'min':{}, 'max':{}})
         return {'min': parms['min'].get(name,0) , 
                 'max': parms['max'].get(name,0)}
     
