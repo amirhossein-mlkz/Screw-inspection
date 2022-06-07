@@ -169,7 +169,7 @@ class UI_main_window(QMainWindow, ui):
 
         self.col_parms=['name','min','max','avg','min_limit','max_limit']
 
-        self.set_tables(self.table_live_live_page,self.col_parms,['1','2'])
+        self.set_live_table(self.table_live_live_page,self.col_parms,['1','2'])
 
         # self.set_img_btns(self.side_tool_setting_btn,'images/setting_main_window/bug.png')
 
@@ -1374,7 +1374,7 @@ class UI_main_window(QMainWindow, ui):
   
 
 
-    def set_tables(self,table_name,headers,values=False):
+    def set_live_table(self,table_name,headers,values=False):
 
         values=[{
                     'name':'p1',
