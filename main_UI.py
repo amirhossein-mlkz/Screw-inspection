@@ -169,7 +169,9 @@ class UI_main_window(QMainWindow, ui):
 
         self.col_parms=['name','min','max','avg','min_limit','max_limit']
 
-        self.set_live_table(self.table_live_live_page,self.col_parms,['1','2'])
+        self.set_header_live_table(self.table_live_live_page,self.col_parms)
+
+        self.set_live_table(self.table_live_live_page,['1','2'])
 
         # self.set_img_btns(self.side_tool_setting_btn,'images/setting_main_window/bug.png')
 
@@ -1372,9 +1374,13 @@ class UI_main_window(QMainWindow, ui):
                 return inpt,0
         return inpt[:i] , inpt[i:]
   
+    def set_header_live_table(self,table_name,headers):
+        table_name.setHorizontalHeaderLabels(headers)
+        table_name.setRowCount(0)
+        table_name.verticalHeader().setVisible(True)
+        table_name.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
-
-    def set_live_table(self,table_name,headers,values=False):
+    def set_live_table(self,table_name,values=False):
 
         values=[{
                     'name':'p1',
@@ -1391,15 +1397,28 @@ class UI_main_window(QMainWindow, ui):
                     'avg':30,
                     'min_limit':40,
                     'max_limit':50
+                } ,
+                {
+                    'name':'p2',
+                    'min':10,
+                    'max':20,
+                    'avg':30,
+                    'min_limit':40,
+                    'max_limit':50
+                } ,
+                {
+                    'name':'p2',
+                    'min':10,
+                    'max':20,
+                    'avg':30,
+                    'min_limit':40,
+                    'max_limit':50
                 } 
                 ]
 
 
         i=0
-        table_name.setHorizontalHeaderLabels(headers)
-        table_name.setRowCount(0)
-        table_name.verticalHeader().setVisible(True)
-        table_name.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
       #  headers = ['defect', 'count', 'des']
 
         table_item = QTableWidgetItem()
