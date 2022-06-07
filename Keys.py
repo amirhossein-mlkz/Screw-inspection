@@ -277,10 +277,38 @@ def object_dict_builder(ui_object):
                 
             }
             
-            
+    }
+
+    self.combo_boxes = {
+        'live':{
+            'combobox_select_screw_live':self.combobox_select_screw_live,
+        }
+
+    }
     
         
 
+    
+    self.lives={
+        'labels':
+        {
+            'selected_img':
+            {
+                'side': self.label_selected_screw_side_live,
+                'top' : self.label_selected_screw_top_live,
+            },
+
+            'live_img':
+            {
+                'side': self.label_img_side_live,
+                'top':  self.label_img_top_live,
+            }
+
+        },
+        'combo_boxes':
+        {
+            'screw_list':self.combobox_select_screw_live
+        }
     }
 
 

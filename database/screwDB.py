@@ -207,6 +207,13 @@ class screwJson():
         self.check_and_build_page(page)
         return list(self.data[self.setting_key][page].keys())
 
+
+
+    def set_active_tools(self, names):
+        self.data['active_tools'] = names
+    
+    def get_active_tools(self):
+        return self.data['active_tools'] 
     #     self.dataset_details['basic']=self.main_parms
     #     self.dataset_details['classification']=self.classification_details
     #     self.dataset_details['binary']=self.binary_details

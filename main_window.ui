@@ -708,7 +708,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -758,7 +757,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -808,7 +806,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -858,7 +855,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -908,7 +904,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -995,7 +990,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1789,7 +1783,6 @@ QPushButton:hover {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                        <stylestrategy>PreferDefault</stylestrategy>
@@ -2171,7 +2164,7 @@ QPushButton:hover {
                          <string notr="true">background-color : #F3F6FE;</string>
                         </property>
                         <property name="currentIndex">
-                         <number>0</number>
+                         <number>1</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -2375,7 +2368,7 @@ QPushButton:hover {
                                        </widget>
                                       </item>
                                       <item>
-                                       <widget class="QComboBox" name="comboBox_2"/>
+                                       <widget class="QComboBox" name="combobox_select_screw_live"/>
                                       </item>
                                       <item>
                                        <widget class="QPushButton" name="pushButton_5">
@@ -2415,7 +2408,7 @@ QPushButton:hover {
                                        <number>0</number>
                                       </property>
                                       <item>
-                                       <widget class="QLabel" name="label_30">
+                                       <widget class="QLabel" name="label_selected_screw_side_live">
                                         <property name="frameShape">
                                          <enum>QFrame::WinPanel</enum>
                                         </property>
@@ -2441,7 +2434,7 @@ QPushButton:hover {
                                        </widget>
                                       </item>
                                       <item>
-                                       <widget class="QLabel" name="label_31">
+                                       <widget class="QLabel" name="label_selected_screw_top_live">
                                         <property name="frameShape">
                                          <enum>QFrame::WinPanel</enum>
                                         </property>
@@ -2503,7 +2496,7 @@ QPushButton:hover {
                                     </widget>
                                    </item>
                                    <item>
-                                    <widget class="QLabel" name="camera_2">
+                                    <widget class="QLabel" name="label_img_side_live">
                                      <property name="maximumSize">
                                       <size>
                                        <width>16777211</width>
@@ -2679,7 +2672,7 @@ QPushButton:hover {
                                     </widget>
                                    </item>
                                    <item>
-                                    <widget class="QLabel" name="camera_1">
+                                    <widget class="QLabel" name="label_img_top_live">
                                      <property name="maximumSize">
                                       <size>
                                        <width>16777211</width>
@@ -3608,43 +3601,7 @@ QPushButton:disabled{
                                            <property name="palette">
                                             <palette>
                                              <active>
-                                              <colorrole role="WindowText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
                                               <colorrole role="Button">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>255</red>
-                                                 <green>255</green>
-                                                 <blue>255</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Text">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="ButtonText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>255</red>
@@ -3663,8 +3620,8 @@ QPushButton:disabled{
                                                </brush>
                                               </colorrole>
                                               <colorrole role="PlaceholderText">
-                                               <brush brushstyle="NoBrush">
-                                                <color alpha="128">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
                                                  <red>0</red>
                                                  <green>0</green>
                                                  <blue>0</blue>
@@ -3673,43 +3630,7 @@ QPushButton:disabled{
                                               </colorrole>
                                              </active>
                                              <inactive>
-                                              <colorrole role="WindowText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
                                               <colorrole role="Button">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>255</red>
-                                                 <green>255</green>
-                                                 <blue>255</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Text">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="ButtonText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>255</red>
@@ -3728,8 +3649,8 @@ QPushButton:disabled{
                                                </brush>
                                               </colorrole>
                                               <colorrole role="PlaceholderText">
-                                               <brush brushstyle="NoBrush">
-                                                <color alpha="128">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
                                                  <red>0</red>
                                                  <green>0</green>
                                                  <blue>0</blue>
@@ -3738,43 +3659,7 @@ QPushButton:disabled{
                                               </colorrole>
                                              </inactive>
                                              <disabled>
-                                              <colorrole role="WindowText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
                                               <colorrole role="Button">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>50</red>
-                                                 <green>50</green>
-                                                 <blue>50</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Text">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="ButtonText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>50</red>
@@ -3793,8 +3678,8 @@ QPushButton:disabled{
                                                </brush>
                                               </colorrole>
                                               <colorrole role="PlaceholderText">
-                                               <brush brushstyle="NoBrush">
-                                                <color alpha="128">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
                                                  <red>0</red>
                                                  <green>0</green>
                                                  <blue>0</blue>
@@ -4210,7 +4095,7 @@ QPushButton:disabled{
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>8</number>
+                                   <number>5</number>
                                   </property>
                                   <widget class="QWidget" name="page"/>
                                   <widget class="QWidget" name="page_1_top">
@@ -8445,7 +8330,6 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -8486,7 +8370,6 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -8582,7 +8465,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -8610,7 +8492,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -8638,7 +8519,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -8666,7 +8546,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -8694,7 +8573,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -8722,7 +8600,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -8750,7 +8627,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -8778,7 +8654,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -8806,7 +8681,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -8834,7 +8708,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -8862,7 +8735,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -8890,7 +8762,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -8918,7 +8789,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -9521,7 +9391,6 @@ QPushButton:pressed {
                                <property name="font">
                                 <font>
                                  <pointsize>10</pointsize>
-                                 <weight>75</weight>
                                  <bold>true</bold>
                                 </font>
                                </property>
@@ -9700,8 +9569,8 @@ QPushButton:pressed {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>276</width>
-                                  <height>702</height>
+                                  <width>71</width>
+                                  <height>71</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">
@@ -10229,7 +10098,6 @@ border: 1px solid #CDCDCE;
                                   <property name="font">
                                    <font>
                                     <pointsize>8</pointsize>
-                                    <weight>50</weight>
                                     <bold>false</bold>
                                    </font>
                                   </property>
@@ -10945,7 +10813,6 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
-                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -11659,7 +11526,6 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
-                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -12103,7 +11969,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -12140,7 +12005,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -12180,7 +12044,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -12259,7 +12122,6 @@ QPushButton:pressed {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>-1</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>

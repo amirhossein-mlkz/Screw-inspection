@@ -1,7 +1,10 @@
 
+from unittest import result
 import cv2
 import numpy as np
 import pandas as pd
+from backend import Utils
+from backend import mathTools
 THRESH_C = 7
 
 
@@ -403,32 +406,6 @@ def draw_points(img, pts, color, radius=4):
     return img
 
 
-
-
-
-
-def preprocessing_img_json( img, json, direction):
-    thresh = json.get_thresh('1_{}'.format( direction ), None )
-    noise_filter = json.get_noise_filter( '1_{}'.format( direction ), None  )
-    rect_roi_main = json.get_rect_roi( '1_{}'.format( direction ), None )
-    inv_state = json.get_thresh_inv('1_{}'.format( direction ), None )
-    
-    mask_roi = rects2mask(img.shape[:2], [rect_roi_main])
-    thresh_img = threshould(img, thresh, mask_roi, inv_state)
-    thresh_img = filter_noise_area(thresh_img, noise_filter)
-    #--------------------------------------------------------------------------------------
-    #correct rotation
-    #--------------------------------------------------------------------------------------
-    mask_unbelt, _ = remove_belt( thresh_img,rect_roi_main, thresh=0.7 )
-    angle, _ = correct_rotation_angle(mask_unbelt)
-    thresh_img = rotate_image(thresh_img,  angle   )
-    img = rotate_image(img,  angle   )
-
-    return img, thresh_img, angle
-    
-    
-    
-    
 def draw_head_diameter(img, pt1, pt2, color, thickness=3, line_lenght=10):
 
     x1,y1 = pt1
@@ -439,9 +416,13 @@ def draw_head_diameter(img, pt1, pt2, color, thickness=3, line_lenght=10):
 
     img = cv2.line( img, pt1, pt2, color, thickness)
     return img
-    
-    
-    
+
+
+
+
+
+
+            
     
     
     

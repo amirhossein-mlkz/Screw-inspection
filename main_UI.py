@@ -143,7 +143,7 @@ class UI_main_window(QMainWindow, ui):
         # self.enable_bar_btn_side()
         # self.enable_bar_btn_top()
 
-        self.get_activate_pages()
+        self.get_activate_pages(direction='side')
         # self.enable_bar_btn_tool_page('top',enable=False)
         # self.enable_bar_btn_tool_page('side',enable=False)
         # print('1')
@@ -896,8 +896,10 @@ class UI_main_window(QMainWindow, ui):
 
 
     def set_image_label(self,label_name, img):
+
         h, w, ch = img.shape
         bytes_per_line = ch * w
+         
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         convert_to_Qt_format = sQImage(img.data, w, h, bytes_per_line, sQImage.Format_RGB888)
 
@@ -956,14 +958,15 @@ class UI_main_window(QMainWindow, ui):
             self.set_button_enable_or_disable(self.tool_btn_bar_side,enable)
 
 
-    def get_activate_pages(self):
+    def get_activate_pages(self,direction):
 
         checked_btns=[]
 
         for page_name in self.pages_name_dict.values():
             x=self.checkboxes['page']['checkbox_page0_{}'.format(page_name)].isChecked()
             if x:
-                checked_btns.append(self.checkboxes['page']['checkbox_page0_{}'.format(page_name)].objectName())
+                if direction in page_name:
+                    checked_btns.append(page_name)
         print('checked_btns',checked_btns)
         return checked_btns
 
@@ -1396,6 +1399,9 @@ class UI_main_window(QMainWindow, ui):
 
             table_name.setRowCount(i+1)
 
+    def set_selected_image_live_page(self,direction,img):
+
+        self.set_image_label(self.lives['labels']['selected_img'][direction],img)
 
 
 

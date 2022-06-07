@@ -20,7 +20,6 @@
 #//////////////////////////////
 ################################
 
-from traceback import print_tb
 from PySide6 import QtCore as sQtCore
 from functools import partial
 import numpy as np
@@ -32,7 +31,7 @@ import cv2
 import login_UI
 import confirm_UI
 from backend import camera_funcs, colors_pallete, confirm_window_messages, mainsetting_funcs\
-                    , user_login_logout_funcs, user_management_funcs, Screw, Utils, Drawing, cvTools, mathTools
+                    , user_login_logout_funcs, user_management_funcs, Screw, Utils, Drawing, cvTools, mathTools, proccessings
 
 from backend.mouse import Mouse
 
@@ -120,7 +119,8 @@ class API:
         self.rotate_correction = False
         #-------------------------------------------------------------------------------------------------------------------
         self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
-        
+        self.load_live_page_infoes()
+
         self.mouse.connect_all(self.ui.label_image_grab_page, self.image_setting_mouse_event)
         
         
@@ -244,9 +244,12 @@ class API:
         
 
 
+        self.ui.side_dashboard_btn.clicked.connect(self.load_live_page_infoes)
 
 
+        # Live Page
 
+        self.ui.lives['combo_boxes']['screw_list'].currentTextChanged.connect(self.load_screw_live )
 
 
 
@@ -574,6 +577,10 @@ class API:
         # try:
             if flag:
                 for key in self.screw_jasons.keys():
+                    
+                    activate_tools = self.ui.get_activate_pages(direction = key)
+                    print(key, activate_tools)
+                    self.screw_jasons[key].set_active_tools(activate_tools)
                     path = dbUtils.get_screw_path( self.screw_jasons[key].get_name() )
                     self.screw_jasons[key].write(path)  
     
@@ -944,7 +951,7 @@ class API:
         
         img = np.copy(self.image_screw_setting)
         json = self.screw_jasons[ direction ]
-        img, thresh_img, _ = cvTools.preprocessing_img_json( img, json, direction  )
+        img, thresh_img, _ = proccessings.preprocessing_img_json( img, json, direction  )
         img = Utils.mask_viewer(img, thresh_img, color=(50,100,0))
         #--------------------------------------------------------------------------------------
         #specific Operation
@@ -975,7 +982,7 @@ class API:
         
         img = np.copy(self.image_screw_setting)
         json = self.screw_jasons[ direction ]
-        img, thresh_img, _ = cvTools.preprocessing_img_json( img, json, direction  )
+        img, thresh_img, _ = proccessings.preprocessing_img_json( img, json, direction  )
 
         img = Utils.mask_viewer(img, thresh_img, color=(200,200,0))
         #--------------------------------------------------------------------------------------
@@ -1009,7 +1016,7 @@ class API:
         
         img = np.copy(self.image_screw_setting)
         json = self.screw_jasons[ direction ]
-        img, thresh_img, _ = cvTools.preprocessing_img_json( img, json, direction  )
+        img, thresh_img, _ = proccessings.preprocessing_img_json( img, json, direction  )
         
         img = Utils.mask_viewer(img, thresh_img, color=(100,30,0))
         #--------------------------------------------------------------------------------------
@@ -1036,7 +1043,7 @@ class API:
         
         img = np.copy(self.image_screw_setting)
         json = self.screw_jasons[ direction ]
-        img, thresh_img, _ = cvTools.preprocessing_img_json( img, json, direction  )
+        img, thresh_img, _ = proccessings.preprocessing_img_json( img, json, direction  )
 
         img = Utils.mask_viewer(img, thresh_img, color=(50,30,200))
         #--------------------------------------------------------------------------------------
@@ -1064,7 +1071,7 @@ class API:
         
         img = np.copy(self.image_screw_setting)
         json = self.screw_jasons[ direction ]
-        img, thresh_img, _ = cvTools.preprocessing_img_json( img, json, direction  )
+        img, thresh_img, _ = proccessings.preprocessing_img_json( img, json, direction  )
         
         #--------------------------------------------------------------------------------------
         #specific Operation
@@ -1089,4 +1096,45 @@ class API:
 
     
 
-        
+    # #____________________________________________________________________________________________________________
+    # #                                           
+    # #
+    # #                                                 Live
+    # #
+    # #
+    # #____________________________________________________________________________________________________________
+    def load_live_page_infoes(self,):
+        self.ui.set_combo_boxes(self.ui.combobox_select_screw_live, dbUtils.get_screws_list())
+
+
+
+    def load_screw_live(self):
+        name = self.ui.combobox_select_screw_live.currentText()
+        path = dbUtils.get_screw_path(name)
+        self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
+        for direction in self.screw_jasons.keys():
+            self.screw_jasons[direction].read(path, direction)
+            img_path = self.screw_jasons[direction].get_img_path()
+            img=cv2.imread(img_path)
+            self.ui.set_selected_image_live_page(direction,img)
+
+
+
+
+    
+
+    def proccessing_live(self, img, direction):
+        img = cv2.imread('sample images/New folder/31x_1_4.png')
+        dircetion = 'side'
+
+        img, thresh_img,_ = proccessings.preprocessing_img_json( img, self.screw_jasons[direction], dircetion )
+
+        results = []
+        for active_tool in self.screw_jasons[direction].get_active_tools():
+            result = proccessings.tools_dict[active_tool]( thresh_img, self.screw_jasons[dircetion] )
+            results.extend(result)
+
+        results.sort( key = lambda x:x['name'])
+
+
+            
