@@ -167,7 +167,9 @@ class UI_main_window(QMainWindow, ui):
         w = self.table_live_live_page
         w.setFont(QFont('Arial', 60))
 
-        self.set_tables(self.table_live_live_page,['Name','Min','Value','Max','Smaller','Bigger'],['1','2'])
+        self.col_parms=['name','min','max','avg','min_limit','max_limit']
+
+        self.set_tables(self.table_live_live_page,self.col_parms,['1','2'])
 
         # self.set_img_btns(self.side_tool_setting_btn,'images/setting_main_window/bug.png')
 
@@ -1374,8 +1376,26 @@ class UI_main_window(QMainWindow, ui):
 
     def set_tables(self,table_name,headers,values=False):
 
+        values=[{
+                    'name':'p1',
+                    'min':10,
+                    'max':20,
+                    'avg':30,
+                    'min_limit':40,
+                    'max_limit':50
+                },
+                {
+                    'name':'p2',
+                    'min':10,
+                    'max':20,
+                    'avg':30,
+                    'min_limit':40,
+                    'max_limit':50
+                } 
+                ]
 
 
+        i=0
         table_name.setHorizontalHeaderLabels(headers)
         table_name.setRowCount(0)
         table_name.verticalHeader().setVisible(True)
@@ -1386,18 +1406,21 @@ class UI_main_window(QMainWindow, ui):
         str1=[]
         if values:
             table_name.setRowCount(len(values))
-            for i in range(len(values)):
-                str1.append(values[i])  
+            for id,page_value in enumerate(values):
+                for col_id , col_value in enumerate(self.col_parms) :
+                    print(page_value['min'])
 
-            # for row, string in enumerate(str1):
-            #  print (row,string)
-                table_item = QTableWidgetItem(str(values[i]))
-                #table_item.setData(Qt.DisplayRole, str(string))
-                # table_item.setFlags(Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
-                # table_item.setCheckState(Qt.CheckState.Unchecked)
-                table_name.setItem(i,0,table_item)
+                    table_item = QTableWidgetItem(str(page_value[col_value]))
+                    table_name.setItem(id,col_id,table_item)
 
-            table_name.setRowCount(i+1)
+                # str1.append(values[i])  
+                # table_item = QTableWidgetItem(str(values[i]))
+                # #table_item.setData(Qt.DisplayRole, str(string))
+                # # table_item.setFlags(Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
+                # # table_item.setCheckState(Qt.CheckState.Unchecked)
+                # table_name.setItem(i,0,table_item)
+
+            # table_name.setRowCount(i+1)
 
     def set_selected_image_live_page(self,direction,img):
 

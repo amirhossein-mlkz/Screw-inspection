@@ -1253,10 +1253,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_63.addWidget(self.label_29)
 
-        self.comboBox_2 = QComboBox(self.frame_62)
-        self.comboBox_2.setObjectName(u"comboBox_2")
+        self.combobox_select_screw_live = QComboBox(self.frame_62)
+        self.combobox_select_screw_live.setObjectName(u"combobox_select_screw_live")
 
-        self.horizontalLayout_63.addWidget(self.comboBox_2)
+        self.horizontalLayout_63.addWidget(self.combobox_select_screw_live)
 
         self.pushButton_5 = QPushButton(self.frame_62)
         self.pushButton_5.setObjectName(u"pushButton_5")
@@ -1275,14 +1275,14 @@ class Ui_MainWindow(object):
         self.horizontalLayout_112 = QHBoxLayout(self.frame_75)
         self.horizontalLayout_112.setObjectName(u"horizontalLayout_112")
         self.horizontalLayout_112.setContentsMargins(-1, 0, -1, 0)
-        self.label_30 = QLabel(self.frame_75)
-        self.label_30.setObjectName(u"label_30")
-        self.label_30.setFrameShape(QFrame.WinPanel)
-        self.label_30.setLineWidth(3)
-        self.label_30.setPixmap(QPixmap(u"sample images/New folder/42x_0_20.png"))
-        self.label_30.setScaledContents(True)
+        self.label_selected_screw_side_live = QLabel(self.frame_75)
+        self.label_selected_screw_side_live.setObjectName(u"label_selected_screw_side_live")
+        self.label_selected_screw_side_live.setFrameShape(QFrame.WinPanel)
+        self.label_selected_screw_side_live.setLineWidth(3)
+        self.label_selected_screw_side_live.setPixmap(QPixmap(u"sample images/New folder/42x_0_20.png"))
+        self.label_selected_screw_side_live.setScaledContents(True)
 
-        self.horizontalLayout_112.addWidget(self.label_30)
+        self.horizontalLayout_112.addWidget(self.label_selected_screw_side_live)
 
         self.line_18 = QFrame(self.frame_75)
         self.line_18.setObjectName(u"line_18")
@@ -1291,16 +1291,16 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_112.addWidget(self.line_18)
 
-        self.label_31 = QLabel(self.frame_75)
-        self.label_31.setObjectName(u"label_31")
-        self.label_31.setFrameShape(QFrame.WinPanel)
-        self.label_31.setFrameShadow(QFrame.Plain)
-        self.label_31.setLineWidth(3)
-        self.label_31.setPixmap(QPixmap(u"sample images/New folder/31x_1_2.png"))
-        self.label_31.setScaledContents(True)
-        self.label_31.setMargin(0)
+        self.label_selected_screw_top_live = QLabel(self.frame_75)
+        self.label_selected_screw_top_live.setObjectName(u"label_selected_screw_top_live")
+        self.label_selected_screw_top_live.setFrameShape(QFrame.WinPanel)
+        self.label_selected_screw_top_live.setFrameShadow(QFrame.Plain)
+        self.label_selected_screw_top_live.setLineWidth(3)
+        self.label_selected_screw_top_live.setPixmap(QPixmap(u"sample images/New folder/31x_1_2.png"))
+        self.label_selected_screw_top_live.setScaledContents(True)
+        self.label_selected_screw_top_live.setMargin(0)
 
-        self.horizontalLayout_112.addWidget(self.label_31)
+        self.horizontalLayout_112.addWidget(self.label_selected_screw_top_live)
 
 
         self.verticalLayout_58.addWidget(self.frame_75)
@@ -1322,17 +1322,17 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_20.addWidget(self.label_21, 0, Qt.AlignHCenter)
 
-        self.camera_2 = QLabel(self.frame_17)
-        self.camera_2.setObjectName(u"camera_2")
-        self.camera_2.setMaximumSize(QSize(16777211, 16777210))
-        self.camera_2.setFrameShape(QFrame.Box)
-        self.camera_2.setLineWidth(2)
-        self.camera_2.setPixmap(QPixmap(u"sample images/New folder/31x_1_4.png"))
-        self.camera_2.setScaledContents(True)
-        self.camera_2.setMargin(5)
-        self.camera_2.setIndent(-1)
+        self.label_img_side_live = QLabel(self.frame_17)
+        self.label_img_side_live.setObjectName(u"label_img_side_live")
+        self.label_img_side_live.setMaximumSize(QSize(16777211, 16777210))
+        self.label_img_side_live.setFrameShape(QFrame.Box)
+        self.label_img_side_live.setLineWidth(2)
+        self.label_img_side_live.setPixmap(QPixmap(u"sample images/New folder/31x_1_4.png"))
+        self.label_img_side_live.setScaledContents(True)
+        self.label_img_side_live.setMargin(5)
+        self.label_img_side_live.setIndent(-1)
 
-        self.verticalLayout_20.addWidget(self.camera_2)
+        self.verticalLayout_20.addWidget(self.label_img_side_live)
 
         self.frame_22 = QFrame(self.frame_17)
         self.frame_22.setObjectName(u"frame_22")
@@ -1392,16 +1392,16 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addWidget(self.label_20)
 
-        self.camera_1 = QLabel(self.frame_16)
-        self.camera_1.setObjectName(u"camera_1")
-        self.camera_1.setMaximumSize(QSize(16777211, 16777207))
-        self.camera_1.setFrameShape(QFrame.Box)
-        self.camera_1.setLineWidth(2)
-        self.camera_1.setPixmap(QPixmap(u"sample images/New folder (3)/test1_0_14.png"))
-        self.camera_1.setScaledContents(True)
-        self.camera_1.setMargin(5)
+        self.label_img_top_live = QLabel(self.frame_16)
+        self.label_img_top_live.setObjectName(u"label_img_top_live")
+        self.label_img_top_live.setMaximumSize(QSize(16777211, 16777207))
+        self.label_img_top_live.setFrameShape(QFrame.Box)
+        self.label_img_top_live.setLineWidth(2)
+        self.label_img_top_live.setPixmap(QPixmap(u"sample images/New folder (3)/test1_0_14.png"))
+        self.label_img_top_live.setScaledContents(True)
+        self.label_img_top_live.setMargin(5)
 
-        self.verticalLayout_4.addWidget(self.camera_1)
+        self.verticalLayout_4.addWidget(self.label_img_top_live)
 
         self.frame_45 = QFrame(self.frame_16)
         self.frame_45.setObjectName(u"frame_45")
@@ -1474,8 +1474,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_72 = QHBoxLayout(self.frame_67)
         self.horizontalLayout_72.setObjectName(u"horizontalLayout_72")
         self.table_live_live_page = QTableWidget(self.frame_67)
-        if (self.table_live_live_page.columnCount() < 4):
-            self.table_live_live_page.setColumnCount(4)
+        if (self.table_live_live_page.columnCount() < 6):
+            self.table_live_live_page.setColumnCount(6)
         if (self.table_live_live_page.rowCount() < 9):
             self.table_live_live_page.setRowCount(9)
         self.table_live_live_page.setObjectName(u"table_live_live_page")
@@ -1513,7 +1513,7 @@ class Ui_MainWindow(object):
 "}")
         self.table_live_live_page.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table_live_live_page.setRowCount(9)
-        self.table_live_live_page.setColumnCount(4)
+        self.table_live_live_page.setColumnCount(6)
 
         self.horizontalLayout_72.addWidget(self.table_live_live_page)
 
@@ -1801,10 +1801,8 @@ class Ui_MainWindow(object):
         palette1.setBrush(QPalette.Active, QPalette.ButtonText, brush6)
         palette1.setBrush(QPalette.Active, QPalette.Base, brush7)
         palette1.setBrush(QPalette.Active, QPalette.Window, brush7)
-        brush8 = QBrush(QColor(0, 0, 0, 128))
-        brush8.setStyle(Qt.NoBrush)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette1.setBrush(QPalette.Active, QPalette.PlaceholderText, brush8)
+        palette1.setBrush(QPalette.Active, QPalette.PlaceholderText, brush6)
 #endif
         palette1.setBrush(QPalette.Inactive, QPalette.WindowText, brush6)
         palette1.setBrush(QPalette.Inactive, QPalette.Button, brush7)
@@ -1812,23 +1810,19 @@ class Ui_MainWindow(object):
         palette1.setBrush(QPalette.Inactive, QPalette.ButtonText, brush6)
         palette1.setBrush(QPalette.Inactive, QPalette.Base, brush7)
         palette1.setBrush(QPalette.Inactive, QPalette.Window, brush7)
-        brush9 = QBrush(QColor(0, 0, 0, 128))
-        brush9.setStyle(Qt.NoBrush)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette1.setBrush(QPalette.Inactive, QPalette.PlaceholderText, brush9)
+        palette1.setBrush(QPalette.Inactive, QPalette.PlaceholderText, brush6)
 #endif
         palette1.setBrush(QPalette.Disabled, QPalette.WindowText, brush6)
-        brush10 = QBrush(QColor(50, 50, 50, 255))
-        brush10.setStyle(Qt.SolidPattern)
-        palette1.setBrush(QPalette.Disabled, QPalette.Button, brush10)
+        brush8 = QBrush(QColor(50, 50, 50, 255))
+        brush8.setStyle(Qt.SolidPattern)
+        palette1.setBrush(QPalette.Disabled, QPalette.Button, brush8)
         palette1.setBrush(QPalette.Disabled, QPalette.Text, brush6)
         palette1.setBrush(QPalette.Disabled, QPalette.ButtonText, brush6)
-        palette1.setBrush(QPalette.Disabled, QPalette.Base, brush10)
-        palette1.setBrush(QPalette.Disabled, QPalette.Window, brush10)
-        brush11 = QBrush(QColor(0, 0, 0, 128))
-        brush11.setStyle(Qt.NoBrush)
+        palette1.setBrush(QPalette.Disabled, QPalette.Base, brush8)
+        palette1.setBrush(QPalette.Disabled, QPalette.Window, brush8)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette1.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush11)
+        palette1.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush6)
 #endif
         self.btn_page0_2_top.setPalette(palette1)
         self.btn_page0_2_top.setStyleSheet(u"QPushButton:enabled { \n"
@@ -5991,7 +5985,7 @@ class Ui_MainWindow(object):
         self.spinBox_6.valueChanged.connect(self.bar_noise_filter0_1_side.setValue)
 
         self.stackedWidget.setCurrentIndex(0)
-        self.stackedWidget_2.setCurrentIndex(8)
+        self.stackedWidget_2.setCurrentIndex(5)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -6062,17 +6056,17 @@ class Ui_MainWindow(object):
         self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Connection Status", None))
         self.label_29.setText(QCoreApplication.translate("MainWindow", u"Select Screw :", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Select", None))
-        self.label_30.setText("")
-        self.label_31.setText("")
+        self.label_selected_screw_side_live.setText("")
+        self.label_selected_screw_top_live.setText("")
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Side Camera", None))
-        self.camera_2.setText("")
+        self.label_img_side_live.setText("")
         self.fullscreen_cam2.setText("")
 #if QT_CONFIG(tooltip)
         self.save_cam2_btn.setToolTip(QCoreApplication.translate("MainWindow", u"save image", None))
 #endif // QT_CONFIG(tooltip)
         self.save_cam2_btn.setText("")
         self.label_20.setText(QCoreApplication.translate("MainWindow", u"Top Camera", None))
-        self.camera_1.setText("")
+        self.label_img_top_live.setText("")
         self.fullscreen_cam_1.setText("")
 #if QT_CONFIG(tooltip)
         self.save_cam2_btn_2.setToolTip(QCoreApplication.translate("MainWindow", u"save image", None))

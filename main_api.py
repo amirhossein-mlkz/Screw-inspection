@@ -67,7 +67,8 @@ class API:
             self.db = database_utils.dataBaseUtils(password='password')
         
         else:
-            self.db = database_utils.dataBaseUtils(password='@mm@9398787515AmmA')
+            # self.db = database_utils.dataBaseUtils(password='@mm@9398787515AmmA')
+            self.db = database_utils.dataBaseUtils(password='root')
 
         
         #------------------------------------------------------------------------------------------------------------------------
