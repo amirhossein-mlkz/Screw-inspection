@@ -198,10 +198,13 @@ class API:
         self.ui.noiseFilterSlider_grab.valueChanged.connect(self.update_main_noise_filter)
         self.ui.save_btn_page_grab.clicked.connect(self.save_screw)
 
+        self.ui.connect_grab_btn.clicked.connect(self.get_image)
 
 
 
 
+    def get_image(self):
+        print('test')
         
     # dashboard page
     #------------------------------------------------------------------------------------------------------------------------
@@ -263,28 +266,19 @@ class API:
     
     # connect to cameras given entered serial number and camera parameters
     def connect_dissconnect_to_camera(self, calibration=False):
-        # get camera parametrs on camera-settings page
-        if not calibration:
-            camera_serial_number = camera_funcs.get_camera_params_from_ui(ui_obj=self.ui)['serial_number']
-        # get camera parametrs on calibration-settings page
-        else:
-            camera_id = self.ui.comboBox_cam_select_calibration.currentText()
-            camera_serial_number = camera_funcs.get_camera_params_from_db(db_obj=self.db, camera_id=camera_id)['serial_number']
+
+        camera_id = self.ui.comboBox_cam_select_calibration.currentText()
+        camera_serial_number = camera_funcs.get_camera_params_from_db(db_obj=self.db, camera_id=camera_id)['serial_number']
         # check if serial is assigned
         if camera_serial_number == '0':
-            if not calibration:
-                self.ui.show_mesagges(self.ui.camera_setting_message_label, 'No Serial is Assigned', color=colors_pallete.failed_red)
-            else:
-                self.ui.show_mesagges(self.ui.camera_calibration_message_label, 'No Serial is Assigned, Please Reffer to Camera-Settings', color=colors_pallete.failed_red)
+
+            self.ui.show_mesagges(self.ui.camera_calibration_message_label, 'No Serial is Assigned, Please Reffer to Camera-Settings', color=colors_pallete.failed_red)
         else:
             # connect to camera
             if not self.ui.camera_connect_flag:
-                if not calibration:
-                    self.camera_connection = camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=True, current_cam_connection=None)
-                    camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=True)
-                else:
-                    self.camera_connection = camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=True, current_cam_connection=None, calibration=True)
-                    camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=True, calibration=True)
+
+                self.camera_connection = camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=True, current_cam_connection=None, calibration=True)
+                camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=True, calibration=True)
             # disconnect from camera
             else:
                 if not calibration:
@@ -296,32 +290,22 @@ class API:
 
 
     # show cameras picture on UI
-    def show_camera_picture(self, calibration=False):
-        # set soft-calibration buttons enavle/disable
-        self.ui.calib_rotate_spinbox.setEnabled(True)
-        self.ui.calib_shifth_spinbox.setEnabled(True)
-        self.ui.calib_shiftw_spinbox.setEnabled(True)
-        self.ui.calib_radio_corsshair.setEnabled(True)
-        self.ui.calib_radio_grid.setEnabled(True)
-        self.pxcalibration_step = 0
-        self.ui.pixelvalue_prev_btn.setEnabled(False)
-        self.ui.pixelvalue_next_btn.setEnabled(True)
-        #
-        while True and self.ui.camera_connect_flag:
-            # get picture
-            live_image = camera_funcs.get_picture_from_camera(self.camera_connection)
-            # set/show picture to UI
-            if not calibration:
-                camera_funcs.set_camera_picture_to_ui(ui_image_label=self.ui.camera_setting_picture_label, image=live_image)
-            else:
-                self.apply_calibration_on_image(live_image)
-                #cameras.set_camera_picture_to_ui(ui_image_label=self.ui.calib_camera_image, image=live_image)
-            cv2.waitKey(self.update_picture_delay) # must change
-            if calibration:
-                self.ui.calibration_image = cv2.cvtColor(live_image, cv2.COLOR_BGR2GRAY)
-                break
+    def show_camera_picture(self, calibration=False,live=True):
 
-    
+        #
+        if live:
+            while True and self.ui.camera_connect_flag:
+                # get picture
+                live_image = camera_funcs.get_picture_from_camera(self.camera_connection)
+
+                camera_funcs.set_camera_picture_to_ui(ui_image_label=self.ui.camera_setting_picture_label, image=live_image)
+
+                cv2.waitKey(self.update_picture_delay) # must change
+                if calibration:
+                    self.ui.calibration_image = cv2.cvtColor(live_image, cv2.COLOR_BGR2GRAY)
+                    break
+
+        # if live 
     # disconnect camera on UI change
     def disconnect_camera_on_ui_change(self):
         if self.ui.camera_connect_flag:

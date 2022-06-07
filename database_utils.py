@@ -8,7 +8,7 @@ import os
 
 
 class dataBaseUtils():
-    def __init__(self,user_name='root',password='password') :
+    def __init__(self,user_name='root',password='root') :
         self.db=database.dataBase(user_name,password,'localhost','screw')
 
         self.page_grab='screw_page_grab'

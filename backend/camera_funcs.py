@@ -21,10 +21,6 @@ crosshair_shape = [2 ,2]
 grid_color = (255 ,0 , 0)
 grid_thickness = 1
 
-# camer calibration params
-calibration_params = ['calib_rotate_spinbox', 'calib_shiftw_spinbox', 'calib_radio_corsshair', 'calib_radio_grid', 'calib_shifth_spinbox'\
-                        ,'calib_take_image', 'pixelvalue_next_btn', 'pixelvalue_prev_btn', 'calib_minarea_spinbox', 'calib_maxarea_spinbox', 'calib_maxarea_spinbox'\
-                        , 'calib_thrs_spinbox']
 
 #---------------------------------------------------------------------------------------------------------------------------
 
@@ -186,55 +182,8 @@ def get_camera_checkbox_values(ui_obj):
         return 3
 
 
-# soft-calibration in calibration settings page
-#---------------------------------------------------------------------------------------------------------------------------
-# get camera calibration parameters from UI
-def get_camera_calibration_params_from_ui(ui_obj):
-    camera_calibration_params = {}
-    camera_calibration_params['rotation_value'] = ui_obj.calib_rotate_spinbox.value()
-    camera_calibration_params['shifth_value'] = ui_obj.calib_shifth_spinbox.value()
-    camera_calibration_params['shiftw_value'] = ui_obj.calib_shiftw_spinbox.value()
-    camera_calibration_params['calib_minarea'] = ui_obj.calib_minarea_spinbox.value()
-    camera_calibration_params['calib_maxarea'] = ui_obj.calib_maxarea_spinbox.value()
-    camera_calibration_params['calib_thrs'] = ui_obj.calib_thrs_spinbox.value()
-    camera_calibration_params['pxvalue_a'] = ui_obj.pxvaluea_label.text()
-    camera_calibration_params['pxvalue_b'] = ui_obj.pxvalueb_label.text()
-    camera_calibration_params['pxvalue_c'] = ui_obj.pxvaluec_label.text()
-    return camera_calibration_params
 
 
-# set camera calibration parameters to UI
-def set_camera_calibration_params_to_ui(ui_obj, camera_calibration_params):
-    ui_obj.calib_rotate_spinbox.setValue(camera_calibration_params['rotation_value'])
-    ui_obj.calib_shifth_spinbox.setValue(camera_calibration_params['shifth_value'])
-    ui_obj.calib_shiftw_spinbox.setValue(camera_calibration_params['shiftw_value'])
-
-
-# set calibration parameters of the camera to database 
-def set_camera_calibration_params_to_db(db_obj, camera_id, camera_calibration_params):
-    res = db_obj.update_cam_params(str(int(camera_id)), camera_calibration_params)
-    return res # validation
-
-
-# get/load calibration parameters of the camera from database 
-def get_camera_calibration_params_from_db(db_obj, camera_id):
-    camera_calibration_params = db_obj.load_cam_params(str(int(camera_id)))
-    return camera_calibration_params
-
-
-# soft calibration functions
-def shift_calibration_image(image, shifth, shiftw):
-    row, col = image.shape[:2]
-    translation_matrix = np.float32([[1, 0, shiftw], [0, 1, shifth]])   
-    shifted_image = cv2.warpAffine(image, translation_matrix, (col, row))
-    return shifted_image
-
-def rotate_calibration_image(image, angle):
-    row, col = image.shape[:2]
-    center = (col / 2, row / 2)
-    rot_matrix = cv2.getRotationMatrix2D(center, angle, 1.0)
-    rotated_image = cv2.warpAffine(image, rot_matrix, (col, row))
-    return rotated_image
 
 
 # draw guidance grid on the calibration image
@@ -253,32 +202,6 @@ def draw_grid(image, crosshair=True):
     return image
 
 
-# apply soft-calibration parameters on input image
-def apply_soft_calibrate_on_image(ui_obj, image, camera_calibration_params, pxcalibration = False):
-    image = rotate_calibration_image(image, camera_calibration_params['rotation_value'])
-    image = shift_calibration_image(image, camera_calibration_params['shifth_value'], camera_calibration_params['shiftw_value'])
-    # check to show/not show guidance grid on image
-    if not pxcalibration:
-        if ui_obj.calib_radio_corsshair.isChecked():
-            image = draw_grid(image, crosshair=True)
-        elif ui_obj.calib_radio_grid.isChecked():
-            image = draw_grid(image, crosshair=False)
-    return image
-
-
-# functions for connecting to camera, get picture and show on UI
-#---------------------------------------------------------------------------------------------------------------------------
-# convert cv2 image to Qt format to show in UI
-def convert_cv2_to_qt_image(image):
-    # convert cv2 image to Qt format image
-    if len(image.shape) == 3:
-        row, col, channel = image.shape
-    else:
-        image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
-        row, col, channel = image.shape
-    bytes_per_line = channel * col
-    converted_image = sQImage(image.data, col, row, bytes_per_line, sQImage.Format_RGB888)
-    return converted_image
 
 
 def get_available_cameras_list_serial_numbers():
