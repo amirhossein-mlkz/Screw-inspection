@@ -36,12 +36,14 @@ def mask_viewer(img,mask, color=(40,127,255)):
 
 def rect_list2dict(rect):
     rect_dict = {}
-    rect_dict['x1'] = rect[0][0]
-    rect_dict['y1'] = rect[0][1]
-    rect_dict['x2'] = rect[1][0]
-    rect_dict['y2'] = rect[1][1]
-    
-    return rect_dict
+    if len(rect) == 2: 
+        if len(rect[0]) == 2 and len(rect[1]) == 2:
+            rect_dict['x1'] = rect[0][0]
+            rect_dict['y1'] = rect[0][1]
+            rect_dict['x2'] = rect[1][0]
+            rect_dict['y2'] = rect[1][1]
+            return rect_dict
+    return {'x1':0, 'y1':0, 'x2':0, 'y2':0}
 
 
 
@@ -51,3 +53,13 @@ def rect_dict2list(rect_dict):
             ]
     
     return rect
+
+
+
+
+def is_rect(rect):
+    if len(rect) == 2:
+        if len(rect[0]) == 2 and len(rect[1]) == 2:
+            return True
+    return False
+    

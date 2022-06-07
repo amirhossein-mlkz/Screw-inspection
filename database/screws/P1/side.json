@@ -1,0 +1,131 @@
+{
+    "active_tools": [
+        "1_side",
+        "3_side"
+    ],
+    "direction": "side",
+    "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/New folder/31x_1_3.png",
+    "name": "P1",
+    "settings": {
+        "1_side": {
+            "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/New folder/31x_1_3.png",
+            "rect_roi0": [
+                [
+                    23,
+                    61
+                ],
+                [
+                    1316,
+                    470
+                ]
+            ],
+            "thresh0": 44,
+            "thresh_inv0": true
+        },
+        "2_side": {
+            "rect_roi0": [
+                [
+                    0,
+                    232
+                ],
+                [
+                    1347,
+                    279
+                ]
+            ]
+        },
+        "3_side": {
+            "limits": {
+                "max": {
+                    "thread_count": 15,
+                    "thread_distance": 20,
+                    "thread_lenght": 10
+                },
+                "min": {
+                    "thread_count": 10,
+                    "thread_distance": 15,
+                    "thread_lenght": 5
+                }
+            },
+            "rect_roi0": [
+                [
+                    120,
+                    135
+                ],
+                [
+                    546,
+                    248
+                ]
+            ]
+        },
+        "4_side": {
+            "a1": {
+                "limits": {
+                    "max": {
+                        "body_diameter": 25
+                    },
+                    "min": {
+                        "body_diameter": 5
+                    }
+                },
+                "rect_roi0": [
+                    [
+                        678,
+                        180
+                    ],
+                    [
+                        935,
+                        350
+                    ]
+                ]
+            }
+        },
+        "5_side": {
+            "jump_thresh": 10,
+            "rect_roi0": [
+                [
+                    1128,
+                    109
+                ],
+                [
+                    1309,
+                    422
+                ]
+            ]
+        },
+        "6_side": {
+            "d1": {
+                "limits": {
+                    "max": {
+                        "damage": 20
+                    },
+                    "min": {
+                        "damage": 5
+                    }
+                },
+                "rect_roi0": [
+                    [
+                        110,
+                        103
+                    ],
+                    [
+                        683,
+                        237
+                    ]
+                ]
+            },
+            "none": {
+                "rect_roi0": [
+                    [
+                        600,
+                        148
+                    ],
+                    [
+                        852,
+                        404
+                    ]
+                ]
+            }
+        }
+    }
+}

@@ -1,19 +1,27 @@
 
+from email.policy import default
 import json
 import os
 
 import cv2
 
+IMG_PATH_DEF = 'images/defualt.jpg'
 
 class screwJson():
     
     def __init__(self,):
-        self.data = {}
-        self.set_main_thresh(0)
-        self.set_main_noise_filter(0)
-        self.set_main_roi([10,10], [100,100])
-        self.set_direction('def')
-        self.set_img_path('images/defualt.jpg')
+        
+        self.setting_key = 'settings'
+        
+        self.data = {
+            
+            self.setting_key: 
+            {
+                
+            }
+        }
+
+        
         #self.set_img_path('images/test1_0_12.png')
         
     #-----------------------------------------
@@ -23,7 +31,7 @@ class screwJson():
             file = json.load(jfile)
         
         self.data = file
-        self.img = cv2.imread( self.data['img_path'] )
+        self.img = cv2.imread( self.get_img_path() )
         
 
     def write(self,path):    
@@ -36,19 +44,64 @@ class screwJson():
         self.data['name'] = name
     
     def get_name(self):
-        return self.data['name'] 
+        return self.data.get('name', '') 
     
     #-----------------------------------------
-    def set_img_path(self,path):
+    def set_img_path(self,path, page=None, subpage = None):
         self.img = cv2.imread(path)
         self.data['img_path'] = path
+        if page is not None:
+            self.check_and_build_page( page )
+            if subpage is not None:
+                self.check_and_build_subpage(page, subpage)
+                self.data[self.setting_key][page][subpage]['img_path'] = path
+            else:
+                self.data[self.setting_key][page]['img_path'] = path
+            
     
     def get_img_path(self):
-        return self.data['img_path'] 
+        return self.data.get('img_path', IMG_PATH_DEF)
     #-----------------------------------------
     
     def get_img(self):
         return self.img
+    
+    
+    def check_and_build_page(self, page_name):
+        if self.data[self.setting_key].get(page_name, None) is None:
+            self.data[self.setting_key][page_name] = {}
+            
+    
+    def check_and_build_subpage(self, page_name, subpage):
+        if self.data[self.setting_key][page_name].get(subpage, None) is None:
+            self.data[ self.setting_key ] [ page_name][ subpage ] = {}
+            
+    #-----------------------------------------
+    def set_value(self, page , subpage, name, value):
+        self.check_and_build_page( page )
+        if subpage is not None:
+            self.check_and_build_subpage(page, subpage)
+            self.data[self.setting_key][page][subpage][name] = value
+        else:
+            self.data[self.setting_key][page][name] = value
+    
+    
+    
+    def get_value(self, page , subpage, name, defualt_value):
+        settings = self.data[self.setting_key]
+        if settings.get(page, None) is None:
+            return defualt_value
+        else:
+            page_setting = settings.get(page)
+            if subpage is None:
+                return page_setting.get( name, defualt_value )
+            
+            else:
+                if page_setting.get(subpage, None) is None:
+                    return defualt_value
+                else:
+                    return page_setting[subpage].get( name, defualt_value)
+    
     #-----------------------------------------
     def set_direction(self, dir):
         self.data['direction'] = dir
@@ -57,37 +110,110 @@ class screwJson():
         return self.data['direction'] 
     
     #-----------------------------------------
-    def set_main_thresh(self, thresh):
-        self.data['main_thresh'] = thresh
+    def set_thresh(self, page, subpage, value, idx=0):
+        name = 'thresh{}'.format(idx)
+        self.set_value( page, subpage, name, value)
         
-    def get_main_thresh(self):
-        return self.data['main_thresh']
-    #-----------------------------------------
-    def set_main_noise_filter(self, x):
-        self.data['main_noise_filter'] = x
         
-    def get_main_noise_filter(self):
-        return self.data['main_noise_filter']
-    #-----------------------------------------
-    def set_main_roi(self,pt1,pt2):
-        self.data['main_roi'] = [ list(pt1) , list(pt2) ]
-    
-    def get_main_roi(self):
-        return self.data['main_roi']
+    def get_thresh(self, page, subpage, idx=0):
+        name =  'thresh{}'.format(idx)
+        return self.get_value( page, subpage, name, 0)
+        
     
     #-----------------------------------------
-    
-    
-    # def create_json_dataset(self,parms):
+    def set_thresh_inv(self, page, subpage, value, idx=0):
+        name = 'thresh_inv{}'.format(idx)
+        self.set_value( page, subpage, name, value)
         
+        
+        
+    def get_thresh_inv(self, page, subpage,  idx=0):
+        name = 'thresh_inv{}'.format(idx)
+        return self.get_value( page, subpage, name, False)
+    
+    #-----------------------------------------
+    def set_noise_filter(self, page, subpage, value, idx=0):
+        name = 'noise_filter{}'.format(idx)  
+        self.set_value( page, subpage, name, value)
+        
+        
+        
+        
+    def get_noise_filter(self, page, subpage, idx=0):
+        name = 'noise_filter{}'.format(idx)
+        return self.get_value( page, subpage, name, 0)
+    #-----------------------------------------
+    def set_rect_roi(self, page, subpage,  pt1, pt2, idx=0):
+        if len(pt1) == 0 or len(pt2) == 0:
+                value = []
+        else:
+            value = [ list(pt1), list(pt2) ]
 
-    #     self.set_name(parms['name']) 
-    #     self.set_img_path(parms['img_path']) 
-    #     #self.set_img(parms['img']) 
-    #     self.set_main_roi(parms['main_roi']) 
+        name = 'rect_roi{}'.format(idx)
+        self.set_value( page, subpage, name, value)
+    
+    
+    
+    
+    def get_rect_roi(self, page, subpage, idx=0):
+        name = 'rect_roi{}'.format(idx)
+        return self.get_value( page, subpage, name, [[],[]])
+    
+    
+    #-----------------------------------------
+    def set_limits(self, page, subpage,  data):
+        name = 'limits'
+        self.set_value( page, subpage, name, data)
+    
+    
+    
+    
+    def get_limits(self, page, subpage):
+        name = 'limits'
+        return self.get_value( page, subpage, name, {'min':{}, 'max':{}})
+    
+    
+    def get_limit(self, name, page, subpage):
+        name = 'limits'
+        parms = self.get_value( page, subpage, name, {'min':{}, 'max':{}})
+        return {'min': parms['min'].get(name,0) , 
+                'max': parms['max'].get(name,0)}
+    
+
+    #-----------------------------------------
+    def set_numerical_parm(self, page, subpage, name,  value ):
+        self.set_value( page, subpage, name, value)
+        
+    def get_numerical_parm(self, page, subpage, name):
+        return self.get_value( page, subpage, name, 0)
+    #-----------------------------------------
+    def get_setting(self, page, subpage):
+        settings = self.data[self.setting_key]
+        if subpage is None:
+            return settings.get( page , {})
+        else:
+            return settings.get( page , {}).get( subpage, {}  )
+
+    #-----------------------------------------
+    def add_subpage(self, page, subpage):
+        self.check_and_build_page(page)
+        self.check_and_build_subpage(page, subpage)
+    
+    def remove_subpage(self, page, subpage):
+        self.check_and_build_page(page)
+        self.data[self.setting_key][page].pop( subpage, None )
+    
+    def get_subpages(self, page):
+        self.check_and_build_page(page)
+        return list(self.data[self.setting_key][page].keys())
 
 
 
+    def set_active_tools(self, names):
+        self.data['active_tools'] = names
+    
+    def get_active_tools(self):
+        return self.data['active_tools'] 
     #     self.dataset_details['basic']=self.main_parms
     #     self.dataset_details['classification']=self.classification_details
     #     self.dataset_details['binary']=self.binary_details

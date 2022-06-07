@@ -37,7 +37,6 @@ class drawShape:
         
         self.count_backup = self.points_count
         self.float_point_idx = {'x':0 , 'y':0 }
-        self.is_editing = False
         self.points = [] #list of points where mouse clicked 
         self.shapes = []
 
@@ -61,7 +60,8 @@ class drawShape:
 
             
         decoded_shape = self.shape_decoder(points)
-        self.shapes.append(decoded_shape)
+        if self.area(decoded_shape) > 500:
+            self.shapes.append(decoded_shape)
         if len(self.shapes) > self.max_shape_count:
             self.shapes.pop(0)
         self.points = []
@@ -236,13 +236,15 @@ class drawShape:
     def remove_last_point(self, pt):
         pt = self.denormalize(pt)
         remove_done = False
-        while not remove_done and len(self.points)>0:
-            if self.points[-1][1] == 'fix':
-                remove_done = True
-            self.points.pop()
+        # while not remove_done and len(self.points)>0:
+        #     if self.points[-1][1] == 'fix':
+        #         remove_done = True
+        #     self.points.pop()
 
-        if len(self.points) > 0:
-            self.points.append([pt, 'float'])
+        self.points.pop()
+        self.float_point_idx['x'] = -1
+        self.float_point_idx['y'] = -1
+
         
     
     #______________________________________________________________________________________________________
@@ -327,6 +329,29 @@ class drawShape:
                                     line_thickness=self.thickness_map['line'],
                                     point_thickness=self.thickness_map['point'])
         return image
+    
+    
+    
+    def clear(self):
+        self.shapes = []
+        self.points = []
+        
+        
+    
+    def get_sorted_shapes(self , reverse = False):
+        self.shapes.sort(key=lambda x:self.area(x), reverse=reverse)
+        return self.shapes
+    
+    
+    def qtmouse_checker(self, mouse_status, mouse_button, mouse_pt):
+        if  mouse_status in ['mouse_press','mouse_release'] and mouse_button == 'left_btn':
+            self.click(mouse_pt)
+        
+        elif mouse_status == 'mouse_press' and mouse_button == 'right_btn':
+            self.remove_points_or_shape(mouse_pt)
+        
+        elif mouse_status == 'mouse_move' and mouse_button == 'left_btn':
+            self.set_float_point(mouse_pt)
 #----------------------------------------------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------------------------------------------
@@ -338,8 +363,9 @@ class drawShape:
 
 class drawCircel(drawShape):
     
-    def __init__(self, img_size, color_map=COLOR_MAP, thikness_map = THICKNeSS_MAP):
+    def __init__(self, color_map=COLOR_MAP, thikness_map = THICKNeSS_MAP, centerize=False):
         points_count = 2
+        self.centerize = centerize
         drawShape.__init__(self, points_count, color_map=color_map, thikness_map = thikness_map)   
     
 
@@ -642,7 +668,7 @@ class drawRect(drawShape):
 
 class drawPath(drawShape):
     
-    def __init__(self, img_size,points_count = np.inf, color_map=COLOR_MAP, thikness_map = THICKNeSS_MAP):
+    def __init__(self,points_count = np.inf, color_map=COLOR_MAP, thikness_map = THICKNeSS_MAP):
         drawShape.__init__(self, points_count, color_map=color_map, thikness_map = thikness_map) 
         #self.buffer = self.points_count
 
@@ -789,7 +815,7 @@ class drawPath(drawShape):
 
 class drawPoly(drawShape):
     
-    def __init__(self, img_size,points_count = np.inf, color_map=COLOR_MAP, thikness_map = THICKNeSS_MAP):
+    def __init__(self,points_count = np.inf, color_map=COLOR_MAP, thikness_map = THICKNeSS_MAP):
         drawShape.__init__(self, points_count, color_map=color_map, thikness_map = thikness_map)   
 
     #______________________________________________________________________________________________________
@@ -829,9 +855,11 @@ class drawPoly(drawShape):
         
         #self.points -> [[(x1,y1), 'fix'], [(x2,y2), 'fix'], ...]
         if len(self.points)>2 and self.distance( self.points[-1] , self.points[0] ) < 10:
+            self.points.pop(-1)
             return True
         
         if len(self.points)>2 and self.distance( self.points[-1] , self.points[-2] ) < 10:
+            self.points.pop(-1)
             return True
         
         return False
@@ -842,13 +870,14 @@ class drawPoly(drawShape):
     #   points  | format: [(int x1, int y1), (x2, y2), ....]
     #______________________________________________________________________________________________________
     def shape_decoder(self,points):
+        #print(self.points)
         #if last point is near to first point we remove it    
-        if len(points)>2 and self.distance( points[-1] , points[0] ) < 10:
-            points.pop()
+        # if len(points)>2 and self.distance( points[-1] , points[0] ) < 10:
+        #     points.pop()
             
         #if last point is near previous point we remove it    
-        if len(points)>2 and self.distance( points[-1] , points[-2] ) < 10:
-            points.pop()
+        # if len(points)>2 and self.distance( points[-1] , points[-2] ) < 10:
+        #     points.pop()
             
         points = np.array(points)
         points = points.reshape(-1,1,2)
@@ -926,16 +955,29 @@ class drawPoly(drawShape):
             return self.draw_shapes(img, [shape], line_color, point_color, line_thickness, point_thickness)
         
         else:
-            return img     
+            return img    
+        
+        
+    
+    
+    def qtmouse_checker(self, mouse_status, mouse_button, mouse_pt):
+        if  mouse_status in ['mouse_press'] and mouse_button == 'left_btn':
+            self.click(mouse_pt)
+        
+        elif mouse_status == 'mouse_press' and mouse_button == 'right_btn':
+            self.remove_points_or_shape(mouse_pt)
+        
+        elif mouse_status == 'mouse_move' and mouse_button == 'left_btn':
+            self.set_float_point(mouse_pt) 
         
         
 
-if __name__ == '__main__' and False:
+if __name__ == '__main__' :
     import mouseCV
     cv2.namedWindow('image')
     mouse = mouseCV.Mouse('image')
     img_size = (480,640)
-    drawer = drawRect()
+    drawer = drawPoly(100)
     drawer.set_img_size((480,640))
     
     
@@ -954,7 +996,6 @@ if __name__ == '__main__' and False:
         
         #points = drawer.get_points()
         #shapes = drawer.shapes
-        
         
         
         cv2.imshow('image',drawer.get_image())

@@ -19,7 +19,10 @@ WARNINGS={
             'en':' Warning '},
 
         'Delete_Screw': {'fa':' آیا از حذف اطمینان دارید ؟ ',
-            'en':' Are you sure want to delete '}
+            'en':' Are you sure want to delete '},
+
+        'EDIT_MODE': {'fa':' تصویر را ذخیره کنید ',
+            'en':' First Save '}
 
 }
 MESSEGES = {

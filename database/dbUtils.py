@@ -40,7 +40,8 @@ def creat_screw_db():
         os.mkdir(PATH)
         
         
-        
+def check_dir(path):
+    return os.path.isdir(path)
         
 creat_screw_db()
         
