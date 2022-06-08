@@ -4,22 +4,23 @@
         "3_side"
     ],
     "direction": "side",
-    "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/New folder/31x_1_3.png",
+    "img_path": "/media/milad/PYTHON/my project/Screw-inspection/sample images/new folder2/69211258_1_1.png",
     "name": "P1",
     "settings": {
         "1_side": {
-            "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/New folder/31x_1_3.png",
+            "img_path": "/media/milad/PYTHON/my project/Screw-inspection/sample images/new folder2/69211258_1_1.png",
+            "noise_filter0": 20,
             "rect_roi0": [
                 [
-                    23,
+                    8,
                     61
                 ],
                 [
                     1316,
-                    470
+                    525
                 ]
             ],
-            "thresh0": 44,
+            "thresh0": 45,
             "thresh_inv0": true
         },
         "2_side": {
@@ -35,6 +36,7 @@
             ]
         },
         "3_side": {
+            "jump_thresh": 6,
             "limits": {
                 "max": {
                     "thread_count": 15,
@@ -49,12 +51,12 @@
             },
             "rect_roi0": [
                 [
-                    120,
-                    135
+                    242,
+                    140
                 ],
                 [
-                    546,
-                    248
+                    631,
+                    247
                 ]
             ]
         },
@@ -70,26 +72,26 @@
                 },
                 "rect_roi0": [
                     [
-                        678,
+                        666,
                         180
                     ],
                     [
                         935,
-                        350
+                        401
                     ]
                 ]
             }
         },
         "5_side": {
-            "jump_thresh": 10,
+            "jump_thresh": 6,
             "rect_roi0": [
                 [
-                    1128,
-                    109
+                    985,
+                    86
                 ],
                 [
-                    1309,
-                    422
+                    1311,
+                    548
                 ]
             ]
         },

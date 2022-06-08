@@ -1,0 +1,120 @@
+{
+    "active_tools": [
+        "1_side",
+        "3_side"
+    ],
+    "direction": "side",
+    "img_path": "/media/milad/PYTHON/my project/Screw-inspection/sample images/New folder/41x_1_8.png",
+    "name": "M12",
+    "settings": {
+        "1_side": {
+            "img_path": "/media/milad/PYTHON/my project/Screw-inspection/sample images/New folder/41x_1_8.png",
+            "noise_filter0": 30,
+            "rect_roi0": [
+                [
+                    496,
+                    90
+                ],
+                [
+                    1365,
+                    569
+                ]
+            ],
+            "thresh0": 98,
+            "thresh_inv0": true
+        },
+        "2_side": {
+            "rect_roi0": [
+                [
+                    479,
+                    303
+                ],
+                [
+                    1236,
+                    352
+                ]
+            ]
+        },
+        "3_side": {
+            "jump_thresh": 5,
+            "rect_roi0": [
+                [
+                    90,
+                    147
+                ],
+                [
+                    572,
+                    279
+                ]
+            ]
+        },
+        "4_side": {
+            "d1": {
+                "rect_roi0": [
+                    [
+                        537,
+                        125
+                    ],
+                    [
+                        809,
+                        472
+                    ]
+                ]
+            },
+            "d2": {
+                "rect_roi0": [
+                    [
+                        1198,
+                        109
+                    ],
+                    [
+                        1230,
+                        451
+                    ]
+                ]
+            },
+            "d3": {
+                "rect_roi0": [
+                    [
+                        66,
+                        187
+                    ],
+                    [
+                        124,
+                        406
+                    ]
+                ]
+            }
+        },
+        "5_side": {
+            "jump_thresh": 10,
+            "rect_roi0": [
+                [
+                    993,
+                    100
+                ],
+                [
+                    1358,
+                    570
+                ]
+            ]
+        },
+        "6_side": {
+            "a1": {
+                "rect_roi0": [
+                    [
+                        1119,
+                        146
+                    ],
+                    [
+                        1236,
+                        263
+                    ]
+                ]
+            },
+            "none": {
+                "rect_roi0": []
+            }
+        }
+    }
+}

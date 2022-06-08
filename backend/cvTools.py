@@ -3,8 +3,12 @@ from unittest import result
 import cv2
 import numpy as np
 import pandas as pd
-from backend import Utils
-from backend import mathTools
+try:
+    from backend import Utils
+    from backend import mathTools
+except:
+    import Utils
+    import mathTools   
 THRESH_C = 7
 
 
@@ -447,8 +451,11 @@ if __name__ == '__main__':
     angle, box = correct_rotation_angle(mask_unbelt)
     thresh_mask = rotate_image(thresh_mask,  angle   )
     img = rotate_image(img,  angle   )
+    # thresh_mask = rotate_image(thresh_mask,  angle   )
     
-    
+    cv2.imshow('img', img)
+    cv2.imshow('thresh_mask', thresh_mask)
+    cv2.waitKey(0)
     #--------------------------------------------------------
     # total_lenght_roi = [ [20, 220] , [1360, 290] ]
     # left_pts, right_pts = find_horizental_edges(thresh_mask, total_lenght_roi)

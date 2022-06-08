@@ -133,7 +133,7 @@ def object_dict_builder(ui_object):
         'parms':{
             
             '3_side':{
-            'spin_best_3_side':self.spin_best_3_side,
+            'spin_jump_thresh_3_side':self.spin_jump_thresh_3_side
             },
         
             '5_side':{
@@ -227,7 +227,6 @@ def object_dict_builder(ui_object):
             {
                 '2_side':
                     {
-                        'label_lenght_2_side':self.label_lenght_2_side,
                         'label_min_lenght_2_side':self.label_min_lenght_2_side,
                         'label_max_lenght_2_side':self.label_max_lenght_2_side,
                         'label_avg_lenght_2_side':self.label_avg_lenght_2_side,
@@ -241,11 +240,20 @@ def object_dict_builder(ui_object):
                         'label_step_distance_3_side':self.label_step_distance_3_side,
                     },
                 
-                # '4_side':
-                #     {
-                #         'label_diameter_x_4_side':self.label_diameter_x_4_side,
-                #         'label_diameter_y_4_side':self.label_diameter_y_4_side,
-                #     }
+                '4_side':
+                    {
+                        'label_min_diameter_4_side':self.label_min_diameter_4_side,
+                        'label_max_diameter_4_side':self.label_max_diameter_4_side,
+                        'label_avg_diameter_4_side':self.label_avg_diameter_4_side,
+                    },
+
+                
+                '5_side':
+                    {
+                        'label_min_head_height_5_side':self.label_min_head_height_5_side,
+                        'label_max_head_height_5_side':self.label_max_head_height_5_side,
+                        'label_avg_head_height_5_side':self.label_avg_head_height_5_side,
+                    },
 
 
                 '6_side':

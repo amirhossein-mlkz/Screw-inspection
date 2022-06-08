@@ -126,7 +126,7 @@ class API:
         
         
         #???????????????????????????????????????????????//
-        self.proccessing_live(None,None)
+        #self.proccessing_live(None,None)
         
         
         
@@ -992,8 +992,9 @@ class API:
         #specific Operation
         #--------------------------------------------------------------------------------------
         rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
+        jump_thresh = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'jump_thresh')
         if Utils.is_rect(rect_roi_2):
-            male_thread_l, male_thread_h = cvTools.find_screw_thread( thresh_img, rect_roi_2,  min_diff=5)
+            male_thread_l, male_thread_h = cvTools.find_screw_thread( thresh_img, rect_roi_2,  min_diff=jump_thresh)
             
             min_d,max_d, avg_d,_ = mathTools.vertical_distance( male_thread_h, male_thread_l )
             min_s,max_s, avg_s,_  = mathTools.thread_step_distance( male_thread_h )
@@ -1001,8 +1002,8 @@ class API:
             info = {'thread_lenght': avg_d,  'count_thread':len(male_thread_h) , 'step_distance':avg_s}
             self.ui.set_stetting_page_label_info(info)
             
-            img = cvTools.draw_points(img, male_thread_h, (0,50,150), 3)
-            img = cvTools.draw_points(img, male_thread_l, (200,0,200), 3)
+            img = cvTools.draw_points(img, male_thread_h, (0,50,150), 5)
+            img = cvTools.draw_points(img, male_thread_l, (200,0,200), 5)
         
         
 
@@ -1030,8 +1031,11 @@ class API:
             left_pts, right_pts = cvTools.find_horizental_edges( thresh_img, rect_roi_2)
             if len(left_pts) > 0 and len(right_pts) > 0:
                 img = cvTools.draw_horizental_point( img, [left_pts, right_pts], (0,0,255), thicknes=5 )
-        
-        
+
+                min_dist, max_dist, avg_dist, _ = mathTools.vertical_distance( left_pts, right_pts )
+                print(min_dist, max_dist, avg_dist)
+                info = {'min_diameter' : min_dist, 'max_diameter': max_dist, 'avg_diameter': avg_dist}                
+                self.ui.set_stetting_page_label_info(info)       
 
         img = self.rect_roi_drawing.get_image(img)
         self.ui.set_image_page_tool_labels(img)
@@ -1055,10 +1059,14 @@ class API:
         rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name, )
         jump_thresh = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'jump_thresh')
         if Utils.is_rect(rect_roi_2):
-            left_pts, right_pts = cvTools.find_head_vertival_pts(thresh_img, rect_roi_2, jump_thresh, 0.75)
+            left_pts, right_pts = cvTools.find_head_vertival_pts(thresh_img, rect_roi_2, jump_thresh, 0.25)
             if len(left_pts) > 0 and len(right_pts) > 0:
                 img = cvTools.draw_vertical_point( img, [left_pts, right_pts], (50,255,0), thicknes=5 )
-        
+
+                min_dist, max_dist, avg_dist, _ = mathTools.horizontal_distance( left_pts, right_pts )
+                print(min_dist, max_dist, avg_dist)
+                info = {'min_head_height' : min_dist, 'max_head_height': max_dist, 'avg_head_height': avg_dist}                
+                self.ui.set_stetting_page_label_info(info)           
         
 
         img = self.rect_roi_drawing.get_image(img)
