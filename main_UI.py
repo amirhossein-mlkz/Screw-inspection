@@ -173,7 +173,7 @@ class UI_main_window(QMainWindow, ui):
         #self.set_live_table(self.table_live_live_page,['1','2'])
 
         # self.set_img_btns(self.side_tool_setting_btn,'images/setting_main_window/bug.png')
-
+        self.set_color_value_image_tool_page(value=50)
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
@@ -535,9 +535,36 @@ class UI_main_window(QMainWindow, ui):
             waring_labels[name].setText('')
             waring_labels[name].setStyleSheet('')
 
+    # General settings
+
+    def load_sizes(self,parms,side):
+
+        for parms_key in parms.keys():
+            if (parms_key=='min_x') or (parms_key=='min_y') or (parms_key=='max_x') or (parms_key=='max_y'):
+            # try:
+                obj = self.lines['size']['{}'.format(side)]['line_{}_live_{}'.format(side, parms_key)]
+                obj.setText(parms[parms_key])
+            # except:
+            #     pass        line_top_live_min_x
+
+    def get_sizes_parms(self):
+        side_parms={}
+        for i in self.lines['size']['side']:
+            text=eval('self.{}.text()'.format(i))
+            side_parms.update({i[-5:]:text})
+        top_parms={}
+        for i in self.lines['size']['top']:
+            text=eval('self.{}.text()'.format(i))
+            top_parms.update({i[-5:]:text})
+
+        return side_parms,top_parms
+
+
+
 
 
     # Page 1_top
+
 
     def get_main_parms_screw_top(self):
 
@@ -600,6 +627,15 @@ class UI_main_window(QMainWindow, ui):
         
         print('adww')
 
+
+
+    # def connect_thresholds_side(self):
+    #     self.side_thresh_names
+
+    #     for name, value in parms.items():
+    #         name, idx = self.deasmble_name_and_idx( name )
+    #         if name in ['thresh_inv'] :
+    #             self.set_checkbox_value(name,value,page_name,idx=idx)
 
 
 
@@ -1083,14 +1119,34 @@ class UI_main_window(QMainWindow, ui):
             if page_name is None:
                 page_name =self.get_setting_page_idx(page_name=True)
             
+            
+            
             self.sliders['{}'.format(name)]['bar_{}{}_{}'.format(name, idx, page_name)].setValue(value)
+
+            # if name=='thresh' and page_name=='':
+            #     self.sliders['{}'.format(name)]['bar_{}{}_{}_side'.format(name, 0, 2)].setValue(value)
+            #     self.sliders['{}'.format(name)]['bar_{}{}_{}_side'.format(name, 0, 3)].setValue(value)
+            #     self.sliders['{}'.format(name)]['bar_{}{}_{}_side'.format(name, 0, 4)].setValue(value)
+
+                # for page_name in self.pages_name_dict:
+                #     print('page',page_name)
+                #     try:
+                #         self.sliders['{}'.format(name)]['bar_{}{}_{}_side'.format(name, idx, page_name)].setValue(value)
+                #         print(self.sliders['{}'.format(name)]['bar_{}{}_{}'.format(name, idx, page_name)],self.sliders['{}'.format(name)]['bar_{}{}_{}'.format(name, idx, page_name)].value())
+                #     except:
+                #         print('eror')
+                #         pass
 
 
     def connect_sliders(self,name,func):
+        # self.connect_slider_ui()
 
         for obj_name in self.sliders[name]:
+
+            # print(obj_name)
         
             self.sliders[name][obj_name].valueChanged.connect(func)
+            # self.bar_thresh0_2_side.valueChanged.connect(self.set_value_main_thresh)
 
     #///////////////////////////////////////////////////////////////////////////// 
     #ROI utils -----------------------------------------------------------------------------------
@@ -1404,7 +1460,20 @@ class UI_main_window(QMainWindow, ui):
 
         self.set_image_label(self.lives['labels']['live_img'][direction],img)
 
+        
 
+
+
+    def set_color_value_image_tool_page(self,value=False,img=False):
+        if value:
+            self.set_label(self.label_color_value,value)
+        if img:
+            self.set_image_label(self.img_color_value,img)
+
+
+    def update_mouse_position_tool_page(self,pts):
+        self.set_label(self.label_x_pos_tool_page,pts[0])
+        self.set_label(self.label_y_pos_tool_page,pts[1])
 
 if __name__ == "__main__":
     app = QApplication()

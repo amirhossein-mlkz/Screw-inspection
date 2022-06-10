@@ -59,11 +59,11 @@ def set_appearance_params_to_ui(ui_obj, appearance_params):
     try:
         ui_obj.splitsizew_spinBox.setValue(int(split_size[0][1:]))
         ui_obj.splitsizeh_spinBox.setValue(int(split_size[-1][:-1]))
-        ui_obj.defect_colors_number_spin.setValue(int(appearance_params['n_defect_colors']))
+        # ui_obj.defect_colors_number_spin.setValue(int(appearance_params['n_defect_colors']))
     except:
         ui_obj.splitsizew_spinBox.setValue(0)
         ui_obj.splitsizeh_spinBox.setValue(0)
-        ui_obj.defect_colors_number_spin.setValue(3)
+        # ui_obj.defect_colors_number_spin.setValue(3)
 
 
 # get appearance parameters from UI
@@ -126,14 +126,6 @@ def get_image_procesing_params_from_ui(ui_obj):
     image_procesing_params['split_size'] = '[%s,%s]' % (split_size_w, split_size_h)
     return image_procesing_params
 
-
-# defects functions in main-setting page
-#---------------------------------------------------------------------------------------------------------------------------
-# get image processing params from UI
-def get_defects_params_from_ui(ui_obj):
-    defects_params = {}
-    defects_params['n_defect_colors'] = int(ui_obj.defect_colors_number_spin.value())
-    return defects_params
 
 
 # other functions to get main-setting parametrs from database

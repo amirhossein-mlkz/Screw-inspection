@@ -18,6 +18,7 @@ class dataBaseUtils():
         self.camera_id = 'id'
         self.setting_tabel = 'settings'
         self.general_settings_id = 'id'
+        self.size='size'
 
     #________________________________________________________________
     #
@@ -163,10 +164,35 @@ class dataBaseUtils():
         self.db.remove_record(self.page_grab,'name',name)
 
 
+    def get_size_table(self,label_name):
+        # record = self.db.search( self.table_user , 'user_name', input_user_name)[0]
+        record=self.db.search(self.size,'name',label_name)
+        # print(record)
+        return record
 
+    def set_size_table_side(self,parms):
+
+        for key,value in parms.items():
+            # print('key',key,'value',value)
+            self.db.update_record(self.size,key,value,'name','side_live')
+
+    def set_size_table_top(self,parms):
+
+        for key,value in parms.items():
+            # print('key',key,'value',value)
+            self.db.update_record(self.size,key,value,'name','top_live')
 
 if __name__ == '__main__':
-    db = dataBaseUtils()
+    db = dataBaseUtils(user_name='root',password='password')
+    db.get_size_table('side_live')
+    parms={'min_x':10,'min_y':20,'max_x':30,'max_y':40}
+    db.set_size_table_side(parms)
+    db.get_size_table('side_live')
+    db.get_size_table('top_live')
+    parms={'min_x':10,'min_y':20,'max_x':30,'max_y':40}
+    db.set_size_table_top(parms)
+    db.get_size_table('top_live')
+
     # records = db.load_coil_info(996)
     # db.get_camera_setting()
     #db.set_dataset_path('G:/dataset/')

@@ -110,7 +110,7 @@ class dataBase:
 
     def update_record(self,table_name,col_name,value,id_name,id_value):
         
-        print(table_name,col_name,value,id_name,'id_value',id_value)
+        # print(table_name,col_name,value,id_name,'id_value',id_value)
         if self.check_connection:
             
             cursor,connection=self.connect()
@@ -196,7 +196,7 @@ class dataBase:
                         else:
                             sql_select_Query = "SELECT * FROM %s WHERE %s=%s" % (table_name, param_name, tuple(value))
                     #
-                    print(sql_select_Query)
+                    # print(sql_select_Query)
                 else:
                     print('else')
                     sql_select_Query = "SELECT * FROM {} WHERE {} = {}".format(table_name,param_name,"'"+str(value)+"'")

@@ -36,6 +36,7 @@ class Mouse:
             self.status = EVENTS_TYPE[e.type()]
             widget_name = widget.objectName()
             function( widget_name)
+
     
         return func
 
@@ -58,6 +59,7 @@ class Mouse:
 
 
     def get_position(self):
+
         return self.x, self.y
 
     def get_relative_position(self):

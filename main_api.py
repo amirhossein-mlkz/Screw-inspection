@@ -40,9 +40,11 @@ import texts
 
 from database import database, dbUtils, screwDB
 import copy
+from Keys import set_dimensions
 class API:
 
     def __init__(self,ui):
+        self.sides=['side','top']
         #------------------------------------------------------------------------------------------------------------------------
         # UIs of the app
         # main settings UI
@@ -70,7 +72,6 @@ class API:
             # self.db = database_utils.dataBaseUtils(password='@mm@9398787515AmmA')
             self.db = database_utils.dataBaseUtils(password='root')
 
-        
         #------------------------------------------------------------------------------------------------------------------------
         # start-up functions
         # get available cameras and update database
@@ -128,7 +129,9 @@ class API:
         #???????????????????????????????????????????????//
         #self.proccessing_live(None,None)
         
-        
+
+        # set_load live images
+        self.set_load_imgs_live()
         
         # self.ui.btn_negative0_2_top.toggled.connect(self.update_thresh_negative_setting_page2)
         
@@ -198,13 +201,16 @@ class API:
 
         
         # general-settings
+
+        self.ui.btn_set_szies.clicked.connect(self.set_apply_imgs_live)
+
         self.ui.setting_color_comboBox.currentTextChanged.connect(lambda: mainsetting_funcs.update_combo_color(ui_obj=self.ui))
         self.ui.setting_fontstyle_comboBox.currentTextChanged.connect(lambda: mainsetting_funcs.update_combo_fontstyle(ui_obj=self.ui))
         self.ui.setting_fontsize_comboBox.currentTextChanged.connect(lambda: mainsetting_funcs.update_combo_fontsize(ui_obj=self.ui))
         self.ui.setting_appearance_apply_btn.clicked.connect(lambda: self.apply_changed_appearance_params(mode='appearance'))
         self.ui.setting_calibration_apply_btn.clicked.connect(lambda: self.apply_changed_appearance_params(mode='calibration'))
         self.ui.setting_imageprocessing_apply_btn.clicked.connect(lambda: self.apply_changed_appearance_params(mode='imageprocessing'))
-        self.ui.setting_defects_apply_btn.clicked.connect(lambda: self.apply_changed_appearance_params(mode='defects'))
+        
         self.ui.side_general_setting_btn.clicked.connect(lambda: self.load_appearance_params_on_start(mainsetting_page=True))
 
         #Fullscreen  
@@ -270,6 +276,24 @@ class API:
     # refresh summary informations on the dashboard page
     def refresh_dashboard_page(self):
         print('dashboard_page')
+
+
+    def set_load_imgs_live(self):
+        parms_=[]
+        for side in self.sides:
+            parms=self.db.get_size_table('{}_live'.format(side))[0]
+            self.ui.load_sizes(parms,'{}'.format(side))
+            parms_.append(parms)
+
+        set_dimensions(self.ui,parms_[0],parms_[1])
+    def set_apply_imgs_live(self):
+
+        side_parms,top_parms=self.ui.get_sizes_parms()
+
+        self.db.set_size_table_side(side_parms)
+        self.db.set_size_table_top(top_parms)
+        self.set_load_imgs_live()
+
 
 
     #------------------------------------------------------------------------------------------------------------------------   
@@ -647,15 +671,22 @@ class API:
         mouse_status = self.mouse.get_status()
         mouse_button = self.mouse.get_button()
         mouse_pt = self.mouse.get_relative_position()
+        mouse_real_pt=self.mouse.get_position()
 
         if page_name in ['1_top', '1_side', '2_side', '3_side', '4_side', '5_side', '6_side']:
             shape_type = 'rect'
             max_count = 1        
         
         self.update_roi_mouse(mouse_status, mouse_button , mouse_pt, shape_type, max_count)
+        self.update_mouse_position(mouse_real_pt)
 
+    def update_mouse_position(self,mouse_real_pt):
+        self.ui.update_mouse_position_tool_page(mouse_real_pt)
 
-    
+    def update_color_value_tool_page(self,value):
+        img=50
+        self.ui.set_color_value_image_tool_page(value,img)
+
     #____________________________________________________________________________________________________________
     #                                           
     #

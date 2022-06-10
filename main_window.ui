@@ -2171,7 +2171,7 @@ QPushButton:hover {
                          <string notr="true">background-color : #F3F6FE;</string>
                         </property>
                         <property name="currentIndex">
-                         <number>1</number>
+                         <number>4</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -4235,7 +4235,7 @@ QPushButton:disabled{
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>5</number>
+                                   <number>8</number>
                                   </property>
                                   <widget class="QWidget" name="page"/>
                                   <widget class="QWidget" name="page_1_top">
@@ -5777,7 +5777,7 @@ QPushButton:disabled{
                                           <item>
                                            <widget class="QLabel" name="label_22">
                                             <property name="enabled">
-                                             <bool>false</bool>
+                                             <bool>true</bool>
                                             </property>
                                             <property name="text">
                                              <string>Noise filter</string>
@@ -6283,6 +6283,123 @@ QPushButton:disabled{
                                       </property>
                                      </spacer>
                                     </item>
+                                    <item>
+                                     <widget class="QFrame" name="frame_106">
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <layout class="QVBoxLayout" name="verticalLayout_60">
+                                       <item>
+                                        <widget class="QFrame" name="frame_107">
+                                         <property name="enabled">
+                                          <bool>true</bool>
+                                         </property>
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>0</width>
+                                           <height>66</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>67</height>
+                                          </size>
+                                         </property>
+                                         <property name="frameShape">
+                                          <enum>QFrame::StyledPanel</enum>
+                                         </property>
+                                         <property name="frameShadow">
+                                          <enum>QFrame::Raised</enum>
+                                         </property>
+                                         <layout class="QVBoxLayout" name="verticalLayout_59">
+                                          <property name="leftMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="topMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="rightMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="bottomMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <item alignment="Qt::AlignHCenter">
+                                           <widget class="QLabel" name="label_33">
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>16777215</width>
+                                              <height>50</height>
+                                             </size>
+                                            </property>
+                                            <property name="text">
+                                             <string>Threshold</string>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QFrame" name="frame_110">
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>0</width>
+                                              <height>43</height>
+                                             </size>
+                                            </property>
+                                            <property name="frameShape">
+                                             <enum>QFrame::StyledPanel</enum>
+                                            </property>
+                                            <property name="frameShadow">
+                                             <enum>QFrame::Raised</enum>
+                                            </property>
+                                            <layout class="QHBoxLayout" name="horizontalLayout_113">
+                                             <property name="leftMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="topMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="bottomMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <item>
+                                              <widget class="QSlider" name="bar_thresh0_2_side">
+                                               <property name="minimumSize">
+                                                <size>
+                                                 <width>0</width>
+                                                 <height>30</height>
+                                                </size>
+                                               </property>
+                                               <property name="maximum">
+                                                <number>255</number>
+                                               </property>
+                                               <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QSpinBox" name="spinBox_7">
+                                               <property name="enabled">
+                                                <bool>true</bool>
+                                               </property>
+                                               <property name="maximum">
+                                                <number>255</number>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                            </layout>
+                                           </widget>
+                                          </item>
+                                         </layout>
+                                        </widget>
+                                       </item>
+                                      </layout>
+                                     </widget>
+                                    </item>
                                    </layout>
                                   </widget>
                                   <widget class="QWidget" name="page_3_side">
@@ -6779,6 +6896,123 @@ QPushButton:disabled{
                                        </size>
                                       </property>
                                      </spacer>
+                                    </item>
+                                    <item>
+                                     <widget class="QFrame" name="frame_111">
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <layout class="QVBoxLayout" name="verticalLayout_92">
+                                       <item>
+                                        <widget class="QFrame" name="frame_114">
+                                         <property name="enabled">
+                                          <bool>true</bool>
+                                         </property>
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>0</width>
+                                           <height>66</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>67</height>
+                                          </size>
+                                         </property>
+                                         <property name="frameShape">
+                                          <enum>QFrame::StyledPanel</enum>
+                                         </property>
+                                         <property name="frameShadow">
+                                          <enum>QFrame::Raised</enum>
+                                         </property>
+                                         <layout class="QVBoxLayout" name="verticalLayout_91">
+                                          <property name="leftMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="topMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="rightMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="bottomMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <item alignment="Qt::AlignHCenter">
+                                           <widget class="QLabel" name="label_34">
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>16777215</width>
+                                              <height>50</height>
+                                             </size>
+                                            </property>
+                                            <property name="text">
+                                             <string>Threshold</string>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QFrame" name="frame_115">
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>0</width>
+                                              <height>43</height>
+                                             </size>
+                                            </property>
+                                            <property name="frameShape">
+                                             <enum>QFrame::StyledPanel</enum>
+                                            </property>
+                                            <property name="frameShadow">
+                                             <enum>QFrame::Raised</enum>
+                                            </property>
+                                            <layout class="QHBoxLayout" name="horizontalLayout_114">
+                                             <property name="leftMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="topMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="bottomMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <item>
+                                              <widget class="QSlider" name="bar_thresh0_3_side">
+                                               <property name="minimumSize">
+                                                <size>
+                                                 <width>0</width>
+                                                 <height>30</height>
+                                                </size>
+                                               </property>
+                                               <property name="maximum">
+                                                <number>255</number>
+                                               </property>
+                                               <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QSpinBox" name="spinBox_8">
+                                               <property name="enabled">
+                                                <bool>true</bool>
+                                               </property>
+                                               <property name="maximum">
+                                                <number>255</number>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                            </layout>
+                                           </widget>
+                                          </item>
+                                         </layout>
+                                        </widget>
+                                       </item>
+                                      </layout>
+                                     </widget>
                                     </item>
                                    </layout>
                                   </widget>
@@ -7301,6 +7535,123 @@ QPushButton:disabled{
                                       </property>
                                      </spacer>
                                     </item>
+                                    <item>
+                                     <widget class="QFrame" name="frame_116">
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <layout class="QVBoxLayout" name="verticalLayout_96">
+                                       <item>
+                                        <widget class="QFrame" name="frame_117">
+                                         <property name="enabled">
+                                          <bool>true</bool>
+                                         </property>
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>0</width>
+                                           <height>66</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>67</height>
+                                          </size>
+                                         </property>
+                                         <property name="frameShape">
+                                          <enum>QFrame::StyledPanel</enum>
+                                         </property>
+                                         <property name="frameShadow">
+                                          <enum>QFrame::Raised</enum>
+                                         </property>
+                                         <layout class="QVBoxLayout" name="verticalLayout_93">
+                                          <property name="leftMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="topMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="rightMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="bottomMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <item alignment="Qt::AlignHCenter">
+                                           <widget class="QLabel" name="label_38">
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>16777215</width>
+                                              <height>50</height>
+                                             </size>
+                                            </property>
+                                            <property name="text">
+                                             <string>Threshold</string>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QFrame" name="frame_119">
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>0</width>
+                                              <height>43</height>
+                                             </size>
+                                            </property>
+                                            <property name="frameShape">
+                                             <enum>QFrame::StyledPanel</enum>
+                                            </property>
+                                            <property name="frameShadow">
+                                             <enum>QFrame::Raised</enum>
+                                            </property>
+                                            <layout class="QHBoxLayout" name="horizontalLayout_115">
+                                             <property name="leftMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="topMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="bottomMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <item>
+                                              <widget class="QSlider" name="bar_thresh0_4_side">
+                                               <property name="minimumSize">
+                                                <size>
+                                                 <width>0</width>
+                                                 <height>30</height>
+                                                </size>
+                                               </property>
+                                               <property name="maximum">
+                                                <number>255</number>
+                                               </property>
+                                               <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QSpinBox" name="spinBox_9">
+                                               <property name="enabled">
+                                                <bool>true</bool>
+                                               </property>
+                                               <property name="maximum">
+                                                <number>255</number>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                            </layout>
+                                           </widget>
+                                          </item>
+                                         </layout>
+                                        </widget>
+                                       </item>
+                                      </layout>
+                                     </widget>
+                                    </item>
                                    </layout>
                                   </widget>
                                   <widget class="QWidget" name="page_5_side">
@@ -7733,6 +8084,123 @@ QPushButton:disabled{
                                          </property>
                                         </spacer>
                                        </item>
+                                       <item>
+                                        <widget class="QFrame" name="frame_120">
+                                         <property name="frameShape">
+                                          <enum>QFrame::StyledPanel</enum>
+                                         </property>
+                                         <property name="frameShadow">
+                                          <enum>QFrame::Raised</enum>
+                                         </property>
+                                         <layout class="QVBoxLayout" name="verticalLayout_98">
+                                          <item>
+                                           <widget class="QFrame" name="frame_122">
+                                            <property name="enabled">
+                                             <bool>true</bool>
+                                            </property>
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>0</width>
+                                              <height>66</height>
+                                             </size>
+                                            </property>
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>16777215</width>
+                                              <height>67</height>
+                                             </size>
+                                            </property>
+                                            <property name="frameShape">
+                                             <enum>QFrame::StyledPanel</enum>
+                                            </property>
+                                            <property name="frameShadow">
+                                             <enum>QFrame::Raised</enum>
+                                            </property>
+                                            <layout class="QVBoxLayout" name="verticalLayout_97">
+                                             <property name="leftMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="topMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="rightMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="bottomMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <item alignment="Qt::AlignHCenter">
+                                              <widget class="QLabel" name="label_39">
+                                               <property name="maximumSize">
+                                                <size>
+                                                 <width>16777215</width>
+                                                 <height>50</height>
+                                                </size>
+                                               </property>
+                                               <property name="text">
+                                                <string>Threshold</string>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QFrame" name="frame_123">
+                                               <property name="minimumSize">
+                                                <size>
+                                                 <width>0</width>
+                                                 <height>43</height>
+                                                </size>
+                                               </property>
+                                               <property name="frameShape">
+                                                <enum>QFrame::StyledPanel</enum>
+                                               </property>
+                                               <property name="frameShadow">
+                                                <enum>QFrame::Raised</enum>
+                                               </property>
+                                               <layout class="QHBoxLayout" name="horizontalLayout_116">
+                                                <property name="leftMargin">
+                                                 <number>0</number>
+                                                </property>
+                                                <property name="topMargin">
+                                                 <number>0</number>
+                                                </property>
+                                                <property name="bottomMargin">
+                                                 <number>0</number>
+                                                </property>
+                                                <item>
+                                                 <widget class="QSlider" name="bar_thresh0_5_side">
+                                                  <property name="minimumSize">
+                                                   <size>
+                                                    <width>0</width>
+                                                    <height>30</height>
+                                                   </size>
+                                                  </property>
+                                                  <property name="maximum">
+                                                   <number>255</number>
+                                                  </property>
+                                                  <property name="orientation">
+                                                   <enum>Qt::Horizontal</enum>
+                                                  </property>
+                                                 </widget>
+                                                </item>
+                                                <item>
+                                                 <widget class="QSpinBox" name="spinBox_10">
+                                                  <property name="enabled">
+                                                   <bool>true</bool>
+                                                  </property>
+                                                  <property name="maximum">
+                                                   <number>255</number>
+                                                  </property>
+                                                 </widget>
+                                                </item>
+                                               </layout>
+                                              </widget>
+                                             </item>
+                                            </layout>
+                                           </widget>
+                                          </item>
+                                         </layout>
+                                        </widget>
+                                       </item>
                                       </layout>
                                      </widget>
                                     </item>
@@ -8158,6 +8626,123 @@ QPushButton:disabled{
                                       </property>
                                      </spacer>
                                     </item>
+                                    <item>
+                                     <widget class="QFrame" name="frame_130">
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <layout class="QVBoxLayout" name="verticalLayout_100">
+                                       <item>
+                                        <widget class="QFrame" name="frame_134">
+                                         <property name="enabled">
+                                          <bool>true</bool>
+                                         </property>
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>0</width>
+                                           <height>66</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>67</height>
+                                          </size>
+                                         </property>
+                                         <property name="frameShape">
+                                          <enum>QFrame::StyledPanel</enum>
+                                         </property>
+                                         <property name="frameShadow">
+                                          <enum>QFrame::Raised</enum>
+                                         </property>
+                                         <layout class="QVBoxLayout" name="verticalLayout_99">
+                                          <property name="leftMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="topMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="rightMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="bottomMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <item alignment="Qt::AlignHCenter">
+                                           <widget class="QLabel" name="label_77">
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>16777215</width>
+                                              <height>50</height>
+                                             </size>
+                                            </property>
+                                            <property name="text">
+                                             <string>Threshold</string>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QFrame" name="frame_135">
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>0</width>
+                                              <height>43</height>
+                                             </size>
+                                            </property>
+                                            <property name="frameShape">
+                                             <enum>QFrame::StyledPanel</enum>
+                                            </property>
+                                            <property name="frameShadow">
+                                             <enum>QFrame::Raised</enum>
+                                            </property>
+                                            <layout class="QHBoxLayout" name="horizontalLayout_161">
+                                             <property name="leftMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="topMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="bottomMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <item>
+                                              <widget class="QSlider" name="bar_thresh0_6_side">
+                                               <property name="minimumSize">
+                                                <size>
+                                                 <width>0</width>
+                                                 <height>30</height>
+                                                </size>
+                                               </property>
+                                               <property name="maximum">
+                                                <number>255</number>
+                                               </property>
+                                               <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QSpinBox" name="spinBox_11">
+                                               <property name="enabled">
+                                                <bool>true</bool>
+                                               </property>
+                                               <property name="maximum">
+                                                <number>255</number>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                            </layout>
+                                           </widget>
+                                          </item>
+                                         </layout>
+                                        </widget>
+                                       </item>
+                                      </layout>
+                                     </widget>
+                                    </item>
                                    </layout>
                                   </widget>
                                  </widget>
@@ -8278,18 +8863,18 @@ QPushButton:disabled{
                                   </property>
                                  </widget>
                                 </item>
-                                <item alignment="Qt::AlignHCenter">
-                                 <widget class="QFrame" name="frame_39">
+                                <item>
+                                 <widget class="QFrame" name="frame_105">
                                   <property name="minimumSize">
                                    <size>
                                     <width>0</width>
-                                    <height>36</height>
+                                    <height>48</height>
                                    </size>
                                   </property>
                                   <property name="maximumSize">
                                    <size>
-                                    <width>200</width>
-                                    <height>45</height>
+                                    <width>16777215</width>
+                                    <height>48</height>
                                    </size>
                                   </property>
                                   <property name="frameShape">
@@ -8298,7 +8883,7 @@ QPushButton:disabled{
                                   <property name="frameShadow">
                                    <enum>QFrame::Raised</enum>
                                   </property>
-                                  <layout class="QHBoxLayout" name="horizontalLayout_42">
+                                  <layout class="QHBoxLayout" name="horizontalLayout_74">
                                    <property name="leftMargin">
                                     <number>0</number>
                                    </property>
@@ -8312,155 +8897,318 @@ QPushButton:disabled{
                                     <number>0</number>
                                    </property>
                                    <item>
-                                    <widget class="QPushButton" name="fullscreen_cam_grab_4">
-                                     <property name="maximumSize">
+                                    <widget class="QFrame" name="frame_77">
+                                     <property name="minimumSize">
                                       <size>
-                                       <width>50</width>
-                                       <height>50</height>
+                                       <width>103</width>
+                                       <height>36</height>
                                       </size>
                                      </property>
-                                     <property name="toolTip">
-                                      <string>clear all</string>
+                                     <property name="frameShape">
+                                      <enum>QFrame::StyledPanel</enum>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">border:None;</string>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
                                      </property>
-                                     <property name="text">
-                                      <string/>
-                                     </property>
-                                     <property name="icon">
-                                      <iconset>
-                                       <normaloff>images/rotate-left.png</normaloff>images/rotate-left.png</iconset>
-                                     </property>
-                                     <property name="iconSize">
-                                      <size>
-                                       <width>21</width>
-                                       <height>40</height>
-                                      </size>
-                                     </property>
+                                     <layout class="QHBoxLayout" name="horizontalLayout_72">
+                                      <property name="leftMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="topMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="rightMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="bottomMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <item>
+                                       <widget class="QLabel" name="label_32">
+                                        <property name="text">
+                                         <string>Pos :</string>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QLabel" name="label_35">
+                                        <property name="text">
+                                         <string>(</string>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QLabel" name="label_x_pos_tool_page">
+                                        <property name="text">
+                                         <string>-</string>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QLabel" name="label_37">
+                                        <property name="text">
+                                         <string>,</string>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QLabel" name="label_y_pos_tool_page">
+                                        <property name="text">
+                                         <string>-</string>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QLabel" name="label_36">
+                                        <property name="text">
+                                         <string>)</string>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QLabel" name="label_31">
+                                        <property name="text">
+                                         <string>Color :</string>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QLabel" name="label_color_value">
+                                        <property name="text">
+                                         <string>-</string>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QLabel" name="img_color_value">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>27</width>
+                                          <height>27</height>
+                                         </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                         <size>
+                                          <width>27</width>
+                                          <height>27</height>
+                                         </size>
+                                        </property>
+                                        <property name="frameShape">
+                                         <enum>QFrame::Box</enum>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="scaledContents">
+                                         <bool>true</bool>
+                                        </property>
+                                        <property name="margin">
+                                         <number>1</number>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                     </layout>
                                     </widget>
                                    </item>
                                    <item>
-                                    <widget class="QSpinBox" name="spinBox_2">
-                                     <property name="minimum">
-                                      <number>-90</number>
+                                    <widget class="QFrame" name="frame_39">
+                                     <property name="minimumSize">
+                                      <size>
+                                       <width>0</width>
+                                       <height>36</height>
+                                      </size>
                                      </property>
-                                     <property name="maximum">
-                                      <number>90</number>
-                                     </property>
-                                    </widget>
-                                   </item>
-                                   <item>
-                                    <widget class="QPushButton" name="fullscreen_cam_grab_3">
                                      <property name="maximumSize">
                                       <size>
-                                       <width>50</width>
-                                       <height>50</height>
+                                       <width>439</width>
+                                       <height>45</height>
                                       </size>
                                      </property>
-                                     <property name="toolTip">
-                                      <string>clear all</string>
+                                     <property name="frameShape">
+                                      <enum>QFrame::StyledPanel</enum>
                                      </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">border:None;</string>
+                                     <property name="frameShadow">
+                                      <enum>QFrame::Raised</enum>
                                      </property>
-                                     <property name="text">
-                                      <string/>
-                                     </property>
-                                     <property name="icon">
-                                      <iconset>
-                                       <normaloff>images/rotate-right.png</normaloff>images/rotate-right.png</iconset>
-                                     </property>
-                                     <property name="iconSize">
-                                      <size>
-                                       <width>21</width>
-                                       <height>40</height>
-                                      </size>
-                                     </property>
-                                    </widget>
-                                   </item>
-                                   <item>
-                                    <spacer name="horizontalSpacer_6">
-                                     <property name="orientation">
-                                      <enum>Qt::Horizontal</enum>
-                                     </property>
-                                     <property name="sizeHint" stdset="0">
-                                      <size>
-                                       <width>40</width>
-                                       <height>20</height>
-                                      </size>
-                                     </property>
-                                    </spacer>
-                                   </item>
-                                   <item>
-                                    <widget class="QPushButton" name="fullscreen_cam_grab_2">
-                                     <property name="maximumSize">
-                                      <size>
-                                       <width>50</width>
-                                       <height>50</height>
-                                      </size>
-                                     </property>
-                                     <property name="toolTip">
-                                      <string>clear all</string>
-                                     </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">border:None;</string>
-                                     </property>
-                                     <property name="text">
-                                      <string/>
-                                     </property>
-                                     <property name="icon">
-                                      <iconset>
-                                       <normaloff>images/x-mark.png</normaloff>images/x-mark.png</iconset>
-                                     </property>
-                                     <property name="iconSize">
-                                      <size>
-                                       <width>30</width>
-                                       <height>40</height>
-                                      </size>
-                                     </property>
-                                    </widget>
-                                   </item>
-                                   <item>
-                                    <spacer name="horizontalSpacer_7">
-                                     <property name="orientation">
-                                      <enum>Qt::Horizontal</enum>
-                                     </property>
-                                     <property name="sizeHint" stdset="0">
-                                      <size>
-                                       <width>40</width>
-                                       <height>20</height>
-                                      </size>
-                                     </property>
-                                    </spacer>
-                                   </item>
-                                   <item>
-                                    <widget class="QPushButton" name="fullscreen_page_tools">
-                                     <property name="maximumSize">
-                                      <size>
-                                       <width>50</width>
-                                       <height>50</height>
-                                      </size>
-                                     </property>
-                                     <property name="toolTip">
-                                      <string>Full screen</string>
-                                     </property>
-                                     <property name="styleSheet">
-                                      <string notr="true">border:None;</string>
-                                     </property>
-                                     <property name="text">
-                                      <string/>
-                                     </property>
-                                     <property name="icon">
-                                      <iconset>
-                                       <normaloff>images/full-screen.png</normaloff>images/full-screen.png</iconset>
-                                     </property>
-                                     <property name="iconSize">
-                                      <size>
-                                       <width>30</width>
-                                       <height>40</height>
-                                      </size>
-                                     </property>
+                                     <layout class="QHBoxLayout" name="horizontalLayout_42">
+                                      <property name="leftMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="topMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="rightMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <property name="bottomMargin">
+                                       <number>0</number>
+                                      </property>
+                                      <item>
+                                       <spacer name="horizontalSpacer_23">
+                                        <property name="orientation">
+                                         <enum>Qt::Horizontal</enum>
+                                        </property>
+                                        <property name="sizeHint" stdset="0">
+                                         <size>
+                                          <width>40</width>
+                                          <height>20</height>
+                                         </size>
+                                        </property>
+                                       </spacer>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="fullscreen_cam_grab_4">
+                                        <property name="maximumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="toolTip">
+                                         <string>clear all</string>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">border:None;</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="icon">
+                                         <iconset>
+                                          <normaloff>images/rotate-left.png</normaloff>images/rotate-left.png</iconset>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>21</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QSpinBox" name="spinBox_2">
+                                        <property name="minimum">
+                                         <number>-90</number>
+                                        </property>
+                                        <property name="maximum">
+                                         <number>90</number>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="fullscreen_cam_grab_3">
+                                        <property name="maximumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="toolTip">
+                                         <string>clear all</string>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">border:None;</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="icon">
+                                         <iconset>
+                                          <normaloff>images/rotate-right.png</normaloff>images/rotate-right.png</iconset>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>21</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <spacer name="horizontalSpacer_6">
+                                        <property name="orientation">
+                                         <enum>Qt::Horizontal</enum>
+                                        </property>
+                                        <property name="sizeHint" stdset="0">
+                                         <size>
+                                          <width>40</width>
+                                          <height>20</height>
+                                         </size>
+                                        </property>
+                                       </spacer>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="fullscreen_cam_grab_2">
+                                        <property name="maximumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="toolTip">
+                                         <string>clear all</string>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">border:None;</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="icon">
+                                         <iconset>
+                                          <normaloff>images/x-mark.png</normaloff>images/x-mark.png</iconset>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>30</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <spacer name="horizontalSpacer_7">
+                                        <property name="orientation">
+                                         <enum>Qt::Horizontal</enum>
+                                        </property>
+                                        <property name="sizeHint" stdset="0">
+                                         <size>
+                                          <width>40</width>
+                                          <height>20</height>
+                                         </size>
+                                        </property>
+                                       </spacer>
+                                      </item>
+                                      <item>
+                                       <widget class="QPushButton" name="fullscreen_page_tools">
+                                        <property name="maximumSize">
+                                         <size>
+                                          <width>50</width>
+                                          <height>50</height>
+                                         </size>
+                                        </property>
+                                        <property name="toolTip">
+                                         <string>Full screen</string>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">border:None;</string>
+                                        </property>
+                                        <property name="text">
+                                         <string/>
+                                        </property>
+                                        <property name="icon">
+                                         <iconset>
+                                          <normaloff>images/full-screen.png</normaloff>images/full-screen.png</iconset>
+                                        </property>
+                                        <property name="iconSize">
+                                         <size>
+                                          <width>30</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </widget>
+                                      </item>
+                                     </layout>
                                     </widget>
                                    </item>
                                   </layout>
@@ -11298,135 +12046,112 @@ QPushButton:pressed {
                                       </size>
                                      </property>
                                      <property name="title">
-                                      <string>Defects Settings</string>
+                                      <string>Default Sizes :</string>
                                      </property>
                                      <layout class="QVBoxLayout" name="verticalLayout_78">
                                       <item>
-                                       <widget class="QFrame" name="frame_94">
-                                        <property name="minimumSize">
-                                         <size>
-                                          <width>276</width>
-                                          <height>200</height>
-                                         </size>
+                                       <widget class="QGroupBox" name="groupBox_6">
+                                        <property name="title">
+                                         <string>Side Image Live :</string>
                                         </property>
-                                        <property name="maximumSize">
-                                         <size>
-                                          <width>230</width>
-                                          <height>200</height>
-                                         </size>
-                                        </property>
-                                        <property name="frameShape">
-                                         <enum>QFrame::StyledPanel</enum>
-                                        </property>
-                                        <property name="frameShadow">
-                                         <enum>QFrame::Raised</enum>
-                                        </property>
-                                        <layout class="QVBoxLayout" name="verticalLayout_74">
-                                         <property name="spacing">
-                                          <number>10</number>
-                                         </property>
-                                         <property name="leftMargin">
-                                          <number>0</number>
-                                         </property>
-                                         <property name="topMargin">
-                                          <number>0</number>
-                                         </property>
-                                         <property name="rightMargin">
-                                          <number>0</number>
-                                         </property>
-                                         <property name="bottomMargin">
-                                          <number>0</number>
-                                         </property>
+                                        <layout class="QVBoxLayout" name="verticalLayout_101">
                                          <item>
-                                          <widget class="QFrame" name="frame_95">
-                                           <property name="minimumSize">
-                                            <size>
-                                             <width>276</width>
-                                             <height>30</height>
-                                            </size>
-                                           </property>
-                                           <property name="maximumSize">
-                                            <size>
-                                             <width>220</width>
-                                             <height>30</height>
-                                            </size>
-                                           </property>
+                                          <widget class="QFrame" name="frame_94">
                                            <property name="frameShape">
                                             <enum>QFrame::StyledPanel</enum>
                                            </property>
                                            <property name="frameShadow">
                                             <enum>QFrame::Raised</enum>
                                            </property>
-                                           <layout class="QHBoxLayout" name="horizontalLayout_69">
-                                            <property name="spacing">
-                                             <number>0</number>
-                                            </property>
-                                            <property name="leftMargin">
-                                             <number>0</number>
-                                            </property>
-                                            <property name="topMargin">
-                                             <number>0</number>
-                                            </property>
-                                            <property name="rightMargin">
-                                             <number>0</number>
-                                            </property>
-                                            <property name="bottomMargin">
-                                             <number>0</number>
-                                            </property>
+                                           <layout class="QVBoxLayout" name="verticalLayout_74">
                                             <item>
-                                             <widget class="QLabel" name="label_99">
-                                              <property name="minimumSize">
-                                               <size>
-                                                <width>70</width>
-                                                <height>0</height>
-                                               </size>
-                                              </property>
-                                              <property name="maximumSize">
-                                               <size>
-                                                <width>70</width>
-                                                <height>16777215</height>
-                                               </size>
-                                              </property>
-                                              <property name="font">
-                                               <font>
-                                                <pointsize>10</pointsize>
-                                               </font>
-                                              </property>
-                                              <property name="layoutDirection">
-                                               <enum>Qt::LeftToRight</enum>
-                                              </property>
-                                              <property name="text">
-                                               <string>Color Num</string>
-                                              </property>
-                                              <property name="alignment">
-                                               <set>Qt::AlignCenter</set>
-                                              </property>
-                                             </widget>
+                                             <layout class="QHBoxLayout" name="horizontalLayout_75">
+                                              <item>
+                                               <widget class="QLabel" name="label_99">
+                                                <property name="text">
+                                                 <string>Minimum :</string>
+                                                </property>
+                                               </widget>
+                                              </item>
+                                              <item>
+                                               <widget class="QLineEdit" name="line_side_live_min_x"/>
+                                              </item>
+                                              <item>
+                                               <widget class="QLineEdit" name="line_side_live_min_y"/>
+                                              </item>
+                                             </layout>
                                             </item>
                                             <item>
-                                             <widget class="QSpinBox" name="defect_colors_number_spin">
-                                              <property name="minimumSize">
-                                               <size>
-                                                <width>80</width>
-                                                <height>30</height>
-                                               </size>
-                                              </property>
-                                              <property name="maximumSize">
-                                               <size>
-                                                <width>80</width>
-                                                <height>16777215</height>
-                                               </size>
-                                              </property>
-                                              <property name="minimum">
-                                               <number>3</number>
-                                              </property>
-                                              <property name="maximum">
-                                               <number>99</number>
-                                              </property>
-                                              <property name="singleStep">
-                                               <number>3</number>
-                                              </property>
-                                             </widget>
+                                             <layout class="QHBoxLayout" name="horizontalLayout_69">
+                                              <item>
+                                               <widget class="QLabel" name="label_115">
+                                                <property name="text">
+                                                 <string>Maximum :</string>
+                                                </property>
+                                               </widget>
+                                              </item>
+                                              <item>
+                                               <widget class="QLineEdit" name="line_side_live_max_x"/>
+                                              </item>
+                                              <item>
+                                               <widget class="QLineEdit" name="line_side_live_max_y"/>
+                                              </item>
+                                             </layout>
+                                            </item>
+                                           </layout>
+                                          </widget>
+                                         </item>
+                                        </layout>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QGroupBox" name="groupBox_7">
+                                        <property name="title">
+                                         <string>Top Image Live :</string>
+                                        </property>
+                                        <layout class="QVBoxLayout" name="verticalLayout_102">
+                                         <item>
+                                          <widget class="QFrame" name="frame_95">
+                                           <property name="frameShape">
+                                            <enum>QFrame::StyledPanel</enum>
+                                           </property>
+                                           <property name="frameShadow">
+                                            <enum>QFrame::Raised</enum>
+                                           </property>
+                                           <layout class="QVBoxLayout" name="verticalLayout_103">
+                                            <item>
+                                             <layout class="QHBoxLayout" name="horizontalLayout_76">
+                                              <item>
+                                               <widget class="QLabel" name="label_116">
+                                                <property name="text">
+                                                 <string>Minimum :</string>
+                                                </property>
+                                               </widget>
+                                              </item>
+                                              <item>
+                                               <widget class="QLineEdit" name="line_top_live_min_x"/>
+                                              </item>
+                                              <item>
+                                               <widget class="QLineEdit" name="line_top_live_min_y"/>
+                                              </item>
+                                             </layout>
+                                            </item>
+                                            <item>
+                                             <layout class="QHBoxLayout" name="horizontalLayout_77">
+                                              <item>
+                                               <widget class="QLabel" name="label_117">
+                                                <property name="text">
+                                                 <string>Minimum :</string>
+                                                </property>
+                                               </widget>
+                                              </item>
+                                              <item>
+                                               <widget class="QLineEdit" name="line_top_live_max_x"/>
+                                              </item>
+                                              <item>
+                                               <widget class="QLineEdit" name="line_top_live_max_y"/>
+                                              </item>
+                                             </layout>
                                             </item>
                                            </layout>
                                           </widget>
@@ -11471,7 +12196,7 @@ QPushButton:pressed {
                                           <number>0</number>
                                          </property>
                                          <item>
-                                          <widget class="QPushButton" name="setting_defects_apply_btn">
+                                          <widget class="QPushButton" name="btn_set_szies">
                                            <property name="minimumSize">
                                             <size>
                                              <width>0</width>
@@ -12659,12 +13384,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
-     <y>521</y>
+     <x>648</x>
+     <y>490</y>
     </hint>
     <hint type="destinationlabel">
      <x>591</x>
-     <y>521</y>
+     <y>486</y>
     </hint>
    </hints>
   </connection>
@@ -12675,12 +13400,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>529</x>
-     <y>664</y>
+     <x>524</x>
+     <y>639</y>
     </hint>
     <hint type="destinationlabel">
-     <x>658</x>
-     <y>633</y>
+     <x>660</x>
+     <y>610</y>
     </hint>
    </hints>
   </connection>
@@ -12695,8 +13420,8 @@ QPushButton:pressed {
      <y>101</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1004</x>
-     <y>117</y>
+     <x>994</x>
+     <y>111</y>
     </hint>
    </hints>
   </connection>
@@ -12707,12 +13432,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>658</x>
-     <y>633</y>
+     <x>660</x>
+     <y>610</y>
     </hint>
     <hint type="destinationlabel">
-     <x>529</x>
-     <y>664</y>
+     <x>524</x>
+     <y>639</y>
     </hint>
    </hints>
   </connection>
@@ -12727,8 +13452,8 @@ QPushButton:pressed {
      <y>95</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1004</x>
-     <y>117</y>
+     <x>994</x>
+     <y>111</y>
     </hint>
    </hints>
   </connection>
@@ -12739,12 +13464,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>529</x>
-     <y>525</y>
+     <x>524</x>
+     <y>521</y>
     </hint>
     <hint type="destinationlabel">
-     <x>658</x>
-     <y>494</y>
+     <x>660</x>
+     <y>492</y>
     </hint>
    </hints>
   </connection>
@@ -12756,11 +13481,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>591</x>
-     <y>521</y>
+     <y>486</y>
     </hint>
     <hint type="destinationlabel">
-     <x>646</x>
-     <y>521</y>
+     <x>648</x>
+     <y>490</y>
     </hint>
    </hints>
   </connection>
@@ -12772,11 +13497,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>591</x>
-     <y>603</y>
+     <y>584</y>
     </hint>
     <hint type="destinationlabel">
-     <x>646</x>
-     <y>603</y>
+     <x>648</x>
+     <y>588</y>
     </hint>
    </hints>
   </connection>
@@ -12787,12 +13512,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>658</x>
-     <y>494</y>
+     <x>660</x>
+     <y>492</y>
     </hint>
     <hint type="destinationlabel">
-     <x>529</x>
-     <y>525</y>
+     <x>524</x>
+     <y>521</y>
     </hint>
    </hints>
   </connection>
@@ -12803,12 +13528,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
-     <y>603</y>
+     <x>648</x>
+     <y>588</y>
     </hint>
     <hint type="destinationlabel">
      <x>591</x>
-     <y>603</y>
+     <y>584</y>
     </hint>
    </hints>
   </connection>
@@ -12867,12 +13592,172 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>643</x>
-     <y>566</y>
+     <x>670</x>
+     <y>591</y>
     </hint>
     <hint type="destinationlabel">
      <x>577</x>
      <y>571</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_6_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_11</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>446</x>
+     <y>676</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>630</x>
+     <y>682</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_11</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_6_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>625</x>
+     <y>674</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>463</x>
+     <y>678</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_5_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_10</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>589</x>
+     <y>661</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>621</x>
+     <y>669</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_10</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_5_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>615</x>
+     <y>675</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>573</x>
+     <y>675</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_4_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_9</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>586</x>
+     <y>673</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>627</x>
+     <y>679</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_9</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_4_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>630</x>
+     <y>682</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>578</x>
+     <y>682</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_3_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_8</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>555</x>
+     <y>677</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>644</x>
+     <y>683</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_8</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_3_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>623</x>
+     <y>676</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>576</x>
+     <y>677</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_2_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_7</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>552</x>
+     <y>679</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>685</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_7</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_2_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>642</x>
+     <y>674</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>584</x>
+     <y>677</y>
     </hint>
    </hints>
   </connection>

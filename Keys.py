@@ -15,6 +15,11 @@
 #//////////////////////////////
 ################################
 
+import database_utils
+
+
+
+
 
 
 def object_dict_builder(ui_object):
@@ -25,7 +30,12 @@ def object_dict_builder(ui_object):
         'thresh':{
             'bar_thresh0_1_top':self.bar_thresh0_1_top,
             'bar_thresh0_2_top':self.bar_thresh0_2_top,
-            'bar_thresh0_1_side':self.bar_thresh0_1_side,
+            'bar_thresh0_1_side': self.bar_thresh0_1_side,
+            'bar_thresh0_2_side': self.bar_thresh0_2_side,
+            'bar_thresh0_3_side': self.bar_thresh0_3_side,
+            'bar_thresh0_4_side': self.bar_thresh0_4_side,
+            'bar_thresh0_5_side': self.bar_thresh0_5_side,
+            'bar_thresh0_6_side': self.bar_thresh0_6_side,
         },
         'noise_filter':{
             'bar_noise_filter0_1_top':self.bar_noise_filter0_1_top,
@@ -150,7 +160,8 @@ def object_dict_builder(ui_object):
         {
             'checkbox_thresh_inv0_1_top': self.checkbox_thresh_inv0_1_top,
             'checkbox_thresh_inv0_2_top': self.checkbox_thresh_inv0_2_top,
-            'checkbox_thresh_inv0_1_side': self.checkbox_thresh_inv0_1_side
+            'checkbox_thresh_inv0_1_side': self.checkbox_thresh_inv0_1_side,
+
         },
         'page':
         {
@@ -180,6 +191,23 @@ def object_dict_builder(ui_object):
         {
             #'line_name_area0_2_top':self.line_name_region0_2_top,
             'line_name_area0_4_side':self.line_name_region0_4_side
+        },
+        'size':
+        {
+            'side':
+            {
+                'line_side_live_min_x':self.line_side_live_min_x,
+                'line_side_live_max_x':self.line_side_live_max_x,
+                'line_side_live_min_y':self.line_side_live_min_y,
+                'line_side_live_max_y':self.line_side_live_max_y,
+            },
+            'top':
+            {
+                'line_top_live_min_x':self.line_top_live_min_x,
+                'line_top_live_max_x':self.line_top_live_max_x,
+                'line_top_live_min_y':self.line_top_live_min_y,
+                'line_top_live_max_y':self.line_top_live_max_y,
+            }
         }
 
     }
@@ -321,4 +349,19 @@ def object_dict_builder(ui_object):
 
 
 
+
+def set_dimensions(ui_object,side_parms,top_parms):
+            # f_name.setMaximumHeight(size)
+            # f_name.setMinimumHeight(size)
+    self=ui_object
     
+    # print('parms',parms)
+    self.label_img_side_live.setMinimumHeight(int(side_parms['min_x']))
+    self.label_img_side_live.setMinimumWidth(int(side_parms['min_y']))
+    self.label_img_side_live.setMaximumHeight(int(side_parms['max_x']))
+    self.label_img_side_live.setMaximumWidth(int(side_parms['max_y']))
+
+    self.label_img_top_live.setMinimumHeight(int(top_parms['min_x']))
+    self.label_img_top_live.setMinimumWidth(int(top_parms['min_y']))
+    self.label_img_top_live.setMaximumHeight(int(top_parms['max_x']))
+    self.label_img_top_live.setMaximumWidth(int(top_parms['max_y']))

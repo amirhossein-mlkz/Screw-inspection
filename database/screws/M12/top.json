@@ -4,5 +4,9 @@
     ],
     "direction": "top",
     "name": "M12",
-    "settings": {}
+    "settings": {
+        "1_top": {
+            "thresh0": 57
+        }
+    }
 }
