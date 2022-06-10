@@ -10,7 +10,7 @@ from PyQt5 import QtCore
 from functools import partial
 import cv2
 import database_utils
-
+import platform
 
 
 
@@ -25,8 +25,15 @@ class API:
         #connet buttons to correspondings functions in API               ////////////////////
         # self.button_connector()
         #connet mouse event to correspondings functions in API
+        os=platform.platform()
+        if os[:5] =='Linux':
 
-        self.db=database_utils.dataBaseUtils()
+
+            self.db = database_utils.dataBaseUtils(password='password')
+        
+        else:
+            # self.db = database_utils.dataBaseUtils(password='@mm@9398787515AmmA')
+            self.db = database_utils.dataBaseUtils(password='root')
 
     #----------------------------------------------------------------------------------------
     # 

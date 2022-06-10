@@ -10,7 +10,7 @@ import login_UI
 import confirm_UI
 from backend import camera_funcs, colors_pallete, confirm_window_messages, mainsetting_funcs\
                     , user_login_logout_funcs, user_management_funcs
-
+import platform
 
 from full_screen_UI import FullScreen_UI
 
@@ -33,7 +33,14 @@ class API:
         
         #------------------------------------------------------------------------------------------------------------------------
         # database module api
-        self.db = database_utils.dataBaseUtils()
+        os=platform.platform()
+        if os[:5] =='Linux':
+            self.db = database_utils.dataBaseUtils(password='password')
+        
+        else:
+            # self.db = database_utils.dataBaseUtils(password='@mm@9398787515AmmA')
+            self.db = database_utils.dataBaseUtils(password='root')
+
         
         #------------------------------------------------------------------------------------------------------------------------
         # start-up functions

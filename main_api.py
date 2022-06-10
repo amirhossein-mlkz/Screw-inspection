@@ -40,6 +40,7 @@ import texts
 
 from database import database, dbUtils, screwDB
 import copy
+import platform
 from Keys import set_dimensions
 class API:
 
@@ -60,11 +61,10 @@ class API:
         
         #------------------------------------------------------------------------------------------------------------------------
         # database module api
-        import platform
+        
         os=platform.platform()
-        print('os',os[:5])
         if os[:5] =='Linux':
-            print('linux')
+
 
             self.db = database_utils.dataBaseUtils(password='password')
         
@@ -133,7 +133,6 @@ class API:
         # set_load live images
         self.set_load_imgs_live()
         
-        # self.ui.btn_negative0_2_top.toggled.connect(self.update_thresh_negative_setting_page2)
         
 
         #-------------------------------------------------------------------------------------------------------------------
@@ -141,11 +140,9 @@ class API:
     def test(self):
         pass
         path = 'images/test1_0_12 - Copy.png'
-        # self.image_cam_1=cv2.imread('images/imge/dineniso14583.png')
-        # self.image_cam_2=cv2.imread('images/imge/Screw-Flat-Head-6-x-1-2-Key-II_1.jpg')
+
         self.ui.line_img_path0_1_side.setText(path)
-        # self.ui.set_image_page_tool_labels(self.ui.camera_1,self.image_cam_1)     
-        # self.ui.set_image_page_tool_labels(self.ui.camera_2,self.image_cam_2)     
+  
 
     # functions
     #------------------------------------------------------------------------------------------------------------------------
@@ -259,7 +256,7 @@ class API:
         # Live Page
 
         self.ui.lives['combo_boxes']['screw_list'].currentTextChanged.connect(self.load_screw_live )
-
+        self.ui.btn_capture_screw_live.clicked.connect(self.save_live_image)
 
 
 
@@ -276,6 +273,16 @@ class API:
     # refresh summary informations on the dashboard page
     def refresh_dashboard_page(self):
         print('dashboard_page')
+
+    def save_live_image(self):
+
+        screw_name=self.ui.combobox_select_screw_live.currentText()
+
+
+        img0=np.zeros((500,500),dtype='uint8')
+        img1=np.zeros((500,500),dtype='uint8')
+
+        dbUtils.save_screw_image(screw_name,[img0,img1])
 
 
     def set_load_imgs_live(self):
@@ -621,6 +628,8 @@ class API:
                 self.ui.tool_btn_clear()
                 self.ui.enable_bar_btn_tool_page('top',False)   
                 self.ui.enable_bar_btn_tool_page('side',False)  
+                self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
+
             if flag==False:
 
                 print('disacrd')

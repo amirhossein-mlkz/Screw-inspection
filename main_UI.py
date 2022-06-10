@@ -7,7 +7,6 @@
 
 # from PySide6.QtWidgets import *
 
-from re import I
 import sys
 from tabnanny import check
 from traceback import print_tb
@@ -154,14 +153,8 @@ class UI_main_window(QMainWindow, ui):
         #//////////////////////////////////////////////
         # self.set_language()
         self.language = 'en'
-
         self._old_pos = None
-
-
         self.editmode=False
-
-
-        self.check_mask_type(self.check_circle0_2_top.objectName(),change_size=True)
 
         # Live page
 
@@ -641,7 +634,7 @@ class UI_main_window(QMainWindow, ui):
 
     def clear_side_btns(self,current_page):
 
-        self.white_side_images_path=['images/setting_main_window/dashboard_white.png','images/setting_main_window/plc_setting_white.png',\
+        self.white_side_images_path=['images/setting_main_window/dashboard_white.png','images/setting_main_window/calibration_setting_white.png',\
             'images/setting_main_window/camera_setting_white.png','images/setting_main_window/users_setting_white.png','images/setting_main_window/general_setting_white.png']
 
         self.side_buttons = [ self.side_dashboard_btn, self.side_tool_setting_btn,self.side_camera_setting_btn\
@@ -724,6 +717,7 @@ class UI_main_window(QMainWindow, ui):
             self.stackedWidget_2.setCurrentIndex(1)
 
         if btnName =='edit_btn' :
+            print('editmode',self.editmode)
             if self.editmode==False:
                 self.animation_move(self.frame_24,300)
                 self.animation_move(self.frame_23,0)
@@ -734,12 +728,15 @@ class UI_main_window(QMainWindow, ui):
                 self.enable_bar_btn_tool_page('side',enable=True)
                 self.frame_size(self.frame_save_btns,57)
                 self.tool_btn_clear()
+                screw=[]
+                screw.append(self.comboBox_edit_remove.currentText())  
+                self.set_combo_boxes(self.comboBox_edit_remove,screw)
+                # self.set_button_enable_or_disable(self.comboBox_edit_remove,enable=False)
 
 
         if btnName =='next_page_btn' :
             if self.editmode:
                 i=self.stackedWidget_2.currentIndex()
-                print(i)
                 self.stackedWidget_2.setCurrentIndex(i+1)
 
 
@@ -755,8 +752,7 @@ class UI_main_window(QMainWindow, ui):
             self.tool_btn_clear()
 
             self.stackedWidget_2.setCurrentWidget(self.page_1_top)
-            self.btn_page0_1_top.setStyleSheet(
-                        "QPushButton:enabled {background-color: #001D6E;color:white;};QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_1_top.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
 
 
 
@@ -764,50 +760,43 @@ class UI_main_window(QMainWindow, ui):
             self.tool_btn_clear()
 
             self.stackedWidget_2.setCurrentWidget(self.page_2_top)
-            self.btn_page0_2_top.setStyleSheet(
-                        "QPushButton:enabled {background-color: #001D6E;color:white;};QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_2_top.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
 
 
         if btnName =='btn_page0_1_side' :
             self.tool_btn_clear()
 
             self.stackedWidget_2.setCurrentWidget(self.page_1_side)
-            self.btn_page0_1_side.setStyleSheet(
-                        "QPushButton:enabled {background-color: #001D6E;color:white;};QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_1_side.setStyleSheet("QPushButton:enabled{background-color:#001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
 
         if btnName =='btn_page0_2_side' :
             self.tool_btn_clear()
 
             self.stackedWidget_2.setCurrentWidget(self.page_2_side)    
-            self.btn_page0_2_side.setStyleSheet(
-                        "QPushButton:enabled {background-color: #001D6E;color:white;};QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_2_side.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
 
         if btnName =='btn_page0_3_side' :
             self.tool_btn_clear()
 
             self.stackedWidget_2.setCurrentWidget(self.page_3_side)    
-            self.btn_page0_3_side.setStyleSheet(
-                        "QPushButton:enabled {background-color: #001D6E;color:white;};QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_3_side.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
 
         if btnName =='btn_page0_4_side' :
             self.tool_btn_clear()
 
             self.stackedWidget_2.setCurrentWidget(self.page_4_side)
-            self.btn_page0_4_side.setStyleSheet(
-                        "QPushButton:enabled {background-color: #001D6E;color:white;};QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_4_side.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
 
         if btnName =='btn_page0_5_side' :
             self.tool_btn_clear()
 
             self.stackedWidget_2.setCurrentWidget(self.page_5_side)
-            self.btn_page0_5_side.setStyleSheet(
-                        "QPushButton:enabled {background-color: #001D6E;color:white;};QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_5_side.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
 
         if btnName =='btn_page0_6_side' :
             self.tool_btn_clear()
             self.stackedWidget_2.setCurrentWidget(self.page_6_side)
-            self.btn_page0_6_side.setStyleSheet(
-                        "QPushButton:enabled {background-color: #001D6E;color:white;};QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_6_side.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
 
         if btnName =='btn_load_image0_1_top' :
 
@@ -846,16 +835,11 @@ class UI_main_window(QMainWindow, ui):
     def tool_btn_clear(self):
 
         for i in (self.combo_exist):
-                print(i)
-
-                try:
-
-                    obj_name=eval('self.btn_page0_{}'.format(i))
-                    obj_name.setStyleSheet(
-                                "QPushButton:disabled{background-color:rgb(50,50,50);};")
-
-                except:
-                    pass
+            try:
+                obj_name=eval('self.btn_page0_{}'.format(i))
+                obj_name.setStyleSheet("QPushButton:disabled{background-color:rgb(50,50,50);}")
+            except:
+                pass
 
     def check_mask_type(self,name,change_size=False):
 
@@ -887,29 +871,6 @@ class UI_main_window(QMainWindow, ui):
 
         if change_size:
             self.frame_size(self.frame_54,50)
- 
-
-
-    def check_in_out(self,name):
-
-        print('name',name)
-
-        if name=='check_out0_5_side':
-
-            self.check_out0_5_side.setChecked(True)
-            self.check_in0_5_side.setChecked(False)
-
-            self.selected_area='out'
-
-        elif name=='check_in0_5_side':
-
-            self.check_rect0_2_top.setChecked(False)
-            self.check_in0_5_side.setChecked(True)
-            self.check_out0_5_side.setChecked(False)
-
-            self.selected_area='in'
-
-        return self.selected_area
 
 
     def frame_size(self,f_name,size,both=True):
@@ -1006,7 +967,6 @@ class UI_main_window(QMainWindow, ui):
             if x:
                 if direction in page_name:
                     checked_btns.append(page_name)
-        print('checked_btns',checked_btns)
         return checked_btns
 
 
@@ -1295,9 +1255,6 @@ class UI_main_window(QMainWindow, ui):
 
     #Checkbox utils -----------------------------------------------------------------------------------        
     def check_in_out(self,name):
-
-        print('name',name)
-
         if name=='check_out0_5_side':
 
             self.check_out0_5_side.setChecked(True)

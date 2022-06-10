@@ -1,5 +1,11 @@
 import os
 import shutil
+import cv2
+import time
+try:
+    from backend import date_funcs
+except:
+    import date_funcs
 
 PATH = 'database/screws'
 def get_screw_path(name):
@@ -34,6 +40,19 @@ def clear_empty_screw():
             shutil.rmtree(path)
 
 
+def save_screw_image(screw_name,imgs):
+
+    path=os.path.join(PATH,screw_name)
+    date_time=date_funcs.get_datetime()
+    print('path',path,'date',date_time)
+    path=os.path.join(path,date_time)
+    try:
+        cv2.imwrite(path+'top.jpg',imgs[0])
+        cv2.imwrite(path+'side.jpg',imgs[1])
+    except:
+        print('cant write image')
+
+
 
 def creat_screw_db():
     if not os.path.isdir(PATH):
@@ -45,6 +64,10 @@ def check_dir(path):
         
 creat_screw_db()
         
-        
+
+
+
+
+
 if __name__ == '__main__':
     print(get_screws_list())

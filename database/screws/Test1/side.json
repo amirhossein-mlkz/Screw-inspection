@@ -1,0 +1,9 @@
+{
+    "active_tools": [
+        "1_side",
+        "3_side"
+    ],
+    "direction": "side",
+    "name": "Test1",
+    "settings": {}
+}
