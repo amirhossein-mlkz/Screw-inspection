@@ -130,6 +130,15 @@ class screwJson():
     def get_thresh_inv(self, page, subpage,  idx=0):
         name = 'thresh_inv{}'.format(idx)
         return self.get_value( page, subpage, name, False)
+
+    #-----------------------------------------
+    def set_checkbox(self, page, subpage, name, value, idx=0):
+        self.set_value( page, subpage, name, value)
+        
+        
+        
+    def get_checkbox(self, page, subpage,name,  idx=0):
+        return self.get_value( page, subpage, name, False)
     
     #-----------------------------------------
     def set_noise_filter(self, page, subpage, value, idx=0):

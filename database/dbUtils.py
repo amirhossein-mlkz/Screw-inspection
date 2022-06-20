@@ -2,10 +2,7 @@ import os
 import shutil
 import cv2
 import time
-try:
-    from backend import date_funcs
-except:
-    import date_funcs
+
 
 PATH = 'database/screws'
 def get_screw_path(name):

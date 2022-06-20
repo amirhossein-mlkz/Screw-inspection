@@ -66,13 +66,7 @@ def adp_threshould(img, bsize , c,  mask_roi = None, thresh_inv = False):
     
     # cv2.imshow('mask', mask)
     # kernel = np.ones((3,3))
-    
-    
-    
-    
-    
 
-           
     if mask_roi is not None:
         mask = cv2.bitwise_and( mask, mask , mask=mask_roi)
     
@@ -81,8 +75,26 @@ def adp_threshould(img, bsize , c,  mask_roi = None, thresh_inv = False):
     return mask
 
 
+def get_gray_color( img, mouse_pt):
+    if img is None:
+        return 0
+    h,w = img.shape[:2]
+    x,y = mouse_pt
+    x, y = int( x * w ) , int( y * h )
+
+    if len(img.shape) == 3:
+        img = cv2.cvtColor( img, cv2.COLOR_BGR2GRAY )
+        
+    return img[y,x]
 
 
+def build_gcolor_img( color, res_size=(100,100), color_type='gray'):
+    if color_type=='gray':
+        res_img = np.zeros( res_size, dtype=np.uint8 )
+    elif color_type =='rgb':
+        res_img = np.zeros( res_size + (3,), dtype=np.uint8 )
+    res_img = res_img + color
+    return res_img
 
 
 
@@ -235,7 +247,7 @@ def side_screw_bounding_rect(mask):
 
 
 
-def find_screw_thread(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
+def find_screw_thread_top(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
     ys, xs = np.nonzero( crop_rect( mask, rect_roi ) )
     pts = np.vstack((xs,ys)).transpose()
     up_edge_pts = np.array ( pd.DataFrame(pts).groupby(0).min().reset_index().values.tolist()) #return point with min y and same x
@@ -289,6 +301,58 @@ def find_screw_thread(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
     return [],[]
 
 
+def find_screw_thread_down(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
+    ys, xs = np.nonzero( crop_rect( mask, rect_roi ) )
+    pts = np.vstack((xs,ys)).transpose()
+    up_edge_pts = np.array ( pd.DataFrame(pts).groupby(0).max().reset_index().values.tolist()) #return point with min y and same x
+    
+    rezve_pts_h = []
+    rezve_pts_l = []
+    
+    max_pt = up_edge_pts[0]
+    min_pt = up_edge_pts[0]
+    iter = 0
+    find_max = True
+    for i in range(1,len(up_edge_pts)):
+        
+        #upper y is lower in value
+        if find_max:
+            if up_edge_pts[i][1] >= max_pt[1]:
+                max_pt = up_edge_pts[i]
+                iter = 0
+            else:
+                iter+=1
+                
+            if iter> max_bad_iter:
+                iter = 0
+                find_max = False
+                min_pt = [max_pt[0] , max_pt[1]]
+                
+        
+        else:
+            if up_edge_pts[i][1] <= min_pt[1]:
+                min_pt = up_edge_pts[i]
+                iter = 0
+            
+            else:
+                iter+=1
+            
+            if iter > max_bad_iter:
+                iter = 0
+                find_max = True
+                if abs(max_pt[1] - min_pt[1]) >= min_diff:
+                    rezve_pts_h.append( [max_pt[0], max_pt[1]] )
+                    rezve_pts_l.append( [min_pt[0], min_pt[1]] )
+                    max_pt = [min_pt[0] , min_pt[1] ]
+    
+    rezve_pts_l, rezve_pts_h = np.array(rezve_pts_l), np.array(rezve_pts_h)          
+    if len(rezve_pts_h) > 0 and len(rezve_pts_l) > 0:
+        start_point = np.array(rect_roi[0])
+        rezve_pts_l = rezve_pts_l + start_point
+        rezve_pts_h = rezve_pts_h + start_point
+        return rezve_pts_l, rezve_pts_h
+    
+    return [],[]
 
 def find_head_vertival_pts(mask, rect_roi, jump_thresh = 10, percentage=0.5, side='bottom'):
     ys, xs = np.nonzero( crop_rect( mask, rect_roi ) )

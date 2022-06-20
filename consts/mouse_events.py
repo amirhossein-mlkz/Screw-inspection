@@ -13,5 +13,6 @@ EVENTS_TYPE={
 BUTTONS = {
 
     QtCore.Qt.LeftButton:'left_btn',
-    QtCore.Qt.RightButton:'right_btn'
+    QtCore.Qt.RightButton:'right_btn',
+    QtCore.Qt.MiddleButton:'mid_btn'
 }

@@ -1278,8 +1278,10 @@ class UI_main_window(QMainWindow, ui):
         if page_name is None:
             page_name =self.get_setting_page_idx(page_name=True)
    
-
-        obj = self.checkboxes[name]['checkbox_{}{}_{}'.format(name, idx, page_name)]
+        if name in ['thresh_inv', 'page']:
+            obj = self.checkboxes[name]['checkbox_{}{}_{}'.format(name, idx, page_name)]
+        else:
+            obj = self.checkboxes['other'][page_name]['checkbox_{}_{}'.format(name, page_name)]
         return obj.isChecked()
 
 
@@ -1288,22 +1290,31 @@ class UI_main_window(QMainWindow, ui):
         if page_name is None:
             page_name =self.get_setting_page_idx(page_name=True)
    
-
-        obj = self.checkboxes[name]['checkbox_{}{}_{}'.format(name, idx, page_name)]
+        if name in ['thresh_inv', 'page']:
+            obj = self.checkboxes[name]['checkbox_{}{}_{}'.format(name, idx, page_name)]
+        else:
+            obj = self.checkboxes['other'][page_name]['checkbox_{}_{}'.format(name, page_name)]
         obj.setChecked( value )
         
         
     def checkbox_connect(self, name, func, idx=0):
-        
-        for page_name in self.pages_name_dict.values():
+        if name == 'other':
+            for page_name in self.checkboxes['other'].keys():
+                for obj_name,obj in self.checkboxes['other'][page_name].items():
+                    name = obj_name[ len( 'checkbox_') : ] #spin_jump_thresh_5_side -> jump_thresh_5_side
+                    name = name[ : name.rfind(page_name) - 1 ] #jump_thresh_5_side -> jump_thresh ( -1 is for '_' after name )
+                    obj.toggled.connect(func( name )) 
 
-            try:
-            
-                obj = self.checkboxes[name]['checkbox_{}{}_{}'.format(name, idx, page_name)]
+        else:
+            for page_name in self.pages_name_dict.values():
+
+                try:
                 
-                obj.toggled.connect( func )
-            except:
-                pass
+                    obj = self.checkboxes[name]['checkbox_{}{}_{}'.format(name, idx, page_name)]
+                    
+                    obj.toggled.connect( func(name) )
+                except:
+                    pass
 
     #//////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -1351,7 +1362,7 @@ class UI_main_window(QMainWindow, ui):
 
         for name, value in parms.items():
             name, idx = self.deasmble_name_and_idx( name )
-            if name in ['thresh_inv'] :
+            if name in ['thresh_inv', 'navel'] :
                 self.set_checkbox_value(name,value,page_name,idx=idx)
                 
             elif name in ['thresh', 'noise_filter'] :
@@ -1421,16 +1432,20 @@ class UI_main_window(QMainWindow, ui):
 
 
 
-    def set_color_value_image_tool_page(self,value=False,img=False):
+    def set_color_value_image_tool_page(self,value=False,img=None):
         if value:
             self.set_label(self.label_color_value,value)
-        if img:
+        if img is not None:
             self.set_image_label(self.img_color_value,img)
 
 
     def update_mouse_position_tool_page(self,pts):
         self.set_label(self.label_x_pos_tool_page,pts[0])
         self.set_label(self.label_y_pos_tool_page,pts[1])
+
+
+    def is_drawing_mask_enabel(self):
+        return self.btn_enabel_mask_draw.isChecked()
 
 if __name__ == "__main__":
     app = QApplication()

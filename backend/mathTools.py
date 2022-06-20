@@ -33,3 +33,13 @@ def thread_step_distance(pts, decimals=2):
     pts1 = np.copy(pts[:-1])
     pts2 = np.copy(pts[1:])
     return horizontal_distance(pts1, pts2, decimals)
+
+
+
+def thread_lenght(pts, decimals=2):
+    if len(pts) < 2:
+        return 0,0,0,[]
+    x1 = pts[0][0]
+    x2 = pts[-1][0]
+    
+    return abs(x2-x1) , abs(x2-x1), abs(x2-x1), None
