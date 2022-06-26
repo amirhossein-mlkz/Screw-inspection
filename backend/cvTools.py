@@ -1,14 +1,30 @@
 
-from unittest import result
+from re import T
 import cv2
+from cv2 import circle
+from cv2 import resize
 import numpy as np
 import pandas as pd
+import copy
+
+from traitlets import default
 try:
     from backend import Utils
     from backend import mathTools
 except:
     import Utils
     import mathTools   
+
+import time
+def time_measure(func):
+    def wrapper(*args, **kwargs):
+        t = time.time()
+        out = func(*args, **kwargs)
+        t = time.time() - t
+        print(f'time {func.__name__} {t}')
+        return out
+    return wrapper
+
 THRESH_C = 7
 
 
@@ -147,6 +163,43 @@ def rects2mask(img_size, rects, defualt=255):
     return mask
 
 
+def circels2mask(img_size, circels , defualt=255):
+    mask = np.zeros(img_size, dtype=np.uint8)
+    if len(circels) == 0:
+        mask+= defualt
+    for circel in circels:
+        if len(circel)==2:
+            center, r = circel
+            if len(center):
+                mask = cv2.circle(mask, tuple(center), r, 255, thickness=-1)
+    return mask
+
+
+def polys2mask(img_size, cnts , defualt=255):
+    mask = np.zeros(img_size, dtype=np.uint8)
+    if len(cnts) == 0:
+        mask+= defualt
+    else:
+        mask = cv2.drawContours(mask, cnts, -1, 255, thickness=-1)
+    return mask
+
+
+def shape2mask(img_size, shape, shape_type, default=255):
+    if shape_type == 'circel':
+        mask = circels2mask(img_size, [shape], default)
+
+    elif shape_type == 'rect':
+        mask = rects2mask(img_size, [shape], default)
+
+    elif shape_type == 'poly':
+        mask = polys2mask(img_size, [shape], default)
+
+    else:
+        mask = np.zeros(img_size, dtype=np.uint8)
+        mask = mask + default
+    
+    return mask
+
 
 def mask_area( img_size, out_shape, inner_shape, shape_type):
     mask = np.zeros(img_size, dtype=np.uint8)
@@ -231,7 +284,62 @@ def correct_rotation_angle(mask , left_or_right='left'):
         angle = angle - 0
     return angle, points
     
+
+
+def centerise_side(mask, img = None):
+    ys, xs = np.nonzero( mask )
+    ys = np.clip( ys, 0, ys.max() - 50 )
+    ys = np.clip( ys, ys.min() + 50 , mask.shape[0])
     
+    #beacuse of rotate edge of belt is not flat
+
+    idx = np.argmax(ys)
+    belt_x_bottom = xs[idx]
+    idx = np.argmin(ys)
+    belt_x_top = xs[idx]
+
+    belt_x = min(belt_x_bottom, belt_x_top)
+    #mask[:,belt_x]= 255
+
+    crop_roi = mask[ :, belt_x - 100 : belt_x - 50 ]
+    ys, xs = np.nonzero( crop_roi )
+    screw_meadile = int(ys.mean())
+
+    h,w = mask.shape[:2]
+    div_y = h//2 - screw_meadile
+
+    M = np.float32( [[1, 0, 0 ],
+                    [0,1, div_y ]
+                    ])
+
+    res_img = cv2.warpAffine(img,M,(w,h))
+    res_mask = cv2.warpAffine(mask,M,(w,h))
+
+    return res_mask,res_img, div_y
+
+
+
+def centerise_top(mask, img = None):
+    cnts, _ = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = list(cnts)
+    cnts.sort( key = lambda x:cv2.contourArea(x) , reverse = True )
+    biggest_cnt = cnts[0]
+    (x,y), r = cv2.minEnclosingCircle(biggest_cnt )
+
+    h,w = mask.shape[:2]
+    div_y = h//2 - y
+    div_x = w//2 - x
+
+    M = np.float32( [[1, 0, div_x ],
+                     [0, 1, div_y ]
+                    ])
+
+    res_img = cv2.warpAffine(img,M,(w,h))
+    res_mask = cv2.warpAffine(mask,M,(w,h))
+
+    return res_mask,res_img, (div_x, div_y)
+
+
 
 def side_screw_bounding_rect(mask):
     cnts,_ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) 
@@ -488,38 +596,224 @@ def draw_head_diameter(img, pt1, pt2, color, thickness=3, line_lenght=10):
 
 
 
+def poly_fit_image(cnt, border=50, draw=True ):
+    cnt = np.copy(cnt)
+    min_x, min_y = cnt.min(axis=0)[0]
+    max_x, max_y = cnt.max(axis=0)[0]
+
+    w = max_x - min_x + border * 2
+    h = max_y - min_y + border * 2
+
+    cnt[:,0,0] = cnt[:,0,0] - min_x + border
+    cnt[:,0,1] = cnt[:,0,1] - min_y + border
+    
+    mask = np.zeros((h,w), dtype=np.uint8)
+    if draw:
+        cv2.drawContours( mask, [cnt], 0, 255, thickness=-1)
+    return cnt,  mask
 
 
+#@time_measure
+def diameters_measurment(mask, cnt, angles):
+    M = cv2.moments(cnt)
+    center = int(M['m10']/M['m00']) , int(M['m01']/M['m00'])
+    r=1000
+    corners_dist = []
+    for angle in angles:
+        line_mask = np.zeros_like(mask)
+        pt1, pt2 = mathTools.angle2line(angle, center,  r*1.5)
 
-            
+        cv2.line(line_mask, pt1, pt2, 255,2)
+        line_mask = cv2.bitwise_and( line_mask, line_mask, mask=mask)
+        corners_dist.append(np.count_nonzero(line_mask))
+
+        # res_img = np.zeros( mask.shape + (3,), dtype=np.uint8)
+        # res_img[:,:,0] = mask
+        # res_img[:,:,1] = line_mask
+        # cv2.imshow('line_mask', res_img)
+        # cv2.waitKey(0)
+
+    return np.array(corners_dist)
+
+
+@time_measure
+def poly6_measument(cnt):
+    
+    cnt, poly_img = poly_fit_image(cnt)
+    rect = cv2.minAreaRect(cnt)
+    _,_, angle = rect
+    if angle > 45:
+        angle = angle - 90
+
+    
+    poly_img = rotate_image(poly_img, angle)
+    diameters1 = diameters_measurment(poly_img, cnt, range(30,180,60))
+    diameters2 = diameters_measurment(poly_img, cnt, range(0,180,60))
+
+    if diameters1.mean() < diameters2.mean():
+        corner_distance = diameters2
+        edge_distance = diameters1
+    else:
+        corner_distance = diameters1
+        edge_distance = diameters2
+    
+    return corner_distance, edge_distance
+
+@time_measure
+def circel_measument(cnt):
+    
+    cnt, poly_img = poly_fit_image(cnt)
+
+    diameters = diameters_measurment(poly_img, cnt, range(0,180,5))
+    return diameters
     
     
     
 if __name__ == '__main__':
-    from matplotlib import pyplot as plt
     
+    img = cv2.imread('sample images/top\Image__2047-01-06__11-56-09.bmp')
+    regions = []
     
-    img = cv2.imread('sample images/New folder/31x_1_3.png')
-    print('________________________________________________________________________')
+    circel_roi = [[860,585], 385 ]
+    thresh_mask = threshould(img, 200, mask_roi=None, inv=False)
+    roi_mask = circels2mask( thresh_mask.shape[0:2], [circel_roi] )
+    thresh_mask = cv2.bitwise_and( thresh_mask, thresh_mask, mask= roi_mask )
+    thresh_mask = filter_noise_area(thresh_mask, 20)
     
-    rect =[ [20, 60] , [1360, 480] ]
-    thresh = 50
+    thresh_mask, img, div_pt = centerise_top(thresh_mask, img )
     
-    mask_roi = rects2mask( img.shape[:2] , [rect] )    
-    thresh_mask = threshould(img, thresh, mask_roi=mask_roi, inv=True)
-    cv2.imshow( 'thresh_mask_befor_rateton', thresh_mask)
+    #-------------------------------------------------------------------------------------
+    (cx, cy) , r = circel_roi
+    div_x, div_y = div_pt
+    circel_roi = [ [int(cx + div_x) , int(cy + div_y) ] , int(r)]
+
+    regoins_parms = [ 
+        { 'thresh':190 , 'thresh_inv' : False }, 
+        { 'thresh':200 , 'thresh_inv' : True  }, 
+    ]
+
     
+    regions_roi = [ 
+        {'type':'circel', 'value':circel_roi},
+        None,
+    ]
+    regions = [ 
+
+    ]
+    for i in range(len(regoins_parms)):
+        
+        thresh_mask = threshould(img, regoins_parms[i]['thresh'], mask_roi=None, inv=regoins_parms[i]['thresh_inv'])
+        roi_mask = shape2mask(thresh_mask.shape[0:2], regions_roi[i]['value'], regions_roi[i]['type'])
+        thresh_mask = cv2.bitwise_and( thresh_mask, thresh_mask, mask= roi_mask )
+        thresh_mask = filter_noise_area(thresh_mask, 20)
+
+        cnts, hs = cv2.findContours(thresh_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+        cnts = list(cnts)
+        cnts.sort( key = lambda x:cv2.contourArea(x) , reverse = True )
+        
+        biggest_cnt = cnts[0]
+        regions.append( biggest_cnt )
+        
+        if i < len(regions_roi) - 1:
+            if regions_roi[i+1] == None:
+                regions_roi[i+1] = { 'type':'poly', 'value':biggest_cnt } 
+
+        
+    #-------------------------------------------------------------------------------------
+    # pts = regions[1]
+    # for i in range(20, len(pts)-20):
+    #     test_img = np.copy(img)
+
+    #     group1 = pts[i-20:i]
+    #     group2 = pts[i:i+20]
+
+    #     group1 = group1.mean(axis=0)[0].astype(np.int32)
+    #     group2 = group2.mean(axis=0)[0].astype(np.int32)
+
+
+    #     m = (group1[1] - group2[1]) / (group1[0] - group2[0] + 1e-5) 
+    #     if m == 0:
+    #         continue
+    #     m = -1/m
+    #     c = m * (-pts[i][0][0]) + pts[i][0][1]
+
+
+
+    #     pt1 = (0, int(m*0+c))
+    #     pt2 = (2000, int(m*2000+c))
+
+    #     cv2.line( test_img, tuple(pt1), tuple(pt2), (0,0,255), thickness=3 )
+    #     cv2.circle(test_img, tuple(pts[i][0]), 5, (255,0,0), thickness=-1)
+    #     cv2.imshow('test_img', cv2.resize(test_img, None, fx=0.5, fy=0.5))
+    #     cv2.waitKey(0)
+    poly_cnt = regions[1]   
+    cd,ed = poly6_measument(poly_cnt)     
+    dd = circel_measument(regions[0])
+    a = True
+    #cv2.imshow('poly_img', cv2.resize(poly_img, None, fx=0.5, fy=0.5))
+    #cv2.waitKey(0)
+
+    #-------------------------------------------------------------------------------------
+
     
-    #--------------------------------------------------------
-    mask_unbelt, belt_pos = remove_belt( thresh_mask, rect )
-    angle, box = correct_rotation_angle(mask_unbelt)
-    thresh_mask = rotate_image(thresh_mask,  angle   )
-    img = rotate_image(img,  angle   )
-    # thresh_mask = rotate_image(thresh_mask,  angle   )
+
+    # cnts, hs = cv2.findContours(thresh_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    # hs = hs[0]
+    # cnts = list(cnts)
+    # res_cnts = []
+    # for i in range(2):
+    #     idxs = np.arange( 0, len(cnts) ).tolist()
+    #     idxs.sort( key = lambda x:cv2.contourArea(cnts[x]) , reverse = True )
+    #     biggest_cnt_idx = idxs[0]
+    #     res_cnts.append( cnts[ biggest_cnt_idx ] )
+    #     #-----------------------------------------
+    #     idxs = list( filter( lambda i:hs[i][-1] == biggest_cnt_idx , idxs ) )
+    #     if len(idxs) == 0:
+    #         break
+    #     cnts = np.array(cnts)[idxs].tolist()
+    #     hs = hs[idxs]
+    cv2.drawContours( img, regions, -1, (255,0,0) , thickness=5)
+    for i in range(len(regions)):
+        for point in regions[i]:
+            cv2.circle( img, tuple(point[0]), 3, (0,0,255), thickness=-1 )
     
-    cv2.imshow('img', img)
-    cv2.imshow('thresh_mask', thresh_mask)
+    cv2.imshow('img', cv2.resize( img, None, fx=0.75, fy=0.75))
+    #cv2.imshow('thresh_mask', cv2.resize( thresh_mask, None, fx=0.75, fy=0.75))
     cv2.waitKey(0)
+    #---------------------------------------------------------------------------------------------
+    # img = cv2.imread('sample images/New folder/31x_1_2.png')
+    # print('________________________________________________________________________')
+    
+    # rect =[ [20, 60] , [1360, 480] ]
+    # thresh = 50
+    
+    # mask_roi = rects2mask( img.shape[:2] , [rect] )    
+    # thresh_mask = threshould(img, thresh, mask_roi=mask_roi, inv=True)
+    # cv2.imshow( 'thresh_mask_befor_rateton', thresh_mask)
+    
+    
+    # #--------------------------------------------------------
+    # mask_unbelt, belt_pos = remove_belt( thresh_mask, rect )
+    # angle, box = correct_rotation_angle(mask_unbelt)
+    # thresh_mask = rotate_image(thresh_mask,  angle   )
+    # img = rotate_image(img,  angle   )
+    # # thresh_mask = rotate_image(thresh_mask,  angle   )
+
+    
+
+    # cv2.imshow('img', img)
+    # cv2.imshow('thresh_mask', thresh_mask)
+    # thresh_mask, img, _ = centerise_side( thresh_mask, img )
+    
+
+    
+    
+
+
+    
+    # cv2.imshow('res_img', img)
+    # cv2.imshow('res_thresh_mask', thresh_mask)
+    # cv2.waitKey(0)
     #--------------------------------------------------------
     # total_lenght_roi = [ [20, 220] , [1360, 290] ]
     # left_pts, right_pts = find_horizental_edges(thresh_mask, total_lenght_roi)
@@ -543,12 +837,12 @@ if __name__ == '__main__':
     # img = draw_points(img, male_thread_h, (230,200,150), 3)
     # img = draw_points(img, male_thread_l, (0,50,200), 3)
     #--------------------------------------------------------
-    head_roi2 = [[1120,100],[1320,450]]
-    mask2 = np.copy( thresh_mask )
-    bottom_head_pts, top_head_pts = find_head_vertival_pts(mask2, head_roi2, jump_thresh=10)
-    img = draw_vertical_point(img, [top_head_pts, bottom_head_pts], (0,100,200), 3)
-    # up_edge_pts = np.array( pd.Dat
-    #for i in range()
+    # head_roi2 = [[1120,100],[1320,450]]
+    # mask2 = np.copy( thresh_mask )
+    # bottom_head_pts, top_head_pts = find_head_vertival_pts(mask2, head_roi2, jump_thresh=10)
+    # img = draw_vertical_point(img, [top_head_pts, bottom_head_pts], (0,100,200), 3)
+    # # up_edge_pts = np.array( pd.Dat
+    # #for i in range()
     
     
         
@@ -556,10 +850,10 @@ if __name__ == '__main__':
     
     
     
-    cv2.imshow( 'thresh_mask', thresh_mask)
-    cv2.imshow( 'img', img)
-    cv2.waitKey(0)
-    pass
+    # cv2.imshow( 'thresh_mask', thresh_mask)
+    # cv2.imshow( 'img', img)
+    # cv2.waitKey(0)
+    # pass
     
     #------------
     

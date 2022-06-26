@@ -43,3 +43,20 @@ def thread_lenght(pts, decimals=2):
     x2 = pts[-1][0]
     
     return abs(x2-x1) , abs(x2-x1), abs(x2-x1), None
+
+
+
+
+def angle2line(angle, center, lenght):
+    a = np.cos(angle * np.pi/180)
+    b = np.sin(angle * np.pi/180)
+
+    x0,y0 = center
+
+    x1 = int(x0 + 2*lenght*(-b))
+    y1 = int(y0 + 2*lenght*(a))
+
+    x2 = int(x0 - 2*lenght*(-b))
+    y2 = int(y0 - 2*lenght*(a))
+
+    return (x1,y1) , (x2,y2)

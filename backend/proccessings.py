@@ -34,6 +34,7 @@ def preprocessing_img_json( img, json, direction):
     thresh_img = cvTools.rotate_image(thresh_img,  angle   )
     img = cvTools.rotate_image(img,  angle   )
 
+    thresh_img, img, _ = cvTools.centerise_side( thresh_img, img )
     return img, thresh_img, angle
 
 
