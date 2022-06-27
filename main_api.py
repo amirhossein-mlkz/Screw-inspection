@@ -31,7 +31,7 @@ import cv2
 import login_UI
 import confirm_UI
 from backend import camera_funcs, colors_pallete, confirm_window_messages, mainsetting_funcs\
-                    , user_login_logout_funcs, user_management_funcs, Screw, Utils, Drawing, cvTools, mathTools, proccessings
+                    , user_login_logout_funcs, user_management_funcs, Screw, Utils, Drawing, cvTools, mathTools, proccessings,plc_managment
 
 from backend.mouse import Mouse
 
@@ -261,6 +261,18 @@ class API:
         self.ui.btn_capture_screw_live.clicked.connect(self.save_live_image)
 
 
+        # PLC settings
+        self.ui.check_top_motor_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_top_motor_plc.objectName()))
+        self.ui.check_down_motor_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_down_motor_plc.objectName()))
+        self.ui.check_limit_1_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_limit_1_plc.objectName()))
+        self.ui.check_limit_2_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_limit_2_plc.objectName()))
+
+        self.ui.checkall_plc_btns.clicked.connect(self.check_all_plc_parms)
+        self.ui.save_plc_pathes.clicked.connect(self.save_plc_parms)
+        self.ui.check_set_value_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_set_value_plc.objectName()))
+        self.ui.set_value_plc.clicked.connect(self.set_plc_value)
+
+        self.load_plc_parms()
 
         # self.ui.connect_sliders('thresh',self.update_threshould)
 
@@ -1221,3 +1233,91 @@ class API:
         results.sort( key = lambda x:x['name'])
         self.ui.set_live_table( self.ui.table_live_live_page, results )
         self.ui.set_main_image_live_page( direction, img )
+
+
+
+
+    # PLC ////////////////////////////////////////////////////////////////////
+
+    def connect_plc(self):
+
+        ip=self.ui.get_plc_ip()
+        self.my_plc=plc_managment.management(ip)
+        self.connection_status=self.my_plc.connection()
+        if self.connection_status:
+            self.load_plc_parms()
+            self.ui.set_size(self.ui.frame_175, 800,maximum=True)
+            
+            self.ui.show_mesagges(self.ui.plc_warnings,texts['Connection_succssed'])
+        else:
+            self.ui.set_size(self.ui.frame_175, 0,maximum=True)
+            self.ui.show_mesagges(self.ui.plc_warnings,texts['Connection_eror'],color='red')
+
+    
+    def disconnect_plc(self):
+        try:
+            self.my_plc.disconnect()
+            del self.my_plc
+        except:
+            pass
+        self.ui.set_size(self.ui.frame_121, 0,maximum=True)
+    
+
+    def check_all_plc_parms(self):
+
+        btns=['check_limit_1_plc','check_limit_2_plc','check_down_motor_plc','check_top_motor_plc']
+
+        for btn in btns:
+            self.check_plc_parms(btn)
+    def check_plc_parms(self,name):
+
+        # path_list={'check_limit_1_btn':self.ui.line_limit1_plc,'check_limit_2_btn':self.ui.line_limit2_plc,\
+        #     'check_top_motor_btn':self.ui.line_top_motor_plc,'check_down_motor_btn':self.ui.line_down_motor_plc,\
+        #         'line_detect_sensor_plc':self.ui.line_detect_sensor_plc}
+
+        name=name.split('_',1)[1]
+        path=eval('self.ui.line_{}.text()'.format(name))
+        print('path',path)
+        value=self.my_plc.get_value(path)
+        print('value',value)
+        label_name=eval('self.ui.label_{}'.format(name))
+        self.ui.set_label(label_name, str(value))
+
+
+    def load_plc_parms(self):
+
+        parms=self.db.load_plc_parms()
+        combo_list=[]
+
+        for parm in parms:
+            try:
+                line=eval('self.ui.line_{}'.format(parm['name']))
+                line.setText(parm['path'])
+                combo_list.append(parm['name'])
+
+            except:
+                pass
+        self.parms=parms
+        # print('/'*30,parms)
+        # self.ui.comboBox_plc_addresses.addItems(combo_list)
+        
+    def update_path_plc(self):
+
+        text=self.ui.comboBox_plc_addresses.currentText()
+
+        value=eval('self.ui.line_{}.text()'.format(text))
+
+        self.ui.line_set_value_plc.setText(value)
+
+
+    def save_plc_parms(self):
+        plc_parms=self.ui.get_plc_parms()
+        self.db.update_plc_parms(plc_parms)
+        pass
+
+    def set_plc_value(self):
+        print('set')
+        path=self.ui.line_set_value_plc.text()
+        value=self.ui.line_value_set_value_plc.text()
+        self.my_plc.set_value(path, value)
+    

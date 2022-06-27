@@ -25,6 +25,7 @@ def object_dict_builder(ui_object):
         'thresh':{
             'bar_thresh0_1_top':self.bar_thresh0_1_top,
             'bar_thresh0_2_top':self.bar_thresh0_2_top,
+            'bar_thresh0_3_top':self.bar_thresh0_3_top,
             'bar_thresh0_1_side': self.bar_thresh0_1_side,
             'bar_thresh0_2_side': self.bar_thresh0_2_side,
             'bar_thresh0_3_side': self.bar_thresh0_3_side,
@@ -35,6 +36,7 @@ def object_dict_builder(ui_object):
         'noise_filter':{
             'bar_noise_filter0_1_top':self.bar_noise_filter0_1_top,
             'bar_noise_filter0_2_top':self.bar_noise_filter0_2_top,
+            'bar_noise_filter0_3_top':self.bar_noise_filter0_3_top,
             'bar_noise_filter0_1_side':self.bar_noise_filter0_1_side,
         }
         
@@ -85,7 +87,24 @@ def object_dict_builder(ui_object):
                 }
             },
             
-            
+        'circle_roi':{
+
+            'x':{
+                'spin_roi_x1_3_top' : self.spin_roi_x1_3_top,
+                'spin_roi_x2_3_top' : self.spin_roi_x2_3_top
+            },
+
+            'y':{
+                'spin_roi_y1_3_top' : self.spin_roi_y1_3_top,
+                'spin_roi_y2_3_top' : self.spin_roi_y2_3_top
+            },
+
+            'r':{
+                'spin_roi_r1_3_top' : self.spin_roi_r1_3_top,
+                'spin_roi_r2_3_top' : self.spin_roi_r2_3_top
+            }
+
+        },    
             
         'limit':{
             
@@ -167,6 +186,7 @@ def object_dict_builder(ui_object):
         {
             'checkbox_thresh_inv0_1_top': self.checkbox_thresh_inv0_1_top,
             'checkbox_thresh_inv0_2_top': self.checkbox_thresh_inv0_2_top,
+            'checkbox_thresh_inv0_3_top': self.checkbox_thresh_inv0_3_top,
             'checkbox_thresh_inv0_1_side': self.checkbox_thresh_inv0_1_side,
 
         },
@@ -174,6 +194,7 @@ def object_dict_builder(ui_object):
         {
             'checkbox_page0_1_top': self.checkbox_page0_1_top,
             'checkbox_page0_2_top': self.checkbox_page0_2_top,
+            'checkbox_page0_3_top': self.checkbox_page0_3_top,
             'checkbox_page0_1_side': self.checkbox_page0_1_side,
             'checkbox_page0_2_side': self.checkbox_page0_2_side,
             'checkbox_page0_3_side': self.checkbox_page0_3_side,
@@ -240,6 +261,7 @@ def object_dict_builder(ui_object):
             {
                 'btn_page0_1_top': self.btn_page0_1_top,
                 'btn_page0_2_top': self.btn_page0_2_top,
+                'btn_page0_3_top': self.btn_page0_3_top,
                 'btn_page0_1_side': self.btn_page0_1_side,
                 'btn_page0_2_side': self.btn_page0_2_side,
                 'btn_page0_3_side': self.btn_page0_3_side,
@@ -341,6 +363,14 @@ def object_dict_builder(ui_object):
                 'remove_btn': self.btn_remove_region0_2_top,
                 'input': self.line_name_region0_2_top,
                 'combo': self.combo_regions_name0_2_top,
+            },
+
+            
+            'lp_sub_pages0_3_top': {
+                'add_btn': self.btn_add_region0_3_top,
+                'remove_btn': self.btn_remove_region0_3_top,
+                'input': self.line_name_region0_3_top,
+                'combo': self.combo_regions_name0_3_top,
             }
 
             

@@ -22,7 +22,13 @@ WARNINGS={
             'en':' Are you sure want to delete '},
 
         'EDIT_MODE': {'fa':' تصویر را ذخیره کنید ',
-            'en':' First Save '}
+            'en':' First Save '},
+
+        'Connection_succssed':{'fa':'ارتباط برقرار شد ',
+             'ec':'Connection Successfully'},
+            
+        'Connection_eror':{'fa':'ارتباط برقرار نشد ',
+             'ec':'Connection_eror'}
 
 }
 MESSEGES = {

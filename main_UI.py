@@ -122,12 +122,12 @@ class UI_main_window(QMainWindow, ui):
 
         self.set_combo_boxes_2()
 
-        self.pages_name_dict={'1':'1_top','2':'2_top','3':'1_side','4':'2_side','5':'3_side','6':'4_side','7':'5_side','8':'6_side'}
-        self.pages_dircetion_dict={'1':'top','2':'top','3':'side','4':'side','5':'side','6':'side','7':'side','8':'side'}
+        self.pages_name_dict={'1':'1_top','2':'2_top','3':'3_top','4':'1_side','5':'2_side','6':'3_side','7':'4_side','8':'5_side','9':'6_side'}
+        self.pages_dircetion_dict={'1':'top','2':'top','3':'top','4':'side','5':'side','6':'side','7':'side','8':'side','9':'side'}
         self.roi_name=['x1','y1','x2','y2']
         self.limit_types=['min','max']
 
-        self.combo_exist={'1_top':False,'2_top':True,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':True}
+        self.combo_exist={'1_top':False,'2_top':True,'3_top':True,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':True}
 
         
         self.tool_btn_bar_side={'lenght':self.frame_36,'btn_male':self.btn_page0_3_side,'Male_Thread':self.frame_78,'btn_lenght':self.btn_page0_2_side,'Diameter':self.frame_79,'screw_head':self.frame_104,'side_damage':self.frame_112}
@@ -357,6 +357,7 @@ class UI_main_window(QMainWindow, ui):
         # page tools
         self.btn_page0_1_top.clicked.connect(self.buttonClick)
         self.btn_page0_2_top.clicked.connect(self.buttonClick)
+        self.btn_page0_3_top.clicked.connect(self.buttonClick)
         self.btn_page0_1_side.clicked.connect(self.buttonClick)
         self.btn_page0_2_side.clicked.connect(self.buttonClick)
         self.btn_page0_3_side.clicked.connect(self.buttonClick)
@@ -761,6 +762,12 @@ class UI_main_window(QMainWindow, ui):
 
             self.stackedWidget_2.setCurrentWidget(self.page_2_top)
             self.btn_page0_2_top.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
+
+        if btnName =='btn_page0_3_top' :
+            self.tool_btn_clear()
+
+            self.stackedWidget_2.setCurrentWidget(self.page_3_top)
+            self.btn_page0_3_top.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
 
 
         if btnName =='btn_page0_1_side' :
@@ -1435,6 +1442,8 @@ class UI_main_window(QMainWindow, ui):
         self.set_image_label(self.lives['labels']['live_img'][direction],img)
 
         
+    def get_plc_ip(self):
+        return self.plc_ip_line.text()
 
 
 
@@ -1452,6 +1461,21 @@ class UI_main_window(QMainWindow, ui):
 
     def is_drawing_mask_enabel(self):
         return self.btn_enabel_mask_draw.isChecked()
+
+
+
+
+    def get_plc_parms(self):
+
+        limit_1=self.line_limit_1_plc.text()
+        limit_2=self.line_limit_2_plc.text()
+        line_down_motor_plc=self.line_down_motor_plc.text()
+        line_top_motor_plc=self.line_top_motor_plc.text()
+        # line_spare_plc=self.line_spare_plc.text()
+        # line_detect_sensor_plc=self.line_detect_sensor_plc.text()
+    
+        return{'limit_1_plc':limit_1,'limit_2_plc':limit_2,'down_motor_plc':line_down_motor_plc,'top_motor_plc':line_top_motor_plc}
+
 
 if __name__ == "__main__":
     app = QApplication()

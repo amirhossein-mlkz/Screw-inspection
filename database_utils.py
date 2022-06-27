@@ -19,6 +19,7 @@ class dataBaseUtils():
         self.setting_tabel = 'settings'
         self.general_settings_id = 'id'
         self.size='size'
+        self.plc='plc_setting'
 
     #________________________________________________________________
     #
@@ -181,6 +182,31 @@ class dataBaseUtils():
         for key,value in parms.items():
             # print('key',key,'value',value)
             self.db.update_record(self.size,key,value,'name','top_live')
+
+
+    def load_plc_parms(self):
+
+        # try:
+
+            parms=self.db.get_all_content(self.plc)
+            print(parms)
+            return parms
+        # except:
+        #     return []
+
+    def update_plc_parms(self, plc_parms):
+        try:
+            for _,param in enumerate(plc_parms.keys()):
+                # update_record(self,table_name,col_name,value,id,id_value):
+                print('_',_,'   ',param)
+                res = self.db.update_record(self.plc, 'path', str(plc_parms[param]), 'id', _)
+
+            return res
+        except:
+            return False
+
+
+
 
 if __name__ == '__main__':
     db = dataBaseUtils(user_name='root',password='password')
