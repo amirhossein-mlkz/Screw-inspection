@@ -377,8 +377,8 @@ class UI_main_window(QMainWindow, ui):
 
         
 
-        self.btn_add_area0_2_top.clicked.connect(self.buttonClick)
-        self.btn_set_corner0_2_top.clicked.connect(self.buttonClick)
+        self.btn_add_region0_2_top.clicked.connect(self.buttonClick)
+        # self.btn_set_corner0_2_top.clicked.connect(self.buttonClick)
         self.btn_draw_complete0_2_top.clicked.connect(self.buttonClick)
 
         self.check_rect0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_rect0_2_top.objectName(),change_size=True))
@@ -809,14 +809,14 @@ class UI_main_window(QMainWindow, ui):
         if btnName =='set_top_image_btn' :
             pass
 
-        if btnName=='btn_add_area0_2_top':
-            self.frame_size(self.frame_53,50)
+        if btnName=='btn_add_region0_2_top':
+            self.frame_size(self.frame_52,1000)
 
-        if btnName=='btn_set_corner0_2_top':
-            self.frame_size(self.groupBox_12,70)
+        # if btnName=='btn_set_corner0_2_top':
+        #     self.frame_size(self.groupBox_12,70)
 
         if btnName=='btn_draw_complete0_2_top':
-            self.frame_size(self.frame_55,190)
+            self.frame_size(self.frame_52,0)
 
 
         if btnName=='btn_add_area0_4_side':
@@ -851,6 +851,9 @@ class UI_main_window(QMainWindow, ui):
             self.check_circle0_2_top.setChecked(False)
             self.check_mask0_2_top.setChecked(False)
 
+            self.stackedWidget_3.setCurrentIndex(1)
+
+
             self.selected_mask_type='rect'
 
         elif name=='check_circle0_2_top':
@@ -858,14 +861,17 @@ class UI_main_window(QMainWindow, ui):
             self.check_rect0_2_top.setChecked(False)
             self.check_circle0_2_top.setChecked(True)
             self.check_mask0_2_top.setChecked(False)
+            self.stackedWidget_3.setCurrentIndex(0)
 
             self.selected_mask_type='circle'
+            print('0'*30)
 
         elif name=='check_mask0_2_top':
 
             self.check_rect0_2_top.setChecked(False)
             self.check_circle0_2_top.setChecked(False)
             self.check_mask0_2_top.setChecked(True)
+            self.stackedWidget_3.setCurrentIndex(1)
 
             self.selected_mask_type='poly'
 

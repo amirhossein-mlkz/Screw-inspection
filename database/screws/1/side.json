@@ -1,0 +1,36 @@
+{
+    "active_tools": [
+        "1_side",
+        "3_side"
+    ],
+    "direction": "side",
+    "img_path": "images/test1_0_12 - Copy.png",
+    "name": "1",
+    "settings": {
+        "1_side": {
+            "img_path": "images/test1_0_12 - Copy.png",
+            "rect_roi0": [
+                [
+                    383,
+                    212
+                ],
+                [
+                    963,
+                    835
+                ]
+            ]
+        },
+        "2_side": {
+            "rect_roi0": []
+        },
+        "4_side": {
+            "none": {
+                "rect_roi0": []
+            }
+        },
+        "5_side": {
+            "rect_roi0": []
+        },
+        "6_side": {}
+    }
+}

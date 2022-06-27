@@ -37,6 +37,7 @@ def object_dict_builder(ui_object):
             'bar_noise_filter0_2_top':self.bar_noise_filter0_2_top,
             'bar_noise_filter0_1_side':self.bar_noise_filter0_1_side,
         }
+        
     }
     self.spins={
         'roi':
@@ -108,7 +109,12 @@ def object_dict_builder(ui_object):
                 '6_side':{
                     'spin_min_damage_6_side':self.spin_min_damage_6_side,    
                     
-                },                
+                },   
+
+                '2_top':{
+                    'spin_min_diameter_2_top':self.spin_min_diameter_2_top,
+                }
+
 
             },
             'max':{
@@ -131,6 +137,12 @@ def object_dict_builder(ui_object):
                 'spin_max_damage_6_side':self.spin_max_damage_6_side,
                 
                 },
+
+
+                '2_top':{
+                    'spin_max_diameter_2_top':self.spin_max_diameter_2_top,
+                }
+
             }
         },
 
@@ -289,9 +301,18 @@ def object_dict_builder(ui_object):
                 '6_side':
                 {
                     'label_area_6_side': self.label_area_6_side
+                },
+                
+                '2_top':
+                {
+                
+                        'label_min_diameter_2_top':self.label_min_diameter_2_top,
+                        'label_max_diameter_2_top':self.label_max_diameter_2_top,
+                        'label_min_district_2_top':self.label_min_district_2_top,
+                        'label_max_district_2_top':self.label_max_district_2_top,
+                        'label_min_corner_2_top':self.label_min_corner_2_top,
+                        'label_max_corner_2_top':self.label_max_corner_2_top,
                 }
-                
-                
             }
 
     }
@@ -313,7 +334,15 @@ def object_dict_builder(ui_object):
                 'input': self.line_name_region0_6_side,
                 'combo': self.combo_regions_name0_6_side,
                 
+            },
+            
+            'lp_sub_pages0_2_top': {
+                'add_btn': self.btn_add_region0_2_top,
+                'remove_btn': self.btn_remove_region0_2_top,
+                'input': self.line_name_region0_2_top,
+                'combo': self.combo_regions_name0_2_top,
             }
+
             
     }
 
