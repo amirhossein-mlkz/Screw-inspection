@@ -122,12 +122,12 @@ class UI_main_window(QMainWindow, ui):
 
         self.set_combo_boxes_2()
 
-        self.pages_name_dict={'1':'1_top','2':'2_top','3':'1_side','4':'2_side','5':'3_side','6':'4_side','7':'5_side','8':'6_side'}
-        self.pages_dircetion_dict={'1':'top','2':'top','3':'side','4':'side','5':'side','6':'side','7':'side','8':'side'}
+        self.pages_name_dict={'1':'1_top','2':'2_top','3':'3_top','4':'1_side','5':'2_side','6':'3_side','7':'4_side','8':'5_side','9':'6_side'}
+        self.pages_dircetion_dict={'1':'top','2':'top','3':'top','4':'side','5':'side','6':'side','7':'side','8':'side','9':'side'}
         self.roi_name=['x1','y1','x2','y2']
         self.limit_types=['min','max']
 
-        self.combo_exist={'1_top':False,'2_top':True,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':True}
+        self.combo_exist={'1_top':False,'2_top':True,'3_top':True,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':True}
 
         
         self.tool_btn_bar_side={'lenght':self.frame_36,'btn_male':self.btn_page0_3_side,'Male_Thread':self.frame_78,'btn_lenght':self.btn_page0_2_side,'Diameter':self.frame_79,'screw_head':self.frame_104,'side_damage':self.frame_112}
@@ -357,6 +357,7 @@ class UI_main_window(QMainWindow, ui):
         # page tools
         self.btn_page0_1_top.clicked.connect(self.buttonClick)
         self.btn_page0_2_top.clicked.connect(self.buttonClick)
+        self.btn_page0_3_top.clicked.connect(self.buttonClick)
         self.btn_page0_1_side.clicked.connect(self.buttonClick)
         self.btn_page0_2_side.clicked.connect(self.buttonClick)
         self.btn_page0_3_side.clicked.connect(self.buttonClick)
@@ -377,8 +378,8 @@ class UI_main_window(QMainWindow, ui):
 
         
 
-        self.btn_add_area0_2_top.clicked.connect(self.buttonClick)
-        self.btn_set_corner0_2_top.clicked.connect(self.buttonClick)
+        self.btn_add_region0_2_top.clicked.connect(self.buttonClick)
+        # self.btn_set_corner0_2_top.clicked.connect(self.buttonClick)
         self.btn_draw_complete0_2_top.clicked.connect(self.buttonClick)
 
         self.check_rect0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_rect0_2_top.objectName(),change_size=True))
@@ -708,6 +709,17 @@ class UI_main_window(QMainWindow, ui):
             else :
                 self.set_warning(texts.WARNINGS['EDIT_MODE'][self.language],'tool_page',level=2)
 
+
+        if btnName =='camera01_btn':
+            self.set_label(self.cameraname_label,'Top')
+            print('adswd',cv2.imread('images/camtop_actived.png'))
+            self.change_btn_icon(self.camera01_btn,'images/camtop_actived.png')
+            self.change_btn_icon(self.camera02_btn,'images/camside.png')
+
+        if btnName =='camera02_btn':
+            self.set_label(self.cameraname_label,'Side')
+            self.change_btn_icon(self.camera02_btn,'images/camside_actived.png')
+            self.change_btn_icon(self.camera01_btn,'images/camtop.png')
     # def set_warning(self, text, name, level=1):                            #Show warning
     #     waring_labels = {
     #         'tool_page': self.label_warning_tool_page,
@@ -762,6 +774,12 @@ class UI_main_window(QMainWindow, ui):
             self.stackedWidget_2.setCurrentWidget(self.page_2_top)
             self.btn_page0_2_top.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
 
+        if btnName =='btn_page0_3_top' :
+            self.tool_btn_clear()
+
+            self.stackedWidget_2.setCurrentWidget(self.page_3_top)
+            self.btn_page0_3_top.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
+
 
         if btnName =='btn_page0_1_side' :
             self.tool_btn_clear()
@@ -809,14 +827,14 @@ class UI_main_window(QMainWindow, ui):
         if btnName =='set_top_image_btn' :
             pass
 
-        if btnName=='btn_add_area0_2_top':
-            self.frame_size(self.frame_53,50)
+        if btnName=='btn_add_region0_2_top':
+            self.frame_size(self.frame_52,1000)
 
-        if btnName=='btn_set_corner0_2_top':
-            self.frame_size(self.groupBox_12,70)
+        # if btnName=='btn_set_corner0_2_top':
+        #     self.frame_size(self.groupBox_12,70)
 
         if btnName=='btn_draw_complete0_2_top':
-            self.frame_size(self.frame_55,190)
+            self.frame_size(self.frame_52,0)
 
 
         if btnName=='btn_add_area0_4_side':
@@ -851,6 +869,9 @@ class UI_main_window(QMainWindow, ui):
             self.check_circle0_2_top.setChecked(False)
             self.check_mask0_2_top.setChecked(False)
 
+            self.stackedWidget_3.setCurrentIndex(1)
+
+
             self.selected_mask_type='rect'
 
         elif name=='check_circle0_2_top':
@@ -858,14 +879,17 @@ class UI_main_window(QMainWindow, ui):
             self.check_rect0_2_top.setChecked(False)
             self.check_circle0_2_top.setChecked(True)
             self.check_mask0_2_top.setChecked(False)
+            self.stackedWidget_3.setCurrentIndex(0)
 
             self.selected_mask_type='circle'
+            print('0'*30)
 
         elif name=='check_mask0_2_top':
 
             self.check_rect0_2_top.setChecked(False)
             self.check_circle0_2_top.setChecked(False)
             self.check_mask0_2_top.setChecked(True)
+            self.stackedWidget_3.setCurrentIndex(1)
 
             self.selected_mask_type='poly'
 
@@ -905,6 +929,18 @@ class UI_main_window(QMainWindow, ui):
 
 
         label_name.setPixmap(sQPixmap.fromImage(convert_to_Qt_format))
+
+
+    def change_btn_icon(self, btn, image):
+        icon = QIcon()
+        # icon.addPixmap(QPixmap('normal.png'))
+        # icon.addPixmap(QPixmap('disabled.png'), QIcon.Disabled)
+        # icon.addPixmap(QPixmap('clicking.png'), QIcon.Active)
+        icon.addPixmap(QPixmap(image), QIcon.Normal, QIcon.On)
+        btn.setIcon(icon)
+
+
+
 
     def set_image_page_tool_labels(self,img):
 
@@ -1429,6 +1465,8 @@ class UI_main_window(QMainWindow, ui):
         self.set_image_label(self.lives['labels']['live_img'][direction],img)
 
         
+    def get_plc_ip(self):
+        return self.plc_ip_line.text()
 
 
 
@@ -1446,6 +1484,21 @@ class UI_main_window(QMainWindow, ui):
 
     def is_drawing_mask_enabel(self):
         return self.btn_enabel_mask_draw.isChecked()
+
+
+
+
+    def get_plc_parms(self):
+
+        limit_1=self.line_limit_1_plc.text()
+        limit_2=self.line_limit_2_plc.text()
+        line_down_motor_plc=self.line_down_motor_plc.text()
+        line_top_motor_plc=self.line_top_motor_plc.text()
+        # line_spare_plc=self.line_spare_plc.text()
+        # line_detect_sensor_plc=self.line_detect_sensor_plc.text()
+    
+        return{'limit_1_plc':limit_1,'limit_2_plc':limit_2,'down_motor_plc':line_down_motor_plc,'top_motor_plc':line_top_motor_plc}
+
 
 if __name__ == "__main__":
     app = QApplication()

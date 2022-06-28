@@ -28,7 +28,11 @@ grid_thickness = 1
 # get camera id by camera name label in the UI
 def get_camera_id(camera_name_label):
     try:
-        return str(int(camera_name_label[-2:]))
+        if camera_name_label=='Top':
+            return '1'
+        elif camera_name_label=='Side':
+            return '2'
+        # return str(int(camera_name_label[-2:]))
     except:
         return '0'
 
@@ -102,30 +106,26 @@ def assign_existing_serials_to_ui(ui_obj, db_obj, camera_id, available_serials):
 
 
 # set cameras parameters to database given single camera-id (or for multiple cameras given multiple cameras-ids)
-def set_camera_params_to_db(db_obj, camera_id, camera_params, checkbox_values):
+def set_camera_params_to_db(db_obj, camera_id, camera_params):
     # apply settings to single current camera
-    if checkbox_values == 0: 
-        res = db_obj.update_cam_params(camera_id, camera_params)
-    # apply current camera settings to multiple cameras
-    else: 
-        res = db_obj.update_cam_params(camera_id, camera_params)
-        # pop camera ip address and serial number to prevent applying to all cameras
-        camera_params.pop('ip_address', None)
-        camera_params.pop('serial_number', None)
-        if checkbox_values == 1: # apply to top cameras
-            camera_ids = top_camera_ids
-        elif checkbox_values == 2: # apply to bottom cameras
-            camera_ids = bottom_camera_ids
-        elif checkbox_values == 3: # apply to all cameras
-            camera_ids = all_camera_ids
-        # set to dataset
-        for camera_id in camera_ids:
-            res = db_obj.update_cam_params(str(int(camera_id)), camera_params)
-            # validation
-            if not res:
-                return res
-    # validation
+
+    res = db_obj.update_cam_params(camera_id, camera_params)
     return res
+    # pop camera ip address and serial number to prevent applying to all cameras
+    # camera_params.pop('ip_address', None)
+    # camera_params.pop('serial_number', None)
+    # if checkbox_values == 1: # apply to top cameras
+    #     camera_ids = top_camera_ids
+    # elif checkbox_values == 2: # apply to bottom cameras
+    #     camera_ids = bottom_camera_ids
+    # elif checkbox_values == 3: # apply to all cameras
+    #     camera_ids = all_camera_ids
+    # # set to dataset
+    # for camera_id in camera_ids:
+    # res = db_obj.update_cam_params(str(int(camera_id)), camera_params)
+        # validation
+    # if not res:
+    
 
 
 # get cameras parameters from database given camera-id
@@ -168,18 +168,13 @@ def ip_validation(ip_address):
 
 
 # get the value of checkboxes in the camera setting page for multi-camera save settings
-def get_camera_checkbox_values(ui_obj):
-    checkbox_top = ui_obj.checkBox_top.isChecked()
-    checkbox_bottom = ui_obj.checkBox_bottom.isChecked()
-    # check
-    if not checkbox_top and not checkbox_bottom: # checkboxes are not checked
-        return 0
-    elif checkbox_top and not checkbox_bottom: # top cameras are checked
-        return 1
-    elif not checkbox_top and checkbox_bottom: # bottom cameras are checked
-        return 2
-    elif checkbox_top and checkbox_bottom: # all cameras are checked
-        return 3
+# def get_camera_checkbox_values(ui_obj):
+#     checkbox_top = ui_obj.checkBox_top.isChecked()
+#     checkbox_bottom = ui_obj.checkBox_bottom.isChecked()
+#     # check
+#     if not checkbox_top and not checkbox_bottom: # checkboxes are not checked
+#         return 0
+
 
 
 

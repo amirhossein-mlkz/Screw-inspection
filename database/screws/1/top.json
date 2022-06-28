@@ -1,0 +1,25 @@
+{
+    "active_tools": [
+        "1_top"
+    ],
+    "direction": "top",
+    "img_path": "/media/milad/PYTHON/my project/Screw-inspection/mask2.jpg",
+    "name": "1",
+    "settings": {
+        "1_top": {
+            "img_path": "/media/milad/PYTHON/my project/Screw-inspection/mask2.jpg",
+            "noise_filter0": 42,
+            "rect_roi0": [
+                [
+                    93,
+                    70
+                ],
+                [
+                    616,
+                    513
+                ]
+            ],
+            "thresh0": 18
+        }
+    }
+}

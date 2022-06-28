@@ -31,7 +31,7 @@ import cv2
 import login_UI
 import confirm_UI
 from backend import camera_funcs, colors_pallete, confirm_window_messages, mainsetting_funcs\
-                    , user_login_logout_funcs, user_management_funcs, Screw, Utils, Drawing, cvTools, mathTools, proccessings
+                    , user_login_logout_funcs, user_management_funcs, Screw, Utils, Drawing, cvTools, mathTools, proccessings,plc_managment
 
 from backend.mouse import Mouse
 
@@ -164,19 +164,19 @@ class API:
 
         # camera-parametrs or UI page change disconnect camera
         # disconnect camera on UI change
-        self.ui.serial_number_combo.currentTextChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.gain_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.expo_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.width_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.height_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.offsetx_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.offsety_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.maxbuffer_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.packetdelay_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.packetsize_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.transmissiondelay_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.trigger_combo.currentTextChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.stackedWidget.currentChanged.connect(self.things_to_do_on_stackwidject_change)
+        # self.ui.serial_number_combo.currentTextChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.gain_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.expo_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.width_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.height_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.offsetx_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.offsety_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.maxbuffer_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.packetdelay_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.packetsize_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.transmissiondelay_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.trigger_combo.currentTextChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.stackedWidget.currentChanged.connect(self.things_to_do_on_stackwidject_change)
 
 
         # buttons in the camera-settings section
@@ -261,6 +261,18 @@ class API:
         self.ui.btn_capture_screw_live.clicked.connect(self.save_live_image)
 
 
+        # PLC settings
+        self.ui.check_top_motor_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_top_motor_plc.objectName()))
+        self.ui.check_down_motor_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_down_motor_plc.objectName()))
+        self.ui.check_limit_1_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_limit_1_plc.objectName()))
+        self.ui.check_limit_2_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_limit_2_plc.objectName()))
+
+        self.ui.checkall_plc_btns.clicked.connect(self.check_all_plc_parms)
+        self.ui.save_plc_pathes.clicked.connect(self.save_plc_parms)
+        self.ui.check_set_value_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_set_value_plc.objectName()))
+        self.ui.set_value_plc.clicked.connect(self.set_plc_value)
+
+        self.load_plc_parms()
 
         # self.ui.connect_sliders('thresh',self.update_threshould)
 
@@ -316,30 +328,14 @@ class API:
     def save_changed_camera_params(self, apply_to_multiple=False):
         # get camera-id and camera params
         camera_id = camera_funcs.get_camera_id(self.ui.cameraname_label.text())
+        print('camera_id',camera_id)
         camera_params = camera_funcs.get_camera_params_from_ui(ui_obj=self.ui)
-        # validating camera parameters
-        validate, message = camera_funcs.validate_camera_ip(db_obj=self.db, camera_id=camera_id, camera_params=camera_params)
-        if not validate:
-            self.ui.show_mesagges(self.ui.camera_setting_message_label, message, color=colors_pallete.failed_red)
-            return
-        # set to database
-        checkbox_values = camera_funcs.get_camera_checkbox_values(ui_obj=self.ui)
-        # camera checkboxes are not checked
-        if checkbox_values == 0 or apply_to_multiple: 
-            res = camera_funcs.set_camera_params_to_db(db_obj=self.db, camera_id=camera_id, camera_params=camera_params, checkbox_values=checkbox_values)
-            if res:
-                self.ui.show_mesagges(self.ui.camera_setting_message_label, 'Settings Applied Successfully', color=colors_pallete.successfull_green)
-            else:
-                self.ui.show_mesagges(self.ui.camera_setting_message_label, 'Failed to Apply Settings', color=colors_pallete.failed_red)
-        # camera checkboxes are checked (apply settings to multiple cameras)
-        else: 
-            if checkbox_values == 1: # apply to top cameras
-                self.confirm_ui.msg_label.setText(confirm_window_messages.setting_topcameras_confirm_message)
-            elif checkbox_values == 2: # apply to bottom cameras
-                self.confirm_ui.msg_label.setText(confirm_window_messages.setting_bottomcameras_confirm_message)
-            elif checkbox_values == 3: # apply to all cameras
-                self.confirm_ui.msg_label.setText(confirm_window_messages.setting_allcameras_confirm_message)
-            self.confirm_ui.show()
+
+        res = camera_funcs.set_camera_params_to_db(db_obj=self.db, camera_id=camera_id, camera_params=camera_params)
+        if res:
+            self.ui.show_mesagges(self.ui.camera_setting_message_label, 'Settings Applied Successfully', color=colors_pallete.successfull_green)
+        else:
+            self.ui.show_mesagges(self.ui.camera_setting_message_label, 'Failed to Apply Settings', color=colors_pallete.failed_red)
 
 
     # get cameras parameters from database given camera-id and apply to UI
@@ -363,33 +359,21 @@ class API:
         # get camera parametrs on camera-settings page
         if not calibration:
             camera_serial_number = camera_funcs.get_camera_params_from_ui(ui_obj=self.ui)['serial_number']
-        # get camera parametrs on calibration-settings page
-        else:
-            camera_id = self.ui.comboBox_cam_select_calibration.currentText()
-            camera_serial_number = camera_funcs.get_camera_params_from_db(db_obj=self.db, camera_id=camera_id)['serial_number']
         # check if serial is assigned
         if camera_serial_number == '0':
-            if not calibration:
-                self.ui.show_mesagges(self.ui.camera_setting_message_label, 'No Serial is Assigned', color=colors_pallete.failed_red)
-            else:
-                self.ui.show_mesagges(self.ui.camera_calibration_message_label, 'No Serial is Assigned, Please Reffer to Camera-Settings', color=colors_pallete.failed_red)
+            # if not calibration:
+            self.ui.show_mesagges(self.ui.camera_setting_message_label, 'No Serial is Assigned', color=colors_pallete.failed_red)
         else:
             # connect to camera
             if not self.ui.camera_connect_flag:
-                if not calibration:
-                    self.camera_connection = camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=True, current_cam_connection=None)
-                    camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=True)
-                else:
-                    self.camera_connection = camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=True, current_cam_connection=None, calibration=True)
-                    camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=True, calibration=True)
+                # if not calibration:
+                self.camera_connection = camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=True, current_cam_connection=None)
+                camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=True)
             # disconnect from camera
             else:
-                if not calibration:
-                    camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=False, current_cam_connection=self.camera_connection)
-                    camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=False)
-                else:
-                    camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=False, current_cam_connection=self.camera_connection, calibration=True)
-                    camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=False, calibration=True)
+                # if not calibration:
+                camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=False, current_cam_connection=self.camera_connection)
+                camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=False)
 
 
     # show cameras picture on UI
@@ -1221,3 +1205,91 @@ class API:
         results.sort( key = lambda x:x['name'])
         self.ui.set_live_table( self.ui.table_live_live_page, results )
         self.ui.set_main_image_live_page( direction, img )
+
+
+
+
+    # PLC ////////////////////////////////////////////////////////////////////
+
+    def connect_plc(self):
+
+        ip=self.ui.get_plc_ip()
+        self.my_plc=plc_managment.management(ip)
+        self.connection_status=self.my_plc.connection()
+        if self.connection_status:
+            self.load_plc_parms()
+            self.ui.set_size(self.ui.frame_175, 800,maximum=True)
+            
+            self.ui.show_mesagges(self.ui.plc_warnings,texts['Connection_succssed'])
+        else:
+            self.ui.set_size(self.ui.frame_175, 0,maximum=True)
+            self.ui.show_mesagges(self.ui.plc_warnings,texts['Connection_eror'],color='red')
+
+    
+    def disconnect_plc(self):
+        try:
+            self.my_plc.disconnect()
+            del self.my_plc
+        except:
+            pass
+        self.ui.set_size(self.ui.frame_121, 0,maximum=True)
+    
+
+    def check_all_plc_parms(self):
+
+        btns=['check_limit_1_plc','check_limit_2_plc','check_down_motor_plc','check_top_motor_plc']
+
+        for btn in btns:
+            self.check_plc_parms(btn)
+    def check_plc_parms(self,name):
+
+        # path_list={'check_limit_1_btn':self.ui.line_limit1_plc,'check_limit_2_btn':self.ui.line_limit2_plc,\
+        #     'check_top_motor_btn':self.ui.line_top_motor_plc,'check_down_motor_btn':self.ui.line_down_motor_plc,\
+        #         'line_detect_sensor_plc':self.ui.line_detect_sensor_plc}
+
+        name=name.split('_',1)[1]
+        path=eval('self.ui.line_{}.text()'.format(name))
+        print('path',path)
+        value=self.my_plc.get_value(path)
+        print('value',value)
+        label_name=eval('self.ui.label_{}'.format(name))
+        self.ui.set_label(label_name, str(value))
+
+
+    def load_plc_parms(self):
+
+        parms=self.db.load_plc_parms()
+        combo_list=[]
+
+        for parm in parms:
+            try:
+                line=eval('self.ui.line_{}'.format(parm['name']))
+                line.setText(parm['path'])
+                combo_list.append(parm['name'])
+
+            except:
+                pass
+        self.parms=parms
+        # print('/'*30,parms)
+        # self.ui.comboBox_plc_addresses.addItems(combo_list)
+        
+    def update_path_plc(self):
+
+        text=self.ui.comboBox_plc_addresses.currentText()
+
+        value=eval('self.ui.line_{}.text()'.format(text))
+
+        self.ui.line_set_value_plc.setText(value)
+
+
+    def save_plc_parms(self):
+        plc_parms=self.ui.get_plc_parms()
+        self.db.update_plc_parms(plc_parms)
+        pass
+
+    def set_plc_value(self):
+        print('set')
+        path=self.ui.line_set_value_plc.text()
+        value=self.ui.line_value_set_value_plc.text()
+        self.my_plc.set_value(path, value)
+    
