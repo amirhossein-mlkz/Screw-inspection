@@ -52,17 +52,17 @@ def set_appearance_params_to_ui(ui_obj, appearance_params):
     ui_obj.setting_style_comboBox.setCurrentText(appearance_params['window_style'])
     ui_obj.setting_color_comboBox.setCurrentText(appearance_params['window_color'])
     ui_obj.setting_language_comboBox.setCurrentText(appearance_params['language'])
-    ui_obj.large_rect_area_label.setText(str(appearance_params['large_rect_area']))
-    ui_obj.small_rect_area_label.setText(str(appearance_params['small_rect_area']))
-    ui_obj.rect_accuracy_label.setText(str(appearance_params['rect_accuracy']))
-    split_size = appearance_params['split_size'].split(',')
-    try:
-        ui_obj.splitsizew_spinBox.setValue(int(split_size[0][1:]))
-        ui_obj.splitsizeh_spinBox.setValue(int(split_size[-1][:-1]))
-        # ui_obj.defect_colors_number_spin.setValue(int(appearance_params['n_defect_colors']))
-    except:
-        ui_obj.splitsizew_spinBox.setValue(0)
-        ui_obj.splitsizeh_spinBox.setValue(0)
+    # ui_obj.large_rect_area_label.setText(str(appearance_params['large_rect_area']))
+    # ui_obj.small_rect_area_label.setText(str(appearance_params['small_rect_area']))
+    # ui_obj.rect_accuracy_label.setText(str(appearance_params['rect_accuracy']))
+    # split_size = appearance_params['split_size'].split(',')
+    # try:
+    #     ui_obj.splitsizew_spinBox.setValue(int(split_size[0][1:]))
+    #     ui_obj.splitsizeh_spinBox.setValue(int(split_size[-1][:-1]))
+    #     # ui_obj.defect_colors_number_spin.setValue(int(appearance_params['n_defect_colors']))
+    # except:
+    #     ui_obj.splitsizew_spinBox.setValue(0)
+    #     ui_obj.splitsizeh_spinBox.setValue(0)
         # ui_obj.defect_colors_number_spin.setValue(3)
 
 
