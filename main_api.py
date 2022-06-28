@@ -164,19 +164,19 @@ class API:
 
         # camera-parametrs or UI page change disconnect camera
         # disconnect camera on UI change
-        self.ui.serial_number_combo.currentTextChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.gain_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.expo_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.width_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.height_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.offsetx_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.offsety_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.maxbuffer_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.packetdelay_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.packetsize_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.transmissiondelay_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.trigger_combo.currentTextChanged.connect(self.disconnect_camera_on_ui_change)
-        self.ui.stackedWidget.currentChanged.connect(self.things_to_do_on_stackwidject_change)
+        # self.ui.serial_number_combo.currentTextChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.gain_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.expo_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.width_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.height_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.offsetx_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.offsety_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.maxbuffer_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.packetdelay_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.packetsize_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.transmissiondelay_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.trigger_combo.currentTextChanged.connect(self.disconnect_camera_on_ui_change)
+        # self.ui.stackedWidget.currentChanged.connect(self.things_to_do_on_stackwidject_change)
 
 
         # buttons in the camera-settings section
@@ -328,30 +328,14 @@ class API:
     def save_changed_camera_params(self, apply_to_multiple=False):
         # get camera-id and camera params
         camera_id = camera_funcs.get_camera_id(self.ui.cameraname_label.text())
+        print('camera_id',camera_id)
         camera_params = camera_funcs.get_camera_params_from_ui(ui_obj=self.ui)
-        # validating camera parameters
-        validate, message = camera_funcs.validate_camera_ip(db_obj=self.db, camera_id=camera_id, camera_params=camera_params)
-        if not validate:
-            self.ui.show_mesagges(self.ui.camera_setting_message_label, message, color=colors_pallete.failed_red)
-            return
-        # set to database
-        checkbox_values = camera_funcs.get_camera_checkbox_values(ui_obj=self.ui)
-        # camera checkboxes are not checked
-        if checkbox_values == 0 or apply_to_multiple: 
-            res = camera_funcs.set_camera_params_to_db(db_obj=self.db, camera_id=camera_id, camera_params=camera_params, checkbox_values=checkbox_values)
-            if res:
-                self.ui.show_mesagges(self.ui.camera_setting_message_label, 'Settings Applied Successfully', color=colors_pallete.successfull_green)
-            else:
-                self.ui.show_mesagges(self.ui.camera_setting_message_label, 'Failed to Apply Settings', color=colors_pallete.failed_red)
-        # camera checkboxes are checked (apply settings to multiple cameras)
-        else: 
-            if checkbox_values == 1: # apply to top cameras
-                self.confirm_ui.msg_label.setText(confirm_window_messages.setting_topcameras_confirm_message)
-            elif checkbox_values == 2: # apply to bottom cameras
-                self.confirm_ui.msg_label.setText(confirm_window_messages.setting_bottomcameras_confirm_message)
-            elif checkbox_values == 3: # apply to all cameras
-                self.confirm_ui.msg_label.setText(confirm_window_messages.setting_allcameras_confirm_message)
-            self.confirm_ui.show()
+
+        res = camera_funcs.set_camera_params_to_db(db_obj=self.db, camera_id=camera_id, camera_params=camera_params)
+        if res:
+            self.ui.show_mesagges(self.ui.camera_setting_message_label, 'Settings Applied Successfully', color=colors_pallete.successfull_green)
+        else:
+            self.ui.show_mesagges(self.ui.camera_setting_message_label, 'Failed to Apply Settings', color=colors_pallete.failed_red)
 
 
     # get cameras parameters from database given camera-id and apply to UI
@@ -375,33 +359,21 @@ class API:
         # get camera parametrs on camera-settings page
         if not calibration:
             camera_serial_number = camera_funcs.get_camera_params_from_ui(ui_obj=self.ui)['serial_number']
-        # get camera parametrs on calibration-settings page
-        else:
-            camera_id = self.ui.comboBox_cam_select_calibration.currentText()
-            camera_serial_number = camera_funcs.get_camera_params_from_db(db_obj=self.db, camera_id=camera_id)['serial_number']
         # check if serial is assigned
         if camera_serial_number == '0':
-            if not calibration:
-                self.ui.show_mesagges(self.ui.camera_setting_message_label, 'No Serial is Assigned', color=colors_pallete.failed_red)
-            else:
-                self.ui.show_mesagges(self.ui.camera_calibration_message_label, 'No Serial is Assigned, Please Reffer to Camera-Settings', color=colors_pallete.failed_red)
+            # if not calibration:
+            self.ui.show_mesagges(self.ui.camera_setting_message_label, 'No Serial is Assigned', color=colors_pallete.failed_red)
         else:
             # connect to camera
             if not self.ui.camera_connect_flag:
-                if not calibration:
-                    self.camera_connection = camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=True, current_cam_connection=None)
-                    camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=True)
-                else:
-                    self.camera_connection = camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=True, current_cam_connection=None, calibration=True)
-                    camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=True, calibration=True)
+                # if not calibration:
+                self.camera_connection = camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=True, current_cam_connection=None)
+                camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=True)
             # disconnect from camera
             else:
-                if not calibration:
-                    camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=False, current_cam_connection=self.camera_connection)
-                    camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=False)
-                else:
-                    camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=False, current_cam_connection=self.camera_connection, calibration=True)
-                    camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=False, calibration=True)
+                # if not calibration:
+                camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=False, current_cam_connection=self.camera_connection)
+                camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=False)
 
 
     # show cameras picture on UI

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1341</width>
+    <width>1166</width>
     <height>819</height>
    </rect>
   </property>
@@ -2177,7 +2177,7 @@ QPushButton:hover {
                          <string notr="true">background-color : #F3F6FE;</string>
                         </property>
                         <property name="currentIndex">
-                         <number>4</number>
+                         <number>1</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -10640,26 +10640,6 @@ QPushButton:disabled{
                                      <property name="spacing">
                                       <number>8</number>
                                      </property>
-                                     <item>
-                                      <widget class="QLabel" name="label_25">
-                                       <property name="text">
-                                        <string>70 (C)</string>
-                                       </property>
-                                       <property name="alignment">
-                                        <set>Qt::AlignCenter</set>
-                                       </property>
-                                      </widget>
-                                     </item>
-                                     <item>
-                                      <widget class="QLabel" name="label_26">
-                                       <property name="text">
-                                        <string>70 (C)</string>
-                                       </property>
-                                       <property name="alignment">
-                                        <set>Qt::AlignCenter</set>
-                                       </property>
-                                      </widget>
-                                     </item>
                                     </layout>
                                    </item>
                                    <item>
@@ -10670,7 +10650,7 @@ QPushButton:disabled{
                                      <item>
                                       <widget class="QLabel" name="label">
                                        <property name="text">
-                                        <string>Cam01</string>
+                                        <string>Cam01 TOP</string>
                                        </property>
                                        <property name="alignment">
                                         <set>Qt::AlignCenter</set>
@@ -10680,7 +10660,7 @@ QPushButton:disabled{
                                      <item>
                                       <widget class="QLabel" name="label_2">
                                        <property name="text">
-                                        <string>Cam02</string>
+                                        <string>Cam02 Side</string>
                                        </property>
                                        <property name="alignment">
                                         <set>Qt::AlignCenter</set>
@@ -10732,7 +10712,7 @@ border-color:Transparent</string>
                                        </property>
                                        <property name="icon">
                                         <iconset>
-                                         <normaloff>images/camtop.png</normaloff>images/camtop.png</iconset>
+                                         <normaloff>images/camside.png</normaloff>images/camside.png</iconset>
                                        </property>
                                        <property name="iconSize">
                                         <size>
@@ -10836,7 +10816,7 @@ border-color:Transparent</string>
                                    </font>
                                   </property>
                                   <property name="text">
-                                   <string>Camera</string>
+                                   <string>Cameras</string>
                                   </property>
                                  </widget>
                                 </item>
@@ -10911,6 +10891,9 @@ border-color:Transparent</string>
                              </item>
                              <item>
                               <widget class="QFrame" name="frame_10">
+                               <property name="enabled">
+                                <bool>true</bool>
+                               </property>
                                <property name="minimumSize">
                                 <size>
                                  <width>250</width>
@@ -11324,7 +11307,7 @@ border-color:Transparent</string>
                                   <item>
                                    <widget class="QComboBox" name="serial_number_combo">
                                     <property name="enabled">
-                                     <bool>false</bool>
+                                     <bool>true</bool>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
@@ -11346,7 +11329,7 @@ border-color:Transparent</string>
                                   <item>
                                    <widget class="QSpinBox" name="gain_spinbox">
                                     <property name="enabled">
-                                     <bool>false</bool>
+                                     <bool>true</bool>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
@@ -11377,7 +11360,7 @@ border-color:Transparent</string>
                                   <item>
                                    <widget class="QSpinBox" name="expo_spinbox">
                                     <property name="enabled">
-                                     <bool>false</bool>
+                                     <bool>true</bool>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
@@ -11414,7 +11397,7 @@ border-color:Transparent</string>
                                   <item>
                                    <widget class="QSpinBox" name="width_spinbox">
                                     <property name="enabled">
-                                     <bool>false</bool>
+                                     <bool>true</bool>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
@@ -11451,7 +11434,7 @@ border-color:Transparent</string>
                                   <item>
                                    <widget class="QSpinBox" name="height_spinbox">
                                     <property name="enabled">
-                                     <bool>false</bool>
+                                     <bool>true</bool>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
@@ -11488,7 +11471,7 @@ border-color:Transparent</string>
                                   <item>
                                    <widget class="QSpinBox" name="offsetx_spinbox">
                                     <property name="enabled">
-                                     <bool>false</bool>
+                                     <bool>true</bool>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
@@ -11519,7 +11502,7 @@ border-color:Transparent</string>
                                   <item>
                                    <widget class="QSpinBox" name="offsety_spinbox">
                                     <property name="enabled">
-                                     <bool>false</bool>
+                                     <bool>true</bool>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
@@ -11550,7 +11533,7 @@ border-color:Transparent</string>
                                   <item>
                                    <widget class="QComboBox" name="trigger_combo">
                                     <property name="enabled">
-                                     <bool>false</bool>
+                                     <bool>true</bool>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
@@ -11582,7 +11565,7 @@ border-color:Transparent</string>
                                   <item>
                                    <widget class="QSpinBox" name="maxbuffer_spinbox">
                                     <property name="enabled">
-                                     <bool>false</bool>
+                                     <bool>true</bool>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
@@ -11613,7 +11596,7 @@ border-color:Transparent</string>
                                   <item>
                                    <widget class="QSpinBox" name="packetdelay_spinbox">
                                     <property name="enabled">
-                                     <bool>false</bool>
+                                     <bool>true</bool>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
@@ -11644,7 +11627,7 @@ border-color:Transparent</string>
                                   <item>
                                    <widget class="QSpinBox" name="packetsize_spinbox">
                                     <property name="enabled">
-                                     <bool>false</bool>
+                                     <bool>true</bool>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
@@ -11675,7 +11658,7 @@ border-color:Transparent</string>
                                   <item>
                                    <widget class="QSpinBox" name="transmissiondelay_spinbox">
                                     <property name="enabled">
-                                     <bool>false</bool>
+                                     <bool>true</bool>
                                     </property>
                                     <property name="minimumSize">
                                      <size>
@@ -11752,7 +11735,7 @@ border: 1px solid #CDCDCE;
                                 <item>
                                  <widget class="QPushButton" name="camera_setting_apply_btn">
                                   <property name="enabled">
-                                   <bool>false</bool>
+                                   <bool>true</bool>
                                   </property>
                                   <property name="minimumSize">
                                    <size>
@@ -11821,7 +11804,7 @@ QPushButton:pressed {
                                    <item>
                                     <widget class="QPushButton" name="camera_setting_connect_btn">
                                      <property name="enabled">
-                                      <bool>false</bool>
+                                      <bool>true</bool>
                                      </property>
                                      <property name="minimumSize">
                                       <size>
@@ -11860,7 +11843,7 @@ QPushButton:pressed {
                                    <item>
                                     <widget class="QPushButton" name="camera_setting_getpic_btn">
                                      <property name="enabled">
-                                      <bool>false</bool>
+                                      <bool>true</bool>
                                      </property>
                                      <property name="minimumSize">
                                       <size>
@@ -11983,25 +11966,13 @@ QPushButton:pressed {
                                <property name="frameShadow">
                                 <enum>QFrame::Raised</enum>
                                </property>
-                               <layout class="QVBoxLayout" name="verticalLayout_25">
-                                <property name="leftMargin">
-                                 <number>0</number>
-                                </property>
-                                <property name="topMargin">
-                                 <number>0</number>
-                                </property>
-                                <property name="rightMargin">
-                                 <number>0</number>
-                                </property>
-                                <property name="bottomMargin">
-                                 <number>0</number>
-                                </property>
+                               <layout class="QHBoxLayout" name="horizontalLayout_53">
                                 <item>
-                                 <widget class="QLabel" name="camera_setting_picture_label">
+                                 <widget class="QLabel" name="camera_setting_picture_label_">
                                   <property name="minimumSize">
                                    <size>
-                                    <width>600</width>
-                                    <height>400</height>
+                                    <width>0</width>
+                                    <height>0</height>
                                    </size>
                                   </property>
                                   <property name="frameShape">
@@ -12020,7 +11991,44 @@ QPushButton:pressed {
                                    <pixmap>images/camera.png</pixmap>
                                   </property>
                                   <property name="scaledContents">
-                                   <bool>false</bool>
+                                   <bool>true</bool>
+                                  </property>
+                                  <property name="wordWrap">
+                                   <bool>true</bool>
+                                  </property>
+                                  <property name="margin">
+                                   <number>13</number>
+                                  </property>
+                                  <property name="indent">
+                                   <number>-1</number>
+                                  </property>
+                                 </widget>
+                                </item>
+                                <item>
+                                 <widget class="QLabel" name="camera_setting_picture_label_1">
+                                  <property name="minimumSize">
+                                   <size>
+                                    <width>0</width>
+                                    <height>0</height>
+                                   </size>
+                                  </property>
+                                  <property name="frameShape">
+                                   <enum>QFrame::Box</enum>
+                                  </property>
+                                  <property name="frameShadow">
+                                   <enum>QFrame::Sunken</enum>
+                                  </property>
+                                  <property name="lineWidth">
+                                   <number>2</number>
+                                  </property>
+                                  <property name="text">
+                                   <string/>
+                                  </property>
+                                  <property name="pixmap">
+                                   <pixmap>images/camera.png</pixmap>
+                                  </property>
+                                  <property name="scaledContents">
+                                   <bool>true</bool>
                                   </property>
                                   <property name="margin">
                                    <number>13</number>
@@ -12087,7 +12095,7 @@ QPushButton:pressed {
                                   <x>0</x>
                                   <y>0</y>
                                   <width>276</width>
-                                  <height>702</height>
+                                  <height>680</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">

@@ -709,6 +709,17 @@ class UI_main_window(QMainWindow, ui):
             else :
                 self.set_warning(texts.WARNINGS['EDIT_MODE'][self.language],'tool_page',level=2)
 
+
+        if btnName =='camera01_btn':
+            self.set_label(self.cameraname_label,'Top')
+            print('adswd',cv2.imread('images/camtop_actived.png'))
+            self.change_btn_icon(self.camera01_btn,'images/camtop_actived.png')
+            self.change_btn_icon(self.camera02_btn,'images/camside.png')
+
+        if btnName =='camera02_btn':
+            self.set_label(self.cameraname_label,'Side')
+            self.change_btn_icon(self.camera02_btn,'images/camside_actived.png')
+            self.change_btn_icon(self.camera01_btn,'images/camtop.png')
     # def set_warning(self, text, name, level=1):                            #Show warning
     #     waring_labels = {
     #         'tool_page': self.label_warning_tool_page,
@@ -918,6 +929,18 @@ class UI_main_window(QMainWindow, ui):
 
 
         label_name.setPixmap(sQPixmap.fromImage(convert_to_Qt_format))
+
+
+    def change_btn_icon(self, btn, image):
+        icon = QIcon()
+        # icon.addPixmap(QPixmap('normal.png'))
+        # icon.addPixmap(QPixmap('disabled.png'), QIcon.Disabled)
+        # icon.addPixmap(QPixmap('clicking.png'), QIcon.Active)
+        icon.addPixmap(QPixmap(image), QIcon.Normal, QIcon.On)
+        btn.setIcon(icon)
+
+
+
 
     def set_image_page_tool_labels(self,img):
 
