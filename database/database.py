@@ -7,10 +7,6 @@ from mysql.connector import Error
 
 
 
-TABELS_NAME = {'coils_info':'images',
-               }
-               
-
 class dataBase:
     def __init__(self,username,password,host,database_name):
         pass

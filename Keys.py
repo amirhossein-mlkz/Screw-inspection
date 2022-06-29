@@ -334,6 +334,11 @@ def object_dict_builder(ui_object):
                         'label_max_district_2_top':self.label_max_district_2_top,
                         'label_min_corner_2_top':self.label_min_corner_2_top,
                         'label_max_corner_2_top':self.label_max_corner_2_top,
+                        
+                        'labe_area_district_2_top':self.labe_area_district_2_top,
+                        'labe_area_corner_2_top':self.labe_area_corner_2_top,
+
+                        
                 }
             }
 
