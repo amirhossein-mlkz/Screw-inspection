@@ -382,9 +382,9 @@ class UI_main_window(QMainWindow, ui):
         # self.btn_set_corner0_2_top.clicked.connect(self.buttonClick)
         self.btn_draw_complete0_2_top.clicked.connect(self.buttonClick)
 
-        self.check_rect0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_rect0_2_top.objectName(),change_size=True))
-        self.check_circle0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_circle0_2_top.objectName(),change_size=True))
-        self.check_mask0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_mask0_2_top.objectName(),change_size=True))
+        # self.check_rect0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_rect0_2_top.objectName(),change_size=True))
+        # self.check_circle0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_circle0_2_top.objectName(),change_size=True))
+        # self.check_mask0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_mask0_2_top.objectName(),change_size=True))
 
 
         # page 1_side
@@ -859,42 +859,6 @@ class UI_main_window(QMainWindow, ui):
             except:
                 pass
 
-    def check_mask_type(self,name,change_size=False):
-
-        print('name',name)
-
-        if name=='check_rect0_2_top':
-
-            self.check_rect0_2_top.setChecked(True)
-            self.check_circle0_2_top.setChecked(False)
-            self.check_mask0_2_top.setChecked(False)
-
-            self.stackedWidget_3.setCurrentIndex(1)
-
-
-            self.selected_mask_type='rect'
-
-        elif name=='check_circle0_2_top':
-
-            self.check_rect0_2_top.setChecked(False)
-            self.check_circle0_2_top.setChecked(True)
-            self.check_mask0_2_top.setChecked(False)
-            self.stackedWidget_3.setCurrentIndex(0)
-
-            self.selected_mask_type='circle'
-            print('0'*30)
-
-        elif name=='check_mask0_2_top':
-
-            self.check_rect0_2_top.setChecked(False)
-            self.check_circle0_2_top.setChecked(False)
-            self.check_mask0_2_top.setChecked(True)
-            self.stackedWidget_3.setCurrentIndex(1)
-
-            self.selected_mask_type='poly'
-
-        if change_size:
-            self.frame_size(self.frame_54,50)
 
 
     def frame_size(self,f_name,size,both=True):
@@ -1115,10 +1079,10 @@ class UI_main_window(QMainWindow, ui):
             if page_name is None:
                 page_name =self.get_setting_page_idx(page_name=True)
             
-            
-            
-            self.sliders['{}'.format(name)]['bar_{}{}_{}'.format(name, idx, page_name)].setValue(value)
-
+            obj = self.sliders['{}'.format(name)]['bar_{}{}_{}'.format(name, idx, page_name)]
+            #obj.blockSignals(True)
+            obj.setValue(value)
+            #obj.blockSignals(False)
             # if name=='thresh' and page_name=='':
             #     self.sliders['{}'.format(name)]['bar_{}{}_{}_side'.format(name, 0, 2)].setValue(value)
             #     self.sliders['{}'.format(name)]['bar_{}{}_{}_side'.format(name, 0, 3)].setValue(value)
@@ -1260,7 +1224,9 @@ class UI_main_window(QMainWindow, ui):
             page_name =self.get_setting_page_idx(page_name=True)
         try:
             obj = self.spins['parms'][page_name]['spin_{}_{}'.format(name, page_name)]
+            obj.blockSignals(True)
             obj.setValue(value)   
+            obj.blockSignals(False)
         except:
             pass
                 
@@ -1330,7 +1296,10 @@ class UI_main_window(QMainWindow, ui):
             obj = self.checkboxes[name]['checkbox_{}{}_{}'.format(name, idx, page_name)]
         else:
             obj = self.checkboxes['other'][page_name]['checkbox_{}_{}'.format(name, page_name)]
+        
+        obj.blockSignals(True)
         obj.setChecked( value )
+        obj.blockSignals(False)
         
         
     def checkbox_connect(self, name, func, idx=0):
@@ -1360,7 +1329,9 @@ class UI_main_window(QMainWindow, ui):
                 page_name =self.get_setting_page_idx(page_name=True)
             
             obj = self.lines['{}'.format(name)]['line_{}{}_{}'.format(name, idx, page_name)]
+            obj.blockSignals(True)
             obj.setText(value)
+            obj.blockSignals(False)
     
     
     def get_line_value(self, name, page_name = None, idx=0):          
@@ -1378,6 +1349,81 @@ class UI_main_window(QMainWindow, ui):
             obj = self.lines['{}'.format(name)]['line_{}{}_{}'.format(name, idx, page_name)]
             obj.textChanged.connect(func)
     
+    #//////////////////////////////////////////////////////////////////////////////////////////////
+    def set_multi_options_value(self, group_name, option_name, change_size=False, page_name=None):
+        if page_name is None:
+            page_name =self.get_setting_page_idx(page_name=True)
+
+        for name, obj in self.multi_options[ page_name ][ group_name ]['options'].items():
+            if name == option_name:
+                obj.blockSignals(True)
+                obj.setChecked( True )
+                obj.blockSignals(False)
+            else:
+                obj.blockSignals(True)
+                obj.setChecked( False )
+                obj.blockSignals(False)
+
+        if change_size:
+            obj = self.multi_options[ page_name ][ group_name ]['frame']['obj']
+            size_ = self.multi_options[ page_name ][ group_name ]['frame']['size']
+            self.frame_size( obj, size_)
+
+
+    def get_multi_options_value(self, name, option_name, page_name=None):
+        if page_name is None:
+            page_name =self.get_setting_page_idx(page_name=True)
+
+        for name, obj in self.multi_options[ page_name ][ option_name ]['options'].items():
+            if obj.isChecked():
+                return name
+
+
+    def connect_multi_options(self, func ):
+        
+        for page_name in self.multi_options.keys():
+            for option_name in self.multi_options[ page_name ].keys():
+                for name, obj in self.multi_options[ page_name ][ option_name ]['options'].items():
+                    obj.clicked.connect( func(option_name, name) )
+
+
+
+    # def check_mask_type(self,name,change_size=False):
+
+    #     print('name',name)
+
+    #     if name=='check_rect0_2_top':
+
+    #         self.check_rect0_2_top.setChecked(True)
+    #         self.check_circle0_2_top.setChecked(False)
+    #         self.check_mask0_2_top.setChecked(False)
+
+    #         self.stackedWidget_3.setCurrentIndex(1)
+
+
+    #         self.selected_mask_type='rect'
+
+    #     elif name=='check_circle0_2_top':
+
+    #         self.check_rect0_2_top.setChecked(False)
+    #         self.check_circle0_2_top.setChecked(True)
+    #         self.check_mask0_2_top.setChecked(False)
+    #         self.stackedWidget_3.setCurrentIndex(0)
+
+    #         self.selected_mask_type='circle'
+    #         print('0'*30)
+
+    #     elif name=='check_mask0_2_top':
+
+    #         self.check_rect0_2_top.setChecked(False)
+    #         self.check_circle0_2_top.setChecked(False)
+    #         self.check_mask0_2_top.setChecked(True)
+    #         self.stackedWidget_3.setCurrentIndex(1)
+
+    #         self.selected_mask_type='poly'
+
+    #     if change_size:
+    #         self.frame_size(self.frame_54,50)
 
     #//////////////////////////////////////////////////////////////////////////////////////////////
     def connect_btn(self, name, func, idx=0):
@@ -1412,10 +1458,12 @@ class UI_main_window(QMainWindow, ui):
                 
             elif 'roi' in name:
                 self.set_roi_value(Utils.rect_list2dict(value), page_name)
-                
             
             elif 'limit' in name:
                 self.set_limit_value(value, page_name)
+
+            elif 'shape_type' in name:
+                self.set_multi_options_value( name, value )
     
 
             

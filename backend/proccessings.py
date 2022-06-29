@@ -1,7 +1,30 @@
+from cv2 import cvtColor
 from backend import mathTools, cvTools, Utils
+import cv2
 
 
 
+
+def preprocessing_top_img( img, json, direction):
+    thresh = json.get_thresh('1_{}'.format( direction ), None )
+    noise_filter = json.get_noise_filter( '1_{}'.format( direction ), None  )
+    rect_roi_main = json.get_rect_roi( '1_{}'.format( direction ), None )
+    inv_state = json.get_thresh_inv('1_{}'.format( direction ), None )
+    
+    mask_roi = cvTools.rects2mask(img.shape[:2], [rect_roi_main])
+    thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
+    thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
+    #--------------------------------------------------------------------------------------
+    #correct rotation
+    #--------------------------------------------------------------------------------------
+    thresh_img, img, div_pt = cvTools.centerise_top(thresh_img, img )
+    thresh_img = cvTools.mask_bigest_contour(thresh_img)
+
+
+    return img, thresh_img, div_pt
+
+#___________________________________________________________________________________________________________________________
+#___________________________________________________________________________________________________________________________
 #___________________________________________________________________________________________________________________________
 #
 #
@@ -10,14 +33,12 @@ from backend import mathTools, cvTools, Utils
 #
 #
 #
-#
-#
-#
-#
+#___________________________________________________________________________________________________________________________
+#___________________________________________________________________________________________________________________________
 #___________________________________________________________________________________________________________________________
 
 
-def preprocessing_img_json( img, json, direction):
+def preprocessing_side_img( img, json, direction):
     thresh = json.get_thresh('1_{}'.format( direction ), None )
     noise_filter = json.get_noise_filter( '1_{}'.format( direction ), None  )
     rect_roi_main = json.get_rect_roi( '1_{}'.format( direction ), None )

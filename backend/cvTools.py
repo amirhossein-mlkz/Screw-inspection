@@ -201,6 +201,24 @@ def shape2mask(img_size, shape, shape_type, default=255):
     return mask
 
 
+def donate2mask(img_size, circels , defualt=255):
+    mask = np.zeros(img_size, dtype=np.uint8)
+    if len(circels) == 0:
+        mask+= defualt
+        return mask
+
+    circels.sort( key = lambda x:x[1], reverse=True ) #sort by radius
+    center, r = circels[0]
+    mask = cv2.circle(mask, tuple(center), r, 255, thickness=-1)
+    if len(circels) == 2:
+        center, r = circels[1]
+        mask = cv2.circle(mask, tuple(center), r, 0, thickness=-1)
+
+    return mask
+
+
+
+
 def mask_area( img_size, out_shape, inner_shape, shape_type):
     mask = np.zeros(img_size, dtype=np.uint8)
     draw_func = shapes_drawer( shape_type, color=255, thickness=-1)
@@ -248,6 +266,16 @@ def extract_bigest_contour(mask):
     cnts = list(cnts)
     cnts.sort( key = lambda x:cv2.contourArea(x) , reverse=True)
     return cnts[0]        
+
+
+def mask_bigest_contour(mask):
+    cnts,_ = cv2.findContours(mask , cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = list(cnts)
+    cnts.sort( key = lambda x:cv2.contourArea(x) , reverse=True)
+    
+    res_mask = np.zeros_like(mask)
+    return cv2.drawContours(res_mask, cnts, 0, 255, thickness=-1)
+    
 
 def rotate_image(image, angle):
     image_center = tuple(np.array(image.shape[1::-1]) / 2)
@@ -595,6 +623,10 @@ def draw_head_diameter(img, pt1, pt2, color, thickness=3, line_lenght=10):
     return img
 
 
+def draw_cnt( img, cnt, color, thickness=5):
+    return cv2.drawContours(img, [cnt], 0, color, thickness=thickness)
+
+
 
 def poly_fit_image(cnt, border=50, draw=True ):
     cnt = np.copy(cnt)
@@ -636,8 +668,8 @@ def diameters_measurment(mask, cnt, angles):
     return np.array(corners_dist)
 
 
-@time_measure
-def poly6_measument(cnt):
+#@time_measure
+def hexagonal_measument(cnt):
     
     cnt, poly_img = poly_fit_image(cnt)
     rect = cv2.minAreaRect(cnt)
@@ -659,14 +691,28 @@ def poly6_measument(cnt):
     
     return corner_distance, edge_distance
 
-@time_measure
+#@time_measure
 def circel_measument(cnt):
     
     cnt, poly_img = poly_fit_image(cnt)
 
     diameters = diameters_measurment(poly_img, cnt, range(0,180,5))
     return diameters
-    
+
+
+def get_top_region_cnt(img, thresh, thresh_inv, roi_mask):
+    thresh_mask = threshould(img, thresh, mask_roi=None, inv= thresh_inv )
+    thresh_mask = cv2.bitwise_and( thresh_mask, thresh_mask, mask= roi_mask )
+    thresh_mask = filter_noise_area(thresh_mask, 20)
+
+    cnts, hs = cv2.findContours(thresh_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    cnts = list(cnts)
+    cnts.sort( key = lambda x:cv2.contourArea(x) , reverse = True )
+        
+    biggest_cnt = cnts[0]
+    return biggest_cnt
+        
+
     
     
 if __name__ == '__main__':
@@ -747,7 +793,7 @@ if __name__ == '__main__':
     #     cv2.imshow('test_img', cv2.resize(test_img, None, fx=0.5, fy=0.5))
     #     cv2.waitKey(0)
     poly_cnt = regions[1]   
-    cd,ed = poly6_measument(poly_cnt)     
+    cd,ed = hexagonal_measument(poly_cnt)     
     dd = circel_measument(regions[0])
     a = True
     #cv2.imshow('poly_img', cv2.resize(poly_img, None, fx=0.5, fy=0.5))

@@ -21,6 +21,27 @@ def object_dict_builder(ui_object):
 
     self=ui_object
 
+    self.multi_options = {
+        '2_top':
+        {
+            'shape_type':
+            {
+                'options':{
+                    'circel': self.check_circle_2_top,
+                    'rect': self.check_rect_2_top,
+                    'hexagonal': self.check_hexagonal_2_top,
+                },
+                'frame':
+                {
+                    'obj':self.frame_54,
+                    'size':50,
+                },
+            },
+        }
+    }
+
+
+
     self.sliders={
         'thresh':{
             'bar_thresh0_1_top':self.bar_thresh0_1_top,
@@ -109,6 +130,13 @@ def object_dict_builder(ui_object):
         'limit':{
             
             'min':{
+
+                '2_top':
+                {
+                    'spin_min_diameter_2_top': self.spin_min_diameter_2_top,
+                    'spin_min_district_2_top': self.spin_min_district_2_top,
+                    'spin_min_corner_2_top': self.spin_min_corner_2_top
+                },
                 
                 '2_side':{
                     'spin_min_lenght_2_side':self.spin_min_lenght_2_side,
@@ -130,13 +158,18 @@ def object_dict_builder(ui_object):
                     
                 },   
 
-                '2_top':{
-                    'spin_min_diameter_2_top':self.spin_min_diameter_2_top,
-                }
+
 
 
             },
             'max':{
+
+                '2_top':
+                {
+                    'spin_max_diameter_2_top': self.spin_max_diameter_2_top,
+                    'spin_max_district_2_top': self.spin_max_district_2_top,
+                    'spin_max_corner_2_top': self.spin_max_corner_2_top
+                },
                 
                 '2_side':{
                     'spin_max_lenght_2_side':self.spin_max_lenght_2_side,
@@ -157,10 +190,6 @@ def object_dict_builder(ui_object):
                 
                 },
 
-
-                '2_top':{
-                    'spin_max_diameter_2_top':self.spin_max_diameter_2_top,
-                }
 
             }
         },
@@ -335,8 +364,8 @@ def object_dict_builder(ui_object):
                         'label_min_corner_2_top':self.label_min_corner_2_top,
                         'label_max_corner_2_top':self.label_max_corner_2_top,
                         
-                        'labe_area_district_2_top':self.labe_area_district_2_top,
-                        'labe_area_corner_2_top':self.labe_area_corner_2_top,
+                        #'labe_area_district_2_top':self.labe_area_district_2_top,
+                        #'labe_area_corner_2_top':self.labe_area_corner_2_top,
 
                         
                 }

@@ -1,0 +1,27 @@
+{
+    "active_tools": [
+        "1_side",
+        "3_side"
+    ],
+    "direction": "side",
+    "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/New folder/31x_1_2.png",
+    "name": "P1",
+    "settings": {
+        "1_side": {
+            "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/New folder/31x_1_2.png",
+            "noise_filter0": 25,
+            "rect_roi0": [
+                [
+                    0,
+                    122
+                ],
+                [
+                    1301,
+                    451
+                ]
+            ],
+            "thresh0": 62,
+            "thresh_inv0": true
+        }
+    }
+}
