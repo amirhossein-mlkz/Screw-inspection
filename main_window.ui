@@ -4492,7 +4492,7 @@ QPushButton:disabled{
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>2</number>
+                                   <number>8</number>
                                   </property>
                                   <widget class="QWidget" name="page"/>
                                   <widget class="QWidget" name="page_1_top">
@@ -9179,7 +9179,7 @@ QPushButton:disabled{
                                          </property>
                                          <layout class="QHBoxLayout" name="horizontalLayout_79">
                                           <item alignment="Qt::AlignHCenter">
-                                           <widget class="QRadioButton" name="btn_belt_5_side">
+                                           <widget class="QRadioButton" name="checkbox_belt_5_side">
                                             <property name="text">
                                              <string>From Belt</string>
                                             </property>

@@ -2,12 +2,35 @@ import os
 import shutil
 import cv2
 import time
-
+from datetime import datetime
 
 PATH = 'database/screws'
 def get_screw_path(name):
     return os.path.join(PATH, name)
 
+
+def save_image(img, main_path, screw_name, direction):
+    path = os.path.join(main_path, screw_name)
+    if not os.path.isdir(path):
+        os.mkdir(path)
+    
+    path = os.path.join( path, direction )
+    if not os.path.isdir(path):
+        os.mkdir(path)
+    
+    idx = len(os.listdir(path))
+    now = datetime.now()
+    
+    name = '{idx}_{year}-{month}-{day}__{hour}-{minute}.bmp'.format( idx = idx,
+                                                                   year = now.year,
+                                                                   month = now.month,
+                                                                   day = now.day, 
+                                                                   hour = now.hour,
+                                                                   minute = now.minute,   )
+
+    path = os.path.join(path, name )
+    cv2.imwrite(path, img)
+    
 
 
 def get_screws_list():

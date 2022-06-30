@@ -22,6 +22,35 @@
             ],
             "thresh0": 62,
             "thresh_inv0": true
+        },
+        "3_side": {
+            "jump_thresh": 5,
+            "rect_roi0": [
+                [
+                    115,
+                    148
+                ],
+                [
+                    770,
+                    425
+                ]
+            ]
+        },
+        "4_side": {},
+        "5_side": {
+            "edge_direction": "bottom",
+            "from_belt": true,
+            "jump_thresh": 20,
+            "rect_roi0": [
+                [
+                    1072,
+                    205
+                ],
+                [
+                    1320,
+                    487
+                ]
+            ]
         }
     }
 }

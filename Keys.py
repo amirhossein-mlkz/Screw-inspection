@@ -37,7 +37,27 @@ def object_dict_builder(ui_object):
                     'size':50,
                 },
             },
+        },
+
+
+        '5_side':
+        {
+            'edge_direction':
+            {
+                'options':{
+                    'top': self.btn_top_5_side,
+                    'bottom': self.btn_bottom_5_side,
+                },
+                'frame':
+                {
+                    'obj':self.frame_54,
+                    'size':50,
+                },
+            },
         }
+
+
+        
     }
 
 
@@ -236,7 +256,10 @@ def object_dict_builder(ui_object):
             '3_side':{
                 'checkbox_navel_3_side':self.checkbox_navel_3_side,
             },
-             
+            
+            '5_side':{
+                'checkbox_from_belt_5_side': self.checkbox_belt_5_side,
+            },
             
         },       
     }

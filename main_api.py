@@ -21,6 +21,7 @@
 ################################
 
 from cmath import inf
+from unittest.mock import DEFAULT
 from PySide6 import QtCore as sQtCore
 from functools import partial
 import numpy as np
@@ -43,6 +44,10 @@ from database import database, dbUtils, screwDB
 import copy
 import platform
 from Keys import set_dimensions
+
+
+DEFAULT_SCERW_PATH = 'database\defualt_screw'
+
 class API:
 
     def __init__(self,ui):
@@ -583,6 +588,12 @@ class API:
         self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
         self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
         
+        for direction in ['top', 'side']:
+            try:
+                self.screw_jasons[direction].read(DEFAULT_SCERW_PATH, direction)
+            except:
+                print("Error: Couldn't Load defualt parms")
+
         for key in self.screw_jasons.keys():
             path = dbUtils.get_screw_path( name )
             self.screw_jasons[key].set_name(name)
@@ -1021,6 +1032,8 @@ class API:
 
         thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
+        #cv2.imshow('thresh_img', thresh_img)
+        #cv2.waitKey(0)
         cnt = cvTools.extract_bigest_contour(thresh_img)
         #--------------------------------------------------------------------------------------
         info = {}
@@ -1177,7 +1190,7 @@ class API:
         rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
         jump_thresh = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'jump_thresh')
         if Utils.is_rect(rect_roi_2):
-            male_thread_l, male_thread_h = cvTools.find_screw_thread_top( thresh_img, rect_roi_2,  min_diff=jump_thresh)
+            male_thread_h, male_thread_l = cvTools.find_screw_thread_top( thresh_img, rect_roi_2,  min_diff=jump_thresh)
             
             min_d,max_d, avg_d,_ = mathTools.vertical_distance( male_thread_h, male_thread_l )
             _,_,avg_l,_  = mathTools.thread_lenght( male_thread_h )
@@ -1187,7 +1200,6 @@ class API:
             
             img = cvTools.draw_points(img, male_thread_h, (0,50,150), 5)
             img = cvTools.draw_points(img, male_thread_l, (200,0,200), 5)
-        
         
 
         img = self.rect_roi_drawing.get_image(img)
@@ -1243,13 +1255,18 @@ class API:
         #--------------------------------------------------------------------------------------
         rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name, )
         jump_thresh = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'jump_thresh')
+        edge_direction = self.screw_jasons[ direction ].get_multi_option( page_name, subpage_name, 'edge_direction' )
+        from_belt = self.screw_jasons[ direction ].get_checkbox( page_name, subpage_name, 'from_belt')
+        print('belt', from_belt)
+        print(edge_direction)
+
         if Utils.is_rect(rect_roi_2):
-            left_pts, right_pts = cvTools.find_head_vertival_pts(thresh_img, rect_roi_2, jump_thresh, 0.25)
+            left_pts, right_pts = cvTools.find_head_vertival_pts(thresh_img, rect_roi_2, jump_thresh, 0.25, side=edge_direction , from_belt=from_belt)
             if len(left_pts) > 0 and len(right_pts) > 0:
                 img = cvTools.draw_vertical_point( img, [left_pts, right_pts], (50,255,0), thicknes=5 )
-
+                img[ rect_roi_2[0][1]:rect_roi_2[1][1], left_pts[0,0] ] =  (50,255,0) #draw full line
                 min_dist, max_dist, avg_dist, _ = mathTools.horizontal_distance( left_pts, right_pts )
-                print(min_dist, max_dist, avg_dist)
+
                 info = {'min_head_height' : min_dist, 'max_head_height': max_dist, 'avg_head_height': avg_dist}                
                 self.ui.set_stetting_page_label_info(info)           
         

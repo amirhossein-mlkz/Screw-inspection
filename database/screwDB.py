@@ -132,12 +132,12 @@ class screwJson():
         return self.get_value( page, subpage, name, False)
 
     #-----------------------------------------
-    def set_checkbox(self, page, subpage, name, value, idx=0):
+    def set_checkbox(self, page, subpage, name, value):
         self.set_value( page, subpage, name, value)
         
         
         
-    def get_checkbox(self, page, subpage,name,  idx=0):
+    def get_checkbox(self, page, subpage,name):
         return self.get_value( page, subpage, name, False)
     
     #-----------------------------------------

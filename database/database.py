@@ -6,7 +6,6 @@ import mysql.connector
 from mysql.connector import Error
 
 
-
 class dataBase:
     def __init__(self,username,password,host,database_name):
         pass

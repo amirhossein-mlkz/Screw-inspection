@@ -121,17 +121,18 @@ def remove_belt(mask, rect_roi, thresh=0.6 , left_margin = 30 , right_margin = 1
     cols_sum = np.sum(crop_mask, axis = 0) / h / 255
     idxs = np.argwhere( cols_sum > thresh )
     
-    start_idx = idxs.min() - left_margin
-    end_idx = idxs.max() + right_margin
+    if len(idxs)>10:
+        start_idx = idxs.min() - left_margin
+        end_idx = idxs.max() + right_margin
     
-    start_idx += rect_roi[0][0]
-    end_idx += rect_roi[0][0]
+        start_idx += rect_roi[0][0]
+        end_idx += rect_roi[0][0]
     
-    res_mask = np.copy( mask )
-    res_mask[:,start_idx:end_idx] = 0
+        res_mask = np.copy( mask )
+        res_mask[:,start_idx:end_idx] = 0
 
-    return res_mask, (start_idx , end_idx)
-
+        return res_mask, (start_idx , end_idx)
+    return mask, (0,0)
 
 
 
@@ -384,15 +385,22 @@ def side_screw_bounding_rect(mask):
 
 
 def find_screw_thread_top(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
+    
     ys, xs = np.nonzero( crop_rect( mask, rect_roi ) )
     pts = np.vstack((xs,ys)).transpose()
     up_edge_pts = np.array ( pd.DataFrame(pts).groupby(0).min().reset_index().values.tolist()) #return point with min y and same x
     
+    
+    # mask_test = np.zeros_like(crop_rect( mask, rect_roi ))
+    # mask_test[ up_edge_pts[:,1], up_edge_pts[:,0]] = 255
+    # cv2.imshow('mask_test',mask_test)
+    # cv2.waitKey(10)
+
     rezve_pts_h = []
     rezve_pts_l = []
     
-    max_pt = up_edge_pts[0]
-    min_pt = up_edge_pts[0]
+    max_pt = [0, np.inf]
+    min_pt = [0, np.inf * -1 ] 
     iter = 0
     find_max = True
     for i in range(1,len(up_edge_pts)):
@@ -436,6 +444,82 @@ def find_screw_thread_top(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
     
     return [],[]
 
+# def find_screw_thread_top(mask , rect_roi,  min_diff = 5, max_bad_iter = 5, direction='top' ):
+#     ys, xs = np.nonzero( crop_rect( mask, rect_roi ) )
+#     pts = np.vstack((xs,ys)).transpose()
+#     if direction == 'top':
+#         edge_pts = np.array( pd.DataFrame(pts).groupby(0).min().reset_index().values.tolist() ) #return point with min y and same x
+    
+#     points_count = len(edge_pts)
+#     mean_y = int(edge_pts[ points_count//2: , 1 ].mean())
+
+#     idx0 = -1
+#     idx1 = -1
+#     max_pt = [0, np.inf * -1]
+#     min_pt = [0, np.inf ] 
+    
+#     rezve_pts_h = []
+#     rezve_pts_l = []
+#     what_find = ''
+#     for i in range(len(edge_pts)):
+         
+#         if edge_pts[i][1] > mean_y and what_find=='':
+#             what_find = 'low'
+#             idx0 = i
+        
+#         elif edge_pts[i][1] < mean_y and what_find=='':
+#             what_find == 'high'
+#             idx0 = i
+        
+#         if what_find == 'high'
+        
+        
+#         if idx0 == -1:
+#             idx0 = i
+#         else:
+#                 idx1 = i
+#         #      *        *
+#         #     * *      * *
+#         #  --*---*----*---*------> mean_y
+#         #         *  *     *
+#         #          *        *
+
+#         if idx0!=-1 and idx1==-1:
+#             if edge_pts[i][1] <= min_pt[1]:
+#                 min_pt[1] = edge_pts[i][1]
+#                 min_pt[0] = i
+
+
+#             if edge_pts[i][1] >= max_pt[1]:
+#                 max_pt[1] = edge_pts[i][1]
+#                 max_pt[0] = i
+        
+        
+#         if idx0 > 0 and idx1 > 0:
+#             print(idx0, idx1, max_pt, min_pt, mean_y)
+#             if abs(mean_y - max_pt[1]) > min_diff /2:
+#                 print('max')
+#                 rezve_pts_l.append( copy.copy(max_pt) )
+#                 max_pt = [0, np.inf * -1]
+            
+#             elif abs(mean_y - min_pt[1]) > min_diff /2:
+#                 print('min')
+#                 rezve_pts_h.append( copy.copy(min_pt) )
+#                 min_pt = [0, np.inf ] 
+            
+#             idx0 = idx1
+#             idx1 = -1
+    
+    
+#     rezve_pts_l, rezve_pts_h = np.array(rezve_pts_l), np.array(rezve_pts_h)          
+#     if len(rezve_pts_h) > 0 and len(rezve_pts_l) > 0:
+#         start_point = np.array(rect_roi[0])
+#         rezve_pts_l = rezve_pts_l + start_point
+#         rezve_pts_h = rezve_pts_h + start_point
+#     return rezve_pts_l, rezve_pts_h #, mean_y + start_point[1]
+
+
+    
 
 def find_screw_thread_down(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
     ys, xs = np.nonzero( crop_rect( mask, rect_roi ) )
@@ -490,8 +574,9 @@ def find_screw_thread_down(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
     
     return [],[]
 
-def find_head_vertival_pts(mask, rect_roi, jump_thresh = 10, percentage=0.5, side='bottom'):
-    ys, xs = np.nonzero( crop_rect( mask, rect_roi ) )
+def find_head_vertival_pts(mask, rect_roi, jump_thresh = 10, percentage=0.5, side='bottom', from_belt=False):
+    crop_mask = crop_rect( mask, rect_roi ) 
+    ys, xs = np.nonzero( crop_mask )
     pts = np.vstack((xs,ys)).transpose()
     start_point = np.array(rect_roi[0])
 
@@ -518,22 +603,36 @@ def find_head_vertival_pts(mask, rect_roi, jump_thresh = 10, percentage=0.5, sid
         top_head_pts = right_pts[ int(start_top_idx1 + len_top * (1-percentage)/2) : int(start_top_idx2 - len_top * (1-percentage)/2)]
 
         #----------------------------------------------------------------------------
-        if side == 'top':
-            _pts_ = np.array ( pd.DataFrame(pts).groupby(0).min().reset_index().values.tolist()) 
-            _pts_ = start_point + _pts_
+        if not from_belt:
+            if side == 'top':
+                _pts_ = np.array ( pd.DataFrame(pts).groupby(0).min().reset_index().values.tolist()) 
+                _pts_ = start_point + _pts_
 
+            else:
+                _pts_ = np.array ( pd.DataFrame(pts).groupby(0).max().reset_index().values.tolist()) 
+                _pts_ = start_point + _pts_
+
+            points_cout = len(_pts_)
+            h_pt2 = _pts_[0]
+            step = 3
+            for i in range(points_cout-10, step, -1):
+                if abs( _pts_[i , 1] - _pts_[i-step:i, 1 ].mean()  ) > jump_thresh:
+                    h_pt2 = _pts_[i]
+                    break
+        
         else:
-            _pts_ = np.array ( pd.DataFrame(pts).groupby(0).max().reset_index().values.tolist()) 
-            _pts_ = start_point + _pts_
-
-        points_cout = len(_pts_)
-        h_pt2 = _pts_[0]
-        step = 3
-        for i in range(points_cout-10, step, -1):
-            if abs( _pts_[i , 1] - _pts_[i-step:i, 1 ].mean()  ) > jump_thresh:
-                h_pt2 = _pts_[i]
-                break
-
+            h,w = crop_mask.shape
+            for i in range(w):
+                count_nonzero = 0
+                if side == 'top':
+                    count_nonzero = np.count_nonzero( crop_mask[:10, i] )
+                        
+                elif side == 'bottom':
+                    count_nonzero = np.count_nonzero( crop_mask[-10:h, i] )
+                
+                if count_nonzero<7:
+                    h_pt2 = [ i + start_point[0]]
+                    break
 
         bottom_head_pts = np.copy(top_head_pts)
         bottom_head_pts[:,0] = h_pt2[0]  

@@ -1083,30 +1083,18 @@ class UI_main_window(QMainWindow, ui):
             #obj.blockSignals(True)
             obj.setValue(value)
             #obj.blockSignals(False)
-            # if name=='thresh' and page_name=='':
-            #     self.sliders['{}'.format(name)]['bar_{}{}_{}_side'.format(name, 0, 2)].setValue(value)
-            #     self.sliders['{}'.format(name)]['bar_{}{}_{}_side'.format(name, 0, 3)].setValue(value)
-            #     self.sliders['{}'.format(name)]['bar_{}{}_{}_side'.format(name, 0, 4)].setValue(value)
 
-                # for page_name in self.pages_name_dict:
-                #     print('page',page_name)
-                #     try:
-                #         self.sliders['{}'.format(name)]['bar_{}{}_{}_side'.format(name, idx, page_name)].setValue(value)
-                #         print(self.sliders['{}'.format(name)]['bar_{}{}_{}'.format(name, idx, page_name)],self.sliders['{}'.format(name)]['bar_{}{}_{}'.format(name, idx, page_name)].value())
-                #     except:
-                #         print('eror')
-                #         pass
+
+    def set_sliders_defualt(self, name, value=0):
+        for name,obj in self.sliders[name]:
+            obj.setValue(value)
 
 
     def connect_sliders(self,name,func):
         # self.connect_slider_ui()
 
         for obj_name in self.sliders[name]:
-
-            # print(obj_name)
-        
             self.sliders[name][obj_name].valueChanged.connect(func)
-            # self.bar_thresh0_2_side.valueChanged.connect(self.set_value_main_thresh)
 
     #///////////////////////////////////////////////////////////////////////////// 
     #ROI utils -----------------------------------------------------------------------------------
@@ -1547,6 +1535,11 @@ class UI_main_window(QMainWindow, ui):
     
         return{'limit_1_plc':limit_1,'limit_2_plc':limit_2,'down_motor_plc':line_down_motor_plc,'top_motor_plc':line_top_motor_plc}
 
+
+    def set_tools_defualt(self):
+        self.set_sliders_defualt('thresh', 0)
+        self.set_sliders_defualt('noise_filter', 0)
+    
 
 if __name__ == "__main__":
     app = QApplication()

@@ -1,0 +1,27 @@
+{
+    "active_tools": [
+        "1_side",
+        "3_side"
+    ],
+    "direction": "side",
+    "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/top/Image__2047-01-06__11-51-59.bmp",
+    "name": "P2",
+    "settings": {
+        "1_side": {
+            "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/top/Image__2047-01-06__11-51-59.bmp",
+            "rect_roi0": [
+                [
+                    523,
+                    273
+                ],
+                [
+                    1242,
+                    965
+                ]
+            ],
+            "thresh0": 134
+        },
+        "4_side": {},
+        "6_side": {}
+    }
+}
