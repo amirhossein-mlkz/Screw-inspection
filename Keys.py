@@ -216,6 +216,10 @@ def object_dict_builder(ui_object):
 
 
         'parms':{
+
+            '3_top':{
+            'spin_min_area_3_top':self.spin_min_area_3_top
+            },
             
             '3_side':{
             'spin_jump_thresh_3_side':self.spin_jump_thresh_3_side

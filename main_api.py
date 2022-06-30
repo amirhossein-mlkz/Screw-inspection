@@ -24,6 +24,8 @@ from cmath import inf
 from unittest.mock import DEFAULT
 from PySide6 import QtCore as sQtCore
 from functools import partial
+from cv2 import cvtColor
+from matplotlib.pyplot import gray
 import numpy as np
 import random
 
@@ -994,9 +996,26 @@ class API:
         
 
         mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
+        # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        # #gray = cv2.blur(gray, (5,5))
+        # gray = cv2.equalizeHist(gray)
+        
+        # cv2.imshow('gray', gray)
+        # cv2.waitKey(5)
+
         thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
+        
+        #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        # thresh_img= cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, int(thresh*2+1), 1)
+        # thresh_img = cv2.bitwise_and(thresh_img, mask_roi)
+        
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
         
+        #cv2.imshow('mask1', thresh_img)
+        #thresh_img = cvTools.morph_correction(thresh_img, 25, 3)
+        #thresh_img = cvTools.cnt_correction(thresh_img, 0.005)
+        #cv2.imshow('thresh_img', thresh_img)
+        #cv2.waitKey(10)
         
         if self.ui.is_drawing_mask_enabel():
             img = Utils.mask_viewer(img, thresh_img)
@@ -1032,8 +1051,10 @@ class API:
 
         thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
-        #cv2.imshow('thresh_img', thresh_img)
-        #cv2.waitKey(0)
+        # cv2.imshow('mask1', thresh_img)
+        # thresh_img = cvTools.morph_correction(thresh_img, 5)
+        # cv2.imshow('thresh_img', thresh_img)
+        # cv2.waitKey(10)
         cnt = cvTools.extract_bigest_contour(thresh_img)
         #--------------------------------------------------------------------------------------
         info = {}
@@ -1077,7 +1098,7 @@ class API:
         img = np.copy(self.current_image_screw)
         json = self.screw_jasons[ direction ]
         img, mask_roi, _ = proccessings.preprocessing_top_img( img, json, direction  )
-                
+        
         #--------------------------------------------------------------------------------------
         #specific Operation
         #--------------------------------------------------------------------------------------
@@ -1085,11 +1106,16 @@ class API:
         noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
         inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
         circels_roi = self.screw_jasons[ direction ].get_circels_roi(page_name, subpage_name)
-
+        min_area_lake = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'min_area')
+        
         thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
         mask_roi = cvTools.donate2mask(thresh_img.shape, circels_roi, 255)
         thresh_img = cv2.bitwise_and(thresh_img, mask_roi)
+        
+        thresh_img = cvTools.filter_area(thresh_img, min_area_lake)
+
+        print(min_area_lake)
         #------------------------------------------------------------------------------------
         area = np.count_nonzero(thresh_img)
         info = {'area': area}

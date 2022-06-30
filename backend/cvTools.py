@@ -50,6 +50,20 @@ def threshould(img, thresh , mask_roi = None, inv=False):
 
 
 
+def morph_correction(mask, iter, kernel_size=3):
+    kernel = np.ones((kernel_size,kernel_size))
+    mask = cv2.dilate(mask, kernel=kernel, iterations=iter)
+    mask = cv2.erode(mask, kernel=kernel, iterations=iter)
+    return mask
+
+
+def cnt_correction(mask, approx=0.005):
+    cnt = extract_bigest_contour(mask)
+    cntlen=cv2.arcLength (cnt ,True)
+    approxCnt=cv2.approxPolyDP(cnt , cntlen*approx, True)
+    mask = cv2.drawContours( mask, [approxCnt], 0, 255, thickness=-1)
+    return mask
+
 
 def adp_threshould(img, bsize , c,  mask_roi = None, thresh_inv = False):
     if len(img.shape) == 3:
@@ -140,7 +154,7 @@ def filter_noise_area(mask, noise_filter=0):
     
     h,w = mask.shape[:2]
     area = h * w
-    noise_area = area / 10 * (noise_filter/100) #Optioanl Formula
+    noise_area = area / 5 * (noise_filter/100) #Optioanl Formula
     cnts,_ = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
     cnts = list(cnts)
     res_cnts = list( filter(lambda x: cv2.contourArea(x)>noise_area , cnts) )
@@ -149,6 +163,11 @@ def filter_noise_area(mask, noise_filter=0):
     return res_mask
 
 
+def filter_area(mask, min_area):
+    cnts, h = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = list(filter( lambda x:cv2.contourArea(x)>min_area, cnts ))
+    res_mask = np.zeros_like(mask)
+    return cv2.drawContours(res_mask, cnts,-1, 255, thickness=-1)
 
 
 
