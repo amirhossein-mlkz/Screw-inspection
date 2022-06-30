@@ -101,7 +101,8 @@ class UI_main_window(QMainWindow, ui):
 
 
         self.side_buttons = [self.side_camera_setting_btn, self.side_tool_setting_btn\
-                            ,self.side_users_setting_btn,self.side_general_setting_btn, self.side_dashboard_btn]
+                            ,self.side_users_setting_btn,self.side_general_setting_btn\
+                                , self.side_dashboard_btn,self.side_calibration_setting_btn]
 
         # camera variable parameters ids in the camera-settings section of the UI 
         self.camera_params = [self.gain_spinbox, self.expo_spinbox, self.width_spinbox\
@@ -333,6 +334,7 @@ class UI_main_window(QMainWindow, ui):
 
         self.side_camera_setting_btn.clicked.connect(self.buttonClick)
         self.side_dashboard_btn.clicked.connect(self.buttonClick)
+        self.side_calibration_setting_btn.clicked.connect(self.buttonClick)
 
         self.side_tool_setting_btn.clicked.connect(self.buttonClick)
         self.side_general_setting_btn.clicked.connect(self.buttonClick)
@@ -635,11 +637,11 @@ class UI_main_window(QMainWindow, ui):
 
     def clear_side_btns(self,current_page):
 
-        self.white_side_images_path=['images/setting_main_window/dashboard_white.png','images/setting_main_window/calibration_setting_white.png',\
-            'images/setting_main_window/camera_setting_white.png','images/setting_main_window/users_setting_white.png','images/setting_main_window/general_setting_white.png']
+        self.white_side_images_path=['images/setting_main_window/dashboard_white.png','images/setting_main_window/defects_setting_white.png',\
+            'images/setting_main_window/camera_setting_white.png','images/setting_main_window/calibration_setting_white.png','images/setting_main_window/users_setting_white.png','images/setting_main_window/general_setting_white.png']
 
         self.side_buttons = [ self.side_dashboard_btn, self.side_tool_setting_btn,self.side_camera_setting_btn\
-                    ,self.side_users_setting_btn,self.side_general_setting_btn,]
+                    ,self.side_calibration_setting_btn,self.side_users_setting_btn,self.side_general_setting_btn,]
 
         for i in range(len(self.side_buttons)):
 
@@ -674,7 +676,7 @@ class UI_main_window(QMainWindow, ui):
 
         if btnName =='side_users_setting_btn' :
 
-            self.clear_side_btns(current_page=3)
+            self.clear_side_btns(current_page=4)
 
 
             self.stackedWidget.setCurrentWidget(self.page_users_setting)
@@ -688,9 +690,18 @@ class UI_main_window(QMainWindow, ui):
 
         
         if btnName =='side_general_setting_btn' :
-            self.clear_side_btns(current_page=4)
+            self.clear_side_btns(current_page=5)
 
             self.stackedWidget.setCurrentWidget(self.page_settings)
+
+
+        
+        if btnName =='side_calibration_setting_btn' :
+            self.clear_side_btns(current_page=3)
+
+            self.stackedWidget.setCurrentWidget(self.page_calibration)
+
+
 
         if btnName =='edit_remove_btn' :
             if self.editmode==False:
