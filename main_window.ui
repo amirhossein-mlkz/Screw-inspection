@@ -2227,7 +2227,7 @@ QPushButton:hover {
                          <string notr="true">background-color : #F3F6FE;</string>
                         </property>
                         <property name="currentIndex">
-                         <number>3</number>
+                         <number>1</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -4819,7 +4819,7 @@ QPushButton:disabled{
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>4</number>
+                                   <number>2</number>
                                   </property>
                                   <widget class="QWidget" name="page"/>
                                   <widget class="QWidget" name="page_1_top">
@@ -5740,7 +5740,7 @@ QPushButton:disabled{
                                          <property name="minimumSize">
                                           <size>
                                            <width>0</width>
-                                           <height>145</height>
+                                           <height>100</height>
                                           </size>
                                          </property>
                                          <property name="currentIndex">
@@ -5915,7 +5915,13 @@ QPushButton:disabled{
                                              <property name="minimumSize">
                                               <size>
                                                <width>0</width>
-                                               <height>44</height>
+                                               <height>50</height>
+                                              </size>
+                                             </property>
+                                             <property name="maximumSize">
+                                              <size>
+                                               <width>16777215</width>
+                                               <height>50</height>
                                               </size>
                                              </property>
                                              <property name="frameShape">
@@ -5981,7 +5987,13 @@ QPushButton:disabled{
                                              <property name="minimumSize">
                                               <size>
                                                <width>0</width>
-                                               <height>43</height>
+                                               <height>30</height>
+                                              </size>
+                                             </property>
+                                             <property name="maximumSize">
+                                              <size>
+                                               <width>16777215</width>
+                                               <height>30</height>
                                               </size>
                                              </property>
                                              <property name="frameShape">
@@ -6005,6 +6017,18 @@ QPushButton:disabled{
                                               </property>
                                               <item>
                                                <widget class="QFrame" name="frame_153">
+                                                <property name="minimumSize">
+                                                 <size>
+                                                  <width>0</width>
+                                                  <height>50</height>
+                                                 </size>
+                                                </property>
+                                                <property name="maximumSize">
+                                                 <size>
+                                                  <width>16777215</width>
+                                                  <height>50</height>
+                                                 </size>
+                                                </property>
                                                 <property name="frameShape">
                                                  <enum>QFrame::StyledPanel</enum>
                                                 </property>
@@ -6082,7 +6106,13 @@ QPushButton:disabled{
                                              <property name="minimumSize">
                                               <size>
                                                <width>0</width>
-                                               <height>44</height>
+                                               <height>50</height>
+                                              </size>
+                                             </property>
+                                             <property name="maximumSize">
+                                              <size>
+                                               <width>16777215</width>
+                                               <height>50</height>
                                               </size>
                                              </property>
                                              <property name="frameShape">
@@ -6145,6 +6175,18 @@ QPushButton:disabled{
                                            </item>
                                            <item>
                                             <widget class="QFrame" name="frame_154">
+                                             <property name="minimumSize">
+                                              <size>
+                                               <width>0</width>
+                                               <height>50</height>
+                                              </size>
+                                             </property>
+                                             <property name="maximumSize">
+                                              <size>
+                                               <width>16777215</width>
+                                               <height>50</height>
+                                              </size>
+                                             </property>
                                              <property name="frameShape">
                                               <enum>QFrame::StyledPanel</enum>
                                              </property>

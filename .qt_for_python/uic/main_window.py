@@ -2774,7 +2774,7 @@ class Ui_MainWindow(object):
 
         self.stackedWidget_3 = QStackedWidget(self.frame_52)
         self.stackedWidget_3.setObjectName(u"stackedWidget_3")
-        self.stackedWidget_3.setMinimumSize(QSize(0, 145))
+        self.stackedWidget_3.setMinimumSize(QSize(0, 100))
         self.page_circle = QWidget()
         self.page_circle.setObjectName(u"page_circle")
         self.verticalLayout_41 = QVBoxLayout(self.page_circle)
@@ -2875,7 +2875,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_43.setObjectName(u"verticalLayout_43")
         self.frame_163 = QFrame(self.page_rect_mask)
         self.frame_163.setObjectName(u"frame_163")
-        self.frame_163.setMinimumSize(QSize(0, 44))
+        self.frame_163.setMinimumSize(QSize(0, 50))
+        self.frame_163.setMaximumSize(QSize(16777215, 50))
         self.frame_163.setFrameShape(QFrame.StyledPanel)
         self.frame_163.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_172 = QHBoxLayout(self.frame_163)
@@ -2914,7 +2915,8 @@ class Ui_MainWindow(object):
 
         self.frame_152 = QFrame(self.page_rect_mask)
         self.frame_152.setObjectName(u"frame_152")
-        self.frame_152.setMinimumSize(QSize(0, 43))
+        self.frame_152.setMinimumSize(QSize(0, 30))
+        self.frame_152.setMaximumSize(QSize(16777215, 30))
         self.frame_152.setFrameShape(QFrame.StyledPanel)
         self.frame_152.setFrameShadow(QFrame.Raised)
         self.verticalLayout_25 = QVBoxLayout(self.frame_152)
@@ -2922,6 +2924,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_25.setContentsMargins(0, 0, 0, 0)
         self.frame_153 = QFrame(self.frame_152)
         self.frame_153.setObjectName(u"frame_153")
+        self.frame_153.setMinimumSize(QSize(0, 50))
+        self.frame_153.setMaximumSize(QSize(16777215, 50))
         self.frame_153.setFrameShape(QFrame.StyledPanel)
         self.frame_153.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_175 = QHBoxLayout(self.frame_153)
@@ -2966,7 +2970,8 @@ class Ui_MainWindow(object):
 
         self.frame_165 = QFrame(self.page_rect_mask)
         self.frame_165.setObjectName(u"frame_165")
-        self.frame_165.setMinimumSize(QSize(0, 44))
+        self.frame_165.setMinimumSize(QSize(0, 50))
+        self.frame_165.setMaximumSize(QSize(16777215, 50))
         self.frame_165.setFrameShape(QFrame.StyledPanel)
         self.frame_165.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_173 = QHBoxLayout(self.frame_165)
@@ -3005,6 +3010,8 @@ class Ui_MainWindow(object):
 
         self.frame_154 = QFrame(self.page_rect_mask)
         self.frame_154.setObjectName(u"frame_154")
+        self.frame_154.setMinimumSize(QSize(0, 50))
+        self.frame_154.setMaximumSize(QSize(16777215, 50))
         self.frame_154.setFrameShape(QFrame.StyledPanel)
         self.frame_154.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_178 = QHBoxLayout(self.frame_154)
@@ -8248,8 +8255,8 @@ class Ui_MainWindow(object):
         self.bar_noise_filter0_side_cal_page.valueChanged.connect(self.spinBox_20.setValue)
         self.spinBox_20.valueChanged.connect(self.bar_noise_filter0_side_cal_page.setValue)
 
-        self.stackedWidget.setCurrentIndex(3)
-        self.stackedWidget_2.setCurrentIndex(4)
+        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget_2.setCurrentIndex(2)
         self.stackedWidget_3.setCurrentIndex(1)
 
 
