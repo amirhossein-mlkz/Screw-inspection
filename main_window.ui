@@ -2319,7 +2319,7 @@ QPushButton:hover {
                                    <enum>QFrame::Raised</enum>
                                   </property>
                                   <layout class="QVBoxLayout" name="verticalLayout_4">
-                                   <item>
+                                   <item alignment="Qt::AlignHCenter|Qt::AlignTop">
                                     <widget class="QLabel" name="label_20">
                                      <property name="maximumSize">
                                       <size>
@@ -2332,7 +2332,7 @@ QPushButton:hover {
                                      </property>
                                     </widget>
                                    </item>
-                                   <item>
+                                   <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                                     <widget class="QLabel" name="label_img_top_live">
                                      <property name="maximumSize">
                                       <size>
@@ -2417,6 +2417,12 @@ QPushButton:hover {
                                           <height>16777215</height>
                                          </size>
                                         </property>
+                                        <property name="minimum">
+                                         <number>10</number>
+                                        </property>
+                                        <property name="maximum">
+                                         <number>200</number>
+                                        </property>
                                        </widget>
                                       </item>
                                       <item>
@@ -2477,60 +2483,6 @@ QPushButton:hover {
                                      </layout>
                                     </widget>
                                    </item>
-                                   <item>
-                                    <widget class="QFrame" name="frame_16">
-                                     <property name="minimumSize">
-                                      <size>
-                                       <width>0</width>
-                                       <height>32</height>
-                                      </size>
-                                     </property>
-                                     <property name="frameShape">
-                                      <enum>QFrame::StyledPanel</enum>
-                                     </property>
-                                     <property name="frameShadow">
-                                      <enum>QFrame::Raised</enum>
-                                     </property>
-                                     <layout class="QHBoxLayout" name="horizontalLayout_90">
-                                      <property name="leftMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="topMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="rightMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="bottomMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <item>
-                                       <widget class="QLabel" name="label_170">
-                                        <property name="text">
-                                         <string>Folder Name :</string>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                      <item>
-                                       <widget class="QLineEdit" name="line_path_top_cam_live_page"/>
-                                      </item>
-                                      <item>
-                                       <widget class="QPushButton" name="btn_save_path_top_cam_live_page">
-                                        <property name="styleSheet">
-                                         <string notr="true">background-color: rgb(0, 0, 0);</string>
-                                        </property>
-                                        <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="icon">
-                                         <iconset>
-                                          <normaloff>images/icons/cil-save.png</normaloff>images/icons/cil-save.png</iconset>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                     </layout>
-                                    </widget>
-                                   </item>
                                   </layout>
                                  </widget>
                                 </item>
@@ -2555,7 +2507,7 @@ QPushButton:hover {
                                    <enum>QFrame::Raised</enum>
                                   </property>
                                   <layout class="QVBoxLayout" name="verticalLayout_20">
-                                   <item>
+                                   <item alignment="Qt::AlignHCenter|Qt::AlignTop">
                                     <widget class="QLabel" name="label_21">
                                      <property name="maximumSize">
                                       <size>
@@ -2568,7 +2520,7 @@ QPushButton:hover {
                                      </property>
                                     </widget>
                                    </item>
-                                   <item>
+                                   <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                                     <widget class="QLabel" name="label_img_side_live">
                                      <property name="maximumSize">
                                       <size>
@@ -2662,6 +2614,12 @@ QPushButton:hover {
                                           <height>16777215</height>
                                          </size>
                                         </property>
+                                        <property name="minimum">
+                                         <number>10</number>
+                                        </property>
+                                        <property name="maximum">
+                                         <number>200</number>
+                                        </property>
                                        </widget>
                                       </item>
                                       <item>
@@ -2716,66 +2674,6 @@ QPushButton:hover {
                                           <width>26</width>
                                           <height>40</height>
                                          </size>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                     </layout>
-                                    </widget>
-                                   </item>
-                                   <item>
-                                    <widget class="QFrame" name="frame_17">
-                                     <property name="minimumSize">
-                                      <size>
-                                       <width>0</width>
-                                       <height>32</height>
-                                      </size>
-                                     </property>
-                                     <property name="maximumSize">
-                                      <size>
-                                       <width>16777215</width>
-                                       <height>34</height>
-                                      </size>
-                                     </property>
-                                     <property name="frameShape">
-                                      <enum>QFrame::StyledPanel</enum>
-                                     </property>
-                                     <property name="frameShadow">
-                                      <enum>QFrame::Raised</enum>
-                                     </property>
-                                     <layout class="QHBoxLayout" name="horizontalLayout_97">
-                                      <property name="leftMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="topMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="rightMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <property name="bottomMargin">
-                                       <number>0</number>
-                                      </property>
-                                      <item>
-                                       <widget class="QLabel" name="label_171">
-                                        <property name="text">
-                                         <string>Folder Name :</string>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                      <item>
-                                       <widget class="QLineEdit" name="line_path_side_cam_live_page"/>
-                                      </item>
-                                      <item>
-                                       <widget class="QPushButton" name="btn_save_path_side_cam_live_page">
-                                        <property name="styleSheet">
-                                         <string notr="true">background-color: rgb(0, 0, 0);</string>
-                                        </property>
-                                        <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="icon">
-                                         <iconset>
-                                          <normaloff>images/icons/cil-save.png</normaloff>images/icons/cil-save.png</iconset>
                                         </property>
                                        </widget>
                                       </item>
@@ -15130,7 +15028,7 @@ QPushButton:pressed {
                                      <property name="maximumSize">
                                       <size>
                                        <width>300</width>
-                                       <height>16777215</height>
+                                       <height>319</height>
                                       </size>
                                      </property>
                                      <property name="title">
@@ -15138,92 +15036,9 @@ QPushButton:pressed {
                                      </property>
                                      <layout class="QVBoxLayout" name="verticalLayout_78">
                                       <item>
-                                       <widget class="QGroupBox" name="groupBox_6">
-                                        <property name="title">
-                                         <string>Side Image Live :</string>
-                                        </property>
-                                        <layout class="QVBoxLayout" name="verticalLayout_101">
-                                         <item>
-                                          <widget class="QFrame" name="frame_94">
-                                           <property name="frameShape">
-                                            <enum>QFrame::StyledPanel</enum>
-                                           </property>
-                                           <property name="frameShadow">
-                                            <enum>QFrame::Raised</enum>
-                                           </property>
-                                           <layout class="QVBoxLayout" name="verticalLayout_74">
-                                            <item>
-                                             <layout class="QHBoxLayout" name="horizontalLayout_75">
-                                              <item>
-                                               <widget class="QLabel" name="label_99">
-                                                <property name="text">
-                                                 <string>Minimum :</string>
-                                                </property>
-                                               </widget>
-                                              </item>
-                                              <item>
-                                               <widget class="QLabel" name="label_118">
-                                                <property name="text">
-                                                 <string>X :</string>
-                                                </property>
-                                               </widget>
-                                              </item>
-                                              <item>
-                                               <widget class="QLineEdit" name="line_side_live_min_x"/>
-                                              </item>
-                                              <item>
-                                               <widget class="QLabel" name="label_119">
-                                                <property name="text">
-                                                 <string>Y :</string>
-                                                </property>
-                                               </widget>
-                                              </item>
-                                              <item>
-                                               <widget class="QLineEdit" name="line_side_live_min_y"/>
-                                              </item>
-                                             </layout>
-                                            </item>
-                                            <item>
-                                             <layout class="QHBoxLayout" name="horizontalLayout_69">
-                                              <item>
-                                               <widget class="QLabel" name="label_115">
-                                                <property name="text">
-                                                 <string>Maximum :</string>
-                                                </property>
-                                               </widget>
-                                              </item>
-                                              <item>
-                                               <widget class="QLabel" name="label_120">
-                                                <property name="text">
-                                                 <string>X :</string>
-                                                </property>
-                                               </widget>
-                                              </item>
-                                              <item>
-                                               <widget class="QLineEdit" name="line_side_live_max_x"/>
-                                              </item>
-                                              <item>
-                                               <widget class="QLabel" name="label_121">
-                                                <property name="text">
-                                                 <string>Y :</string>
-                                                </property>
-                                               </widget>
-                                              </item>
-                                              <item>
-                                               <widget class="QLineEdit" name="line_side_live_max_y"/>
-                                              </item>
-                                             </layout>
-                                            </item>
-                                           </layout>
-                                          </widget>
-                                         </item>
-                                        </layout>
-                                       </widget>
-                                      </item>
-                                      <item>
                                        <widget class="QGroupBox" name="groupBox_7">
                                         <property name="title">
-                                         <string>Top Image Live :</string>
+                                         <string>Top camera:</string>
                                         </property>
                                         <layout class="QVBoxLayout" name="verticalLayout_102">
                                          <item>
@@ -15240,7 +15055,7 @@ QPushButton:pressed {
                                               <item>
                                                <widget class="QLabel" name="label_116">
                                                 <property name="text">
-                                                 <string>Minimum :</string>
+                                                 <string>Resolution :</string>
                                                 </property>
                                                </widget>
                                               </item>
@@ -15252,7 +15067,7 @@ QPushButton:pressed {
                                                </widget>
                                               </item>
                                               <item>
-                                               <widget class="QLineEdit" name="line_top_live_min_x"/>
+                                               <widget class="QLineEdit" name="line_top_cam_x_resolution"/>
                                               </item>
                                               <item>
                                                <widget class="QLabel" name="label_123">
@@ -15262,38 +15077,59 @@ QPushButton:pressed {
                                                </widget>
                                               </item>
                                               <item>
-                                               <widget class="QLineEdit" name="line_top_live_min_y"/>
+                                               <widget class="QLineEdit" name="line_top_cam_y_resolution"/>
                                               </item>
                                              </layout>
                                             </item>
+                                           </layout>
+                                          </widget>
+                                         </item>
+                                        </layout>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QGroupBox" name="groupBox_6">
+                                        <property name="title">
+                                         <string>Side camera :</string>
+                                        </property>
+                                        <layout class="QVBoxLayout" name="verticalLayout_101">
+                                         <item>
+                                          <widget class="QFrame" name="frame_94">
+                                           <property name="frameShape">
+                                            <enum>QFrame::StyledPanel</enum>
+                                           </property>
+                                           <property name="frameShadow">
+                                            <enum>QFrame::Raised</enum>
+                                           </property>
+                                           <layout class="QVBoxLayout" name="verticalLayout_74">
                                             <item>
-                                             <layout class="QHBoxLayout" name="horizontalLayout_77">
+                                             <layout class="QHBoxLayout" name="horizontalLayout_75">
                                               <item>
-                                               <widget class="QLabel" name="label_117">
+                                               <widget class="QLabel" name="label_99">
                                                 <property name="text">
-                                                 <string>Minimum :</string>
+                                                 <string>Resolution :</string>
                                                 </property>
                                                </widget>
                                               </item>
                                               <item>
-                                               <widget class="QLabel" name="label_124">
+                                               <widget class="QLabel" name="label_118">
                                                 <property name="text">
                                                  <string>X :</string>
                                                 </property>
                                                </widget>
                                               </item>
                                               <item>
-                                               <widget class="QLineEdit" name="line_top_live_max_x"/>
+                                               <widget class="QLineEdit" name="line_side_cam_x_resolution"/>
                                               </item>
                                               <item>
-                                               <widget class="QLabel" name="label_125">
+                                               <widget class="QLabel" name="label_119">
                                                 <property name="text">
                                                  <string>Y :</string>
                                                 </property>
                                                </widget>
                                               </item>
                                               <item>
-                                               <widget class="QLineEdit" name="line_top_live_max_y"/>
+                                               <widget class="QLineEdit" name="line_side_cam_y_resolution"/>
                                               </item>
                                              </layout>
                                             </item>
@@ -15414,7 +15250,7 @@ QPushButton:pressed {
                                </layout>
                               </widget>
                              </item>
-                             <item>
+                             <item alignment="Qt::AlignTop">
                               <widget class="QFrame" name="frame_96">
                                <property name="frameShape">
                                 <enum>QFrame::StyledPanel</enum>

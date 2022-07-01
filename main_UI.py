@@ -123,6 +123,8 @@ class UI_main_window(QMainWindow, ui):
 
         self.set_combo_boxes_2()
 
+        self.sides=['top','side']
+
         self.pages_name_dict={'1':'1_top','2':'2_top','3':'3_top','4':'1_side','5':'2_side','6':'3_side','7':'4_side','8':'5_side','9':'6_side'}
         self.pages_dircetion_dict={'1':'top','2':'top','3':'top','4':'side','5':'side','6':'side','7':'side','8':'side','9':'side'}
         self.roi_name=['x1','y1','x2','y2']
@@ -535,24 +537,30 @@ class UI_main_window(QMainWindow, ui):
 
     def load_sizes(self,parms,side):
 
+        print('parms',parms)
+
         for parms_key in parms.keys():
-            if (parms_key=='min_x') or (parms_key=='min_y') or (parms_key=='max_x') or (parms_key=='max_y'):
-            # try:
-                obj = self.lines['size']['{}'.format(side)]['line_{}_live_{}'.format(side, parms_key)]
-                obj.setText(parms[parms_key])
-            # except:
-            #     pass        line_top_live_min_x
+            if (parms_key=='x') or (parms_key=='y'):
+                try:
+                    obj = self.lines['size']['{}'.format(side)]['line_{}_cam_{}_resolution'.format(side, parms_key)]
+                    obj.setText(parms[parms_key])
+                except:
+                    pass      #  line_top_live_min_x
 
     def get_sizes_parms(self):
         side_parms={}
-        for i in self.lines['size']['side']:
-            text=eval('self.{}.text()'.format(i))
-            side_parms.update({i[-5:]:text})
-        top_parms={}
-        for i in self.lines['size']['top']:
-            text=eval('self.{}.text()'.format(i))
-            top_parms.update({i[-5:]:text})
+        list=['x','y']
+        # for side in self.sides:
+        for _,line_name in enumerate(self.lines['size']['side']):
+            print('line_name',line_name)
+            text=eval('self.{}.text()'.format(line_name))
+            side_parms.update({list[_]:text}) 
 
+        top_parms={}
+        for _,line_name in enumerate(self.lines['size']['top']):
+            print('line_name',line_name)
+            text=eval('self.{}.text()'.format(line_name))
+            top_parms.update({list[_]:text}) 
         return side_parms,top_parms
 
 
@@ -1557,6 +1565,12 @@ class UI_main_window(QMainWindow, ui):
         self.set_sliders_defualt('thresh', 0)
         self.set_sliders_defualt('noise_filter', 0)
     
+
+
+    # def set_size_live_cams(self):
+
+    #     self.
+
 
 if __name__ == "__main__":
     app = QApplication()

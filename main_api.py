@@ -144,7 +144,7 @@ class API:
         
 
         # set_load live images
-        #self.set_load_imgs_live()
+        self.set_load_imgs_live()
         
         
 
@@ -272,7 +272,9 @@ class API:
 
         self.ui.lives['combo_boxes']['screw_list'].currentTextChanged.connect(self.load_screw_live )
         self.ui.btn_capture_screw_live.clicked.connect(self.save_live_image)
-
+        self.ui.spin_scale_top_cam_live_page.valueChanged.connect(self.size_update_top_cam_live)   
+        self.ui.spin_scale_side_cam_live_page.valueChanged.connect(self.size_update_side_cam_live)   
+        
 
         # PLC settings
         self.ui.btn_save_ip_plc.clicked.connect(self.save_plc_ip)
@@ -320,13 +322,30 @@ class API:
     def set_load_imgs_live(self):
         parms_=[]
         for side in self.sides:
-            parms=self.db.get_size_table('{}_live'.format(side))[0]
-            #self.ui.load_sizes(parms,'{}'.format(side))
+            parms=self.db.get_size_table('{}'.format(side))[0]
+            self.ui.load_sizes(parms,'{}'.format(side))
             parms_.append(parms)
-
-        set_dimensions(self.ui,parms_[0],parms_[1])
+        print(parms_)
+        self.camera_ratio=parms_
+        print(self.camera_ratio)
+        # set_dimensions(self.ui,parms_[0],parms_[1])
 
         
+
+    def size_update_top_cam_live(self):
+        scale=self.ui.spin_scale_top_cam_live_page.value()
+        x=int(self.camera_ratio[1]['x'])
+        y=int(self.camera_ratio[1]['y'])
+        ratio=y/x
+        set_dimensions(self.ui.label_img_top_live,(x*scale),(y*scale*ratio))
+    def size_update_side_cam_live(self):
+        scale=self.ui.spin_scale_side_cam_live_page.value()
+        x=int(self.camera_ratio[1]['x'])
+        y=int(self.camera_ratio[1]['y'])
+        ratio=y/x
+        set_dimensions(self.ui.label_img_side_live,(x*scale),(y*scale*ratio))
+
+
     def set_apply_imgs_live(self):
 
         side_parms,top_parms=self.ui.get_sizes_parms()

@@ -175,13 +175,13 @@ class dataBaseUtils():
 
         for key,value in parms.items():
             # print('key',key,'value',value)
-            self.db.update_record(self.size,key,value,'name','side_live')
+            self.db.update_record(self.size,key,value,'name','side')
 
     def set_size_table_top(self,parms):
 
         for key,value in parms.items():
             # print('key',key,'value',value)
-            self.db.update_record(self.size,key,value,'name','top_live')
+            self.db.update_record(self.size,key,value,'name','top')
 
 
     def load_plc_parms(self):
@@ -232,11 +232,13 @@ if __name__ == '__main__':
     # parms={'min_x':10,'min_y':20,'max_x':30,'max_y':40}
     # db.set_size_table_top(parms)
     # db.get_size_table('top_live')
-    x=db.load_plc_parms()
-    x=db.load_plc_ip()
-    print(x)
-    db.save_plc_ip('asdw')
-    x=db.load_plc_ip()
+    # x=db.load_plc_parms()
+    # x=db.load_plc_ip()
+    # print(x)
+    # db.save_plc_ip('asdw')
+    # x=db.load_plc_ip()
+    # print(x)
+    x=db.get_size_table('top')
     print(x)
     # records = db.load_coil_info(996)
     # db.get_camera_setting()
