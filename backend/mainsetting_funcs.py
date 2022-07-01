@@ -10,7 +10,7 @@ font_styles = ['Arial', 'Arial Black', 'Forte', 'Gigi', 'jokerman' ,'Times New R
 
 # style (theme) and color parameters
 app_styles = ['Breeze', 'Oxygen', 'QtCurve', 'Windows', 'Fusion']
-app_colors = ['#144475', '#CB0000', '#F1CC00']
+app_colors = ['#144475', '#CB0000', '#F1CC00','#808080','#282C34']
 
 # language parametrs
 app_languages = ['English','Persian(فارسی)']

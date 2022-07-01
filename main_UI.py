@@ -135,7 +135,7 @@ class UI_main_window(QMainWindow, ui):
         self.tool_btn_bar_top=frames={'area':self.frame_34}
 
         
-
+        self.clear_side_btns(1)
 
         # self.get_sub_page_name()
 
@@ -637,8 +637,8 @@ class UI_main_window(QMainWindow, ui):
 
     def clear_side_btns(self,current_page):
 
-        self.white_side_images_path=['images/setting_main_window/dashboard_white.png','images/setting_main_window/defects_setting_white.png',\
-            'images/setting_main_window/camera_setting_white.png','images/setting_main_window/calibration_setting_white.png','images/setting_main_window/users_setting_white.png','images/setting_main_window/general_setting_white.png']
+        self.white_side_images_path=['images/setting_main_window/dashboard_orange.png','images/setting_main_window/tools_setting_orange.png',\
+            'images/setting_main_window/camera_setting_orange.png','images/setting_main_window/calibration_setting_orange.png','images/setting_main_window/users_setting_orange.png','images/setting_main_window/general_setting_orange.png']
 
         self.side_buttons = [ self.side_dashboard_btn, self.side_tool_setting_btn,self.side_camera_setting_btn\
                     ,self.side_calibration_setting_btn,self.side_users_setting_btn,self.side_general_setting_btn,]
@@ -651,7 +651,7 @@ class UI_main_window(QMainWindow, ui):
         # print('current_idx',current_idx)
         # print('current_idx',current_idx,str(self.white_side_images_path[current_idx]).replace('_white',''))
 
-        self.set_img_btns(self.side_buttons[current_page],self.white_side_images_path[current_page].replace('_white',''))
+        self.set_img_btns(self.side_buttons[current_page],self.white_side_images_path[current_page].replace('_orange','_white'))
 
 
 
@@ -885,9 +885,12 @@ class UI_main_window(QMainWindow, ui):
     
 
 
-    def set_label(self,label_name,msg):
+    def set_label(self,label_name,msg,color=False):
         msg = str( msg )
         label_name.setText(msg)
+
+        if color:
+            label_name.setStyleSheet("color:{}".format(color))
  
     def get_label(self,label_name):
 
@@ -1537,14 +1540,17 @@ class UI_main_window(QMainWindow, ui):
 
     def get_plc_parms(self):
 
-        limit_1=self.line_limit_1_plc.text()
-        limit_2=self.line_limit_2_plc.text()
-        line_down_motor_plc=self.line_down_motor_plc.text()
-        line_top_motor_plc=self.line_top_motor_plc.text()
+        limit_1=self.line_run_plc.text()
+        limit_2=self.line_stop_plc.text()
+        line_down_motor_plc=self.line_reject_plc.text()
+        spare_plc=self.line_spare_plc.text()
         # line_spare_plc=self.line_spare_plc.text()
         # line_detect_sensor_plc=self.line_detect_sensor_plc.text()
+        delay_plc=str(self.spin_delay_plc.value())
+        duration_plc=str(self.spin_duration_plc.value())
     
-        return{'limit_1_plc':limit_1,'limit_2_plc':limit_2,'down_motor_plc':line_down_motor_plc,'top_motor_plc':line_top_motor_plc}
+        return{'run_plc':limit_1,'stop_plc':limit_2,'reject_plc':line_down_motor_plc,\
+            'delay_plc':delay_plc,'duration_plc':duration_plc,'spare_plc':spare_plc}
 
 
     def set_tools_defualt(self):

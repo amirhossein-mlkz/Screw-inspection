@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -57,7 +60,7 @@ Bg App */
 /* /////////////////////////////////////////////////////////////////////////////////////////////////
 Left Menu */
 #leftMenuBg {	
-	background-color: rgb(33, 37, 43);
+	background-color: rgb(40, 44, 52);
 }
 #topLogo {
 	background-color: Transparent;
@@ -73,7 +76,7 @@ Left Menu */
 	background-position: left ;
     background-repeat: no-repeat;
 	border: none;
-	border-left:15px solid transparent;
+	border-left:12px solid transparent;
 	background-color: transparent;
 	text-align: left;
 	padding-left: 0px;
@@ -180,7 +183,7 @@ background-position: left center;
 /* /////////////////////////////////////////////////////////////////////////////////////////////////
 Content App */
 #contentTopBg{	
-	background-color: rgb(33, 37, 43);
+	background-color: rgb(40, 44, 52);
 }
 #contentBottom{
 	border-top: 3px solid rgb(44, 49, 58);
@@ -225,8 +228,8 @@ QTableWidget */
 LineEdit */
 QLineEdit {
 	background-color: rgb(210,210,150);
-	border-radius: 5px;
-	border: 2px solid rgb(33, 37, 43);
+	border-radius: 2px;
+	border: 1px solid rgb(33, 37, 43);
 	padding-left: 10px;
 	selection-color: rgb(255, 255, 255);
 	selection-background-color: #0078D7;
@@ -446,8 +449,8 @@ QCommandLinkButton:pressed {
 /* /////////////////////////////////////////////////////////////////////////////////////////////////
 Button */
 #pagesContainer QPushButton {
-	border: 2px solid rgb(52, 59, 72);
-	border-radius: 5px;	
+	border: 1px solid rgb(52, 59, 72);
+	border-radius: 3px;	
 	background-color: rgb(52, 59, 72);
 	color:rgb(0,0,0);
 }
@@ -576,8 +579,7 @@ Button */
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color:#144475;
-</string>
+                <string notr="true"/>
                </property>
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
@@ -608,12 +610,12 @@ Button */
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>images/icons/dots.png</normaloff>images/icons/dots.png</iconset>
+                    <normaloff>images/setting_main_window/toogle_down.png</normaloff>images/setting_main_window/toogle_down.png</iconset>
                   </property>
                   <property name="iconSize">
                    <size>
-                    <width>30</width>
-                    <height>30</height>
+                    <width>16</width>
+                    <height>16</height>
                    </size>
                   </property>
                  </widget>
@@ -630,7 +632,7 @@ Button */
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color:#144475;</string>
+                <string notr="true"/>
                </property>
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
@@ -714,6 +716,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -722,7 +725,7 @@ Button */
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
                      <property name="toolTip">
-                      <string>Dashboard</string>
+                      <string>Live</string>
                      </property>
                      <property name="layoutDirection">
                       <enum>Qt::LeftToRight</enum>
@@ -732,7 +735,7 @@ Button */
                      </property>
                      <property name="icon">
                       <iconset>
-                       <normaloff>images/setting_main_window/dashboard_white.png</normaloff>images/setting_main_window/dashboard_white.png</iconset>
+                       <normaloff>images/setting_main_window/dashboard_orange.png</normaloff>images/setting_main_window/dashboard_orange.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -763,6 +766,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -781,7 +785,7 @@ Button */
                      </property>
                      <property name="icon">
                       <iconset>
-                       <normaloff>images/setting_main_window/defects_setting_white.png</normaloff>images/setting_main_window/defects_setting_white.png</iconset>
+                       <normaloff>images/setting_main_window/tools_setting_orange.png</normaloff>images/setting_main_window/tools_setting_orange.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -812,6 +816,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -830,12 +835,12 @@ Button */
                      </property>
                      <property name="icon">
                       <iconset>
-                       <normaloff>images/setting_main_window/camera_setting_white.png</normaloff>images/setting_main_window/camera_setting_white.png</iconset>
+                       <normaloff>images/setting_main_window/camera_setting_orange.png</normaloff>images/setting_main_window/camera_setting_orange.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
-                       <width>35</width>
-                       <height>35</height>
+                       <width>38</width>
+                       <height>38</height>
                       </size>
                      </property>
                     </widget>
@@ -861,6 +866,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -869,7 +875,7 @@ Button */
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
                      <property name="toolTip">
-                      <string>Camera Settings</string>
+                      <string>Calibration Settings</string>
                      </property>
                      <property name="layoutDirection">
                       <enum>Qt::LeftToRight</enum>
@@ -879,7 +885,7 @@ Button */
                      </property>
                      <property name="icon">
                       <iconset>
-                       <normaloff>images/setting_main_window/calibration_setting_white.png</normaloff>images/setting_main_window/calibration_setting_white.png</iconset>
+                       <normaloff>../../../../../home/milad/Downloads/output-onlinepngtools (1).png</normaloff>../../../../../home/milad/Downloads/output-onlinepngtools (1).png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -892,7 +898,7 @@ Button */
                    <item>
                     <widget class="QPushButton" name="side_users_setting_btn">
                      <property name="enabled">
-                      <bool>false</bool>
+                      <bool>true</bool>
                      </property>
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -910,6 +916,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -918,7 +925,7 @@ Button */
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
                      <property name="toolTip">
-                      <string>Users Management</string>
+                      <string>User Setting</string>
                      </property>
                      <property name="layoutDirection">
                       <enum>Qt::LeftToRight</enum>
@@ -928,7 +935,7 @@ Button */
                      </property>
                      <property name="icon">
                       <iconset>
-                       <normaloff>images/setting_main_window/users_setting_white.png</normaloff>images/setting_main_window/users_setting_white.png</iconset>
+                       <normaloff>images/setting_main_window/users_setting_orange.png</normaloff>images/setting_main_window/users_setting_orange.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -959,6 +966,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -977,7 +985,7 @@ Button */
                      </property>
                      <property name="icon">
                       <iconset>
-                       <normaloff>images/setting_main_window/general_setting_white.png</normaloff>images/setting_main_window/general_setting_white.png</iconset>
+                       <normaloff>images/setting_main_window/general_setting_orange.png</normaloff>images/setting_main_window/general_setting_orange.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -1045,6 +1053,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1429,8 +1438,7 @@ text-align:left;</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color:#144475;
-                </string>
+                <string notr="true"/>
                </property>
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
@@ -1559,12 +1567,15 @@ text-align:left;</string>
                           <height>30</height>
                          </size>
                         </property>
+                        <property name="toolTip">
+                         <string>Live</string>
+                        </property>
                         <property name="text">
                          <string/>
                         </property>
                         <property name="icon">
                          <iconset>
-                          <normaloff>images/icons/dots - Copy.png</normaloff>images/icons/dots - Copy.png</iconset>
+                          <normaloff>images/setting_main_window/toogle_left.png</normaloff>images/setting_main_window/toogle_left.png</iconset>
                         </property>
                         <property name="iconSize">
                          <size>
@@ -1838,6 +1849,7 @@ QPushButton:hover {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                        <stylestrategy>PreferDefault</stylestrategy>
@@ -2219,7 +2231,7 @@ QPushButton:hover {
                          <string notr="true">background-color : #F3F6FE;</string>
                         </property>
                         <property name="currentIndex">
-                         <number>1</number>
+                         <number>0</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -2957,6 +2969,78 @@ QPushButton:hover {
                                        </widget>
                                       </item>
                                       <item>
+                                       <widget class="QGroupBox" name="groupBox_14">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>0</width>
+                                          <height>43</height>
+                                         </size>
+                                        </property>
+                                        <property name="title">
+                                         <string>PLC</string>
+                                        </property>
+                                        <layout class="QHBoxLayout" name="horizontalLayout_182">
+                                         <property name="spacing">
+                                          <number>2</number>
+                                         </property>
+                                         <property name="leftMargin">
+                                          <number>0</number>
+                                         </property>
+                                         <property name="topMargin">
+                                          <number>0</number>
+                                         </property>
+                                         <property name="rightMargin">
+                                          <number>0</number>
+                                         </property>
+                                         <property name="bottomMargin">
+                                          <number>0</number>
+                                         </property>
+                                         <item>
+                                          <widget class="QLabel" name="label_176">
+                                           <property name="text">
+                                            <string>Status :</string>
+                                           </property>
+                                          </widget>
+                                         </item>
+                                         <item>
+                                          <widget class="QLabel" name="plc_status_live_page">
+                                           <property name="text">
+                                            <string>-</string>
+                                           </property>
+                                          </widget>
+                                         </item>
+                                         <item>
+                                          <widget class="QLabel" name="label_179">
+                                           <property name="text">
+                                            <string>Mode :</string>
+                                           </property>
+                                          </widget>
+                                         </item>
+                                         <item>
+                                          <widget class="QLabel" name="plc_mode_live_page">
+                                           <property name="text">
+                                            <string>-</string>
+                                           </property>
+                                          </widget>
+                                         </item>
+                                         <item>
+                                          <widget class="QLabel" name="label_183">
+                                           <property name="text">
+                                            <string>Reject :</string>
+                                           </property>
+                                          </widget>
+                                         </item>
+                                         <item>
+                                          <widget class="QLabel" name="plc_reject_live_page">
+                                           <property name="text">
+                                            <string>-</string>
+                                           </property>
+                                          </widget>
+                                         </item>
+                                        </layout>
+                                       </widget>
+                                      </item>
+                                      <item>
                                        <widget class="Line" name="line_17">
                                         <property name="orientation">
                                          <enum>Qt::Horizontal</enum>
@@ -3314,6 +3398,9 @@ QTableWidget::item:selected{
                                 </property>
                                 <item>
                                  <widget class="QPushButton" name="add_btn">
+                                  <property name="enabled">
+                                   <bool>true</bool>
+                                  </property>
                                   <property name="minimumSize">
                                    <size>
                                     <width>0</width>
@@ -3423,7 +3510,7 @@ QTableWidget::item:selected{
                                  <widget class="QPushButton" name="remove_screw_btn">
                                   <property name="minimumSize">
                                    <size>
-                                    <width>0</width>
+                                    <width>69</width>
                                     <height>27</height>
                                    </size>
                                   </property>
@@ -3448,7 +3535,7 @@ QTableWidget::item:selected{
                               <widget class="QFrame" name="frame_23">
                                <property name="minimumSize">
                                 <size>
-                                 <width>300</width>
+                                 <width>0</width>
                                  <height>0</height>
                                 </size>
                                </property>
@@ -3912,7 +3999,43 @@ QPushButton:disabled{
                                            <property name="palette">
                                             <palette>
                                              <active>
+                                              <colorrole role="WindowText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
                                               <colorrole role="Button">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>255</red>
+                                                 <green>255</green>
+                                                 <blue>255</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Text">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="ButtonText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>255</red>
@@ -3941,7 +4064,43 @@ QPushButton:disabled{
                                               </colorrole>
                                              </active>
                                              <inactive>
+                                              <colorrole role="WindowText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
                                               <colorrole role="Button">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>255</red>
+                                                 <green>255</green>
+                                                 <blue>255</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Text">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="ButtonText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>255</red>
@@ -3970,7 +4129,43 @@ QPushButton:disabled{
                                               </colorrole>
                                              </inactive>
                                              <disabled>
+                                              <colorrole role="WindowText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
                                               <colorrole role="Button">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>50</red>
+                                                 <green>50</green>
+                                                 <blue>50</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Text">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="ButtonText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>50</red>
@@ -4062,7 +4257,43 @@ QPushButton:disabled{
                                            <property name="palette">
                                             <palette>
                                              <active>
+                                              <colorrole role="WindowText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
                                               <colorrole role="Button">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>255</red>
+                                                 <green>255</green>
+                                                 <blue>255</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Text">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="ButtonText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>255</red>
@@ -4091,7 +4322,43 @@ QPushButton:disabled{
                                               </colorrole>
                                              </active>
                                              <inactive>
+                                              <colorrole role="WindowText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
                                               <colorrole role="Button">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>255</red>
+                                                 <green>255</green>
+                                                 <blue>255</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Text">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="ButtonText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>255</red>
@@ -4120,7 +4387,43 @@ QPushButton:disabled{
                                               </colorrole>
                                              </inactive>
                                              <disabled>
+                                              <colorrole role="WindowText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
                                               <colorrole role="Button">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>50</red>
+                                                 <green>50</green>
+                                                 <blue>50</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Text">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="ButtonText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>50</red>
@@ -6185,26 +6488,17 @@ QPushButton:disabled{
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QFrame" name="frame_172">
-                                      <property name="frameShape">
-                                       <enum>QFrame::StyledPanel</enum>
+                                     <widget class="QGroupBox" name="groupBox_8">
+                                      <property name="minimumSize">
+                                       <size>
+                                        <width>0</width>
+                                        <height>65</height>
+                                       </size>
                                       </property>
-                                      <property name="frameShadow">
-                                       <enum>QFrame::Raised</enum>
+                                      <property name="title">
+                                       <string>Circle 1 :</string>
                                       </property>
-                                      <layout class="QVBoxLayout" name="verticalLayout_110">
-                                       <property name="leftMargin">
-                                        <number>0</number>
-                                       </property>
-                                       <property name="topMargin">
-                                        <number>0</number>
-                                       </property>
-                                       <property name="rightMargin">
-                                        <number>0</number>
-                                       </property>
-                                       <property name="bottomMargin">
-                                        <number>0</number>
-                                       </property>
+                                      <layout class="QVBoxLayout" name="verticalLayout_119">
                                        <item>
                                         <widget class="QFrame" name="frame_56">
                                          <property name="frameShape">
@@ -6214,19 +6508,6 @@ QPushButton:disabled{
                                           <enum>QFrame::Raised</enum>
                                          </property>
                                          <layout class="QHBoxLayout" name="horizontalLayout_81">
-                                          <item>
-                                           <widget class="QLabel" name="label_10">
-                                            <property name="minimumSize">
-                                             <size>
-                                              <width>60</width>
-                                              <height>0</height>
-                                             </size>
-                                            </property>
-                                            <property name="text">
-                                             <string>Circle 1 :</string>
-                                            </property>
-                                           </widget>
-                                          </item>
                                           <item>
                                            <widget class="QLabel" name="label_139">
                                             <property name="text">
@@ -6257,9 +6538,69 @@ QPushButton:disabled{
                                           <item>
                                            <widget class="QSpinBox" name="spin_roi_r1_3_top"/>
                                           </item>
+                                          <item>
+                                           <spacer name="horizontalSpacer_12">
+                                            <property name="orientation">
+                                             <enum>Qt::Horizontal</enum>
+                                            </property>
+                                            <property name="sizeHint" stdset="0">
+                                             <size>
+                                              <width>40</width>
+                                              <height>20</height>
+                                             </size>
+                                            </property>
+                                           </spacer>
+                                          </item>
                                          </layout>
                                         </widget>
                                        </item>
+                                       <item alignment="Qt::AlignHCenter">
+                                        <widget class="QFrame" name="frame_192">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>0</width>
+                                           <height>34</height>
+                                          </size>
+                                         </property>
+                                         <property name="frameShape">
+                                          <enum>QFrame::StyledPanel</enum>
+                                         </property>
+                                         <property name="frameShadow">
+                                          <enum>QFrame::Raised</enum>
+                                         </property>
+                                         <layout class="QHBoxLayout" name="horizontalLayout_105">
+                                          <item>
+                                           <widget class="QLabel" name="label_10">
+                                            <property name="text">
+                                             <string>Area :</string>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QLabel" name="labe_area_circle1_3_top">
+                                            <property name="text">
+                                             <string>-</string>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                         </layout>
+                                        </widget>
+                                       </item>
+                                      </layout>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QGroupBox" name="groupBox_9">
+                                      <property name="minimumSize">
+                                       <size>
+                                        <width>0</width>
+                                        <height>68</height>
+                                       </size>
+                                      </property>
+                                      <property name="title">
+                                       <string>Circle 2 :</string>
+                                      </property>
+                                      <layout class="QVBoxLayout" name="verticalLayout_120">
                                        <item>
                                         <widget class="QFrame" name="frame_171">
                                          <property name="frameShape">
@@ -6269,19 +6610,6 @@ QPushButton:disabled{
                                           <enum>QFrame::Raised</enum>
                                          </property>
                                          <layout class="QHBoxLayout" name="horizontalLayout_82">
-                                          <item>
-                                           <widget class="QLabel" name="label_150">
-                                            <property name="minimumSize">
-                                             <size>
-                                              <width>60</width>
-                                              <height>0</height>
-                                             </size>
-                                            </property>
-                                            <property name="text">
-                                             <string>Circle 2 :</string>
-                                            </property>
-                                           </widget>
-                                          </item>
                                           <item>
                                            <widget class="QLabel" name="label_151">
                                             <property name="text">
@@ -6312,9 +6640,78 @@ QPushButton:disabled{
                                           <item>
                                            <widget class="QSpinBox" name="spin_roi_r2_3_top"/>
                                           </item>
+                                          <item>
+                                           <spacer name="horizontalSpacer_27">
+                                            <property name="orientation">
+                                             <enum>Qt::Horizontal</enum>
+                                            </property>
+                                            <property name="sizeHint" stdset="0">
+                                             <size>
+                                              <width>40</width>
+                                              <height>20</height>
+                                             </size>
+                                            </property>
+                                           </spacer>
+                                          </item>
                                          </layout>
                                         </widget>
                                        </item>
+                                       <item alignment="Qt::AlignHCenter">
+                                        <widget class="QFrame" name="frame_193">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>0</width>
+                                           <height>33</height>
+                                          </size>
+                                         </property>
+                                         <property name="frameShape">
+                                          <enum>QFrame::StyledPanel</enum>
+                                         </property>
+                                         <property name="frameShadow">
+                                          <enum>QFrame::Raised</enum>
+                                         </property>
+                                         <layout class="QHBoxLayout" name="horizontalLayout_181">
+                                          <item>
+                                           <widget class="QLabel" name="label_150">
+                                            <property name="text">
+                                             <string>Area :</string>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QLabel" name="labe_area_circle2_3_top">
+                                            <property name="text">
+                                             <string>-</string>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                         </layout>
+                                        </widget>
+                                       </item>
+                                      </layout>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QFrame" name="frame_172">
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <layout class="QVBoxLayout" name="verticalLayout_110">
+                                       <property name="leftMargin">
+                                        <number>0</number>
+                                       </property>
+                                       <property name="topMargin">
+                                        <number>0</number>
+                                       </property>
+                                       <property name="rightMargin">
+                                        <number>0</number>
+                                       </property>
+                                       <property name="bottomMargin">
+                                        <number>0</number>
+                                       </property>
                                        <item>
                                         <widget class="QFrame" name="frame_169">
                                          <property name="enabled">
@@ -10990,6 +11387,7 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
+                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -11030,6 +11428,7 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
+                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -11128,6 +11527,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -11155,6 +11555,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -11182,6 +11583,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -11209,6 +11611,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -11236,6 +11639,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -11263,6 +11667,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -11290,6 +11695,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -11317,6 +11723,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -11344,6 +11751,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -11371,6 +11779,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -11398,6 +11807,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -11425,6 +11835,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -11452,6 +11863,7 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12113,6 +12525,7 @@ QPushButton:pressed {
                                <property name="font">
                                 <font>
                                  <pointsize>10</pointsize>
+                                 <weight>75</weight>
                                  <bold>true</bold>
                                 </font>
                                </property>
@@ -13449,8 +13862,8 @@ QPushButton:pressed {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>71</width>
-                                  <height>71</height>
+                                  <width>276</width>
+                                  <height>771</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">
@@ -13978,6 +14391,7 @@ border: 1px solid #CDCDCE;
                                   <property name="font">
                                    <font>
                                     <pointsize>8</pointsize>
+                                    <weight>50</weight>
                                     <bold>false</bold>
                                    </font>
                                   </property>
@@ -14693,6 +15107,7 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
+                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -15054,6 +15469,29 @@ QPushButton:pressed {
                                        </property>
                                       </widget>
                                      </item>
+                                     <item>
+                                      <widget class="QPushButton" name="btn_save_ip_plc">
+                                       <property name="maximumSize">
+                                        <size>
+                                         <width>50</width>
+                                         <height>16777215</height>
+                                        </size>
+                                       </property>
+                                       <property name="cursor">
+                                        <cursorShape>PointingHandCursor</cursorShape>
+                                       </property>
+                                       <property name="styleSheet">
+                                        <string notr="true">background-color: rgb(0, 0, 0);</string>
+                                       </property>
+                                       <property name="text">
+                                        <string/>
+                                       </property>
+                                       <property name="icon">
+                                        <iconset>
+                                         <normaloff>images/icons/cil-save.png</normaloff>images/icons/cil-save.png</iconset>
+                                       </property>
+                                      </widget>
+                                     </item>
                                     </layout>
                                    </item>
                                    <item>
@@ -15199,7 +15637,7 @@ QPushButton:pressed {
                                    <item>
                                     <widget class="QGroupBox" name="groupBox_13">
                                      <property name="title">
-                                      <string>PLC Addresses :</string>
+                                      <string>PLC NodeID Addresses :</string>
                                      </property>
                                      <layout class="QVBoxLayout" name="verticalLayout_114">
                                       <item>
@@ -15268,12 +15706,12 @@ QPushButton:pressed {
                                                </size>
                                               </property>
                                               <property name="text">
-                                               <string>Parm1 :</string>
+                                               <string>Run :</string>
                                               </property>
                                              </widget>
                                             </item>
                                             <item>
-                                             <widget class="QLineEdit" name="line_limit_1_plc">
+                                             <widget class="QLineEdit" name="line_run_plc">
                                               <property name="maximumSize">
                                                <size>
                                                 <width>300</width>
@@ -15283,7 +15721,7 @@ QPushButton:pressed {
                                              </widget>
                                             </item>
                                             <item>
-                                             <widget class="QPushButton" name="check_limit_1_plc">
+                                             <widget class="QPushButton" name="check_run_plc">
                                               <property name="minimumSize">
                                                <size>
                                                 <width>43</width>
@@ -15332,7 +15770,7 @@ QPushButton:pressed {
                                              </widget>
                                             </item>
                                             <item>
-                                             <widget class="QLabel" name="label_limit_1_plc">
+                                             <widget class="QLabel" name="label_run_plc">
                                               <property name="text">
                                                <string>-</string>
                                               </property>
@@ -15371,12 +15809,12 @@ QPushButton:pressed {
                                                </size>
                                               </property>
                                               <property name="text">
-                                               <string>Parm2 :</string>
+                                               <string>Stop :</string>
                                               </property>
                                              </widget>
                                             </item>
                                             <item>
-                                             <widget class="QLineEdit" name="line_limit_2_plc">
+                                             <widget class="QLineEdit" name="line_stop_plc">
                                               <property name="maximumSize">
                                                <size>
                                                 <width>300</width>
@@ -15386,7 +15824,7 @@ QPushButton:pressed {
                                              </widget>
                                             </item>
                                             <item>
-                                             <widget class="QPushButton" name="check_limit_2_plc">
+                                             <widget class="QPushButton" name="check_stop_plc">
                                               <property name="minimumSize">
                                                <size>
                                                 <width>43</width>
@@ -15435,7 +15873,7 @@ QPushButton:pressed {
                                              </widget>
                                             </item>
                                             <item>
-                                             <widget class="QLabel" name="label_limit_2_plc">
+                                             <widget class="QLabel" name="label_stop_plc">
                                               <property name="text">
                                                <string>-</string>
                                               </property>
@@ -15474,12 +15912,12 @@ QPushButton:pressed {
                                                </size>
                                               </property>
                                               <property name="text">
-                                               <string>Spare1 :</string>
+                                               <string>Reject :</string>
                                               </property>
                                              </widget>
                                             </item>
                                             <item>
-                                             <widget class="QLineEdit" name="line_down_motor_plc">
+                                             <widget class="QLineEdit" name="line_reject_plc">
                                               <property name="maximumSize">
                                                <size>
                                                 <width>300</width>
@@ -15489,7 +15927,7 @@ QPushButton:pressed {
                                              </widget>
                                             </item>
                                             <item>
-                                             <widget class="QPushButton" name="check_down_motor_plc">
+                                             <widget class="QPushButton" name="check_reject_plc">
                                               <property name="minimumSize">
                                                <size>
                                                 <width>43</width>
@@ -15538,11 +15976,93 @@ QPushButton:pressed {
                                              </widget>
                                             </item>
                                             <item>
-                                             <widget class="QLabel" name="label_down_motor_plc">
+                                             <widget class="QLabel" name="label_reject_plc">
                                               <property name="text">
                                                <string>-</string>
                                               </property>
                                              </widget>
+                                            </item>
+                                           </layout>
+                                          </widget>
+                                         </item>
+                                         <item>
+                                          <widget class="QFrame" name="frame_191">
+                                           <property name="minimumSize">
+                                            <size>
+                                             <width>500</width>
+                                             <height>55</height>
+                                            </size>
+                                           </property>
+                                           <property name="maximumSize">
+                                            <size>
+                                             <width>16777215</width>
+                                             <height>55</height>
+                                            </size>
+                                           </property>
+                                           <property name="frameShape">
+                                            <enum>QFrame::Box</enum>
+                                           </property>
+                                           <property name="frameShadow">
+                                            <enum>QFrame::Raised</enum>
+                                           </property>
+                                           <layout class="QHBoxLayout" name="horizontalLayout_103">
+                                            <item>
+                                             <widget class="QLabel" name="label_175">
+                                              <property name="maximumSize">
+                                               <size>
+                                                <width>136</width>
+                                                <height>16777215</height>
+                                               </size>
+                                              </property>
+                                              <property name="text">
+                                               <string>Start time delay :</string>
+                                              </property>
+                                             </widget>
+                                            </item>
+                                            <item>
+                                             <widget class="QSpinBox" name="spin_delay_plc"/>
+                                            </item>
+                                            <item>
+                                             <widget class="Line" name="line_32">
+                                              <property name="orientation">
+                                               <enum>Qt::Vertical</enum>
+                                              </property>
+                                             </widget>
+                                            </item>
+                                            <item>
+                                             <widget class="QLabel" name="label_164">
+                                              <property name="minimumSize">
+                                               <size>
+                                                <width>169</width>
+                                                <height>0</height>
+                                               </size>
+                                              </property>
+                                              <property name="maximumSize">
+                                               <size>
+                                                <width>151</width>
+                                                <height>16777215</height>
+                                               </size>
+                                              </property>
+                                              <property name="text">
+                                               <string>Duration of being on :</string>
+                                              </property>
+                                             </widget>
+                                            </item>
+                                            <item>
+                                             <widget class="QSpinBox" name="spin_duration_plc"/>
+                                            </item>
+                                            <item>
+                                             <spacer name="horizontalSpacer_11">
+                                              <property name="orientation">
+                                               <enum>Qt::Horizontal</enum>
+                                              </property>
+                                              <property name="sizeHint" stdset="0">
+                                               <size>
+                                                <width>40</width>
+                                                <height>20</height>
+                                               </size>
+                                              </property>
+                                             </spacer>
                                             </item>
                                            </layout>
                                           </widget>
@@ -15577,12 +16097,12 @@ QPushButton:pressed {
                                                </size>
                                               </property>
                                               <property name="text">
-                                               <string>Spare 2:</string>
+                                               <string>Spare :</string>
                                               </property>
                                              </widget>
                                             </item>
                                             <item>
-                                             <widget class="QLineEdit" name="line_top_motor_plc">
+                                             <widget class="QLineEdit" name="line_spare_plc">
                                               <property name="maximumSize">
                                                <size>
                                                 <width>300</width>
@@ -15592,7 +16112,7 @@ QPushButton:pressed {
                                              </widget>
                                             </item>
                                             <item>
-                                             <widget class="QPushButton" name="check_top_motor_plc">
+                                             <widget class="QPushButton" name="check_spare_plc">
                                               <property name="minimumSize">
                                                <size>
                                                 <width>43</width>
@@ -15641,7 +16161,7 @@ QPushButton:pressed {
                                              </widget>
                                             </item>
                                             <item>
-                                             <widget class="QLabel" name="label_top_motor_plc">
+                                             <widget class="QLabel" name="label_spare_plc">
                                               <property name="text">
                                                <string>-</string>
                                               </property>
@@ -16094,6 +16614,7 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
+                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -16130,6 +16651,7 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
+                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -16169,6 +16691,7 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
+                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -16213,6 +16736,9 @@ QPushButton:pressed {
                     <height>22</height>
                    </size>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color:white;</string>
+                  </property>
                   <property name="frameShape">
                    <enum>QFrame::NoFrame</enum>
                   </property>
@@ -16247,12 +16773,16 @@ QPushButton:pressed {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>-1</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
                      </property>
+                     <property name="styleSheet">
+                      <string notr="true">color:black;</string>
+                     </property>
                      <property name="text">
-                      <string>By: Dorma</string>
+                      <string>Own : Radco-Vision</string>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -16261,6 +16791,9 @@ QPushButton:pressed {
                    </item>
                    <item>
                     <widget class="QLabel" name="version">
+                     <property name="styleSheet">
+                      <string notr="true">color:black;</string>
+                     </property>
                      <property name="text">
                       <string>v1.0.0</string>
                      </property>
@@ -16602,38 +17135,6 @@ QPushButton:pressed {
    </hints>
   </connection>
   <connection>
-   <sender>bar_thresh0_2_side</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBox_7</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>603</x>
-     <y>763</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>660</x>
-     <y>760</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBox_7</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>bar_thresh0_2_side</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>660</x>
-     <y>760</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>603</x>
-     <y>763</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>bar_thresh0_2_top</sender>
    <signal>valueChanged(int)</signal>
    <receiver>spinBox_12</receiver>
@@ -16886,6 +17387,198 @@ QPushButton:pressed {
     <hint type="destinationlabel">
      <x>1031</x>
      <y>773</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_2_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_7</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>603</x>
+     <y>763</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>660</x>
+     <y>760</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_7</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_2_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>660</x>
+     <y>760</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>603</x>
+     <y>763</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_1_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_2_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>510</x>
+     <y>480</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>476</x>
+     <y>222</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_1_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_3_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>510</x>
+     <y>480</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>466</x>
+     <y>748</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_1_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_4_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>510</x>
+     <y>480</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>466</x>
+     <y>748</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_1_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_5_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>510</x>
+     <y>480</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>358</x>
+     <y>165</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_1_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_6_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>510</x>
+     <y>480</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>466</x>
+     <y>748</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_6_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_1_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>466</x>
+     <y>748</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>480</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_5_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_1_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>358</x>
+     <y>165</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>480</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_4_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_1_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>466</x>
+     <y>748</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>480</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_3_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_1_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>466</x>
+     <y>748</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>480</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_2_side</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_1_side</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>476</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>510</x>
+     <y>480</y>
     </hint>
    </hints>
   </connection>

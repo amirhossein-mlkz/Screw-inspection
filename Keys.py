@@ -377,25 +377,29 @@ def object_dict_builder(ui_object):
 
 
                 '6_side':
-                {
-                    'label_area_6_side': self.label_area_6_side
-                },
+                    {
+                        'label_area_6_side': self.label_area_6_side
+                    },
                 
                 '2_top':
-                {
-                
-                        'label_min_diameter_2_top':self.label_min_diameter_2_top,
-                        'label_max_diameter_2_top':self.label_max_diameter_2_top,
-                        'label_min_district_2_top':self.label_min_district_2_top,
-                        'label_max_district_2_top':self.label_max_district_2_top,
-                        'label_min_corner_2_top':self.label_min_corner_2_top,
-                        'label_max_corner_2_top':self.label_max_corner_2_top,
-                        
-                        #'labe_area_district_2_top':self.labe_area_district_2_top,
-                        #'labe_area_corner_2_top':self.labe_area_corner_2_top,
+                    {
+                    
+                            'label_min_diameter_2_top':self.label_min_diameter_2_top,
+                            'label_max_diameter_2_top':self.label_max_diameter_2_top,
+                            'label_min_district_2_top':self.label_min_district_2_top,
+                            'label_max_district_2_top':self.label_max_district_2_top,
+                            'label_min_corner_2_top':self.label_min_corner_2_top,
+                            'label_max_corner_2_top':self.label_max_corner_2_top,
+                            
 
-                        
-                }
+
+                            
+                    },
+                '3_top':
+                    {
+                            'labe_area_circle1_3_top':self.labe_area_circle1_3_top,
+                            'labe_area_circle2_3_top':self.labe_area_circle2_3_top,
+                    }
             }
 
     }

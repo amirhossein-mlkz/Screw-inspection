@@ -186,39 +186,58 @@ class dataBaseUtils():
 
     def load_plc_parms(self):
 
-        # try:
+        try:
 
             parms=self.db.get_all_content(self.plc)
             print(parms)
             return parms
-        # except:
-        #     return []
+        except:
+            return []
+
+
+    def load_plc_ip(self):
+
+        ip=self.db.search( self.setting_tabel , 'id', 0 )[0]
+        return ip['plc_ip']
+
+    def save_plc_ip(self,ip):
+
+
+        res = self.db.update_record(self.setting_tabel, 'plc_ip',ip, 'id', '0')
+
 
     def update_plc_parms(self, plc_parms):
-        try:
+        # try:
             for _,param in enumerate(plc_parms.keys()):
                 # update_record(self,table_name,col_name,value,id,id_value):
-                print('_',_,'   ',param)
-                res = self.db.update_record(self.plc, 'path', str(plc_parms[param]), 'id', _)
+                i=_+1
+                print('_',i,'   ',param,str(plc_parms[param]))
+                
+                res = self.db.update_record(self.plc, 'path', str(plc_parms[param]), 'name',param)
 
             return res
-        except:
-            return False
+        # except:
+            # return False
 
 
 
 
 if __name__ == '__main__':
     db = dataBaseUtils(user_name='root',password='password')
-    db.get_size_table('side_live')
-    parms={'min_x':10,'min_y':20,'max_x':30,'max_y':40}
-    db.set_size_table_side(parms)
-    db.get_size_table('side_live')
-    db.get_size_table('top_live')
-    parms={'min_x':10,'min_y':20,'max_x':30,'max_y':40}
-    db.set_size_table_top(parms)
-    db.get_size_table('top_live')
-
+    # db.get_size_table('side_live')
+    # parms={'min_x':10,'min_y':20,'max_x':30,'max_y':40}
+    # db.set_size_table_side(parms)
+    # db.get_size_table('side_live')
+    # db.get_size_table('top_live')
+    # parms={'min_x':10,'min_y':20,'max_x':30,'max_y':40}
+    # db.set_size_table_top(parms)
+    # db.get_size_table('top_live')
+    x=db.load_plc_parms()
+    x=db.load_plc_ip()
+    print(x)
+    db.save_plc_ip('asdw')
+    x=db.load_plc_ip()
+    print(x)
     # records = db.load_coil_info(996)
     # db.get_camera_setting()
     #db.set_dataset_path('G:/dataset/')

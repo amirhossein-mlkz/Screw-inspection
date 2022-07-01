@@ -21,6 +21,7 @@
 ################################
 
 from cmath import inf
+import threading
 from unittest.mock import DEFAULT
 from PySide6 import QtCore as sQtCore
 from functools import partial
@@ -46,6 +47,10 @@ from database import database, dbUtils, screwDB
 import copy
 import platform
 from Keys import set_dimensions
+from PyQt5.QtCore import QTimer,QDateTime,QObject, QThread
+# from PyQt5.QtCore import 
+import time
+
 
 
 DEFAULT_SCERW_PATH = 'database\defualt_screw'
@@ -90,11 +95,11 @@ class API:
         # load and apply program appearance params
         self.load_appearance_params_on_start()
         # refresh dashboard
-
+        self.language='en'
         # function to active the UI buttons functionality
         self.button_connector()
 
-        self.language='en'
+        
         #------------------------------------------------------------------------------------------------------------------------
         # main UI widget ids list 
 
@@ -270,17 +275,22 @@ class API:
 
 
         # PLC settings
-        self.ui.check_top_motor_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_top_motor_plc.objectName()))
-        self.ui.check_down_motor_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_down_motor_plc.objectName()))
-        self.ui.check_limit_1_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_limit_1_plc.objectName()))
-        self.ui.check_limit_2_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_limit_2_plc.objectName()))
+        self.ui.btn_save_ip_plc.clicked.connect(self.save_plc_ip)
+        self.ui.connect_plc_btn.clicked.connect(self.connect_plc)
+        self.ui.disconnect_plc_btn.clicked.connect(self.disconnect_plc)
+
+        self.ui.check_run_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_run_plc.objectName()))
+        self.ui.check_stop_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_stop_plc.objectName()))
+        self.ui.check_reject_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_reject_plc.objectName()))
+        self.ui.check_spare_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_spare_plc.objectName()))
 
         self.ui.checkall_plc_btns.clicked.connect(self.check_all_plc_parms)
         self.ui.save_plc_pathes.clicked.connect(self.save_plc_parms)
         self.ui.check_set_value_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_set_value_plc.objectName()))
         self.ui.set_value_plc.clicked.connect(self.set_plc_value)
-
+        self.load_plc_ip()
         self.load_plc_parms()
+        self.check_plc_status()
 
         # self.ui.connect_sliders('thresh',self.update_threshould)
 
@@ -1393,12 +1403,16 @@ class API:
         self.connection_status=self.my_plc.connection()
         if self.connection_status:
             self.load_plc_parms()
-            self.ui.set_size(self.ui.frame_175, 800,maximum=True)
+            self.ui.frame_size(self.ui.frame_175, 800)
             
-            self.ui.show_mesagges(self.ui.plc_warnings,texts['Connection_succssed'])
+            
+            self.ui.show_mesagges(self.ui.plc_warnings,texts.WARNINGS['Connection_succssed'][self.language])
         else:
-            self.ui.set_size(self.ui.frame_175, 0,maximum=True)
-            self.ui.show_mesagges(self.ui.plc_warnings,texts['Connection_eror'],color='red')
+            self.ui.frame_size(self.ui.frame_175, 0)
+            self.ui.show_mesagges(self.ui.plc_warnings,texts.WARNINGS['Connection_eror'][self.language],color='red')
+
+    # def check_connectiom_plc(self):
+
 
     
     def disconnect_plc(self):
@@ -1407,15 +1421,104 @@ class API:
             del self.my_plc
         except:
             pass
-        self.ui.set_size(self.ui.frame_121, 0,maximum=True)
-    
+        self.ui.frame_size(self.ui.frame_121, 0)
+
+
+
+    def check_plc_status(self):
+        self.connect_plc()
+        # from PySide6.QtCore import sQTimer
+        
+        parms=self.db.load_plc_parms()
+        self.node_run=parms[0]['path']
+        self.node_reject=parms[2]['path']
+        self.plc_thread=threading.Thread(target=self.auto_plc)
+        self.plc_thread.start()
+
+    def auto_plc(self):
+
+        
+
+        try:
+
+            
+            
+            if self.connection_status:
+                mode=self.my_plc.get_value(self.node_run)
+                print('mode',mode)
+                self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connected'][self.language],color='green')
+
+                if mode!="Path Eror":
+
+                    if mode[0]=='True':
+                        self.ui.set_label(self.ui.plc_mode_live_page,texts.WARNINGS['Mode_run_plc'][self.language],color='green')
+                    else:
+                        self.ui.set_label(self.ui.plc_mode_live_page,texts.WARNINGS['Mode_stop_plc'][self.language],color='red')
+
+                else:
+                    self.ui.set_label(self.ui.plc_mode_live_page,texts.WARNINGS['path_eror_plc'][self.language],color='red')                
+
+
+                mode=self.my_plc.get_value(self.node_reject)
+                print('mode',mode)
+                self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connected'][self.language],color='green')
+
+                if mode!="Path Eror":
+
+                    if mode[0]=='True':
+                        self.ui.set_label(self.ui.plc_reject_live_page,texts.WARNINGS['Mode_run_plc'][self.language],color='green')
+                    else:
+                        self.ui.set_label(self.ui.plc_reject_live_page,texts.WARNINGS['Mode_stop_plc'][self.language],color='red')
+
+                else:
+                    self.ui.set_label(self.ui.plc_reject_live_page,texts.WARNINGS['path_eror_plc'][self.language],color='red') 
+
+
+
+            else:
+                self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connection_eror'][self.language],color='red')
+                self.ui.set_label(self.ui.plc_mode_live_page,'-',color='red')
+                self.ui.set_label(self.ui.plc_reject_live_page,'-',color='red')
+
+        
+        except:
+            self.connect_plc()
+            print('except')
+            self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Disconnected'][self.language],color='red')
+        
+
+        time.sleep(0.3)
+        # self.plc_thread.stop()
+
+        self.plc_thread=threading.Thread(target=self.auto_plc)
+        self.plc_thread.start()
+        
+
+
+
+
+    def check_spec_plc_parms(self):
+
+        btns=['check_run_plc','check_reject_plc']
+        values={}
+        for btn in btns:
+            value=self.check_plc_parms(btn)
+
+            values.update({btn:value})
+        return values  
 
     def check_all_plc_parms(self):
 
-        btns=['check_limit_1_plc','check_limit_2_plc','check_down_motor_plc','check_top_motor_plc']
-
+        btns=['check_run_plc','check_stop_plc','check_reject_plc','check_spare_plc']
+        values={}
         for btn in btns:
-            self.check_plc_parms(btn)
+            value=self.check_plc_parms(btn)
+
+            values.update({btn:value})
+        return values
+
+
+
     def check_plc_parms(self,name):
 
         # path_list={'check_limit_1_btn':self.ui.line_limit1_plc,'check_limit_2_btn':self.ui.line_limit2_plc,\
@@ -1430,16 +1533,31 @@ class API:
         label_name=eval('self.ui.label_{}'.format(name))
         self.ui.set_label(label_name, str(value))
 
+    def load_plc_ip(self):
+        ip=self.db.load_plc_ip()
+        self.ui.plc_ip_line.setText(ip)
+
+    def save_plc_ip(self):
+
+        ip=self.ui.plc_ip_line.text()
+        self.db.save_plc_ip(ip)
+        
+        self.ui.show_mesagges(self.ui.plc_warnings,texts.WARNINGS['plc_ip'][self.language])
 
     def load_plc_parms(self):
 
         parms=self.db.load_plc_parms()
         combo_list=[]
-
+        print('parms',parms)
         for parm in parms:
             try:
-                line=eval('self.ui.line_{}'.format(parm['name']))
-                line.setText(parm['path'])
+                
+                try:
+                    line=eval('self.ui.line_{}'.format(parm['name']))
+                    line.setText(parm['path'])
+                except:
+                    line=eval('self.ui.spin_{}'.format(parm['name']))
+                    line.setValue(int(parm['path']))
                 combo_list.append(parm['name'])
 
             except:
@@ -1451,6 +1569,7 @@ class API:
     def update_path_plc(self):
 
         text=self.ui.comboBox_plc_addresses.currentText()
+        
 
         value=eval('self.ui.line_{}.text()'.format(text))
 
@@ -1459,6 +1578,7 @@ class API:
 
     def save_plc_parms(self):
         plc_parms=self.ui.get_plc_parms()
+        print('plc_parms',plc_parms)
         self.db.update_plc_parms(plc_parms)
         pass
 
