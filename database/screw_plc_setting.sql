@@ -27,7 +27,7 @@ CREATE TABLE `plc_setting` (
   `name` varchar(45) NOT NULL,
   `path` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `plc_setting` (
 
 LOCK TABLES `plc_setting` WRITE;
 /*!40000 ALTER TABLE `plc_setting` DISABLE KEYS */;
-INSERT INTO `plc_setting` VALUES (1,'limit_1_plc','45'),(2,'limit_2_plc','46'),(3,'down_motor_plc','47'),(4,'top_motor_plc','48');
+INSERT INTO `plc_setting` VALUES (1,'run_plc','45grf'),(2,'stop_plc','46awdw'),(3,'reject_plc','47sdasd'),(4,'delay_plc','53'),(5,'duration_plc','50'),(6,'spare_plc','3wd');
 /*!40000 ALTER TABLE `plc_setting` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-28 20:54:38
+-- Dump completed on 2022-07-02 20:14:34

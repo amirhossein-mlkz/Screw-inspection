@@ -35,7 +35,8 @@ CREATE TABLE `settings` (
   `small_rect_area` int DEFAULT NULL,
   `rect_accuracy` double DEFAULT NULL,
   `split_size` json DEFAULT NULL,
-  `n_defect_colors` int DEFAULT NULL
+  `n_defect_colors` int DEFAULT NULL,
+  `plc_ip` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -45,7 +46,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES (0,'G:/oxin_image_grabber','G:/dataset/','Gigi',8,'QtCurve','#144475','English',2000,1000,0.9,'[11, 4]',6);
+INSERT INTO `settings` VALUES (0,'G:/oxin_image_grabber','G:/dataset/','Arial Black',11,'QtCurve','#282C34','English',2000,1000,0.9,'[11, 4]',6,'opc.tcp://127.0.0.1:8081');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-22 23:40:51
+-- Dump completed on 2022-07-02 20:14:34

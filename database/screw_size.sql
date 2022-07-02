@@ -25,10 +25,8 @@ DROP TABLE IF EXISTS `size`;
 CREATE TABLE `size` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
-  `min_x` varchar(45) DEFAULT NULL,
-  `min_y` varchar(45) DEFAULT NULL,
-  `max_x` varchar(45) DEFAULT NULL,
-  `max_y` varchar(45) DEFAULT NULL,
+  `x` varchar(45) DEFAULT NULL,
+  `y` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -39,7 +37,7 @@ CREATE TABLE `size` (
 
 LOCK TABLES `size` WRITE;
 /*!40000 ALTER TABLE `size` DISABLE KEYS */;
-INSERT INTO `size` VALUES (1,'top_live','','','',''),(2,'side_live','100','100','100','100');
+INSERT INTO `size` VALUES (1,'top','5','10'),(2,'side','7','10');
 /*!40000 ALTER TABLE `size` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-28 20:54:38
+-- Dump completed on 2022-07-02 20:14:34
