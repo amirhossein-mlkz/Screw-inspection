@@ -2231,7 +2231,7 @@ QPushButton:hover {
                          <string notr="true">background-color : #F3F6FE;</string>
                         </property>
                         <property name="currentIndex">
-                         <number>0</number>
+                         <number>5</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -3829,6 +3829,9 @@ QTableWidget::item:selected{
                                          </item>
                                          <item>
                                           <widget class="QPushButton" name="btn_page0_1_top">
+                                           <property name="enabled">
+                                            <bool>true</bool>
+                                           </property>
                                            <property name="minimumSize">
                                             <size>
                                              <width>90</width>
@@ -3886,7 +3889,7 @@ QPushButton:disabled{
                                          <item>
                                           <widget class="QPushButton" name="btn_page0_2_top">
                                            <property name="enabled">
-                                            <bool>true</bool>
+                                            <bool>false</bool>
                                            </property>
                                            <property name="minimumSize">
                                             <size>
@@ -4106,7 +4109,7 @@ QPushButton:disabled{
 }</string>
                                            </property>
                                            <property name="text">
-                                            <string>Areas</string>
+                                            <string>Areas2</string>
                                            </property>
                                            <property name="checkable">
                                             <bool>false</bool>
@@ -4144,7 +4147,7 @@ QPushButton:disabled{
                                          <item>
                                           <widget class="QPushButton" name="btn_page0_3_top">
                                            <property name="enabled">
-                                            <bool>true</bool>
+                                            <bool>false</bool>
                                            </property>
                                            <property name="minimumSize">
                                             <size>
@@ -4364,7 +4367,265 @@ QPushButton:disabled{
 }</string>
                                            </property>
                                            <property name="text">
-                                            <string>Areas</string>
+                                            <string>Areas3</string>
+                                           </property>
+                                           <property name="checkable">
+                                            <bool>false</bool>
+                                           </property>
+                                           <property name="checked">
+                                            <bool>false</bool>
+                                           </property>
+                                          </widget>
+                                         </item>
+                                        </layout>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QFrame" name="frame_190">
+                                        <property name="enabled">
+                                         <bool>true</bool>
+                                        </property>
+                                        <property name="frameShape">
+                                         <enum>QFrame::StyledPanel</enum>
+                                        </property>
+                                        <property name="frameShadow">
+                                         <enum>QFrame::Raised</enum>
+                                        </property>
+                                        <layout class="QHBoxLayout" name="horizontalLayout_69">
+                                         <item>
+                                          <widget class="QCheckBox" name="checkbox_page0_4_top">
+                                           <property name="cursor">
+                                            <cursorShape>PointingHandCursor</cursorShape>
+                                           </property>
+                                           <property name="text">
+                                            <string/>
+                                           </property>
+                                          </widget>
+                                         </item>
+                                         <item>
+                                          <widget class="QPushButton" name="btn_page0_4_top">
+                                           <property name="enabled">
+                                            <bool>false</bool>
+                                           </property>
+                                           <property name="minimumSize">
+                                            <size>
+                                             <width>90</width>
+                                             <height>25</height>
+                                            </size>
+                                           </property>
+                                           <property name="palette">
+                                            <palette>
+                                             <active>
+                                              <colorrole role="WindowText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Button">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>255</red>
+                                                 <green>255</green>
+                                                 <blue>255</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Text">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="ButtonText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Base">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>255</red>
+                                                 <green>255</green>
+                                                 <blue>255</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Window">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>255</red>
+                                                 <green>255</green>
+                                                 <blue>255</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="PlaceholderText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                             </active>
+                                             <inactive>
+                                              <colorrole role="WindowText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Button">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>255</red>
+                                                 <green>255</green>
+                                                 <blue>255</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Text">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="ButtonText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Base">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>255</red>
+                                                 <green>255</green>
+                                                 <blue>255</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Window">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>255</red>
+                                                 <green>255</green>
+                                                 <blue>255</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="PlaceholderText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                             </inactive>
+                                             <disabled>
+                                              <colorrole role="WindowText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Button">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>50</red>
+                                                 <green>50</green>
+                                                 <blue>50</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Text">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="ButtonText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Base">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>50</red>
+                                                 <green>50</green>
+                                                 <blue>50</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="Window">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>50</red>
+                                                 <green>50</green>
+                                                 <blue>50</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                              <colorrole role="PlaceholderText">
+                                               <brush brushstyle="SolidPattern">
+                                                <color alpha="255">
+                                                 <red>0</red>
+                                                 <green>0</green>
+                                                 <blue>0</blue>
+                                                </color>
+                                               </brush>
+                                              </colorrole>
+                                             </disabled>
+                                            </palette>
+                                           </property>
+                                           <property name="cursor">
+                                            <cursorShape>PointingHandCursor</cursorShape>
+                                           </property>
+                                           <property name="styleSheet">
+                                            <string notr="true">QPushButton:enabled { 
+	background-color: rgb(255,255,255);
+}
+
+QPushButton:disabled{
+	background-color:rgb(50,50,50);
+}</string>
+                                           </property>
+                                           <property name="text">
+                                            <string>Areas4</string>
                                            </property>
                                            <property name="checkable">
                                             <bool>false</bool>
@@ -4796,7 +5057,7 @@ QPushButton:disabled{
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>3</number>
+                                   <number>1</number>
                                   </property>
                                   <widget class="QWidget" name="page"/>
                                   <widget class="QWidget" name="page_1_top">
@@ -4824,10 +5085,16 @@ QPushButton:disabled{
                                        </property>
                                        <item>
                                         <widget class="QFrame" name="frame_29">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>0</width>
+                                           <height>139</height>
+                                          </size>
+                                         </property>
                                          <property name="maximumSize">
                                           <size>
                                            <width>445</width>
-                                           <height>120</height>
+                                           <height>139</height>
                                           </size>
                                          </property>
                                          <property name="frameShape">
@@ -4858,6 +5125,12 @@ QPushButton:disabled{
                                           </item>
                                           <item>
                                            <widget class="QGroupBox" name="groupBox_3">
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>0</width>
+                                              <height>54</height>
+                                             </size>
+                                            </property>
                                             <property name="title">
                                              <string>Load Image</string>
                                             </property>
@@ -4922,6 +5195,12 @@ QPushButton:disabled{
                                           </item>
                                           <item>
                                            <widget class="QGroupBox" name="groupBox_2">
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>0</width>
+                                              <height>0</height>
+                                             </size>
+                                            </property>
                                             <property name="title">
                                              <string>Top Camera</string>
                                             </property>
@@ -6833,6 +7112,300 @@ QPushButton:disabled{
                                     </item>
                                     <item>
                                      <spacer name="verticalSpacer_15">
+                                      <property name="orientation">
+                                       <enum>Qt::Vertical</enum>
+                                      </property>
+                                      <property name="sizeHint" stdset="0">
+                                       <size>
+                                        <width>20</width>
+                                        <height>40</height>
+                                       </size>
+                                      </property>
+                                     </spacer>
+                                    </item>
+                                   </layout>
+                                  </widget>
+                                  <widget class="QWidget" name="page_4_top">
+                                   <layout class="QVBoxLayout" name="verticalLayout_129">
+                                    <item>
+                                     <widget class="QFrame" name="frame_194">
+                                      <property name="frameShape">
+                                       <enum>QFrame::StyledPanel</enum>
+                                      </property>
+                                      <property name="frameShadow">
+                                       <enum>QFrame::Raised</enum>
+                                      </property>
+                                      <layout class="QVBoxLayout" name="verticalLayout_121">
+                                       <property name="leftMargin">
+                                        <number>0</number>
+                                       </property>
+                                       <property name="topMargin">
+                                        <number>0</number>
+                                       </property>
+                                       <property name="rightMargin">
+                                        <number>0</number>
+                                       </property>
+                                       <property name="bottomMargin">
+                                        <number>0</number>
+                                       </property>
+                                       <item>
+                                        <widget class="QFrame" name="frame_195">
+                                         <property name="enabled">
+                                          <bool>true</bool>
+                                         </property>
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>0</width>
+                                           <height>66</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>67</height>
+                                          </size>
+                                         </property>
+                                         <property name="frameShape">
+                                          <enum>QFrame::StyledPanel</enum>
+                                         </property>
+                                         <property name="frameShadow">
+                                          <enum>QFrame::Raised</enum>
+                                         </property>
+                                         <layout class="QVBoxLayout" name="verticalLayout_127">
+                                          <property name="leftMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="topMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="rightMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="bottomMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <item alignment="Qt::AlignHCenter">
+                                           <widget class="QLabel" name="label_170">
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>16777215</width>
+                                              <height>50</height>
+                                             </size>
+                                            </property>
+                                            <property name="text">
+                                             <string>Threshold</string>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QFrame" name="frame_197">
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>0</width>
+                                              <height>43</height>
+                                             </size>
+                                            </property>
+                                            <property name="frameShape">
+                                             <enum>QFrame::StyledPanel</enum>
+                                            </property>
+                                            <property name="frameShadow">
+                                             <enum>QFrame::Raised</enum>
+                                            </property>
+                                            <layout class="QHBoxLayout" name="horizontalLayout_186">
+                                             <property name="leftMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="topMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="bottomMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <item>
+                                              <widget class="QCheckBox" name="checkbox_thresh_inv0_4_top">
+                                               <property name="minimumSize">
+                                                <size>
+                                                 <width>96</width>
+                                                 <height>4</height>
+                                                </size>
+                                               </property>
+                                               <property name="maximumSize">
+                                                <size>
+                                                 <width>87</width>
+                                                 <height>16777215</height>
+                                                </size>
+                                               </property>
+                                               <property name="text">
+                                                <string>Negative</string>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QSlider" name="bar_thresh0_4_top">
+                                               <property name="minimumSize">
+                                                <size>
+                                                 <width>0</width>
+                                                 <height>30</height>
+                                                </size>
+                                               </property>
+                                               <property name="maximum">
+                                                <number>255</number>
+                                               </property>
+                                               <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QSpinBox" name="spinBox_17">
+                                               <property name="enabled">
+                                                <bool>true</bool>
+                                               </property>
+                                               <property name="maximum">
+                                                <number>255</number>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                            </layout>
+                                           </widget>
+                                          </item>
+                                         </layout>
+                                        </widget>
+                                       </item>
+                                       <item>
+                                        <widget class="QFrame" name="frame_207">
+                                         <property name="enabled">
+                                          <bool>true</bool>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>72</height>
+                                          </size>
+                                         </property>
+                                         <property name="frameShape">
+                                          <enum>QFrame::StyledPanel</enum>
+                                         </property>
+                                         <property name="frameShadow">
+                                          <enum>QFrame::Raised</enum>
+                                         </property>
+                                         <layout class="QVBoxLayout" name="verticalLayout_128">
+                                          <item>
+                                           <widget class="QLabel" name="label_171">
+                                            <property name="enabled">
+                                             <bool>true</bool>
+                                            </property>
+                                            <property name="text">
+                                             <string>Noise filter</string>
+                                            </property>
+                                            <property name="alignment">
+                                             <set>Qt::AlignCenter</set>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QFrame" name="frame_208">
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>0</width>
+                                              <height>29</height>
+                                             </size>
+                                            </property>
+                                            <property name="frameShape">
+                                             <enum>QFrame::StyledPanel</enum>
+                                            </property>
+                                            <property name="frameShadow">
+                                             <enum>QFrame::Raised</enum>
+                                            </property>
+                                            <layout class="QHBoxLayout" name="horizontalLayout_187">
+                                             <property name="leftMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="topMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="rightMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="bottomMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <item>
+                                              <widget class="QSlider" name="bar_noise_filter0_4_top">
+                                               <property name="minimumSize">
+                                                <size>
+                                                 <width>0</width>
+                                                 <height>30</height>
+                                                </size>
+                                               </property>
+                                               <property name="maximum">
+                                                <number>100</number>
+                                               </property>
+                                               <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QSpinBox" name="spinBox_18">
+                                               <property name="maximum">
+                                                <number>100</number>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                            </layout>
+                                           </widget>
+                                          </item>
+                                         </layout>
+                                        </widget>
+                                       </item>
+                                      </layout>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QGroupBox" name="groupBox_15">
+                                      <property name="minimumSize">
+                                       <size>
+                                        <width>0</width>
+                                        <height>0</height>
+                                       </size>
+                                      </property>
+                                      <property name="maximumSize">
+                                       <size>
+                                        <width>16777215</width>
+                                        <height>100</height>
+                                       </size>
+                                      </property>
+                                      <property name="title">
+                                       <string>Select Shape Type</string>
+                                      </property>
+                                      <layout class="QHBoxLayout" name="horizontalLayout_77">
+                                       <item>
+                                        <widget class="QRadioButton" name="check_circle_4_top">
+                                         <property name="text">
+                                          <string>Circle</string>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                       <item>
+                                        <widget class="QRadioButton" name="check_rect_4_top">
+                                         <property name="text">
+                                          <string>Rectangle</string>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                       <item>
+                                        <widget class="QRadioButton" name="check_hexagonal_4_top">
+                                         <property name="text">
+                                          <string>Hexagonal</string>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                      </layout>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <spacer name="verticalSpacer_5">
                                       <property name="orientation">
                                        <enum>Qt::Vertical</enum>
                                       </property>
@@ -16689,12 +17262,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>493</x>
-     <y>185</y>
+     <x>524</x>
+     <y>639</y>
     </hint>
     <hint type="destinationlabel">
-     <x>598</x>
-     <y>187</y>
+     <x>660</x>
+     <y>610</y>
     </hint>
    </hints>
   </connection>
@@ -16705,11 +17278,11 @@ QPushButton:pressed {
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>847</x>
+     <x>634</x>
      <y>101</y>
     </hint>
     <hint type="destinationlabel">
-     <x>994</x>
+     <x>694</x>
      <y>111</y>
     </hint>
    </hints>
@@ -16721,12 +17294,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>598</x>
-     <y>187</y>
+     <x>660</x>
+     <y>610</y>
     </hint>
     <hint type="destinationlabel">
-     <x>493</x>
-     <y>185</y>
+     <x>524</x>
+     <y>639</y>
     </hint>
    </hints>
   </connection>
@@ -16741,7 +17314,7 @@ QPushButton:pressed {
      <y>95</y>
     </hint>
     <hint type="destinationlabel">
-     <x>994</x>
+     <x>694</x>
      <y>111</y>
     </hint>
    </hints>
@@ -16753,12 +17326,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>493</x>
-     <y>188</y>
+     <x>524</x>
+     <y>521</y>
     </hint>
     <hint type="destinationlabel">
-     <x>598</x>
-     <y>220</y>
+     <x>660</x>
+     <y>492</y>
     </hint>
    </hints>
   </connection>
@@ -16769,12 +17342,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>598</x>
-     <y>220</y>
+     <x>660</x>
+     <y>492</y>
     </hint>
     <hint type="destinationlabel">
-     <x>493</x>
-     <y>188</y>
+     <x>524</x>
+     <y>521</y>
     </hint>
    </hints>
   </connection>
@@ -16881,12 +17454,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>593</x>
-     <y>753</y>
+     <x>351</x>
+     <y>241</y>
     </hint>
     <hint type="destinationlabel">
-     <x>650</x>
-     <y>750</y>
+     <x>368</x>
+     <y>238</y>
     </hint>
    </hints>
   </connection>
@@ -16897,12 +17470,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>650</x>
-     <y>750</y>
+     <x>368</x>
+     <y>238</y>
     </hint>
     <hint type="destinationlabel">
-     <x>593</x>
-     <y>753</y>
+     <x>351</x>
+     <y>241</y>
     </hint>
    </hints>
   </connection>
@@ -16913,12 +17486,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>603</x>
-     <y>763</y>
+     <x>344</x>
+     <y>245</y>
     </hint>
     <hint type="destinationlabel">
-     <x>660</x>
-     <y>760</y>
+     <x>378</x>
+     <y>242</y>
     </hint>
    </hints>
   </connection>
@@ -16929,12 +17502,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>660</x>
-     <y>760</y>
+     <x>378</x>
+     <y>242</y>
     </hint>
     <hint type="destinationlabel">
-     <x>603</x>
-     <y>763</y>
+     <x>344</x>
+     <y>245</y>
     </hint>
    </hints>
   </connection>
@@ -16945,12 +17518,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>603</x>
-     <y>763</y>
+     <x>344</x>
+     <y>247</y>
     </hint>
     <hint type="destinationlabel">
-     <x>660</x>
-     <y>760</y>
+     <x>378</x>
+     <y>244</y>
     </hint>
    </hints>
   </connection>
@@ -16961,12 +17534,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>660</x>
-     <y>760</y>
+     <x>378</x>
+     <y>244</y>
     </hint>
     <hint type="destinationlabel">
-     <x>603</x>
-     <y>763</y>
+     <x>344</x>
+     <y>247</y>
     </hint>
    </hints>
   </connection>
@@ -16977,12 +17550,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>360</x>
-     <y>242</y>
+     <x>602</x>
+     <y>378</y>
     </hint>
     <hint type="destinationlabel">
-     <x>377</x>
-     <y>239</y>
+     <x>659</x>
+     <y>375</y>
     </hint>
    </hints>
   </connection>
@@ -16993,12 +17566,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>377</x>
-     <y>239</y>
+     <x>659</x>
+     <y>375</y>
     </hint>
     <hint type="destinationlabel">
-     <x>360</x>
-     <y>242</y>
+     <x>602</x>
+     <y>378</y>
     </hint>
    </hints>
   </connection>
@@ -17009,12 +17582,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>345</x>
-     <y>245</y>
+     <x>602</x>
+     <y>455</y>
     </hint>
     <hint type="destinationlabel">
-     <x>377</x>
-     <y>242</y>
+     <x>659</x>
+     <y>452</y>
     </hint>
    </hints>
   </connection>
@@ -17025,12 +17598,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>377</x>
-     <y>242</y>
+     <x>659</x>
+     <y>452</y>
     </hint>
     <hint type="destinationlabel">
-     <x>345</x>
-     <y>245</y>
+     <x>602</x>
+     <y>455</y>
     </hint>
    </hints>
   </connection>
@@ -17041,12 +17614,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>361</x>
-     <y>234</y>
+     <x>612</x>
+     <y>591</y>
     </hint>
     <hint type="destinationlabel">
-     <x>387</x>
-     <y>231</y>
+     <x>669</x>
+     <y>588</y>
     </hint>
    </hints>
   </connection>
@@ -17057,12 +17630,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>387</x>
-     <y>231</y>
+     <x>669</x>
+     <y>588</y>
     </hint>
     <hint type="destinationlabel">
-     <x>361</x>
-     <y>234</y>
+     <x>612</x>
+     <y>591</y>
     </hint>
    </hints>
   </connection>
@@ -17073,12 +17646,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>344</x>
-     <y>217</y>
+     <x>612</x>
+     <y>667</y>
     </hint>
     <hint type="destinationlabel">
-     <x>387</x>
-     <y>212</y>
+     <x>669</x>
+     <y>663</y>
     </hint>
    </hints>
   </connection>
@@ -17089,12 +17662,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>387</x>
-     <y>212</y>
+     <x>669</x>
+     <y>663</y>
     </hint>
     <hint type="destinationlabel">
-     <x>344</x>
-     <y>217</y>
+     <x>612</x>
+     <y>667</y>
     </hint>
    </hints>
   </connection>
@@ -17105,12 +17678,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>236</x>
-     <y>766</y>
+     <x>95</x>
+     <y>138</y>
     </hint>
     <hint type="destinationlabel">
-     <x>299</x>
-     <y>775</y>
+     <x>95</x>
+     <y>135</y>
     </hint>
    </hints>
   </connection>
@@ -17121,12 +17694,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>305</x>
-     <y>760</y>
+     <x>95</x>
+     <y>135</y>
     </hint>
     <hint type="destinationlabel">
-     <x>241</x>
-     <y>760</y>
+     <x>95</x>
+     <y>138</y>
     </hint>
    </hints>
   </connection>
@@ -17137,12 +17710,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>519</x>
-     <y>776</y>
+     <x>107</x>
+     <y>119</y>
     </hint>
     <hint type="destinationlabel">
-     <x>543</x>
-     <y>772</y>
+     <x>111</x>
+     <y>114</y>
     </hint>
    </hints>
   </connection>
@@ -17153,12 +17726,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>547</x>
-     <y>758</y>
+     <x>111</x>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
-     <x>498</x>
-     <y>760</y>
+     <x>107</x>
+     <y>119</y>
     </hint>
    </hints>
   </connection>
@@ -17169,12 +17742,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>769</x>
-     <y>763</y>
+     <x>134</x>
+     <y>138</y>
     </hint>
     <hint type="destinationlabel">
-     <x>827</x>
-     <y>774</y>
+     <x>134</x>
+     <y>135</y>
     </hint>
    </hints>
   </connection>
@@ -17185,12 +17758,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>838</x>
-     <y>764</y>
+     <x>134</x>
+     <y>135</y>
     </hint>
     <hint type="destinationlabel">
-     <x>785</x>
-     <y>767</y>
+     <x>134</x>
+     <y>138</y>
     </hint>
    </hints>
   </connection>
@@ -17201,12 +17774,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1042</x>
-     <y>779</y>
+     <x>146</x>
+     <y>119</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1108</x>
-     <y>778</y>
+     <x>150</x>
+     <y>114</y>
     </hint>
    </hints>
   </connection>
@@ -17217,12 +17790,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1107</x>
-     <y>769</y>
+     <x>150</x>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1031</x>
-     <y>773</y>
+     <x>146</x>
+     <y>119</y>
     </hint>
    </hints>
   </connection>
@@ -17233,12 +17806,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>603</x>
-     <y>763</y>
+     <x>344</x>
+     <y>245</y>
     </hint>
     <hint type="destinationlabel">
-     <x>660</x>
-     <y>760</y>
+     <x>378</x>
+     <y>242</y>
     </hint>
    </hints>
   </connection>
@@ -17249,12 +17822,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>660</x>
-     <y>760</y>
+     <x>378</x>
+     <y>242</y>
     </hint>
     <hint type="destinationlabel">
-     <x>603</x>
-     <y>763</y>
+     <x>344</x>
+     <y>245</y>
     </hint>
    </hints>
   </connection>
@@ -17269,8 +17842,8 @@ QPushButton:pressed {
      <y>480</y>
     </hint>
     <hint type="destinationlabel">
-     <x>476</x>
-     <y>222</y>
+     <x>344</x>
+     <y>245</y>
     </hint>
    </hints>
   </connection>
@@ -17285,8 +17858,8 @@ QPushButton:pressed {
      <y>480</y>
     </hint>
     <hint type="destinationlabel">
-     <x>466</x>
-     <y>748</y>
+     <x>344</x>
+     <y>247</y>
     </hint>
    </hints>
   </connection>
@@ -17301,8 +17874,8 @@ QPushButton:pressed {
      <y>480</y>
     </hint>
     <hint type="destinationlabel">
-     <x>466</x>
-     <y>748</y>
+     <x>344</x>
+     <y>245</y>
     </hint>
    </hints>
   </connection>
@@ -17317,8 +17890,8 @@ QPushButton:pressed {
      <y>480</y>
     </hint>
     <hint type="destinationlabel">
-     <x>358</x>
-     <y>165</y>
+     <x>351</x>
+     <y>241</y>
     </hint>
    </hints>
   </connection>
@@ -17333,8 +17906,8 @@ QPushButton:pressed {
      <y>480</y>
     </hint>
     <hint type="destinationlabel">
-     <x>466</x>
-     <y>748</y>
+     <x>344</x>
+     <y>245</y>
     </hint>
    </hints>
   </connection>
@@ -17345,8 +17918,8 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>466</x>
-     <y>748</y>
+     <x>344</x>
+     <y>245</y>
     </hint>
     <hint type="destinationlabel">
      <x>510</x>
@@ -17361,8 +17934,8 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>358</x>
-     <y>165</y>
+     <x>351</x>
+     <y>241</y>
     </hint>
     <hint type="destinationlabel">
      <x>510</x>
@@ -17377,8 +17950,8 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>466</x>
-     <y>748</y>
+     <x>344</x>
+     <y>245</y>
     </hint>
     <hint type="destinationlabel">
      <x>510</x>
@@ -17393,8 +17966,8 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>466</x>
-     <y>748</y>
+     <x>344</x>
+     <y>247</y>
     </hint>
     <hint type="destinationlabel">
      <x>510</x>
@@ -17409,12 +17982,76 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>476</x>
-     <y>222</y>
+     <x>344</x>
+     <y>245</y>
     </hint>
     <hint type="destinationlabel">
      <x>510</x>
      <y>480</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh0_4_top</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_17</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>546</x>
+     <y>243</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>638</x>
+     <y>249</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_17</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh0_4_top</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>635</x>
+     <y>237</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>579</x>
+     <y>237</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_noise_filter0_4_top</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_18</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>560</x>
+     <y>318</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>646</x>
+     <y>329</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_18</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_noise_filter0_4_top</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>646</x>
+     <y>316</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>594</x>
+     <y>318</y>
     </hint>
    </hints>
   </connection>

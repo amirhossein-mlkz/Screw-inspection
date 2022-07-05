@@ -39,6 +39,24 @@ def object_dict_builder(ui_object):
             },
         },
 
+        '4_top':
+        {
+            'shape_type':
+            {
+                'options':{
+                    'circel': self.check_circle_4_top,
+                    'rect': self.check_rect_4_top,
+                    'hexagonal': self.check_hexagonal_4_top,
+                },
+                'frame':
+                {
+                    'obj':self.frame_54,
+                    'size':50,
+                },
+            },
+        },
+
+
 
         '5_side':
         {
@@ -67,6 +85,7 @@ def object_dict_builder(ui_object):
             'bar_thresh0_1_top':self.bar_thresh0_1_top,
             'bar_thresh0_2_top':self.bar_thresh0_2_top,
             'bar_thresh0_3_top':self.bar_thresh0_3_top,
+            'bar_thresh0_4_top':self.bar_thresh0_4_top,
             'bar_thresh0_1_side': self.bar_thresh0_1_side,
             'bar_thresh0_2_side': self.bar_thresh0_2_side,
             'bar_thresh0_3_side': self.bar_thresh0_3_side,
@@ -78,6 +97,7 @@ def object_dict_builder(ui_object):
             'bar_noise_filter0_1_top':self.bar_noise_filter0_1_top,
             'bar_noise_filter0_2_top':self.bar_noise_filter0_2_top,
             'bar_noise_filter0_3_top':self.bar_noise_filter0_3_top,
+            'bar_noise_filter0_4_top':self.bar_noise_filter0_4_top,
             'bar_noise_filter0_1_side':self.bar_noise_filter0_1_side,
         }
         
@@ -240,6 +260,7 @@ def object_dict_builder(ui_object):
             'checkbox_thresh_inv0_1_top': self.checkbox_thresh_inv0_1_top,
             'checkbox_thresh_inv0_2_top': self.checkbox_thresh_inv0_2_top,
             'checkbox_thresh_inv0_3_top': self.checkbox_thresh_inv0_3_top,
+            'checkbox_thresh_inv0_4_top': self.checkbox_thresh_inv0_4_top,
             'checkbox_thresh_inv0_1_side': self.checkbox_thresh_inv0_1_side,
 
         },
@@ -248,6 +269,7 @@ def object_dict_builder(ui_object):
             'checkbox_page0_1_top': self.checkbox_page0_1_top,
             'checkbox_page0_2_top': self.checkbox_page0_2_top,
             'checkbox_page0_3_top': self.checkbox_page0_3_top,
+            'checkbox_page0_4_top': self.checkbox_page0_4_top,
             'checkbox_page0_1_side': self.checkbox_page0_1_side,
             'checkbox_page0_2_side': self.checkbox_page0_2_side,
             'checkbox_page0_3_side': self.checkbox_page0_3_side,

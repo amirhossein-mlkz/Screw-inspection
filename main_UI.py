@@ -125,12 +125,12 @@ class UI_main_window(QMainWindow, ui):
 
         self.sides=['top','side']
 
-        self.pages_name_dict={'1':'1_top','2':'2_top','3':'3_top','4':'1_side','5':'2_side','6':'3_side','7':'4_side','8':'5_side','9':'6_side'}
-        self.pages_dircetion_dict={'1':'top','2':'top','3':'top','4':'side','5':'side','6':'side','7':'side','8':'side','9':'side'}
+        self.pages_name_dict={'1':'1_top','2':'2_top','3':'3_top','4':'4_top','5':'1_side','6':'2_side','7':'3_side','7':'4_side','9':'5_side','10':'6_side'}
+        self.pages_dircetion_dict={'1':'top','2':'top','3':'top','4':'top','5':'side','6':'side','7':'side','8':'side','9':'side','10':'side'}
         self.roi_name=['x1','y1','x2','y2']
         self.limit_types=['min','max']
 
-        self.combo_exist={'1_top':False,'2_top':True,'3_top':True,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':True}
+        self.combo_exist={'1_top':False,'2_top':True,'3_top':True,'4_top':False,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':True}
 
         
         self.tool_btn_bar_side={'lenght':self.frame_36,'btn_male':self.btn_page0_3_side,'Male_Thread':self.frame_78,'btn_lenght':self.btn_page0_2_side,'Diameter':self.frame_79,'screw_head':self.frame_104,'side_damage':self.frame_112}
@@ -362,6 +362,7 @@ class UI_main_window(QMainWindow, ui):
         self.btn_page0_1_top.clicked.connect(self.buttonClick)
         self.btn_page0_2_top.clicked.connect(self.buttonClick)
         self.btn_page0_3_top.clicked.connect(self.buttonClick)
+        self.btn_page0_4_top.clicked.connect(self.buttonClick)
         self.btn_page0_1_side.clicked.connect(self.buttonClick)
         self.btn_page0_2_side.clicked.connect(self.buttonClick)
         self.btn_page0_3_side.clicked.connect(self.buttonClick)
@@ -798,6 +799,12 @@ class UI_main_window(QMainWindow, ui):
 
             self.stackedWidget_2.setCurrentWidget(self.page_3_top)
             self.btn_page0_3_top.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
+
+        if btnName =='btn_page0_4_top' :
+            self.tool_btn_clear()
+
+            self.stackedWidget_2.setCurrentWidget(self.page_4_top)
+            self.btn_page0_4_top.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
 
 
         if btnName =='btn_page0_1_side' :
