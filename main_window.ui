@@ -716,7 +716,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -766,7 +765,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -816,7 +814,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -866,7 +863,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -916,7 +912,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -966,7 +961,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1053,7 +1047,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1849,7 +1842,6 @@ QPushButton:hover {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                        <stylestrategy>PreferDefault</stylestrategy>
@@ -2231,7 +2223,7 @@ QPushButton:hover {
                          <string notr="true">background-color : #F3F6FE;</string>
                         </property>
                         <property name="currentIndex">
-                         <number>5</number>
+                         <number>1</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -3900,43 +3892,7 @@ QPushButton:disabled{
                                            <property name="palette">
                                             <palette>
                                              <active>
-                                              <colorrole role="WindowText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
                                               <colorrole role="Button">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>255</red>
-                                                 <green>255</green>
-                                                 <blue>255</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Text">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="ButtonText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>255</red>
@@ -3965,43 +3921,7 @@ QPushButton:disabled{
                                               </colorrole>
                                              </active>
                                              <inactive>
-                                              <colorrole role="WindowText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
                                               <colorrole role="Button">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>255</red>
-                                                 <green>255</green>
-                                                 <blue>255</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Text">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="ButtonText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>255</red>
@@ -4030,43 +3950,7 @@ QPushButton:disabled{
                                               </colorrole>
                                              </inactive>
                                              <disabled>
-                                              <colorrole role="WindowText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
                                               <colorrole role="Button">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>50</red>
-                                                 <green>50</green>
-                                                 <blue>50</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Text">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="ButtonText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>50</red>
@@ -4109,7 +3993,7 @@ QPushButton:disabled{
 }</string>
                                            </property>
                                            <property name="text">
-                                            <string>Areas2</string>
+                                            <string>measurement1</string>
                                            </property>
                                            <property name="checkable">
                                             <bool>false</bool>
@@ -4158,43 +4042,7 @@ QPushButton:disabled{
                                            <property name="palette">
                                             <palette>
                                              <active>
-                                              <colorrole role="WindowText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
                                               <colorrole role="Button">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>255</red>
-                                                 <green>255</green>
-                                                 <blue>255</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Text">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="ButtonText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>255</red>
@@ -4223,43 +4071,7 @@ QPushButton:disabled{
                                               </colorrole>
                                              </active>
                                              <inactive>
-                                              <colorrole role="WindowText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
                                               <colorrole role="Button">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>255</red>
-                                                 <green>255</green>
-                                                 <blue>255</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Text">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="ButtonText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>255</red>
@@ -4288,43 +4100,7 @@ QPushButton:disabled{
                                               </colorrole>
                                              </inactive>
                                              <disabled>
-                                              <colorrole role="WindowText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
                                               <colorrole role="Button">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>50</red>
-                                                 <green>50</green>
-                                                 <blue>50</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Text">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="ButtonText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>50</red>
@@ -4367,7 +4143,7 @@ QPushButton:disabled{
 }</string>
                                            </property>
                                            <property name="text">
-                                            <string>Areas3</string>
+                                            <string>Defect</string>
                                            </property>
                                            <property name="checkable">
                                             <bool>false</bool>
@@ -4416,43 +4192,7 @@ QPushButton:disabled{
                                            <property name="palette">
                                             <palette>
                                              <active>
-                                              <colorrole role="WindowText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
                                               <colorrole role="Button">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>255</red>
-                                                 <green>255</green>
-                                                 <blue>255</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Text">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="ButtonText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>255</red>
@@ -4481,43 +4221,7 @@ QPushButton:disabled{
                                               </colorrole>
                                              </active>
                                              <inactive>
-                                              <colorrole role="WindowText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
                                               <colorrole role="Button">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>255</red>
-                                                 <green>255</green>
-                                                 <blue>255</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Text">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="ButtonText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>255</red>
@@ -4546,43 +4250,7 @@ QPushButton:disabled{
                                               </colorrole>
                                              </inactive>
                                              <disabled>
-                                              <colorrole role="WindowText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
                                               <colorrole role="Button">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>50</red>
-                                                 <green>50</green>
-                                                 <blue>50</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Text">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="ButtonText">
-                                               <brush brushstyle="SolidPattern">
-                                                <color alpha="255">
-                                                 <red>0</red>
-                                                 <green>0</green>
-                                                 <blue>0</blue>
-                                                </color>
-                                               </brush>
-                                              </colorrole>
-                                              <colorrole role="Base">
                                                <brush brushstyle="SolidPattern">
                                                 <color alpha="255">
                                                  <red>50</red>
@@ -4982,7 +4650,7 @@ QPushButton:disabled{
 }</string>
                                            </property>
                                            <property name="text">
-                                            <string>Damage</string>
+                                            <string>Defect</string>
                                            </property>
                                            <property name="checkable">
                                             <bool>false</bool>
@@ -11858,7 +11526,6 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -11899,7 +11566,6 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -11998,7 +11664,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12026,7 +11691,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12054,7 +11718,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12082,7 +11745,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12110,7 +11772,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12138,7 +11799,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12166,7 +11826,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12194,7 +11853,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12222,7 +11880,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12250,7 +11907,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12278,7 +11934,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12306,7 +11961,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12334,7 +11988,6 @@ border-color:Transparent</string>
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
-                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -12996,7 +12649,6 @@ QPushButton:pressed {
                                <property name="font">
                                 <font>
                                  <pointsize>10</pointsize>
-                                 <weight>75</weight>
                                  <bold>true</bold>
                                 </font>
                                </property>
@@ -14333,8 +13985,8 @@ QPushButton:pressed {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>276</width>
-                                  <height>771</height>
+                                  <width>71</width>
+                                  <height>71</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">
@@ -14862,7 +14514,6 @@ border: 1px solid #CDCDCE;
                                   <property name="font">
                                    <font>
                                     <pointsize>8</pointsize>
-                                    <weight>50</weight>
                                     <bold>false</bold>
                                    </font>
                                   </property>
@@ -15578,7 +15229,6 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
-                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -17023,7 +16673,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -17060,7 +16709,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -17100,7 +16748,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -17182,7 +16829,6 @@ QPushButton:pressed {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>-1</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>

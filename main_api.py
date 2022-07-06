@@ -1159,6 +1159,50 @@ class API:
 
         img = self.roi_drawings['circel'].get_image(img)
         self.ui.set_image_page_tool_labels(img)
+
+
+
+
+    def update_image_4_top(self):
+        page_name = self.ui.get_setting_page_idx(page_name = True)
+        direction = self.ui.get_setting_page_idx(direction = True)
+        subpage_name = self.ui.get_sub_page_name( page_name )
+
+        img = np.copy(self.current_image_screw)
+        json = self.screw_jasons[ direction ]
+        img, mask_roi, _ = proccessings.preprocessing_top_img( img, json, direction  )
+        
+        #--------------------------------------------------------------------------------------
+        #specific Operation
+        #--------------------------------------------------------------------------------------
+        thresh = self.screw_jasons[ direction ].get_thresh(page_name, subpage_name)
+        noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
+        inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
+        circels_roi = self.screw_jasons[ direction ].get_circels_roi(page_name, subpage_name)
+        min_area_crack = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'min_area')
+        
+        thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
+        thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
+        mask_roi = cvTools.donate2mask(thresh_img.shape, circels_roi, 255)
+        thresh_img = cv2.bitwise_and(thresh_img, mask_roi)
+        
+        thresh_img = cvTools.filter_area(thresh_img, min_area_lake)
+
+        print(min_area_lake)
+        #------------------------------------------------------------------------------------
+        area = np.count_nonzero(thresh_img)
+        info = {'area': area}
+        print(info)
+        #self.ui.set_stetting_page_label_info(info)
+        #------------------------------------------------------------------------------------
+        
+        if self.ui.is_drawing_mask_enabel():
+            img = Utils.mask_viewer(img, thresh_img)
+            h,w = img.shape[:2]
+            img = cv2.circle(img, (w//2, h//2), 5, (0,255,0) , thickness=-1)
+
+        img = self.roi_drawings['circel'].get_image(img)
+        self.ui.set_image_page_tool_labels(img)
     #____________________________________________________________________________________________________________
     #                                           
     #

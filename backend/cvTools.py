@@ -830,57 +830,99 @@ def get_top_region_cnt(img, thresh, thresh_inv, roi_mask):
     biggest_cnt = cnts[0]
     return biggest_cnt
         
+@time_measure
+def conture_moving_avg(cnt, w= 10, iter=1):
+    xs = cnt[:,0,0]
+    ys = cnt[:,0,1]
+    for _ in range(iter):
+        xs = np.convolve(xs, np.ones(w), 'valid') / w
+        ys = np.convolve(ys, np.ones(w), 'valid') / w
+    xs = np.expand_dims(xs, axis=-1)
+    ys = np.expand_dims(ys, axis=-1)
+    res_cnt = np.hstack((xs,ys))
+    res_cnt = res_cnt.reshape((-1,1,2)).astype(np.int32)
+    return res_cnt
 
-    
-    
+def find_edge_crack(mask, thresh_area, filter_w=10 ):
+    cnts,_ = cv2.findContours(mask , cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    cnts = list(cnts)
+    cnt = cnts[0]        
+    #--------------------------
+    cnt = conture_moving_avg(cnt, w = filter_w, iter=1)
+    #res_cnt = conture_moving_avg(cnt, w = 100, iter=1)
+    approx_cnt = cv2.convexHull(cnt)
+    #--------------------------
+    crack_mask = np.zeros_like(mask)
+    crack_mask = cv2.drawContours( crack_mask, [approx_cnt], 0, 255 , thickness=-1)
+    crack_mask = cv2.drawContours( crack_mask, [cnt], 0, 0 , thickness=-1)
+    #--------------------------
+    crack_mask = cv2.erode(crack_mask, np.ones((3,3)), iterations=1)
+    crack_mask = cv2.dilate(crack_mask, np.ones((3,3)), iterations=1)
+    #--------------------------
+    crack_cnts,_ = cv2.findContours( crack_mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    crack_cnts = list(filter( lambda x:cv2.contourArea(x) > thresh_area, crack_cnts ))
+    return crack_cnts
+
 if __name__ == '__main__':
     
-    img = cv2.imread('sample images/top\Image__2047-01-06__11-56-09.bmp')
-    regions = []
-    
-    circel_roi = [[860,585], 385 ]
-    thresh_mask = threshould(img, 200, mask_roi=None, inv=False)
-    roi_mask = circels2mask( thresh_mask.shape[0:2], [circel_roi] )
-    thresh_mask = cv2.bitwise_and( thresh_mask, thresh_mask, mask= roi_mask )
+    img = cv2.imread('sample images/top\Image__2047-01-06__12-02-12.bmp')
+    thresh_mask = threshould(img, 150, mask_roi=None, inv=False)
     thresh_mask = filter_noise_area(thresh_mask, 20)
-    
-    thresh_mask, img, div_pt = centerise_top(thresh_mask, img )
-    
-    #-------------------------------------------------------------------------------------
-    (cx, cy) , r = circel_roi
-    div_x, div_y = div_pt
-    circel_roi = [ [int(cx + div_x) , int(cy + div_y) ] , int(r)]
 
-    regoins_parms = [ 
-        { 'thresh':190 , 'thresh_inv' : False }, 
-        { 'thresh':200 , 'thresh_inv' : True  }, 
-    ]
+
+    cracks = find_edge_crack( thresh_mask, 200, 20 )
 
     
-    regions_roi = [ 
-        {'type':'circel', 'value':circel_roi},
-        None,
-    ]
-    regions = [ 
+    #cv2.drawContours( img, [cnt], 0, (255,0,0) , thickness=5)
+    cv2.drawContours( img, cracks, -1, (0,0,255) , thickness=-1)
+    cv2.imshow('img', cv2.resize( img, None, fx=0.75, fy=0.75))
+    #cv2.imshow('thresh_mask', cv2.resize( thresh_mask, None, fx=0.75, fy=0.75))
+    cv2.waitKey(0)
+    # regions = []
+    
+    # circel_roi = [[860,585], 385 ]
+    # thresh_mask = threshould(img, 200, mask_roi=None, inv=False)
+    # roi_mask = circels2mask( thresh_mask.shape[0:2], [circel_roi] )
+    # thresh_mask = cv2.bitwise_and( thresh_mask, thresh_mask, mask= roi_mask )
+    # thresh_mask = filter_noise_area(thresh_mask, 20)
+    
+    # thresh_mask, img, div_pt = centerise_top(thresh_mask, img )
+    
+    # #-------------------------------------------------------------------------------------
+    # (cx, cy) , r = circel_roi
+    # div_x, div_y = div_pt
+    # circel_roi = [ [int(cx + div_x) , int(cy + div_y) ] , int(r)]
 
-    ]
-    for i in range(len(regoins_parms)):
-        
-        thresh_mask = threshould(img, regoins_parms[i]['thresh'], mask_roi=None, inv=regoins_parms[i]['thresh_inv'])
-        roi_mask = shape2mask(thresh_mask.shape[0:2], regions_roi[i]['value'], regions_roi[i]['type'])
-        thresh_mask = cv2.bitwise_and( thresh_mask, thresh_mask, mask= roi_mask )
-        thresh_mask = filter_noise_area(thresh_mask, 20)
+    # regoins_parms = [ 
+    #     { 'thresh':190 , 'thresh_inv' : False }, 
+    #     { 'thresh':200 , 'thresh_inv' : True  }, 
+    # ]
 
-        cnts, hs = cv2.findContours(thresh_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
-        cnts = list(cnts)
-        cnts.sort( key = lambda x:cv2.contourArea(x) , reverse = True )
+    
+    # regions_roi = [ 
+    #     {'type':'circel', 'value':circel_roi},
+    #     None,
+    # ]
+    # regions = [ 
+
+    # ]
+    # for i in range(len(regoins_parms)):
         
-        biggest_cnt = cnts[0]
-        regions.append( biggest_cnt )
+    #     thresh_mask = threshould(img, regoins_parms[i]['thresh'], mask_roi=None, inv=regoins_parms[i]['thresh_inv'])
+    #     roi_mask = shape2mask(thresh_mask.shape[0:2], regions_roi[i]['value'], regions_roi[i]['type'])
+    #     thresh_mask = cv2.bitwise_and( thresh_mask, thresh_mask, mask= roi_mask )
+    #     thresh_mask = filter_noise_area(thresh_mask, 20)
+
+    #     cnts, hs = cv2.findContours(thresh_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    #     cnts = list(cnts)
+    #     cnts.sort( key = lambda x:cv2.contourArea(x) , reverse = True )
         
-        if i < len(regions_roi) - 1:
-            if regions_roi[i+1] == None:
-                regions_roi[i+1] = { 'type':'poly', 'value':biggest_cnt } 
+    #     biggest_cnt = cnts[0]
+    #     regions.append( biggest_cnt )
+        
+    #     if i < len(regions_roi) - 1:
+    #         if regions_roi[i+1] == None:
+    #             regions_roi[i+1] = { 'type':'poly', 'value':biggest_cnt } 
 
         
     #-------------------------------------------------------------------------------------
@@ -910,10 +952,10 @@ if __name__ == '__main__':
     #     cv2.circle(test_img, tuple(pts[i][0]), 5, (255,0,0), thickness=-1)
     #     cv2.imshow('test_img', cv2.resize(test_img, None, fx=0.5, fy=0.5))
     #     cv2.waitKey(0)
-    poly_cnt = regions[1]   
-    cd,ed = hexagonal_measument(poly_cnt)     
-    dd = circel_measument(regions[0])
-    a = True
+    # poly_cnt = regions[1]   
+    # cd,ed = hexagonal_measument(poly_cnt)     
+    # dd = circel_measument(regions[0])
+    # a = True
     #cv2.imshow('poly_img', cv2.resize(poly_img, None, fx=0.5, fy=0.5))
     #cv2.waitKey(0)
 
@@ -936,10 +978,10 @@ if __name__ == '__main__':
     #         break
     #     cnts = np.array(cnts)[idxs].tolist()
     #     hs = hs[idxs]
-    cv2.drawContours( img, regions, -1, (255,0,0) , thickness=5)
-    for i in range(len(regions)):
-        for point in regions[i]:
-            cv2.circle( img, tuple(point[0]), 3, (0,0,255), thickness=-1 )
+    # cv2.drawContours( img, regions, -1, (255,0,0) , thickness=5)
+    # for i in range(len(regions)):
+    #     for point in regions[i]:
+    #         cv2.circle( img, tuple(point[0]), 3, (0,0,255), thickness=-1 )
     
     cv2.imshow('img', cv2.resize( img, None, fx=0.75, fy=0.75))
     #cv2.imshow('thresh_mask', cv2.resize( thresh_mask, None, fx=0.75, fy=0.75))
