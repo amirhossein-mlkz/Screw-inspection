@@ -241,6 +241,11 @@ def object_dict_builder(ui_object):
             'spin_min_area_3_top':self.spin_min_area_3_top
             },
             
+            '4_top':{
+            'spin_min_area_4_top': self.spin_min_area_4_top
+            },
+
+
             '3_side':{
             'spin_jump_thresh_3_side':self.spin_jump_thresh_3_side
             },
@@ -337,6 +342,7 @@ def object_dict_builder(ui_object):
                 'btn_page0_1_top': self.btn_page0_1_top,
                 'btn_page0_2_top': self.btn_page0_2_top,
                 'btn_page0_3_top': self.btn_page0_3_top,
+                'btn_page0_4_top': self.btn_page0_4_top,
                 'btn_page0_1_side': self.btn_page0_1_side,
                 'btn_page0_2_side': self.btn_page0_2_side,
                 'btn_page0_3_side': self.btn_page0_3_side,
@@ -418,7 +424,14 @@ def object_dict_builder(ui_object):
                     {
                             'labe_area_circle1_3_top':self.labe_area_circle1_3_top,
                             'labe_area_circle2_3_top':self.labe_area_circle2_3_top,
-                    }
+                            'label_min_area_3_top':self.label_min_area_3_top,
+                            'label_max_area_3_top':self.label_max_area_3_top,
+                    },
+                '4_top':
+                {
+                            'label_min_area_4_top':self.label_min_area_4_top,
+                            'label_max_area_4_top':self.label_max_area_4_top,
+                },
             }
 
     }

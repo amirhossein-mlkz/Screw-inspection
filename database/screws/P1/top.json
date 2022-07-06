@@ -20,6 +20,20 @@
                 ]
             ],
             "thresh0": 239
+        },
+        "4_top": {
+            "circels_roi": [
+                [
+                    [
+                        696,
+                        517
+                    ],
+                    386
+                ]
+            ],
+            "min_area": 150,
+            "noise_filter0": 13,
+            "thresh0": 206
         }
     }
 }

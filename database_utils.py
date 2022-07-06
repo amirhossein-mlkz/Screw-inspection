@@ -196,6 +196,7 @@ class dataBaseUtils():
 
 
     def load_plc_ip(self):
+
         ip=self.db.search( self.setting_tabel , 'id', 0 )[0]
         return ip['plc_ip']
 

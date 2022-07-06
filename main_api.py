@@ -22,6 +22,7 @@
 
 from cmath import inf
 import threading
+from traceback import print_tb
 from unittest.mock import DEFAULT
 from PySide6 import QtCore as sQtCore
 from functools import partial
@@ -720,6 +721,10 @@ class API:
         elif page_name in ['3_top']:
             self.mouse_roi_shape_type = 'circel'
             self.mouse_roi_max_count = 2 
+
+        elif page_name in ['4_top']:
+            self.mouse_roi_shape_type = 'circel'
+            self.mouse_roi_max_count = 1
         
         self.update_roi_mouse(mouse_status, mouse_button , mouse_pt, self.mouse_roi_shape_type , self.mouse_roi_max_count)
 
@@ -982,9 +987,10 @@ class API:
     def setting_image_updater(self):
         page2finc_dict = {
 
-        '1_top': self.update_image_1_top,
+        '1_top':self.update_image_1_top,
         '2_top':self.update_image_2_top,
         '3_top':self.update_image_3_top,
+        '4_top':self.update_image_4_top,
         
         '1_side':self.update_image_1_side,
         '2_side':self.update_image_2_side,            
@@ -1142,20 +1148,23 @@ class API:
         mask_roi = cvTools.donate2mask(thresh_img.shape, circels_roi, 255)
         thresh_img = cv2.bitwise_and(thresh_img, mask_roi)
         
-        thresh_img = cvTools.filter_area(thresh_img, min_area_lake)
+        lakes_cnt, lakes_ares  = cvTools.filter_area(thresh_img, min_area_lake)
+        thresh_img = cvTools.polys2mask(thresh_img.shape, lakes_cnt, defualt=0)
 
-        print(min_area_lake)
         #------------------------------------------------------------------------------------
-        area = np.count_nonzero(thresh_img)
-        info = {'area': area}
-        print(info)
-        #self.ui.set_stetting_page_label_info(info)
+        if len(lakes_ares) > 0:
+            info = {'min_area': lakes_ares.min(), 'max_area':lakes_ares.max()}
+        else:
+            info = {'min_area': 0, 'max_area':0}
+        self.ui.set_stetting_page_label_info(info)
         #------------------------------------------------------------------------------------
         
         if self.ui.is_drawing_mask_enabel():
-            img = Utils.mask_viewer(img, thresh_img)
+
+            img = Utils.mask_viewer(img, thresh_img, color=(0,0,100))
             h,w = img.shape[:2]
             img = cv2.circle(img, (w//2, h//2), 5, (0,255,0) , thickness=-1)
+            
 
         img = self.roi_drawings['circel'].get_image(img)
         self.ui.set_image_page_tool_labels(img)
@@ -1178,28 +1187,27 @@ class API:
         thresh = self.screw_jasons[ direction ].get_thresh(page_name, subpage_name)
         noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
         inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
-        circels_roi = self.screw_jasons[ direction ].get_circels_roi(page_name, subpage_name)
+        circel_roi = self.screw_jasons[ direction ].get_circels_roi(page_name, subpage_name)
         min_area_crack = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'min_area')
         
+        mask_roi = cvTools.circels2mask(mask_roi.shape, circel_roi)
         thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
-        mask_roi = cvTools.donate2mask(thresh_img.shape, circels_roi, 255)
-        thresh_img = cv2.bitwise_and(thresh_img, mask_roi)
+        cracks, cracks_area = cvTools.find_edge_crack(thresh_img, min_area_crack, 10 )
         
-        thresh_img = cvTools.filter_area(thresh_img, min_area_lake)
-
-        print(min_area_lake)
         #------------------------------------------------------------------------------------
-        area = np.count_nonzero(thresh_img)
-        info = {'area': area}
-        print(info)
-        #self.ui.set_stetting_page_label_info(info)
+        if len(cracks) > 0:
+            info = {'min_area': cracks_area.min(), 'max_area':cracks_area.max()}
+        else:
+            info = {'min_area': 0, 'max_area':0}
+        self.ui.set_stetting_page_label_info(info)
         #------------------------------------------------------------------------------------
         
         if self.ui.is_drawing_mask_enabel():
-            img = Utils.mask_viewer(img, thresh_img)
+            img = Utils.mask_viewer(img, thresh_img, color=(100,0,0))
             h,w = img.shape[:2]
             img = cv2.circle(img, (w//2, h//2), 5, (0,255,0) , thickness=-1)
+            img = cv2.drawContours(img, cracks, -1, (0,0,255), thickness=-1)
 
         img = self.roi_drawings['circel'].get_image(img)
         self.ui.set_image_page_tool_labels(img)

@@ -31,7 +31,7 @@ THRESH_C = 7
 
 def threshould(img, thresh , mask_roi = None, inv=False):
     if len(img.shape) == 3:
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     
     if inv:
         _,mask = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY_INV)
@@ -67,7 +67,7 @@ def cnt_correction(mask, approx=0.005):
 
 def adp_threshould(img, bsize , c,  mask_roi = None, thresh_inv = False):
     if len(img.shape) == 3:
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     
     
     cv2.imshow('img', img)
@@ -113,8 +113,9 @@ def get_gray_color( img, mouse_pt):
     x, y = int( x * w ) , int( y * h )
 
     if len(img.shape) == 3:
-        img = cv2.cvtColor( img, cv2.COLOR_BGR2GRAY )
-        
+        img = cv2.cvtColor( img, cv2.COLOR_RGB2GRAY )
+        #b,g,r = img[y,x]
+        #0.299 * r + 0.587 * b + 0.11 * g
     return img[y,x]
 
 
@@ -164,11 +165,18 @@ def filter_noise_area(mask, noise_filter=0):
 
 
 def filter_area(mask, min_area):
-    cnts, h = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
-    cnts = list(filter( lambda x:cv2.contourArea(x)>min_area, cnts ))
-    res_mask = np.zeros_like(mask)
-    return cv2.drawContours(res_mask, cnts,-1, 255, thickness=-1)
-
+    cnts, _ = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    idxs = np.arange(len(cnts))
+    areas  = list( map( lambda x:cv2.contourArea( cnts[x] ), idxs ))
+    idxs = list(filter( lambda x:areas[x]>min_area, idxs ))
+    
+    res_cnts = []
+    res_areas = []
+    for i in idxs:
+        res_cnts.append(cnts[i] )
+        res_areas.append(areas[i] )
+        
+    return res_cnts, np.array( res_areas )
 
 
 def rects2mask(img_size, rects, defualt=255):
@@ -861,7 +869,11 @@ def find_edge_crack(mask, thresh_area, filter_w=10 ):
     #--------------------------
     crack_cnts,_ = cv2.findContours( crack_mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
     crack_cnts = list(filter( lambda x:cv2.contourArea(x) > thresh_area, crack_cnts ))
-    return crack_cnts
+    #crack_areas.sort( key = lambda x:cv2.contourArea(x), reverse=True)
+    crack_areas = np.array(list( map( lambda x:cv2.contourArea(x), crack_cnts ) ))
+    return crack_cnts, crack_areas
+
+
 
 if __name__ == '__main__':
     
@@ -870,7 +882,7 @@ if __name__ == '__main__':
     thresh_mask = filter_noise_area(thresh_mask, 20)
 
 
-    cracks = find_edge_crack( thresh_mask, 200, 20 )
+    cracks = find_edge_crack( thresh_mask, thresh_area=200, filter_w=20 )
 
     
     #cv2.drawContours( img, [cnt], 0, (255,0,0) , thickness=5)

@@ -1,7 +1,6 @@
 {
     "active_tools": [
-        "1_side",
-        "3_side"
+        "1_side"
     ],
     "direction": "side",
     "name": "P1",

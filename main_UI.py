@@ -1470,7 +1470,7 @@ class UI_main_window(QMainWindow, ui):
             elif name in  ['img_path'] :
                 self.set_line_value(name, value, page_name,idx=idx)
 
-            elif name in ['jump_thresh']:
+            elif name in ['jump_thresh', 'min_area', 'max_area']:
                 self.set_spins_parms_value(name, value)
                 
             elif 'roi' in name:
@@ -1481,7 +1481,8 @@ class UI_main_window(QMainWindow, ui):
 
             elif 'shape_type' in name:
                 self.set_multi_options_value( name, value )
-    
+
+
 
             
             
