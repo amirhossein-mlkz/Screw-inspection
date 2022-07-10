@@ -20,6 +20,7 @@
 #//////////////////////////////
 ################################
 
+from calendar import c
 from cmath import inf
 import threading
 from traceback import print_tb
@@ -57,6 +58,10 @@ import time
 DEFAULT_SCERW_PATH = 'database\defualt_screw'
 
 class API:
+
+    SAMPLE_IMAGE=True
+
+    image_num=0
 
     def __init__(self,ui):
         self.sides=['side','top']
@@ -116,11 +121,6 @@ class API:
         # update picture waitkey/delay for updating camera picture in video mode
         self.update_picture_delay = 10
 
-
-        # load image must change
-
-        self.test()
-        # self.show_full_screen('fullscreen_cam_1')
         #-------------------------------------------------------------------------------------------------------------------
         
         self.mouse = Mouse()
@@ -155,13 +155,30 @@ class API:
         # self.ui.
 
         #-------------------------------------------------------------------------------------------------------------------
-
-    def test(self):
-        pass
-        path = 'images/test1_0_12 - Copy.png'
-
-        self.ui.line_img_path0_1_side.setText(path)
+        self.laod_images()
+        self.set_images()
+        # creating a timer object
+    #     from PyQt5.QtCore import QTimer, QTime, Qt
+    #     ui_obj=self.ui.ret_self
+    #     timer = QTimer(ui_obj)
   
+    #     # adding action to timer
+    #     timer.timeout.connect(self.showTime)
+  
+    #     # update the timer every second
+    #     timer.start(1000)
+  
+    # # method called by timer
+    # def showTime(self):
+  
+    #     # getting current time
+    #     current_time = QTime.currentTime()
+  
+    #     # converting QTime object to string
+    #     label_time = current_time.toString('hh:mm:ss')
+  
+    #     # showing it to the label
+    #     self.label.setText(label_time)
 
     # functions
     #------------------------------------------------------------------------------------------------------------------------
@@ -280,7 +297,6 @@ class API:
         # Live Page
 
         self.ui.lives['combo_boxes']['screw_list'].currentTextChanged.connect(self.load_screw_live )
-        self.ui.btn_capture_screw_live.clicked.connect(self.save_live_image)
         self.ui.spin_scale_top_cam_live_page.valueChanged.connect(self.size_update_top_cam_live)   
         self.ui.spin_scale_side_cam_live_page.valueChanged.connect(self.size_update_side_cam_live)   
         
@@ -1710,5 +1726,45 @@ class API:
             self.db.save_top_calibration(top)
         if side:
             self.db.save_side_calibration(side)
+
+
+
+    # def load_sample_images(self):
+
+    def set_images(self):
+
+        if self.SAMPLE_IMAGE:
+            
+            if self.image_num>2:
+                self.image_num=0
+            self.image_num+=1
+
+            # for i in range(1,5):
+            # self.ui.img_top=cv2.imread('sample images/temp_top/{}.jpg'.format(self.image_num))
+            # self.ui.img_side=cv2.imread('sample images/temp_side/{}.jpg'.format(self.image_num))
+            self.ui.img_top=self.top_images[self.image_num]
+            self.ui.img_side=self.side_images[self.image_num]
+
+            self.ui.update_images()
+            
+        
+        # self.set_images()
+
+        # threading.Thread(target=self.set_images,de).start()
+        threading.Timer(0.2,self.set_images).start()
+
+    def laod_images(self):
+
+        self.top_images=[]
+        self.side_images=[]
+
+        for i in range(1,5):
+
+            self.top_images.append(cv2.imread('sample images/temp_top/{}.jpg'.format(i)))
+            self.side_images.append(cv2.imread('sample images/temp_side/{}.jpg'.format(i)))
+        
+        print('len',len(self.top_images),len(self.side_images))
+
+
 
 

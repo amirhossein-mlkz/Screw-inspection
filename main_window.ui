@@ -2231,7 +2231,7 @@ QPushButton:hover {
                          <string notr="true">background-color : #F3F6FE;</string>
                         </property>
                         <property name="currentIndex">
-                         <number>2</number>
+                         <number>0</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -2332,6 +2332,19 @@ QPushButton:hover {
                                      </property>
                                     </widget>
                                    </item>
+                                   <item>
+                                    <spacer name="verticalSpacer_23">
+                                     <property name="orientation">
+                                      <enum>Qt::Vertical</enum>
+                                     </property>
+                                     <property name="sizeHint" stdset="0">
+                                      <size>
+                                       <width>20</width>
+                                       <height>40</height>
+                                      </size>
+                                     </property>
+                                    </spacer>
+                                   </item>
                                    <item alignment="Qt::AlignHCenter|Qt::AlignTop">
                                     <widget class="QLabel" name="label_img_top_live">
                                      <property name="maximumSize">
@@ -2359,6 +2372,19 @@ QPushButton:hover {
                                       <number>5</number>
                                      </property>
                                     </widget>
+                                   </item>
+                                   <item>
+                                    <spacer name="verticalSpacer_21">
+                                     <property name="orientation">
+                                      <enum>Qt::Vertical</enum>
+                                     </property>
+                                     <property name="sizeHint" stdset="0">
+                                      <size>
+                                       <width>20</width>
+                                       <height>40</height>
+                                      </size>
+                                     </property>
+                                    </spacer>
                                    </item>
                                    <item alignment="Qt::AlignHCenter">
                                     <widget class="QFrame" name="frame_45">
@@ -2520,6 +2546,19 @@ QPushButton:hover {
                                      </property>
                                     </widget>
                                    </item>
+                                   <item>
+                                    <spacer name="verticalSpacer_24">
+                                     <property name="orientation">
+                                      <enum>Qt::Vertical</enum>
+                                     </property>
+                                     <property name="sizeHint" stdset="0">
+                                      <size>
+                                       <width>20</width>
+                                       <height>40</height>
+                                      </size>
+                                     </property>
+                                    </spacer>
+                                   </item>
                                    <item alignment="Qt::AlignHCenter|Qt::AlignTop">
                                     <widget class="QLabel" name="label_img_side_live">
                                      <property name="maximumSize">
@@ -2550,6 +2589,19 @@ QPushButton:hover {
                                       <number>-1</number>
                                      </property>
                                     </widget>
+                                   </item>
+                                   <item>
+                                    <spacer name="verticalSpacer_22">
+                                     <property name="orientation">
+                                      <enum>Qt::Vertical</enum>
+                                     </property>
+                                     <property name="sizeHint" stdset="0">
+                                      <size>
+                                       <width>20</width>
+                                       <height>40</height>
+                                      </size>
+                                     </property>
+                                    </spacer>
                                    </item>
                                    <item alignment="Qt::AlignHCenter">
                                     <widget class="QFrame" name="frame_22">
@@ -2731,7 +2783,7 @@ QPushButton:hover {
                                      <property name="maximumSize">
                                       <size>
                                        <width>428</width>
-                                       <height>186</height>
+                                       <height>223</height>
                                       </size>
                                      </property>
                                      <property name="frameShape">
@@ -2772,7 +2824,7 @@ QPushButton:hover {
                                           <number>0</number>
                                          </property>
                                          <item>
-                                          <widget class="QPushButton" name="pushButton_12">
+                                          <widget class="QPushButton" name="connect_cameras_live_page">
                                            <property name="minimumSize">
                                             <size>
                                              <width>50</width>
@@ -2826,7 +2878,7 @@ QPushButton:hover {
                                           </widget>
                                          </item>
                                          <item>
-                                          <widget class="QPushButton" name="pushButton_6">
+                                          <widget class="QPushButton" name="disconnect_cameras_live_page">
                                            <property name="minimumSize">
                                             <size>
                                              <width>50</width>
@@ -3016,28 +3068,6 @@ QPushButton:hover {
                                            </property>
                                           </widget>
                                          </item>
-                                         <item>
-                                          <widget class="QPushButton" name="btn_capture_screw_live">
-                                           <property name="minimumSize">
-                                            <size>
-                                             <width>73</width>
-                                             <height>25</height>
-                                            </size>
-                                           </property>
-                                           <property name="maximumSize">
-                                            <size>
-                                             <width>96</width>
-                                             <height>16777215</height>
-                                            </size>
-                                           </property>
-                                           <property name="cursor">
-                                            <cursorShape>PointingHandCursor</cursorShape>
-                                           </property>
-                                           <property name="text">
-                                            <string>Capture</string>
-                                           </property>
-                                          </widget>
-                                         </item>
                                         </layout>
                                        </widget>
                                       </item>
@@ -3104,6 +3134,98 @@ QPushButton:hover {
                                            </property>
                                            <property name="margin">
                                             <number>0</number>
+                                           </property>
+                                          </widget>
+                                         </item>
+                                        </layout>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <widget class="QFrame" name="frame_219">
+                                        <property name="minimumSize">
+                                         <size>
+                                          <width>0</width>
+                                          <height>34</height>
+                                         </size>
+                                        </property>
+                                        <property name="frameShape">
+                                         <enum>QFrame::StyledPanel</enum>
+                                        </property>
+                                        <property name="frameShadow">
+                                         <enum>QFrame::Raised</enum>
+                                        </property>
+                                        <layout class="QHBoxLayout" name="horizontalLayout_194">
+                                         <property name="topMargin">
+                                          <number>0</number>
+                                         </property>
+                                         <property name="bottomMargin">
+                                          <number>0</number>
+                                         </property>
+                                         <item>
+                                          <widget class="QPushButton" name="start_capture_live_page">
+                                           <property name="minimumSize">
+                                            <size>
+                                             <width>130</width>
+                                             <height>32</height>
+                                            </size>
+                                           </property>
+                                           <property name="maximumSize">
+                                            <size>
+                                             <width>50</width>
+                                             <height>32</height>
+                                            </size>
+                                           </property>
+                                           <property name="cursor">
+                                            <cursorShape>PointingHandCursor</cursorShape>
+                                           </property>
+                                           <property name="styleSheet">
+                                            <string notr="true">QPushButton:hover {
+	background-color: rgb(200,200,200);
+	border: 2px solid rgb(61, 70, 86);
+}</string>
+                                           </property>
+                                           <property name="text">
+                                            <string>Start Detect</string>
+                                           </property>
+                                           <property name="iconSize">
+                                            <size>
+                                             <width>41</width>
+                                             <height>26</height>
+                                            </size>
+                                           </property>
+                                          </widget>
+                                         </item>
+                                         <item>
+                                          <widget class="QPushButton" name="stop_capture_live_page">
+                                           <property name="minimumSize">
+                                            <size>
+                                             <width>130</width>
+                                             <height>32</height>
+                                            </size>
+                                           </property>
+                                           <property name="maximumSize">
+                                            <size>
+                                             <width>50</width>
+                                             <height>32</height>
+                                            </size>
+                                           </property>
+                                           <property name="cursor">
+                                            <cursorShape>PointingHandCursor</cursorShape>
+                                           </property>
+                                           <property name="styleSheet">
+                                            <string notr="true">QPushButton:hover {
+	background-color: rgb(200,200,200);
+	border: 2px solid rgb(61, 70, 86);
+}</string>
+                                           </property>
+                                           <property name="text">
+                                            <string>Stop Detect</string>
+                                           </property>
+                                           <property name="iconSize">
+                                            <size>
+                                             <width>41</width>
+                                             <height>26</height>
+                                            </size>
                                            </property>
                                           </widget>
                                          </item>

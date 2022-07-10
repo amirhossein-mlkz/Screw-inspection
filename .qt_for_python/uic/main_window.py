@@ -1228,6 +1228,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addWidget(self.label_20, 0, Qt.AlignHCenter|Qt.AlignTop)
 
+        self.verticalSpacer_23 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_4.addItem(self.verticalSpacer_23)
+
         self.label_img_top_live = QLabel(self.frame_147)
         self.label_img_top_live.setObjectName(u"label_img_top_live")
         self.label_img_top_live.setMaximumSize(QSize(16777211, 16777207))
@@ -1238,6 +1242,10 @@ class Ui_MainWindow(object):
         self.label_img_top_live.setMargin(5)
 
         self.verticalLayout_4.addWidget(self.label_img_top_live, 0, Qt.AlignHCenter|Qt.AlignTop)
+
+        self.verticalSpacer_21 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_4.addItem(self.verticalSpacer_21)
 
         self.frame_45 = QFrame(self.frame_147)
         self.frame_45.setObjectName(u"frame_45")
@@ -1305,6 +1313,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_20.addWidget(self.label_21, 0, Qt.AlignHCenter|Qt.AlignTop)
 
+        self.verticalSpacer_24 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_20.addItem(self.verticalSpacer_24)
+
         self.label_img_side_live = QLabel(self.frame_139)
         self.label_img_side_live.setObjectName(u"label_img_side_live")
         self.label_img_side_live.setMaximumSize(QSize(16777211, 16777210))
@@ -1316,6 +1328,10 @@ class Ui_MainWindow(object):
         self.label_img_side_live.setIndent(-1)
 
         self.verticalLayout_20.addWidget(self.label_img_side_live, 0, Qt.AlignHCenter|Qt.AlignTop)
+
+        self.verticalSpacer_22 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_20.addItem(self.verticalSpacer_22)
 
         self.frame_22 = QFrame(self.frame_139)
         self.frame_22.setObjectName(u"frame_22")
@@ -1393,7 +1409,7 @@ class Ui_MainWindow(object):
         self.frame_18 = QFrame(self.frame_148)
         self.frame_18.setObjectName(u"frame_18")
         self.frame_18.setMinimumSize(QSize(54, 0))
-        self.frame_18.setMaximumSize(QSize(428, 186))
+        self.frame_18.setMaximumSize(QSize(428, 223))
         self.frame_18.setFrameShape(QFrame.Box)
         self.frame_18.setFrameShadow(QFrame.Plain)
         self.frame_18.setLineWidth(1)
@@ -1407,21 +1423,21 @@ class Ui_MainWindow(object):
         self.horizontalLayout_70 = QHBoxLayout(self.frame_64)
         self.horizontalLayout_70.setObjectName(u"horizontalLayout_70")
         self.horizontalLayout_70.setContentsMargins(0, 0, 0, 0)
-        self.pushButton_12 = QPushButton(self.frame_64)
-        self.pushButton_12.setObjectName(u"pushButton_12")
-        self.pushButton_12.setMinimumSize(QSize(50, 32))
-        self.pushButton_12.setMaximumSize(QSize(50, 32))
-        self.pushButton_12.setCursor(QCursor(Qt.PointingHandCursor))
-        self.pushButton_12.setStyleSheet(u"QPushButton:hover {\n"
+        self.connect_cameras_live_page = QPushButton(self.frame_64)
+        self.connect_cameras_live_page.setObjectName(u"connect_cameras_live_page")
+        self.connect_cameras_live_page.setMinimumSize(QSize(50, 32))
+        self.connect_cameras_live_page.setMaximumSize(QSize(50, 32))
+        self.connect_cameras_live_page.setCursor(QCursor(Qt.PointingHandCursor))
+        self.connect_cameras_live_page.setStyleSheet(u"QPushButton:hover {\n"
 "	background-color: rgb(200,200,200);\n"
 "	border: 2px solid rgb(61, 70, 86);\n"
 "}")
         icon15 = QIcon()
         icon15.addFile(u"images/connect.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_12.setIcon(icon15)
-        self.pushButton_12.setIconSize(QSize(41, 26))
+        self.connect_cameras_live_page.setIcon(icon15)
+        self.connect_cameras_live_page.setIconSize(QSize(41, 26))
 
-        self.horizontalLayout_70.addWidget(self.pushButton_12)
+        self.horizontalLayout_70.addWidget(self.connect_cameras_live_page)
 
         self.lineEdit = QLineEdit(self.frame_64)
         self.lineEdit.setObjectName(u"lineEdit")
@@ -1430,21 +1446,21 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_70.addWidget(self.lineEdit)
 
-        self.pushButton_6 = QPushButton(self.frame_64)
-        self.pushButton_6.setObjectName(u"pushButton_6")
-        self.pushButton_6.setMinimumSize(QSize(50, 32))
-        self.pushButton_6.setMaximumSize(QSize(50, 32))
-        self.pushButton_6.setCursor(QCursor(Qt.PointingHandCursor))
-        self.pushButton_6.setStyleSheet(u"QPushButton:hover {\n"
+        self.disconnect_cameras_live_page = QPushButton(self.frame_64)
+        self.disconnect_cameras_live_page.setObjectName(u"disconnect_cameras_live_page")
+        self.disconnect_cameras_live_page.setMinimumSize(QSize(50, 32))
+        self.disconnect_cameras_live_page.setMaximumSize(QSize(50, 32))
+        self.disconnect_cameras_live_page.setCursor(QCursor(Qt.PointingHandCursor))
+        self.disconnect_cameras_live_page.setStyleSheet(u"QPushButton:hover {\n"
 "	background-color: rgb(200,200,200);\n"
 "	border: 2px solid rgb(61, 70, 86);\n"
 "}")
         icon16 = QIcon()
         icon16.addFile(u"images/disconnected.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_6.setIcon(icon16)
-        self.pushButton_6.setIconSize(QSize(41, 26))
+        self.disconnect_cameras_live_page.setIcon(icon16)
+        self.disconnect_cameras_live_page.setIconSize(QSize(41, 26))
 
-        self.horizontalLayout_70.addWidget(self.pushButton_6)
+        self.horizontalLayout_70.addWidget(self.disconnect_cameras_live_page)
 
 
         self.verticalLayout_58.addWidget(self.frame_64, 0, Qt.AlignHCenter)
@@ -1524,14 +1540,6 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_63.addWidget(self.pushButton_5)
 
-        self.btn_capture_screw_live = QPushButton(self.frame_62)
-        self.btn_capture_screw_live.setObjectName(u"btn_capture_screw_live")
-        self.btn_capture_screw_live.setMinimumSize(QSize(73, 25))
-        self.btn_capture_screw_live.setMaximumSize(QSize(96, 16777215))
-        self.btn_capture_screw_live.setCursor(QCursor(Qt.PointingHandCursor))
-
-        self.horizontalLayout_63.addWidget(self.btn_capture_screw_live)
-
 
         self.verticalLayout_58.addWidget(self.frame_62)
 
@@ -1571,6 +1579,43 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_58.addWidget(self.frame_75)
+
+        self.frame_219 = QFrame(self.frame_18)
+        self.frame_219.setObjectName(u"frame_219")
+        self.frame_219.setMinimumSize(QSize(0, 34))
+        self.frame_219.setFrameShape(QFrame.StyledPanel)
+        self.frame_219.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_194 = QHBoxLayout(self.frame_219)
+        self.horizontalLayout_194.setObjectName(u"horizontalLayout_194")
+        self.horizontalLayout_194.setContentsMargins(-1, 0, -1, 0)
+        self.start_capture_live_page = QPushButton(self.frame_219)
+        self.start_capture_live_page.setObjectName(u"start_capture_live_page")
+        self.start_capture_live_page.setMinimumSize(QSize(130, 32))
+        self.start_capture_live_page.setMaximumSize(QSize(50, 32))
+        self.start_capture_live_page.setCursor(QCursor(Qt.PointingHandCursor))
+        self.start_capture_live_page.setStyleSheet(u"QPushButton:hover {\n"
+"	background-color: rgb(200,200,200);\n"
+"	border: 2px solid rgb(61, 70, 86);\n"
+"}")
+        self.start_capture_live_page.setIconSize(QSize(41, 26))
+
+        self.horizontalLayout_194.addWidget(self.start_capture_live_page)
+
+        self.stop_capture_live_page = QPushButton(self.frame_219)
+        self.stop_capture_live_page.setObjectName(u"stop_capture_live_page")
+        self.stop_capture_live_page.setMinimumSize(QSize(130, 32))
+        self.stop_capture_live_page.setMaximumSize(QSize(50, 32))
+        self.stop_capture_live_page.setCursor(QCursor(Qt.PointingHandCursor))
+        self.stop_capture_live_page.setStyleSheet(u"QPushButton:hover {\n"
+"	background-color: rgb(200,200,200);\n"
+"	border: 2px solid rgb(61, 70, 86);\n"
+"}")
+        self.stop_capture_live_page.setIconSize(QSize(41, 26))
+
+        self.horizontalLayout_194.addWidget(self.stop_capture_live_page)
+
+
+        self.verticalLayout_58.addWidget(self.frame_219)
 
 
         self.horizontalLayout_23.addWidget(self.frame_18)
@@ -9087,7 +9132,7 @@ class Ui_MainWindow(object):
         self.bar_thresh0_5_top.valueChanged.connect(self.spinBox_21.setValue)
         self.bar_noise_filter0_5_top.valueChanged.connect(self.spinBox_22.setValue)
 
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(0)
         self.stackedWidget_3.setCurrentIndex(1)
 
@@ -9179,9 +9224,9 @@ class Ui_MainWindow(object):
         self.btn_save_side_cam_live_page.setToolTip(QCoreApplication.translate("MainWindow", u"save image", None))
 #endif // QT_CONFIG(tooltip)
         self.btn_save_side_cam_live_page.setText("")
-        self.pushButton_12.setText("")
+        self.connect_cameras_live_page.setText("")
         self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Connection Status", None))
-        self.pushButton_6.setText("")
+        self.disconnect_cameras_live_page.setText("")
         self.groupBox_14.setTitle(QCoreApplication.translate("MainWindow", u"PLC", None))
         self.label_176.setText(QCoreApplication.translate("MainWindow", u"Status :", None))
         self.plc_status_live_page.setText(QCoreApplication.translate("MainWindow", u"-", None))
@@ -9191,9 +9236,10 @@ class Ui_MainWindow(object):
         self.plc_reject_live_page.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.label_29.setText(QCoreApplication.translate("MainWindow", u"Select Screw :", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Select", None))
-        self.btn_capture_screw_live.setText(QCoreApplication.translate("MainWindow", u"Capture", None))
         self.label_selected_screw_side_live.setText("")
         self.label_selected_screw_top_live.setText("")
+        self.start_capture_live_page.setText(QCoreApplication.translate("MainWindow", u"Start Detect", None))
+        self.stop_capture_live_page.setText(QCoreApplication.translate("MainWindow", u"Stop Detect", None))
         self.add_btn.setText(QCoreApplication.translate("MainWindow", u"ADD", None))
         self.edit_remove_btn.setText(QCoreApplication.translate("MainWindow", u"Edit/Remove", None))
         self.edit_btn.setText(QCoreApplication.translate("MainWindow", u"Edit", None))

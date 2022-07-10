@@ -173,6 +173,40 @@ class UI_main_window(QMainWindow, ui):
         # self.set_img_btns(self.side_tool_setting_btn,'images/setting_main_window/bug.png')
         self.set_color_value_image_tool_page(value=50)
 
+
+        self.img_top=cv2.imread('images/defualt.jpg')
+        self.img_side=cv2.imread('images/defualt.jpg')
+
+        self.timer_live = QTimer(self)
+  
+        # adding action to timer
+        self.timer_live.timeout.connect(self.update_images)
+  
+        # # update the timer every second
+        # self.timer_live.start(60)
+
+    def ret_self(self):
+
+        return self
+
+
+    
+
+
+    # method called by timer
+    def update_images(self):
+
+        self.set_image_label(self.label_img_top_live,self.img_top)
+        self.set_image_label(self.label_img_side_live,self.img_side)
+        # getting current time
+        current_time = QTime.currentTime()
+  
+        # converting QTime object to string
+        label_time = current_time.toString('hh:mm:ss')
+        print(label_time)
+        # showing it to the label
+        # self.label.setText(label_time)
+
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
             self._old_pos = event.pos()
