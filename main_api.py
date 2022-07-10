@@ -100,6 +100,9 @@ class API:
         # function to active the UI buttons functionality
         self.button_connector()
 
+
+        
+
         
         #------------------------------------------------------------------------------------------------------------------------
         # main UI widget ids list 
@@ -146,8 +149,10 @@ class API:
 
         # set_load live images
         self.set_load_imgs_live()
+
+        self.load_calibration_parms()
         
-        
+        # self.ui.
 
         #-------------------------------------------------------------------------------------------------------------------
 
@@ -196,8 +201,8 @@ class API:
         # buttons in the camera-settings section
         self.ui.camera_setting_apply_btn.clicked.connect(partial(self.save_changed_camera_params))
         self.ui.camera_setting_connect_btn.clicked.connect(partial(self.connect_dissconnect_to_camera))
-        self.ui.camera_setting_getpic_btn.clicked.connect(partial(self.show_camera_picture))
-
+        # self.ui.camera_setting_getpic_btn.clicked.connect(partial(self.show_camera_picture))
+        self.ui.camera_setting_get_top_camera
 
 
         # login window and confirm window
@@ -240,7 +245,10 @@ class API:
 
 
         # publice setting-------------------------------------------------------
-        
+        #page_setting
+
+        self.ui.camera_setting_get_top_camera.clicked.connect(self.capture_image(direction='top'))
+        self.ui.camera_setting_get_side_camera.clicked.connect(self.capture_image(direction='side'))
 
         #Page 1_top----------------------------------------------------------
       
@@ -462,15 +470,6 @@ class API:
             params = mainsetting_funcs.get_appearance_params_from_ui(ui_obj=self.ui)
             # apply appearance parameters to program
             mainsetting_funcs.apply_appearance_params_to_program(ui_obj=self.ui, confirm_ui_obj=self.confirm_ui, appearance_params=params)
-        elif mode == 'calibration':
-            message_label = self.ui.general_setting_calibration_message_label
-            params = mainsetting_funcs.get_calibration_params_from_ui(ui_obj=self.ui)
-        elif mode == 'imageprocessing':
-            message_label = self.ui.setting_imageprocessing_message_label
-            params = mainsetting_funcs.get_image_procesing_params_from_ui(ui_obj=self.ui)
-        elif mode == 'defects':
-            message_label = self.ui.setting_defect_message_label
-            params = mainsetting_funcs.get_defects_params_from_ui(ui_obj=self.ui)
         # update database
         res = mainsetting_funcs.set_mainsetting_params_to_db(db_obj=self.db, apperance_params=params)
         # show validation message
@@ -616,42 +615,52 @@ class API:
     
     def add_new_screw(self):
         name = self.ui.get_line_scraw_name()
-        flag = dbUtils.add_screw(name)
-        self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
-        self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
-        
-        for direction in ['top', 'side']:
-            try:
-                self.screw_jasons[direction].read(DEFAULT_SCERW_PATH, direction)
-            except:
-                print("Error: Couldn't Load defualt parms")
-
-        for key in self.screw_jasons.keys():
-            path = dbUtils.get_screw_path( name )
-            self.screw_jasons[key].set_name(name)
-            self.screw_jasons[key].set_direction( key )
-            self.screw_jasons[key].write(path)
+        name  = name.replace(" ","")
+        if len(name)>=3:
+            flag = dbUtils.add_screw(name)
+            self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
+            self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
             
-        if not flag:
-            print('Error! : screw exist already')
-        self.update_setting_page_info()
+            for direction in ['top', 'side']:
+                try:
+                    self.screw_jasons[direction].read(DEFAULT_SCERW_PATH, direction)
+                except:
+                    self.ui.show_warning('load Error 105', 'Error: Couldnot Load defualt parm')
+            for key in self.screw_jasons.keys():
+                path = dbUtils.get_screw_path( name )
+                self.screw_jasons[key].set_name(name)
+                self.screw_jasons[key].set_direction( key )
+                self.screw_jasons[key].write(path)
+                
+            if not flag:
+                self.ui.show_warning('Same Error 105', 'Error:same screw already exist ')
+
+            self.update_setting_page_info()
+        else:
+            self.ui.show_warning('Name Error', 'Screw Name Should be more than 3 character')
+
     
     
     def save_screw(self):
         if self.ui.editmode:
             flag = self.ui.show_save_question('Save Screw', 'Do you want to Save screw ?')
         # try:
-            if flag:
-                for key in self.screw_jasons.keys():
-                    
-                    activate_tools = self.ui.get_activate_pages(direction = key)
-                    print(key, activate_tools)
-                    self.screw_jasons[key].set_active_tools(activate_tools)
-                    path = dbUtils.get_screw_path( self.screw_jasons[key].get_name() )
-                    self.screw_jasons[key].write(path)  
+            if flag !=None:
+
+                if flag:
+                    for key in self.screw_jasons.keys():
+                        
+                        activate_tools = self.ui.get_activate_pages(direction = key)
+                        print(key, activate_tools)
+                        self.screw_jasons[key].set_active_tools(activate_tools)
+                        path = dbUtils.get_screw_path( self.screw_jasons[key].get_name() )
+                        self.screw_jasons[key].write(path)  
     
-                print('Screw Saved')
-                self.ui.show_warning('Save Screw','Successfully Save')
+                    print('Screw Saved')
+                    self.ui.show_warning('Save Screw','Successfully Save')
+                if not flag:
+                    print('disacrd')
+                    self.ui.show_warning('Save Screw','Screw Settings Restored')
                 self.ui.editmode=False
                 self.ui.set_label(self.ui.label_status_mode,'')   
                 self.ui.stackedWidget_2.setCurrentIndex(0)
@@ -662,10 +671,14 @@ class API:
                 self.ui.enable_bar_btn_tool_page('side',False)  
                 self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
 
-            if flag==False:
+                self.ui.label_screw_name.setText('-')
 
-                print('disacrd')
-                self.ui.show_warning('Save Screw','Screw Settings Restored')
+                self.ui.change_mode()
+
+            # if flag==False:
+
+
+            #     self.ui.
 
             if flag==None:
 
@@ -679,32 +692,37 @@ class API:
             
     def remove_screw(self):
         name=self.ui.label_screw_name.text()
-        flag = self.ui.show_question('Delete Screw', 'Are you Sure to delete {}?'.format(name))
-        if flag:
-            dbUtils.remove_screw(name)
-            self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
-            
+        if name!='-':
+            flag = self.ui.show_question('Delete Screw', 'Are you Sure to delete {}?'.format(name))
+            if flag:
+                dbUtils.remove_screw(name)
+                self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
+                
             
             
     def edit_load_screw(self):
         name = self.ui.comboBox_edit_remove.currentText()
-        path = dbUtils.get_screw_path(name)
-        self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
-        
-        for direction in self.screw_jasons.keys():
-            self.screw_jasons[direction].read(path, direction)
+        print('name',name)
+        if name !='':
+            self.ui.edit_mode()
+            path = dbUtils.get_screw_path(name)
+            self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
             
-            #-----------------------------------------
-            main_page_name = '1_{}'.format(direction)
-            rect = self.screw_jasons[direction].get_rect_roi(main_page_name, None)
-            if Utils.is_rect( rect ):
-                self.ui.enable_bar_btn_tool_page( direction, True )          
-            
-            else:
-                self.ui.enable_bar_btn_tool_page( direction, False )
-            #-----------------------------------------
+            for direction in self.screw_jasons.keys():
+                self.screw_jasons[direction].read(path, direction)
+                
+                #-----------------------------------------
+                main_page_name = '1_{}'.format(direction)
+                rect = self.screw_jasons[direction].get_rect_roi(main_page_name, None)
+                if Utils.is_rect( rect ):
+                    self.ui.enable_bar_btn_tool_page( direction, True )          
+                
+                else:
+                    self.ui.enable_bar_btn_tool_page( direction, False )
+                #-----------------------------------------
 
-        self.update_setting_page_info()
+            self.update_setting_page_info()
+            
         
         
     def image_setting_mouse_event(self,wname):
@@ -1008,7 +1026,18 @@ class API:
         except:
             pass
     
-        
+    def capture_image(self, direction):
+        # print('asdawdawdawdawcadc'*20)
+        def fuc():
+            # img=self.cameras[direction].get_img()
+            img=cv2.imread('images/cambtm_actived.png')
+            f_name=self.ui.label_screw_name.text()
+            main_path=self.ui.line_main_path.text()
+            path=dbUtils.save_image(img,main_path=main_path,screw_name=f_name,direction=direction)
+            self.ui.set_line_value('img_path',path,page_name='1_{}'.format(direction))
+            self.update_main_image()
+
+        return fuc
     
     #____________________________________________________________________________________________________________
     #                                           
@@ -1094,11 +1123,13 @@ class API:
         #--------------------------------------------------------------------------------------
         info = {}
         if shape_type == 'circel':
+            print('circle')
             diameters = cvTools.circel_measument(cnt)
             info = {'min_diameter' : diameters.min(), 'max_diameter': diameters.max()}
             self.ui.stackedWidget_3.setCurrentIndex(0)
         
         elif shape_type == 'hexagonal':
+            print('hexagonal')
             c2c , e2e = cvTools.hexagonal_measument(cnt)
             info = { 'min_district': e2e.min(),
                      'max_district': e2e.max(), 
@@ -1106,6 +1137,14 @@ class API:
                      'max_corner' : c2c.max(),  }
             self.ui.stackedWidget_3.setCurrentIndex(1)
 
+        elif shape_type == 'rect':
+            print('rect')
+            # c2c , e2e = cvTools.hexagonal_measument(cnt)
+            # info = { 'min_district': e2e.min(),
+            #          'max_district': e2e.max(), 
+            #          'min_corner' : c2c.min(),
+            #          'max_corner' : c2c.max(),  }
+            self.ui.stackedWidget_3.setCurrentIndex(1)
         self.ui.set_stetting_page_label_info(info)
         #--------------------------------------------------------------------------------------
         if self.ui.is_drawing_mask_enabel():
@@ -1659,3 +1698,17 @@ class API:
         value=self.ui.line_value_set_value_plc.text()
         self.my_plc.set_value(path, value)
     
+
+    def load_calibration_parms(self):
+
+        parms=self.db.load_calibration_parms()
+
+        self.ui.set_calibration(parms[0],parms[1])
+
+    def save_calibration_parms(self,top=False,side=False):
+        if top:
+            self.db.save_top_calibration(top)
+        if side:
+            self.db.save_side_calibration(side)
+
+

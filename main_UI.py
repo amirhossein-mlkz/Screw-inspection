@@ -9,6 +9,7 @@
 
 import sys
 from tabnanny import check
+from tkinter.tix import Tree
 from traceback import print_tb
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import * 
@@ -125,17 +126,18 @@ class UI_main_window(QMainWindow, ui):
 
         self.sides=['top','side']
 
-        self.pages_name_dict={'1':'1_top','2':'2_top','3':'3_top','4':'4_top','5':'1_side','6':'2_side','7':'3_side','7':'4_side','9':'5_side','10':'6_side'}
-        self.pages_dircetion_dict={'1':'top','2':'top','3':'top','4':'top','5':'side','6':'side','7':'side','8':'side','9':'side','10':'side'}
+        self.pages_name_dict={'1':'1_top','2':'2_top','3':'3_top','4':'4_top','5':'5_top','6':'1_side','7':'2_side','8':'3_side','9':'4_side','10':'5_side','11':'6_side'}
+        self.pages_dircetion_dict={'1':'top','2':'top','3':'top','4':'top','5':'top','6':'side','7':'side','8':'side','9':'side','10':'side','11':'side'}
         self.roi_name=['x1','y1','x2','y2']
         self.limit_types=['min','max']
 
-        self.combo_exist={'1_top':False,'2_top':True,'3_top':True,'4_top':False,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':True}
+        self.combo_exist={'1_top':False,'2_top':True,'3_top':True,'4_top':False,'5_top':False,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':True}
 
         
-        self.tool_btn_bar_side={'lenght':self.frame_36,'btn_male':self.btn_page0_3_side,'Male_Thread':self.frame_78,'btn_lenght':self.btn_page0_2_side,'Diameter':self.frame_79,'screw_head':self.frame_104,'side_damage':self.frame_112}
-        self.tool_btn_bar_top=frames={'area':self.frame_34}
+        self.tool_btn_bar_side={'lenght':self.frame_36,'btn_male':self.btn_page0_3_side,'Male_Thread':self.frame_78,'btn_lenght':self.btn_page0_2_side,'Diameter':self.frame_79,'screw_head':self.frame_104,'side_damage':self.frame_112,'side_btn_damage':self.btn_page0_6_side}
+        self.tool_btn_bar_top={'area':self.frame_34,'measurment':self.frame_34,'btn_measurment':self.btn_page0_2_top,'defect_top':self.frame_53,'btn_defect_top':self.btn_page0_3_top,'edge_crack':self.frame_190,'btn_edge_crack':self.btn_page0_4_top,'btn_5_top':self.btn_page0_5_top,'btn_5_top2':self.frame_212}
 
+        self.side_btn_stylesheet="QPushButton:enabled {background-color: rgb(255,255,255);color: black;}QPushButton:disabled{background-color:rgb(50,50,50);color: white;}"
         
         self.clear_side_btns(1)
 
@@ -363,6 +365,7 @@ class UI_main_window(QMainWindow, ui):
         self.btn_page0_2_top.clicked.connect(self.buttonClick)
         self.btn_page0_3_top.clicked.connect(self.buttonClick)
         self.btn_page0_4_top.clicked.connect(self.buttonClick)
+        self.btn_page0_5_top.clicked.connect(self.buttonClick)
         self.btn_page0_1_side.clicked.connect(self.buttonClick)
         self.btn_page0_2_side.clicked.connect(self.buttonClick)
         self.btn_page0_3_side.clicked.connect(self.buttonClick)
@@ -374,33 +377,39 @@ class UI_main_window(QMainWindow, ui):
 
 
 
-        # Page 1_main
+        # Page 1_top
 
         self.btn_load_image0_1_top.clicked.connect(self.buttonClick)
+        self.btn_connect_camera0_1_top.clicked.connect(self.buttonClick)
 
 
-        # page 2_main
+        # page 2_top
 
         
 
         self.btn_add_region0_2_top.clicked.connect(self.buttonClick)
+        self.btn_remove_region0_2_top.clicked.connect(self.buttonClick)
+
         # self.btn_set_corner0_2_top.clicked.connect(self.buttonClick)
         self.btn_draw_complete0_2_top.clicked.connect(self.buttonClick)
 
-        # self.check_rect0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_rect0_2_top.objectName(),change_size=True))
-        # self.check_circle0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_circle0_2_top.objectName(),change_size=True))
-        # self.check_mask0_2_top.clicked.connect(lambda:self.check_mask_type(self.check_mask0_2_top.objectName(),change_size=True))
+        # page 3_top
+
+        self.btn_add_region0_3_top.clicked.connect(self.buttonClick)
+        self.btn_remove_region0_3_top.clicked.connect(self.buttonClick)
 
 
         # page 1_side
 
         self.btn_load_image0_1_side.clicked.connect(self.buttonClick)  
+        self.btn_connect_camera0_1_side.clicked.connect(self.buttonClick)
 
 
 
         # page 4_side  btn_add_area0_4_side
 
         self.btn_add_region0_4_side.clicked.connect(self.buttonClick)
+        self.btn_remove_region0_4_side.clicked.connect(self.buttonClick)
         self.btn_complete_area_4_side.clicked.connect(self.buttonClick)
 
         # page 5_side
@@ -412,7 +421,17 @@ class UI_main_window(QMainWindow, ui):
 
         # page 6_side  
         self.btn_add_region0_6_side.clicked.connect(self.buttonClick)      
+        self.btn_remove_region0_6_side.clicked.connect(self.buttonClick)      
         self.btn_complete_area_6_side.clicked.connect(self.buttonClick)        
+
+        # page_setting_camera
+        self.ultra_setting_btn.clicked.connect(self.buttonClick)  
+        self.camera_setting_tools_page.clicked.connect(self.buttonClick)  
+
+        # page setting_main
+
+        self.tool_btn_main_path.clicked.connect(self.buttonClick)  
+        
 
     def close_win(self):
         self.close()
@@ -619,28 +638,18 @@ class UI_main_window(QMainWindow, ui):
 
 
           
-    def  open_file_dialog(self,set_label):
+    def  open_file_dialog(self,set_label,foldername=False):
 
-        filepath = QFileDialog.getOpenFileName(self, 'Select a File')
-        print(filepath)
-        set_label.setText(filepath[0])
+        if foldername:
+            filepath=QFileDialog.getExistingDirectory(self,"Choose Directory")
+            # filepath = QFileDialog.get(self, 'Select a Folder')
+            print(filepath)
+            set_label.setText(filepath)
 
-
-
-
-    def check_camera_selected_direction(self):
-        
-        print('adww')
-
-
-
-    # def connect_thresholds_side(self):
-    #     self.side_thresh_names
-
-    #     for name, value in parms.items():
-    #         name, idx = self.deasmble_name_and_idx( name )
-    #         if name in ['thresh_inv'] :
-    #             self.set_checkbox_value(name,value,page_name,idx=idx)
+        else:
+            filepath = QFileDialog.getOpenFileName(self, 'Select a File')
+            print(filepath)
+            set_label.setText(filepath[0])
 
 
 
@@ -662,8 +671,40 @@ class UI_main_window(QMainWindow, ui):
 
         self.set_img_btns(self.side_buttons[current_page],self.white_side_images_path[current_page].replace('_orange','_white'))
 
+    def edit_mode(self):
+        if self.editmode==False:
+            self.animation_move(self.frame_24,300)
+            self.animation_move(self.frame_23,0)
+            self.stackedWidget_2.setCurrentIndex(1)
+            self.set_label(self.label_status_mode,'Edit Mode')
+            self.editmode=True
+            self.enable_bar_btn_tool_page('top',enable=True)
+            self.enable_bar_btn_tool_page('side',enable=True)
+            self.frame_size(self.frame_save_btns,57)
+            #self.tool_btn_clear() #useless
+            screw=[]
+            screw.append(self.comboBox_edit_remove.currentText())  
+            self.set_combo_boxes(self.comboBox_edit_remove,screw)
+            # self.set_button_enable_or_disable(self.comboBox_edit_remove,enable=False)
+            self.change_mode()
 
 
+    def change_mode(self):
+        
+        if self.editmode:
+            value=False
+        else:
+            value=True
+            
+        self.edit_btn.setEnabled(value)
+        self.remove_screw_btn.setEnabled(value)
+        self.add_btn.setEnabled(value)
+        self.edit_remove_btn.setEnabled(value)
+        # self.remove_screw_btn.setEnabled(value)
+        
+        self.btn_page0_1_top.setEnabled(not(value))
+        self.btn_page0_1_side.setEnabled(not(value))
+        
 
     def buttonClick(self):
         # GET BUTTON CLICKED
@@ -677,6 +718,9 @@ class UI_main_window(QMainWindow, ui):
             self.clear_side_btns(current_page=2)
 
             self.stackedWidget.setCurrentWidget(self.page_camera_setting)
+            self.frame_size_width(self.frame_210,100000,width=True,max_width=True)
+            self.frame_size_width(self.frame_209,100000,width=True,max_width=True)
+            self.frame_size(self.camera_setting_tools_page,0)
         
         if btnName =='side_dashboard_btn' and self.stackedWidget.currentWidget()!=self.page_dashboard:
             self.clear_side_btns(current_page=0)
@@ -716,7 +760,7 @@ class UI_main_window(QMainWindow, ui):
             if self.editmode==False:
                 self.animation_move(self.frame_24,300)
                 self.enable_bar_btn_tool_page(False)
-                self.tool_btn_clear()
+                #self.tool_btn_clear() #useless
                 # self.editmode=True
             else :
                 self.set_warning(texts.WARNINGS['EDIT_MODE'][self.language],'tool_page',level=2)
@@ -740,30 +784,16 @@ class UI_main_window(QMainWindow, ui):
             self.set_label(self.cameraname_label,'Side')
             self.change_btn_icon(self.camera02_btn,'images/camside_actived.png')
             self.change_btn_icon(self.camera01_btn,'images/camtop.png')
-    # def set_warning(self, text, name, level=1):                            #Show warning
-    #     waring_labels = {
-    #         'tool_page': self.label_warning_tool_page,
+
         if btnName =='save_new_btn' :
 
             self.animation_move(self.frame_23,300)
             self.stackedWidget_2.setCurrentIndex(1)
 
         if btnName =='edit_btn' :
+            # if self.
             print('editmode',self.editmode)
-            if self.editmode==False:
-                self.animation_move(self.frame_24,300)
-                self.animation_move(self.frame_23,0)
-                self.stackedWidget_2.setCurrentIndex(1)
-                self.set_label(self.label_status_mode,'Edit Mode')
-                self.editmode=True
-                self.enable_bar_btn_tool_page('top',enable=True)
-                self.enable_bar_btn_tool_page('side',enable=True)
-                self.frame_size(self.frame_save_btns,57)
-                self.tool_btn_clear()
-                screw=[]
-                screw.append(self.comboBox_edit_remove.currentText())  
-                self.set_combo_boxes(self.comboBox_edit_remove,screw)
-                # self.set_button_enable_or_disable(self.comboBox_edit_remove,enable=False)
+            # self.edit_mode()
 
 
         if btnName =='next_page_btn' :
@@ -781,66 +811,73 @@ class UI_main_window(QMainWindow, ui):
                 self.stackedWidget_2.setCurrentIndex(i-1)
 
         if btnName =='btn_page0_1_top' :
-            self.tool_btn_clear()
+            #self.tool_btn_clear() #useless
 
             self.stackedWidget_2.setCurrentWidget(self.page_1_top)
-            self.btn_page0_1_top.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
+            # self.btn_page0_1_top.setStyleSheet(self.side_btn_stylesheet)
 
 
 
         if btnName =='btn_page0_2_top' :
-            self.tool_btn_clear()
+            #self.tool_btn_clear() #useless
 
             self.stackedWidget_2.setCurrentWidget(self.page_2_top)
-            self.btn_page0_2_top.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
+            # self.btn_page0_2_top.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_page0_3_top' :
-            self.tool_btn_clear()
+            #self.tool_btn_clear() #useless
 
             self.stackedWidget_2.setCurrentWidget(self.page_3_top)
-            self.btn_page0_3_top.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_3_top.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_page0_4_top' :
-            self.tool_btn_clear()
+            #self.tool_btn_clear() #useless
 
             self.stackedWidget_2.setCurrentWidget(self.page_4_top)
-            self.btn_page0_4_top.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_4_top.setStyleSheet(self.side_btn_stylesheet)
+
+
+        if btnName =='btn_page0_5_top' :
+            #self.tool_btn_clear() #useless
+
+            self.stackedWidget_2.setCurrentWidget(self.page_5_top)
+            self.btn_page0_5_top.setStyleSheet(self.side_btn_stylesheet)
 
 
         if btnName =='btn_page0_1_side' :
-            self.tool_btn_clear()
+            #self.tool_btn_clear() #useless
 
             self.stackedWidget_2.setCurrentWidget(self.page_1_side)
-            self.btn_page0_1_side.setStyleSheet("QPushButton:enabled{background-color:#001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_1_side.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_page0_2_side' :
-            self.tool_btn_clear()
+            #self.tool_btn_clear() #useless
 
             self.stackedWidget_2.setCurrentWidget(self.page_2_side)    
-            self.btn_page0_2_side.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_2_side.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_page0_3_side' :
-            self.tool_btn_clear()
+            #self.tool_btn_clear() #useless
 
             self.stackedWidget_2.setCurrentWidget(self.page_3_side)    
-            self.btn_page0_3_side.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_3_side.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_page0_4_side' :
-            self.tool_btn_clear()
+            #self.tool_btn_clear() #useless
 
             self.stackedWidget_2.setCurrentWidget(self.page_4_side)
-            self.btn_page0_4_side.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_4_side.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_page0_5_side' :
-            self.tool_btn_clear()
+            #self.tool_btn_clear() #useless
 
             self.stackedWidget_2.setCurrentWidget(self.page_5_side)
-            self.btn_page0_5_side.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_5_side.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_page0_6_side' :
-            self.tool_btn_clear()
+            #self.tool_btn_clear() #useless
             self.stackedWidget_2.setCurrentWidget(self.page_6_side)
-            self.btn_page0_6_side.setStyleSheet("QPushButton:enabled{background-color: #001D6E;color:white;}QPushButton:disabled{background-color:rgb(50,50,50);}")
+            self.btn_page0_6_side.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_load_image0_1_top' :
 
@@ -855,6 +892,22 @@ class UI_main_window(QMainWindow, ui):
 
         if btnName=='btn_add_region0_2_top':
             self.frame_size(self.frame_52,1000)
+
+        if btnName=='btn_remove_region0_2_top':
+            self.frame_size(self.frame_52,0)
+
+        if btnName=='btn_add_region0_3_top':
+            self.frame_size(self.frame_193,1000)
+
+        if btnName=='btn_remove_region0_3_top':
+            self.frame_size(self.frame_193,0)
+
+        if btnName=='btn_add_region0_4_side':
+            self.frame_size(self.frame_141,1000)
+
+        if btnName=='btn_remove_region0_4_side':
+            self.frame_size(self.frame_141,0)
+      
 
         # if btnName=='btn_set_corner0_2_top':
         #     self.frame_size(self.groupBox_12,70)
@@ -873,15 +926,56 @@ class UI_main_window(QMainWindow, ui):
         if btnName=='btn_add_region0_6_side':
             self.frame_size(self.frame_143,310)
 
+        if btnName=='btn_remove_region0_6_side':
+            self.frame_size(self.frame_143,0)
+
         if btnName=='btn_complete_area_6_side':
             self.frame_size(self.frame_143,0)   
+
+        if btnName=='ultra_setting_btn':
+            print('ultra',self.frame_10.height())
+            if self.frame_10.height()==0:
+                self.frame_size(self.frame_10,460)   
+            else:
+                self.frame_size(self.frame_10,0)  
+
+        if btnName=='btn_connect_camera0_1_top':
+            self.clear_side_btns(current_page=2)
+
+            self.stackedWidget.setCurrentWidget(self.page_camera_setting)
+
+            self.frame_size_width(self.frame_210,0,width=True,both_width=True)
+            self.frame_size_width(self.frame_209,5000,width=True,max_width=True)
+            self.frame_size(self.camera_setting_tools_page,30)
+            self.line_path_top_cam_live_page_2.setText(self.label_screw_name.text())
+
+
+        if btnName=='btn_connect_camera0_1_side':
+            self.clear_side_btns(current_page=2)
+
+            self.stackedWidget.setCurrentWidget(self.page_camera_setting)
+
+            self.frame_size_width(self.frame_209,0,width=True,both_width=True)
+            self.frame_size_width(self.frame_210,100000,width=True,max_width=True)
+            self.frame_size(self.camera_setting_tools_page,30)
+
+            self.line_path_top_cam_live_page_2.setText(self.label_screw_name.text())
+
+        if btnName=='camera_setting_tools_page':
+
+            self.clear_side_btns(current_page=1)
+            self.stackedWidget.setCurrentWidget(self.page_tools)
+
+        if btnName=='tool_btn_main_path':
+            self.open_file_dialog(self.line_main_path,foldername=True)
+
 
     def tool_btn_clear(self):
 
         for i in (self.combo_exist):
             try:
                 obj_name=eval('self.btn_page0_{}'.format(i))
-                obj_name.setStyleSheet("QPushButton:disabled{background-color:rgb(50,50,50);}")
+                # obj_name.setStyleSheet("QPushButton:disabled{background-color:rgb(50,50,50);}")
             except:
                 pass
 
@@ -895,6 +989,19 @@ class UI_main_window(QMainWindow, ui):
         if height!=size:
             f_name.setMaximumHeight(size)
             f_name.setMinimumHeight(size)
+    def frame_size_width(self,f_name,size,width=False,both_width=False,min_width=False,max_width=False):
+        if width:
+            width=f_name.width()
+            if both_width:
+                f_name.setMaximumWidth(size)
+                f_name.setMinimumWidth(size)        
+            elif max_width:
+                f_name.setMaximumWidth(size)
+            elif min_width:
+                f_name.setMinimumWidth(size)
+
+
+
 
 
     
@@ -1574,10 +1681,20 @@ class UI_main_window(QMainWindow, ui):
         self.set_sliders_defualt('noise_filter', 0)
     
 
+    def set_calibration(self,top_calibration=False,side_calibration=False):
 
-    # def set_size_live_cams(self):
+        if top_calibration:
+            self.label_top_calibration.setText(str(top_calibration))
 
-    #     self.
+        if side_calibration:
+            self.label_side_calibration.setText(str(side_calibration))
+
+
+    def get_calibration_parms(self):   
+        calibration_params = {}
+        calibration_params['top_calibration'] =  self.label_top_calibration.text()
+        calibration_params['side_calibration'] =  self.label_side_calibration.text()
+        return calibration_params
 
 
 if __name__ == "__main__":

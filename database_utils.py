@@ -220,10 +220,36 @@ class dataBaseUtils():
             # return False
 
 
+    def load_calibration_parms(self):
+        try:
+            record = self.db.search( self.setting_tabel , 'id', 0)[0]
+            # print('asd',record)
+            return (record['top_calibration'],record['side_calibration'])
+        except:
+            return []
+
+
+
+    def save_top_calibration(self,value):
+
+        self.res = self.db.update_record(self.setting_tabel, 'top_calibration', str(value) ,'id','0')
+
+    def save_side_calibration(self,value):
+
+        self.res = self.db.update_record(self.setting_tabel, 'side_calibration', str(value) ,'id','0')
+
 
 
 if __name__ == '__main__':
     db = dataBaseUtils(user_name='root',password='password')
+    x=db.load_calibration_parms()
+    print(x)
+    db.save_top_calibration(70)
+    x=db.load_calibration_parms()
+    print(x)  
+    db.save_side_calibration(90.885)
+    x=db.load_calibration_parms()
+    print(x)  
     # db.get_size_table('side_live')
     # parms={'min_x':10,'min_y':20,'max_x':30,'max_y':40}
     # db.set_size_table_side(parms)
@@ -238,8 +264,8 @@ if __name__ == '__main__':
     # db.save_plc_ip('asdw')
     # x=db.load_plc_ip()
     # print(x)
-    x=db.get_size_table('top')
-    print(x)
+    # x=db.get_size_table('top')
+    # print(x)
     # records = db.load_coil_info(996)
     # db.get_camera_setting()
     #db.set_dataset_path('G:/dataset/')

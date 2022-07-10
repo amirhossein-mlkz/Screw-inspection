@@ -31,6 +31,7 @@ def save_image(img, main_path, screw_name, direction):
     path = os.path.join(path, name )
     cv2.imwrite(path, img)
     
+    return path
 
 
 def get_screws_list():

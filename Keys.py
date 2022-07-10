@@ -86,6 +86,7 @@ def object_dict_builder(ui_object):
             'bar_thresh0_2_top':self.bar_thresh0_2_top,
             'bar_thresh0_3_top':self.bar_thresh0_3_top,
             'bar_thresh0_4_top':self.bar_thresh0_4_top,
+            'bar_thresh0_5_top':self.bar_thresh0_5_top,
             'bar_thresh0_1_side': self.bar_thresh0_1_side,
             'bar_thresh0_2_side': self.bar_thresh0_2_side,
             'bar_thresh0_3_side': self.bar_thresh0_3_side,
@@ -98,6 +99,7 @@ def object_dict_builder(ui_object):
             'bar_noise_filter0_2_top':self.bar_noise_filter0_2_top,
             'bar_noise_filter0_3_top':self.bar_noise_filter0_3_top,
             'bar_noise_filter0_4_top':self.bar_noise_filter0_4_top,
+            'bar_noise_filter0_5_top':self.bar_noise_filter0_5_top,
             'bar_noise_filter0_1_side':self.bar_noise_filter0_1_side,
         }
         
@@ -176,6 +178,11 @@ def object_dict_builder(ui_object):
                     'spin_min_diameter_2_top': self.spin_min_diameter_2_top,
                     'spin_min_district_2_top': self.spin_min_district_2_top,
                     'spin_min_corner_2_top': self.spin_min_corner_2_top
+                },
+                '5_top':
+                {
+                    'spin_min_distance_5_top': self.spin_min_distance_5_top,
+                    'spin_max_distance_5_top': self.spin_max_distance_5_top
                 },
                 
                 '2_side':{
@@ -266,6 +273,7 @@ def object_dict_builder(ui_object):
             'checkbox_thresh_inv0_2_top': self.checkbox_thresh_inv0_2_top,
             'checkbox_thresh_inv0_3_top': self.checkbox_thresh_inv0_3_top,
             'checkbox_thresh_inv0_4_top': self.checkbox_thresh_inv0_4_top,
+            'checkbox_thresh_inv0_5_top': self.checkbox_thresh_inv0_5_top,
             'checkbox_thresh_inv0_1_side': self.checkbox_thresh_inv0_1_side,
 
         },
@@ -275,6 +283,7 @@ def object_dict_builder(ui_object):
             'checkbox_page0_2_top': self.checkbox_page0_2_top,
             'checkbox_page0_3_top': self.checkbox_page0_3_top,
             'checkbox_page0_4_top': self.checkbox_page0_4_top,
+            'checkbox_page0_5_top': self.checkbox_page0_5_top,
             'checkbox_page0_1_side': self.checkbox_page0_1_side,
             'checkbox_page0_2_side': self.checkbox_page0_2_side,
             'checkbox_page0_3_side': self.checkbox_page0_3_side,
@@ -422,8 +431,8 @@ def object_dict_builder(ui_object):
                     },
                 '3_top':
                     {
-                            'labe_area_circle1_3_top':self.labe_area_circle1_3_top,
-                            'labe_area_circle2_3_top':self.labe_area_circle2_3_top,
+                            # 'labe_area_circle1_3_top':self.labe_area_circle1_3_top,
+                            # 'labe_area_circle2_3_top':self.labe_area_circle2_3_top,
                             'label_min_area_3_top':self.label_min_area_3_top,
                             'label_max_area_3_top':self.label_max_area_3_top,
                     },
@@ -432,6 +441,12 @@ def object_dict_builder(ui_object):
                             'label_min_area_4_top':self.label_min_area_4_top,
                             'label_max_area_4_top':self.label_max_area_4_top,
                 },
+
+                '5_top':
+                {
+                            'label_distance_centers_5_top':self.label_distance_centers_5_top
+                },
+
             }
 
     }
@@ -468,7 +483,8 @@ def object_dict_builder(ui_object):
                 'remove_btn': self.btn_remove_region0_3_top,
                 'input': self.line_name_region0_3_top,
                 'combo': self.combo_regions_name0_3_top,
-            }
+            },
+
 
             
     }
@@ -476,7 +492,10 @@ def object_dict_builder(ui_object):
     self.combo_boxes = {
         'live':{
             'combobox_select_screw_live':self.combobox_select_screw_live,
-        }
+        },
+        '5_top': {
+                'combo_5_top': self.combo_5_top,
+            }
 
     }
     

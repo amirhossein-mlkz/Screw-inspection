@@ -44,6 +44,8 @@ def assign_appearance_existing_params_to_ui(ui_obj):
     # app language
     ui_obj.setting_language_comboBox.addItems(app_languages)
 
+    # ui_obj.
+
 
 # get appearance parameters and apply them to UI
 def set_appearance_params_to_ui(ui_obj, appearance_params):
@@ -52,6 +54,8 @@ def set_appearance_params_to_ui(ui_obj, appearance_params):
     ui_obj.setting_style_comboBox.setCurrentText(appearance_params['window_style'])
     ui_obj.setting_color_comboBox.setCurrentText(appearance_params['window_color'])
     ui_obj.setting_language_comboBox.setCurrentText(appearance_params['language'])
+    ui_obj.setting_language_comboBox.setCurrentText(appearance_params['parent_path'])
+
     # ui_obj.large_rect_area_label.setText(str(appearance_params['large_rect_area']))
     # ui_obj.small_rect_area_label.setText(str(appearance_params['small_rect_area']))
     # ui_obj.rect_accuracy_label.setText(str(appearance_params['rect_accuracy']))
@@ -74,12 +78,14 @@ def get_appearance_params_from_ui(ui_obj):
     appearance_params['window_style'] = ui_obj.setting_style_comboBox.currentText()
     appearance_params['window_color'] = ui_obj.setting_color_comboBox.currentText()
     appearance_params['language'] = ui_obj.setting_language_comboBox.currentText()
+    appearance_params['parent_path'] = ui_obj.line_main_path.text()
     return appearance_params
 
 
 # get the appearance parameters and apply to program
 def apply_appearance_params_to_program(ui_obj, confirm_ui_obj, appearance_params):
     # apply to UI
+    ui_obj.line_main_path.setText(appearance_params['parent_path'])
     ui_obj.setStyleSheet('font: %spt "%s"' % (appearance_params['font_size'], appearance_params['font_style'])) # font-size and font-style
     ui_obj.leftMenuFrame.setStyleSheet('background-color:%s;' % (appearance_params['window_color'])) # window color
     ui_obj.contentTopBg.setStyleSheet('background-color:%s;' % (appearance_params['window_color'])) # window color

@@ -31,8 +31,8 @@ CREATE TABLE `settings` (
   `window_style` text,
   `window_color` text,
   `language` text,
-  `large_rect_area` int DEFAULT NULL,
-  `small_rect_area` int DEFAULT NULL,
+  `top_calibration` float DEFAULT NULL,
+  `side_calibration` float DEFAULT NULL,
   `rect_accuracy` double DEFAULT NULL,
   `split_size` json DEFAULT NULL,
   `n_defect_colors` int DEFAULT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES (0,'G:/oxin_image_grabber','G:/dataset/','Arial Black',11,'QtCurve','#282C34','English',2000,1000,0.9,'[11, 4]',6,'opc.tcp://127.0.0.1:8081');
+INSERT INTO `settings` VALUES (0,'capture_images12','G:/dataset/','Arial Black',9,'QtCurve','#282C34','English',70,90.885,0.9,'[11, 4]',6,'opc.tcp://127.0.0.1:8081');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-02 20:14:34
+-- Dump completed on 2022-07-10 12:08:40
