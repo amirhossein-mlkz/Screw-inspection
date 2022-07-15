@@ -875,6 +875,27 @@ def find_edge_crack(mask, thresh_area, filter_w=10 ):
 
 
 
+
+
+def centerise_measurment(masks):
+    res_cnts = []
+    res_centers = []
+    for mask in masks:
+        cnts,_ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if len(cnts) == 0:
+            continue
+        cnt = cnts[0]
+        M = cv2.moments(cnt)
+        res_centers.append( (int(M['m10']/M['m00']) , int(M['m01']/M['m00']) ) )
+        res_cnts.append(cnt)
+    
+    dist = -1
+    if len(res_centers)==2:
+        pt1 =  res_centers[0]
+        pt2 =  res_centers[1]
+        dist = ((pt1[0] - pt2[0])**2 + (pt1[1] - pt2[1])**2 )**0.5
+    return res_cnts, res_centers, np.round(dist,1)
+
 if __name__ == '__main__':
     
     img = cv2.imread('sample images/top\Image__2047-01-06__12-02-12.bmp')

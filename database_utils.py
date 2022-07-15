@@ -105,7 +105,7 @@ class dataBaseUtils():
 
     def add_user(self,parms):
         data=(parms['user_name'],parms['password'],parms['role'])
-        print(data)
+        #print(data)
         try:
             self.db.add_record(data, table_name='users', parametrs='(user_name,password,role)', len_parameters=3)
             return 'True'
@@ -117,21 +117,11 @@ class dataBaseUtils():
     def search_user_by_user_name(self, input_user_name):
         try:
             record = self.db.search( self.table_user , 'user_name', input_user_name)[0]
-            #print('asd',record)
             return record
         except:
             return []
 
 
-    def add_screw(self,parms):
-        # data=(parms['name'],0,0)
-        # print(data)
-        try:
-            self.db.add_record(parms, table_name=self.page_grab, parametrs='(name,roi_x,roi_y,threshold)', len_parameters=4)
-            return 'True'
-        
-        except:
-            return 'Databas Eror'
 
     def search_page_grab(self,name):
         try:
@@ -140,35 +130,12 @@ class dataBaseUtils():
         except:
             return []
 
-    def get_all_screw(self):
-        try:
-            record = self.db.report_last(self.page_grab,'name',100)
-            return record
-        except:
-            return []
 
-    def update_screw(self,data):
-            # mySql_insert_query = """UPDATE {} 
-            #                         SET {} = {}
-            #                         WHERE {} ={} """.format(table_name, col_name, ("'"+value+"'"),id,("'"+id_value+"'"))
-        try:
-            self.db.update_record(self.page_grab,'roi_x',data[1],'name',data[0])
-            self.db.update_record(self.page_grab,'roi_y',data[2],'name',data[0])
-            self.db.update_record(self.page_grab,'threshold',data[3],'name',data[0])
-  
-        except:
-            print('eror')
-
-
-    def remove_screw(self,name):
-
-        self.db.remove_record(self.page_grab,'name',name)
 
 
     def get_size_table(self,label_name):
         # record = self.db.search( self.table_user , 'user_name', input_user_name)[0]
         record=self.db.search(self.size,'name',label_name)
-        # print(record)
         return record
 
     def set_size_table_side(self,parms):
@@ -189,7 +156,6 @@ class dataBaseUtils():
         try:
 
             parms=self.db.get_all_content(self.plc)
-            print(parms)
             return parms
         except:
             return []
@@ -211,7 +177,7 @@ class dataBaseUtils():
             for _,param in enumerate(plc_parms.keys()):
                 # update_record(self,table_name,col_name,value,id,id_value):
                 i=_+1
-                print('_',i,'   ',param,str(plc_parms[param]))
+                #print('_',i,'   ',param,str(plc_parms[param]))
                 
                 res = self.db.update_record(self.plc, 'path', str(plc_parms[param]), 'name',param)
 

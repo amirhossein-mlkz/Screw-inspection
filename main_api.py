@@ -20,15 +20,10 @@
 #//////////////////////////////
 ################################
 
-from calendar import c
-from cmath import inf
+from datetime import datetime
 import threading
-from traceback import print_tb
-from unittest.mock import DEFAULT
-from PySide6 import QtCore as sQtCore
 from functools import partial
-from cv2 import cvtColor
-from matplotlib.pyplot import gray
+from matplotlib.pyplot import draw
 import numpy as np
 import random
 
@@ -45,8 +40,7 @@ from backend.mouse import Mouse
 from full_screen_UI import FullScreen_UI
 import texts
 
-from database import database, dbUtils, screwDB
-import copy
+from database import dbUtils, screwDB
 import platform
 from Keys import set_dimensions
 from PyQt5.QtCore import QTimer,QDateTime,QObject, QThread
@@ -64,19 +58,24 @@ class API:
     image_num=0
 
     def __init__(self,ui):
+        self.ui = ui
+
+        
+        
+        
         self.sides=['side','top']
         #------------------------------------------------------------------------------------------------------------------------
         # UIs of the app
         # main settings UI
-        self.ui = ui
+        
         # login window UI and API
-        self.login_ui = login_UI.UI_main_window()
+        #self.login_ui = login_UI.UI_main_window()
         # confirmation window UI
         self.confirm_ui = confirm_UI.UI_main_window()
 
         #------------------------------------------------------------------------------------------------------------------------
         # APIs of the app
-        self.login_api = login_UI.login_api.API(self.login_ui)
+        #self.login_api = login_UI.login_api.API(self.login_ui)
         
         #------------------------------------------------------------------------------------------------------------------------
         # database module api
@@ -142,48 +141,22 @@ class API:
 
         self.mouse.connect_all(self.ui.label_image_grab_page, self.image_setting_mouse_event)
         
-        
-        #???????????????????????????????????????????????//
-        #self.proccessing_live(None,None)
-        
-
-        # set_load live images
-        self.set_load_imgs_live()
-
-        self.load_calibration_parms()
-        
-        # self.ui.
-
-        #-------------------------------------------------------------------------------------------------------------------
         self.laod_images()
         self.set_images()
-        # creating a timer object
-    #     from PyQt5.QtCore import QTimer, QTime, Qt
-    #     ui_obj=self.ui.ret_self
-    #     timer = QTimer(ui_obj)
-  
-    #     # adding action to timer
-    #     timer.timeout.connect(self.showTime)
-  
-    #     # update the timer every second
-    #     timer.start(1000)
-  
-    # # method called by timer
-    # def showTime(self):
-  
-    #     # getting current time
-    #     current_time = QTime.currentTime()
-  
-    #     # converting QTime object to string
-    #     label_time = current_time.toString('hh:mm:ss')
-  
-    #     # showing it to the label
-    #     self.label.setText(label_time)
+        #self.timer_live = QTimer()
+        #self.timer_live.timeout.connect(self.set_images)
+        #self.timer_live.start(200)
 
-    # functions
-    #------------------------------------------------------------------------------------------------------------------------
-    #------------------------------------------------------------------------------------------------------------------------
-    # button connector for activating UI buttons functionality
+
+    def pr(self):
+        print('Hello Thread!')
+
+
+
+
+
+
+
     def button_connector(self):
         
         #--------------------------------------amir---------------------------------------
@@ -198,23 +171,6 @@ class API:
         for cam_id in camera_funcs.all_camera_ids:
             eval('self.ui.camera%s_btn' % cam_id).clicked.connect(partial(self.load_camera_params_from_db_to_UI))
 
-        # camera-parametrs or UI page change disconnect camera
-        # disconnect camera on UI change
-        # self.ui.serial_number_combo.currentTextChanged.connect(self.disconnect_camera_on_ui_change)
-        # self.ui.gain_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        # self.ui.expo_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        # self.ui.width_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        # self.ui.height_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        # self.ui.offsetx_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        # self.ui.offsety_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        # self.ui.maxbuffer_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        # self.ui.packetdelay_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        # self.ui.packetsize_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        # self.ui.transmissiondelay_spinbox.valueChanged.connect(self.disconnect_camera_on_ui_change)
-        # self.ui.trigger_combo.currentTextChanged.connect(self.disconnect_camera_on_ui_change)
-        # self.ui.stackedWidget.currentChanged.connect(self.things_to_do_on_stackwidject_change)
-
-
         # buttons in the camera-settings section
         self.ui.camera_setting_apply_btn.clicked.connect(partial(self.save_changed_camera_params))
         self.ui.camera_setting_connect_btn.clicked.connect(partial(self.connect_dissconnect_to_camera))
@@ -223,7 +179,7 @@ class API:
 
 
         # login window and confirm window
-        self.login_ui.login_btn.clicked.connect(partial(lambda: user_login_logout_funcs.authenticate_user(ui_obj=self.ui, login_ui_obj=self.login_ui, login_api_obj=self.login_api)))
+        #self.login_ui.login_btn.clicked.connect(partial(lambda: user_login_logout_funcs.authenticate_user(ui_obj=self.ui, login_ui_obj=self.login_ui, login_api_obj=self.login_api)))
         self.confirm_ui.yes_btn.clicked.connect(partial(self.confirm_yes))
         self.confirm_ui.no_btn.clicked.connect(partial(self.confirm_ui.close))
 
@@ -297,8 +253,8 @@ class API:
         # Live Page
 
         self.ui.lives['combo_boxes']['screw_list'].currentTextChanged.connect(self.load_screw_live )
-        self.ui.spin_scale_top_cam_live_page.valueChanged.connect(self.size_update_top_cam_live)   
-        self.ui.spin_scale_side_cam_live_page.valueChanged.connect(self.size_update_side_cam_live)   
+        #self.ui.spin_scale_top_cam_live_page.valueChanged.connect(self.size_update_top_cam_live)   
+        #self.ui.spin_scale_side_cam_live_page.valueChanged.connect(self.size_update_side_cam_live)   
         
 
         # PLC settings
@@ -317,7 +273,7 @@ class API:
         self.ui.set_value_plc.clicked.connect(self.set_plc_value)
         self.load_plc_ip()
         self.load_plc_parms()
-        self.check_plc_status()
+        #self.check_plc_status()
 
         # self.ui.connect_sliders('thresh',self.update_threshould)
 
@@ -359,10 +315,13 @@ class API:
 
     def size_update_top_cam_live(self):
         scale=self.ui.spin_scale_top_cam_live_page.value()
-        x=int(self.camera_ratio[1]['x'])
-        y=int(self.camera_ratio[1]['y'])
-        ratio=y/x
+        w=int(self.camera_ratio[1]['x'])
+        h=int(self.camera_ratio[1]['y'])
+        ratio=w/h
+
         set_dimensions(self.ui.label_img_top_live,(x*scale),(y*scale*ratio))
+
+
     def size_update_side_cam_live(self):
         scale=self.ui.spin_scale_side_cam_live_page.value()
         x=int(self.camera_ratio[1]['x'])
@@ -756,7 +715,7 @@ class API:
             self.mouse_roi_shape_type = 'circel'
             self.mouse_roi_max_count = 2 
 
-        elif page_name in ['4_top']:
+        elif page_name in ['4_top', '5_top']:
             self.mouse_roi_shape_type = 'circel'
             self.mouse_roi_max_count = 1
         
@@ -1025,6 +984,7 @@ class API:
         '2_top':self.update_image_2_top,
         '3_top':self.update_image_3_top,
         '4_top':self.update_image_4_top,
+        '5_top':self.update_image_5_top,
         
         '1_side':self.update_image_1_side,
         '2_side':self.update_image_2_side,            
@@ -1034,7 +994,7 @@ class API:
         '6_side':self.update_image_6_side,
 
         }
-
+    
         page_name = self.ui.get_setting_page_idx(page_name = True)
 
         try:
@@ -1266,6 +1226,51 @@ class API:
 
         img = self.roi_drawings['circel'].get_image(img)
         self.ui.set_image_page_tool_labels(img)
+
+
+    
+
+    def update_image_5_top(self):
+        page_name = self.ui.get_setting_page_idx(page_name = True)
+        direction = self.ui.get_setting_page_idx(direction = True)
+        subpage_name = self.ui.get_sub_page_name( page_name )
+        
+        img = np.copy(self.current_image_screw)
+        json = self.screw_jasons[ direction ]
+        img, mask_roi, _ = proccessings.preprocessing_top_img( img, json, direction  )
+        
+        #--------------------------------------------------------------------------------------
+        #specific Operation
+        #--------------------------------------------------------------------------------------
+        sub_thresh_imgs = proccessings.get_general_masks(img, self.screw_jasons[ direction ], page_name )
+        thresh_img = sub_thresh_imgs[subpage_name]
+        
+        
+        cnts = []
+        centers = []
+        dist = -1
+        #------------------------------------------------------------------------------------
+        if len(self.screw_jasons[ direction ].get_subpages(page_name)) == 2:
+            masks = list(sub_thresh_imgs.values())
+            cnts, centers, dist = cvTools.centerise_measurment(masks)
+        
+        info = {'distance_centers': dist}    
+        self.ui.set_stetting_page_label_info(info)
+        #------------------------------------------------------------------------------------
+        
+        if self.ui.is_drawing_mask_enabel():
+
+            img = Utils.mask_viewer(img, thresh_img, color=(0,0,100))
+            h,w = img.shape[:2]
+            img = cv2.circle(img, (w//2, h//2), 5, (0,255,0) , thickness=-1)
+
+            if len(cnts)>0:
+                img = cv2.drawContours(img, cnts, -1, (0,0,255), thickness=3)
+                for center in centers:
+                    img = cv2.circle(img, center, 3, (0,0,255) , thickness=-1)
+
+        img = self.roi_drawings['circel'].get_image(img)
+        self.ui.set_image_page_tool_labels(img)
     #____________________________________________________________________________________________________________
     #                                           
     #
@@ -1465,15 +1470,6 @@ class API:
 
         img = self.rect_roi_drawing.get_image(img)
         self.ui.set_image_page_tool_labels(img)
-    # #____________________________________________________________________________________________________________
-    # #                                           
-    # #
-    # #                                           Screw main Settin top
-    # #
-    # #
-    # #____________________________________________________________________________________________________________
-
-    
 
     # #____________________________________________________________________________________________________________
     # #                                           
@@ -1489,20 +1485,22 @@ class API:
 
     def load_screw_live(self):
         name = self.ui.combobox_select_screw_live.currentText()
-        path = dbUtils.get_screw_path(name)
-        self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
-        for direction in self.screw_jasons.keys():
-            self.screw_jasons[direction].read(path, direction)
-            img_path = self.screw_jasons[direction].get_img_path()
-            img=cv2.imread(img_path)
-            self.ui.set_selected_image_live_page(direction,img)
+        name  = name.replace(" ","")
+        if len(name)>=3:
+            path = dbUtils.get_screw_path(name)
+            self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
+            for direction in self.screw_jasons.keys():
+                self.screw_jasons[direction].read(path, direction)
+                img_path = self.screw_jasons[direction].get_img_path()
+                img=cv2.imread(img_path)
+                self.ui.set_selected_image_live_page(direction,img)
 
 
 
 
     
 
-    def proccessing_live(self, img, direction):
+    def proccessing_live_side(self, img, direction):
         img = cv2.imread('sample images/New folder/31x_1_4.png')
         direction = 'side'
 
@@ -1510,7 +1508,7 @@ class API:
         img = Utils.mask_viewer(img, thresh_img, color=(0,100,0))
         results = []
         for active_tool in self.screw_jasons[direction].get_active_tools():
-            result, img = proccessings.tools_dict[active_tool]( thresh_img, self.screw_jasons[direction], img )
+            result, img = proccessings.tools_dict_top[active_tool]( thresh_img, self.screw_jasons[direction], img )
             results.extend(result)
 
         results.sort( key = lambda x:x['name'])
@@ -1518,6 +1516,45 @@ class API:
         self.ui.set_main_image_live_page( direction, img )
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def proccessing_live_top(self, img):
+        #img = cv2.imread('sample images\\top\Image__2047-01-06__11-56-09.bmp')
+        direction = 'top'
+
+        screw_json = self.screw_jasons[ direction ]        
+        img, mask_roi, _ = proccessings.preprocessing_top_img( img, screw_json, direction  )
+        draw_img = np.copy(img)
+        
+        results = []
+        for active_tool in screw_json.get_active_tools():
+            result, draw_img = proccessings.tools_dict_top[active_tool]( img, mask_roi, screw_json, draw_img )
+            results.extend(result)
+
+        results.sort( key = lambda x:x['name'])
+        self.ui.set_live_table( self.ui.table_live_live_page, results )
+
+        return draw_img
 
 
     # PLC ////////////////////////////////////////////////////////////////////
@@ -1619,10 +1656,11 @@ class API:
         self.plc_thread=threading.Thread(target=self.auto_plc)
         self.plc_thread.start()
         
-
-
-
-
+    #________________________________________________________________________________________________________________________
+    #
+    #                                                          PLC
+    #
+    #________________________________________________________________________________________________________________________
     def check_spec_plc_parms(self):
 
         btns=['check_run_plc','check_reject_plc']
@@ -1646,11 +1684,6 @@ class API:
 
 
     def check_plc_parms(self,name):
-
-        # path_list={'check_limit_1_btn':self.ui.line_limit1_plc,'check_limit_2_btn':self.ui.line_limit2_plc,\
-        #     'check_top_motor_btn':self.ui.line_top_motor_plc,'check_down_motor_btn':self.ui.line_down_motor_plc,\
-        #         'line_detect_sensor_plc':self.ui.line_detect_sensor_plc}
-
         name=name.split('_',1)[1]
         path=eval('self.ui.line_{}.text()'.format(name))
         print('path',path)
@@ -1674,7 +1707,6 @@ class API:
 
         parms=self.db.load_plc_parms()
         combo_list=[]
-        print('parms',parms)
         for parm in parms:
             try:
                 
@@ -1714,6 +1746,13 @@ class API:
         value=self.ui.line_value_set_value_plc.text()
         self.my_plc.set_value(path, value)
     
+    #________________________________________________________________________________________________________________________
+    #
+    #                                                          
+    #
+    #________________________________________________________________________________________________________________________
+
+
 
     def load_calibration_parms(self):
 
@@ -1742,16 +1781,35 @@ class API:
             # for i in range(1,5):
             # self.ui.img_top=cv2.imread('sample images/temp_top/{}.jpg'.format(self.image_num))
             # self.ui.img_side=cv2.imread('sample images/temp_side/{}.jpg'.format(self.image_num))
-            self.ui.img_top=self.top_images[self.image_num]
-            self.ui.img_side=self.side_images[self.image_num]
+            self.img_top=self.top_images[self.image_num]
+            self.img_side=self.side_images[self.image_num]
 
-            self.ui.update_images()
+
+            draw_img_top = self.proccessing_live_top(self.img_top)
             
-        
-        # self.set_images()
 
-        # threading.Thread(target=self.set_images,de).start()
-        threading.Timer(0.2,self.set_images).start()
+            self.img_side = cv2.rotate( self.img_side, cv2.ROTATE_90_COUNTERCLOCKWISE )
+            draw_img_top = cv2.rotate( draw_img_top, cv2.ROTATE_90_COUNTERCLOCKWISE )
+
+            #--------------
+            
+            #--------------
+            self.ui.set_image_label(self.ui.label_img_top_live, draw_img_top)
+            self.ui.set_image_label(self.ui.label_img_side_live,self.img_side)
+            #print('Qtimer', datetime.now())
+            
+            threading.Timer(0.1, self.set_images).start()
+            
+            
+
+            
+
+
+    def set_live_image(self):
+        self.ui.set_image_label(self.ui.label_img_top_live,self.img_top)
+        self.ui.set_image_label(self.ui.label_img_side_live,self.img_side)
+        print(datetime.now())
+
 
     def laod_images(self):
 
@@ -1763,8 +1821,10 @@ class API:
             self.top_images.append(cv2.imread('sample images/temp_top/{}.jpg'.format(i)))
             self.side_images.append(cv2.imread('sample images/temp_side/{}.jpg'.format(i)))
         
-        print('len',len(self.top_images),len(self.side_images))
+        #print('len',len(self.top_images),len(self.side_images))
 
 
 
 
+    def print_test(self):
+        print('Qtimer Test')

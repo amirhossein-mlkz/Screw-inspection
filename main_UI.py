@@ -125,13 +125,20 @@ class UI_main_window(QMainWindow, ui):
         self.set_combo_boxes_2()
 
         self.sides=['top','side']
+        self.main_pages_name_dict=['page_dashboard',
+                                    'page_tools',
+                                    'page_camera_seting',
+                                    'page_calibration',
+                                    'page_users_setting',
+                                    'page_settings'
+                                    ]
 
-        self.pages_name_dict={'1':'1_top','2':'2_top','3':'3_top','4':'4_top','5':'5_top','6':'1_side','7':'2_side','8':'3_side','9':'4_side','10':'5_side','11':'6_side'}
+        self.tool_pages_name_dict={'1':'1_top','2':'2_top','3':'3_top','4':'4_top','5':'5_top','6':'1_side','7':'2_side','8':'3_side','9':'4_side','10':'5_side','11':'6_side'}
         self.pages_dircetion_dict={'1':'top','2':'top','3':'top','4':'top','5':'top','6':'side','7':'side','8':'side','9':'side','10':'side','11':'side'}
         self.roi_name=['x1','y1','x2','y2']
         self.limit_types=['min','max']
 
-        self.combo_exist={'1_top':False,'2_top':True,'3_top':True,'4_top':False,'5_top':False,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':True}
+        self.combo_exist={'1_top':False,'2_top':True,'3_top':True,'4_top':False,'5_top':True,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':True}
 
         
         self.tool_btn_bar_side={'lenght':self.frame_36,'btn_male':self.btn_page0_3_side,'Male_Thread':self.frame_78,'btn_lenght':self.btn_page0_2_side,'Diameter':self.frame_79,'screw_head':self.frame_104,'side_damage':self.frame_112,'side_btn_damage':self.btn_page0_6_side}
@@ -177,13 +184,14 @@ class UI_main_window(QMainWindow, ui):
         self.img_top=cv2.imread('images/defualt.jpg')
         self.img_side=cv2.imread('images/defualt.jpg')
 
-        self.timer_live = QTimer(self)
+        # self.timer_live = QTimer(self)
   
-        # adding action to timer
-        self.timer_live.timeout.connect(self.update_images)
+        # # adding action to timer
+        # self.timer_live.timeout.connect(self.update_images)
   
-        # # update the timer every second
+        # # # update the timer every second
         # self.timer_live.start(60)
+        self.set_list_pack_items('sub_pages', ['flanch', 'head'])
 
     def ret_self(self):
 
@@ -1053,23 +1061,37 @@ class UI_main_window(QMainWindow, ui):
         return label_name.text()
 
 
-    def set_image_label(self,label_name, img):
+    def set_image_label(self,label_name, img, height_percent=None, width_percent=None):
+
+        page_name = self.get_main_page_idx(page_name=True)
+
+        max_h, max_w = None, None
+        if height_percent is None or width_percent is None:
+            if page_name in self.scales.keys():
+                height_percent, width_percent = self.scales[page_name]
+                win_h, win_w = self.app_size()
+                max_h = int(win_h * height_percent)
+                max_w = int( win_w * width_percent )
+        
+        if max_h is not None and max_w is not None:
+            h, w, ch = img.shape
+            scale_h = max_h/h
+            scale_w = max_w/w
+            scale = min( scale_h, scale_w)
+            img = cv2.resize(img, None, fx=scale, fy=scale)
 
         h, w, ch = img.shape
-        bytes_per_line = ch * w
-         
+        bytes_per_line = ch * w  
+        
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         convert_to_Qt_format = sQImage(img.data, w, h, bytes_per_line, sQImage.Format_RGB888)
 
-
         label_name.setPixmap(sQPixmap.fromImage(convert_to_Qt_format))
+        
 
 
     def change_btn_icon(self, btn, image):
         icon = QIcon()
-        # icon.addPixmap(QPixmap('normal.png'))
-        # icon.addPixmap(QPixmap('disabled.png'), QIcon.Disabled)
-        # icon.addPixmap(QPixmap('clicking.png'), QIcon.Active)
         icon.addPixmap(QPixmap(image), QIcon.Normal, QIcon.On)
         btn.setIcon(icon)
 
@@ -1110,12 +1132,26 @@ class UI_main_window(QMainWindow, ui):
             return self.pages_dircetion_dict[str(idx)]
         
         if page_name:
-            return self.pages_name_dict[str(idx)]
+            return self.tool_pages_name_dict[str(idx)]
             
          
         else:
             return idx
         
+
+    def get_main_page_idx(self,direction=False,page_name=False):
+        
+        idx = self.stackedWidget.currentIndex()  
+        if direction:
+            return self.main_pages_name_dict[idx]
+        
+        if page_name:
+            return self.main_pages_name_dict[idx]
+            
+         
+        else:
+            return idx
+
     def set_button_enable_or_disable(self, names, enable=True):
         for name in names.values():
             name.setEnabled(enable)
@@ -1132,7 +1168,7 @@ class UI_main_window(QMainWindow, ui):
 
         checked_btns=[]
 
-        for page_name in self.pages_name_dict.values():
+        for page_name in self.tool_pages_name_dict.values():
             x=self.checkboxes['page']['checkbox_page0_{}'.format(page_name)].isChecked()
             if x:
                 if direction in page_name:
@@ -1214,13 +1250,16 @@ class UI_main_window(QMainWindow, ui):
     
     def connect_list_pack(self, name, func, idx=0):
         
-        for page_name in self.pages_name_dict.values():
+        for page_name in self.tool_pages_name_dict.values():
             
             try:
                 self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['add_btn'].clicked.connect(func('add'))
                 self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['remove_btn'].clicked.connect(func('remove'))
-                self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].currentTextChanged.connect(func('select'))
+            except:
+                pass
 
+            try:
+                self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].currentTextChanged.connect(func('select'))
             except:
                 pass
     
@@ -1303,7 +1342,7 @@ class UI_main_window(QMainWindow, ui):
                 
 
     def roi_connect(self,func):
-        for page_name in self.pages_name_dict.values():
+        for page_name in self.tool_pages_name_dict.values():
 
             for roi_name in self.roi_name:
             
@@ -1469,7 +1508,7 @@ class UI_main_window(QMainWindow, ui):
                     obj.toggled.connect(func( name )) 
 
         else:
-            for page_name in self.pages_name_dict.values():
+            for page_name in self.tool_pages_name_dict.values():
 
                 try:
                 
@@ -1503,7 +1542,7 @@ class UI_main_window(QMainWindow, ui):
     
     def connect_line(self, name, func, idx=0):
         
-        for page_name in self.pages_name_dict.values():
+        for page_name in self.tool_pages_name_dict.values():
             obj = self.lines['{}'.format(name)]['line_{}{}_{}'.format(name, idx, page_name)]
             obj.textChanged.connect(func)
     
@@ -1585,7 +1624,7 @@ class UI_main_window(QMainWindow, ui):
 
     #//////////////////////////////////////////////////////////////////////////////////////////////
     def connect_btn(self, name, func, idx=0):
-        for page_name in self.pages_name_dict.values():
+        for page_name in self.tool_pages_name_dict.values():
             try:
                 obj = self.buttons[str(name)]['btn_{}{}_{}'.format(name, idx, page_name)]
                 obj.clicked.connect( func )
@@ -1647,7 +1686,6 @@ class UI_main_window(QMainWindow, ui):
         table_name.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def set_live_table(self,table_name,values=False):
-
 
         table_item = QTableWidgetItem()
         str1=[]
@@ -1730,12 +1768,16 @@ class UI_main_window(QMainWindow, ui):
         calibration_params['side_calibration'] =  self.label_side_calibration.text()
         return calibration_params
 
-
+    def app_size(self):
+        w = self.centralwidget.width()
+        h = self.centralwidget.height()
+        return h,w
 if __name__ == "__main__":
     app = QApplication()
     win = UI_main_window()
     # apply_stylesheet(app,theme='dark_cyan.xml')
     api = main_api.API(win)
     win.show()
+    #api.set_images2()
     sys.exit(app.exec())
     

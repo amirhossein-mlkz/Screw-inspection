@@ -182,7 +182,6 @@ def object_dict_builder(ui_object):
                 '5_top':
                 {
                     'spin_min_distance_5_top': self.spin_min_distance_5_top,
-                    'spin_max_distance_5_top': self.spin_max_distance_5_top
                 },
                 
                 '2_side':{
@@ -216,6 +215,11 @@ def object_dict_builder(ui_object):
                     'spin_max_diameter_2_top': self.spin_max_diameter_2_top,
                     'spin_max_district_2_top': self.spin_max_district_2_top,
                     'spin_max_corner_2_top': self.spin_max_corner_2_top
+                },
+
+                '5_top':
+                {
+                    'spin_max_distance_5_top': self.spin_max_distance_5_top
                 },
                 
                 '2_side':{
@@ -352,6 +356,7 @@ def object_dict_builder(ui_object):
                 'btn_page0_2_top': self.btn_page0_2_top,
                 'btn_page0_3_top': self.btn_page0_3_top,
                 'btn_page0_4_top': self.btn_page0_4_top,
+                'btn_page0_5_top': self.btn_page0_5_top,
                 'btn_page0_1_side': self.btn_page0_1_side,
                 'btn_page0_2_side': self.btn_page0_2_side,
                 'btn_page0_3_side': self.btn_page0_3_side,
@@ -485,6 +490,10 @@ def object_dict_builder(ui_object):
                 'combo': self.combo_regions_name0_3_top,
             },
 
+            'lp_sub_pages0_5_top':
+            {
+                'combo':self.combo_regions_name0_5_top,
+            },
 
             
     }
@@ -493,9 +502,9 @@ def object_dict_builder(ui_object):
         'live':{
             'combobox_select_screw_live':self.combobox_select_screw_live,
         },
-        '5_top': {
-                'combo_5_top': self.combo_5_top,
-            }
+        # '5_top': {
+        #         'combo_5_top': self.combo_5_top,
+        #     }
 
     }
     
@@ -523,9 +532,12 @@ def object_dict_builder(ui_object):
             'screw_list':self.combobox_select_screw_live
         }
     }
+    self.scales={
+            'page_dashboard':[0.8,0.3],
+            'page_tools':[0.8,0.7]
 
-
-
+        }
+    
 
 def set_dimensions(label_name,x,y,side=False,top=False):
             # f_name.setMaximumHeight(size)
