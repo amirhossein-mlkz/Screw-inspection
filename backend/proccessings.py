@@ -42,6 +42,9 @@ def preprocessing_top_img( img, json, direction):
     rect_roi_main = json.get_rect_roi( '1_{}'.format( direction ), None )
     inv_state = json.get_thresh_inv('1_{}'.format( direction ), None )
     
+
+    img = cvTools.preprocess(img)
+
     mask_roi = cvTools.rects2mask(img.shape[:2], [rect_roi_main])
     thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
     thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
@@ -75,6 +78,8 @@ def preprocessing_side_img( img, json, direction):
     rect_roi_main = json.get_rect_roi( '1_{}'.format( direction ), None )
     inv_state = json.get_thresh_inv('1_{}'.format( direction ), None )
     
+    img = cvTools.preprocess(img)
+
     mask_roi = cvTools.rects2mask(img.shape[:2], [rect_roi_main])
     thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
     thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
@@ -508,7 +513,7 @@ def proccessing_top_defect( img, mask, jsondb, draw=None):
                     'limit_max': 1,
                     'min': lakes_ares.min(),
                     'max': lakes_ares.max(),
-                    'avg': lakes_ares.mean() }
+                    'avg': np.round( lakes_ares.mean(), 2 ) }
         else:
             res_dict = {
                     'name' : '{} defect'.format( subpage_name ),
@@ -560,7 +565,7 @@ def proccessing_top_edge_crack( img, mask, jsondb, draw=None):
                     'limit_max': 1,
                     'min': cracks_area.min(),
                     'max': cracks_area.max(),
-                    'avg': cracks_area.mean() }
+                    'avg': np.round(cracks_area.mean(), 2) }
     else:
         res_dict = {
                     'name' : 'edge crack',

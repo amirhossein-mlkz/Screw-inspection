@@ -29,6 +29,11 @@ THRESH_C = 7
 
 
 
+def preprocess(img):
+    normalizedImg = np.zeros_like(img)
+    normalizedImg = cv2.normalize(img,  normalizedImg, 0, 255, cv2.NORM_MINMAX)
+    return normalizedImg
+
 def threshould(img, thresh , mask_roi = None, inv=False):
     if len(img.shape) == 3:
         img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)

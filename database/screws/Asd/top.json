@@ -23,10 +23,19 @@
                     925
                 ]
             ],
-            "thresh0": 243
+            "thresh0": 254
         },
         "2_top": {
             "flanch": {
+                "circels_roi": [
+                    [
+                        [
+                            694,
+                            512
+                        ],
+                        362
+                    ]
+                ],
                 "limits": {
                     "max": {
                         "corner": 0,
@@ -39,11 +48,20 @@
                         "district": 0
                     }
                 },
-                "noise_filter0": 23,
+                "noise_filter0": 80,
                 "shape_type": "circel",
-                "thresh0": 76
+                "thresh0": 252
             },
             "hex": {
+                "circels_roi": [
+                    [
+                        [
+                            692,
+                            520
+                        ],
+                        311
+                    ]
+                ],
                 "limits": {
                     "max": {
                         "corner": 1500,
@@ -56,8 +74,9 @@
                         "district": 1100
                     }
                 },
+                "noise_filter0": 39,
                 "shape_type": "hexagonal",
-                "thresh0": 213,
+                "thresh0": 231,
                 "thresh_inv0": true
             }
         },

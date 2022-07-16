@@ -6,7 +6,7 @@ import numpy as np
 
 def mask_viewer(img,mask, color=(40,127,255)):
     if len(img.shape) == 2:
-        img = cv2.merge((img, img, img))
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         
     thresh_layer = np.zeros_like(img)
@@ -21,7 +21,7 @@ def mask_viewer(img,mask, color=(40,127,255)):
     res_select = cv2.bitwise_and(res_select, res_select, mask = mask)
     res_unselect = cv2.bitwise_and(img, img, mask= not_mask)
     
-    return res_select + res_unselect
+    return cv2.add( res_select, res_unselect )
 
 
 

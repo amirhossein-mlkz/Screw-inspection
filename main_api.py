@@ -24,6 +24,7 @@ from datetime import datetime
 import threading
 from functools import partial
 from unittest import result
+from cv2 import normalize
 from matplotlib.pyplot import draw
 import numpy as np
 import random
@@ -723,7 +724,7 @@ class API:
             self.mouse_roi_shape_type = 'circel'
             self.mouse_roi_max_count = 2 
 
-        elif page_name in ['4_top', '5_top']:
+        elif page_name in ['4_top', '5_top', '2_top']:
             self.mouse_roi_shape_type = 'circel'
             self.mouse_roi_max_count = 1
         
@@ -1043,30 +1044,17 @@ class API:
         inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
         
 
-        mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
-        # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        # #gray = cv2.blur(gray, (5,5))
-        # gray = cv2.equalizeHist(gray)
-        
-        # cv2.imshow('gray', gray)
-        # cv2.waitKey(5)
+        img = cvTools.preprocess(img)
 
+        mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
         thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
-        
-        #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        # thresh_img= cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, int(thresh*2+1), 1)
-        # thresh_img = cv2.bitwise_and(thresh_img, mask_roi)
-        
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
-        
-        #cv2.imshow('mask1', thresh_img)
-        #thresh_img = cvTools.morph_correction(thresh_img, 25, 3)
-        #thresh_img = cvTools.cnt_correction(thresh_img, 0.005)
-        #cv2.imshow('thresh_img', thresh_img)
-        #cv2.waitKey(10)
+    
         
         if self.ui.is_drawing_mask_enabel():
             img = Utils.mask_viewer(img, thresh_img)
+            h,w = img.shape[:2]
+            img = cv2.circle(img, (w//2, h//2), 5, (0,255,0) , thickness=-1)
 
         img = self.rect_roi_drawing.get_image(img)
         
@@ -1087,7 +1075,6 @@ class API:
         json = self.screw_jasons[ direction ]
         img, mask_roi, _ = proccessings.preprocessing_top_img( img, json, direction  )
         
-        print(self.screw_jasons[ direction ].get_subpages_parms_list(page_name))
         
         #--------------------------------------------------------------------------------------
         #specific Operation
@@ -1096,13 +1083,11 @@ class API:
         noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
         inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
         shape_type = self.screw_jasons[ direction ].get_multi_option( page_name, subpage_name, 'shape_type' )
+        circel_roi = self.screw_jasons[ direction ].get_circels_roi(page_name, subpage_name)
 
+        mask_roi = cvTools.circels2mask(mask_roi.shape, circel_roi)
         thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
-        # cv2.imshow('mask1', thresh_img)
-        # thresh_img = cvTools.morph_correction(thresh_img, 5)
-        # cv2.imshow('thresh_img', thresh_img)
-        # cv2.waitKey(10)
         cnt = cvTools.extract_bigest_contour(thresh_img)
         #--------------------------------------------------------------------------------------
         info = {}
@@ -1133,18 +1118,13 @@ class API:
         #--------------------------------------------------------------------------------------
         if self.ui.is_drawing_mask_enabel():
             img = Utils.mask_viewer(img, thresh_img)
-        img = cvTools.draw_cnt(img, cnt, (255,0,0))
+            img = self.roi_drawings['circel'].get_image(img)
+            img = cvTools.draw_cnt(img, cnt, (255,0,0))
+            h,w = img.shape[:2]
+            img = cv2.circle(img, (w//2, h//2), 5, (0,255,0) , thickness=-1)
         
         self.ui.set_image_page_tool_labels(img)
 
-        
-
-        # if Utils.is_rect( rect ) and np.count_nonzero(thresh_img) > 100:
-        #     self.ui.enable_bar_btn_tool_page( direction, True )
-        # else:
-        #     self.ui.enable_bar_btn_tool_page( direction, False )     
-        
-    
 
 
 
@@ -1298,6 +1278,8 @@ class API:
         rect = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
         inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
         
+        img = cvTools.preprocess(img)
+
         mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
         thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
@@ -1794,18 +1776,7 @@ class API:
             # self.ui.img_side=cv2.imread('sample images/temp_side/{}.jpg'.format(self.image_num))
             self.img_top= cvTools.random_light( self.top_images[self.image_num] )
             self.img_side= cvTools.random_light( self.side_images[self.image_num] )
-
-            # self.img_top = cv2.cvtColor(self.img_top, cv2.COLOR_BGR2GRAY)
-            # #self.img_top = cv2.equalizeHist( self.img_top )
-            # clahe = cv2.createCLAHE(clipLimit = 5)
-            # self.img_top = clahe.apply(self.img_top)
-            # self.img_top = cv2.cvtColor(self.img_top, cv2.COLOR_GRAY2BGR)
-
-            # self.img_side = cv2.cvtColor(self.img_side, cv2.COLOR_BGR2GRAY)
-            # #self.img_top = cv2.equalizeHist( self.img_top )
-            # clahe = cv2.createCLAHE(clipLimit = 5)
-            # self.img_side = clahe.apply(self.img_side)
-            # self.img_side = cv2.cvtColor(self.img_side, cv2.COLOR_GRAY2BGR)
+            
 
             draw_img_top = np.copy( self.img_top)
             draw_img_side = np.copy( self.img_side)

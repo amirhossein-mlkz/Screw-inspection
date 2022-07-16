@@ -1,7 +1,11 @@
 {
     "active_tools": [
         "1_side",
-        "3_side"
+        "2_side",
+        "3_side",
+        "4_side",
+        "5_side",
+        "6_side"
     ],
     "direction": "side",
     "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/temp_side/1.jpg",
