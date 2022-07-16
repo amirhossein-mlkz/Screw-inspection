@@ -181,7 +181,7 @@ def object_dict_builder(ui_object):
                 },
                 '5_top':
                 {
-                    'spin_min_distance_5_top': self.spin_min_distance_5_top,
+                    'spin_min_height_5_side': self.spin_min_height_5_side,
                 },
                 
                 '2_side':{
@@ -197,6 +197,10 @@ def object_dict_builder(ui_object):
                 '4_side':{
                     'spin_min_body_diameter_4_side':self.spin_min_body_diameter_4_side,    
                     
+                },
+
+                '5_side':{
+                    'spin_min_height_5_side':self.spin_min_height_5_side,
                 },
 
                 '6_side':{
@@ -234,6 +238,10 @@ def object_dict_builder(ui_object):
                 
                 '4_side':{
                 'spin_max_body_diameter_4_side':self.spin_max_body_diameter_4_side,
+                },
+
+                '5_side':{
+                    'spin_max_height_5_side':self.spin_max_height_5_side,
                 },
 
                 '6_side':{

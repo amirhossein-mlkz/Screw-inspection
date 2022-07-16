@@ -191,7 +191,7 @@ class UI_main_window(QMainWindow, ui):
   
         # # # update the timer every second
         # self.timer_live.start(60)
-        self.set_list_pack_items('sub_pages', ['flanch', 'head'])
+        self.set_list_pack_items('sub_pages', ['flanch', 'head'], page_name='5_top')
 
     def ret_self(self):
 

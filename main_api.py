@@ -23,6 +23,7 @@
 from datetime import datetime
 import threading
 from functools import partial
+from unittest import result
 from matplotlib.pyplot import draw
 import numpy as np
 import random
@@ -47,7 +48,14 @@ from PyQt5.QtCore import QTimer,QDateTime,QObject, QThread
 # from PyQt5.QtCore import 
 import time
 
-
+def time_measure(func):
+    def wrapper(*args, **kwargs):
+        t = time.time()
+        out = func(*args, **kwargs)
+        t = time.time() - t
+        print(f'time {func.__name__} {t}')
+        return out
+    return wrapper
 
 DEFAULT_SCERW_PATH = 'database\defualt_screw'
 
@@ -1500,61 +1508,64 @@ class API:
 
     
 
-    def proccessing_live_side(self, img, direction):
-        img = cv2.imread('sample images/New folder/31x_1_4.png')
-        direction = 'side'
+    
 
-        img, thresh_img,_ = proccessings.preprocessing_side_img( img, self.screw_jasons[direction], direction )
-        img = Utils.mask_viewer(img, thresh_img, color=(0,100,0))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @time_measure
+    def proccessing_live_side(self, img):
+        direction = 'side'
+        screw_json = self.screw_jasons[ direction ]  
+
+        img, mask_roi,_ = proccessings.preprocessing_side_img( img, screw_json, direction )
+        #img = Utils.mask_viewer(img, thresh_img, color=(0,100,0))
+        draw_img = np.copy(img)
         results = []
-        for active_tool in self.screw_jasons[direction].get_active_tools():
-            result, img = proccessings.tools_dict_top[active_tool]( thresh_img, self.screw_jasons[direction], img )
+
+        draw_img = Utils.mask_viewer(draw_img, mask_roi, color=(0,10,150))
+        
+
+        for active_tool in screw_json.get_active_tools():
+            result, draw_img = proccessings.tools_dict_side[active_tool]( img, mask_roi, screw_json, draw_img )
             results.extend(result)
 
         results.sort( key = lambda x:x['name'])
-        self.ui.set_live_table( self.ui.table_live_live_page, results )
-        self.ui.set_main_image_live_page( direction, img )
+        return draw_img, results
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @time_measure
     def proccessing_live_top(self, img):
-        #img = cv2.imread('sample images\\top\Image__2047-01-06__11-56-09.bmp')
         direction = 'top'
 
         screw_json = self.screw_jasons[ direction ]        
         img, mask_roi, _ = proccessings.preprocessing_top_img( img, screw_json, direction  )
         draw_img = np.copy(img)
-        
         results = []
+        #return Utils.mask_viewer(draw_img, mask_roi, color=(0,10,250)), results
+
+
         for active_tool in screw_json.get_active_tools():
             result, draw_img = proccessings.tools_dict_top[active_tool]( img, mask_roi, screw_json, draw_img )
             results.extend(result)
 
         results.sort( key = lambda x:x['name'])
-        self.ui.set_live_table( self.ui.table_live_live_page, results )
 
-        return draw_img
+        return draw_img , results
 
 
     # PLC ////////////////////////////////////////////////////////////////////
@@ -1781,22 +1792,37 @@ class API:
             # for i in range(1,5):
             # self.ui.img_top=cv2.imread('sample images/temp_top/{}.jpg'.format(self.image_num))
             # self.ui.img_side=cv2.imread('sample images/temp_side/{}.jpg'.format(self.image_num))
-            self.img_top=self.top_images[self.image_num]
-            self.img_side=self.side_images[self.image_num]
+            self.img_top= cvTools.random_light( self.top_images[self.image_num] )
+            self.img_side= cvTools.random_light( self.side_images[self.image_num] )
 
+            # self.img_top = cv2.cvtColor(self.img_top, cv2.COLOR_BGR2GRAY)
+            # #self.img_top = cv2.equalizeHist( self.img_top )
+            # clahe = cv2.createCLAHE(clipLimit = 5)
+            # self.img_top = clahe.apply(self.img_top)
+            # self.img_top = cv2.cvtColor(self.img_top, cv2.COLOR_GRAY2BGR)
 
-            draw_img_top = self.proccessing_live_top(self.img_top)
+            # self.img_side = cv2.cvtColor(self.img_side, cv2.COLOR_BGR2GRAY)
+            # #self.img_top = cv2.equalizeHist( self.img_top )
+            # clahe = cv2.createCLAHE(clipLimit = 5)
+            # self.img_side = clahe.apply(self.img_side)
+            # self.img_side = cv2.cvtColor(self.img_side, cv2.COLOR_GRAY2BGR)
+
+            draw_img_top = np.copy( self.img_top)
+            draw_img_side = np.copy( self.img_side)
+            results_side = []
+            results_top = []
             
+            draw_img_top, results_top = self.proccessing_live_top(self.img_top)
+            draw_img_side, results_side = self.proccessing_live_side(self.img_side)
+            
+            results = results_top + results_side
+            self.ui.set_live_table( self.ui.table_live_live_page, results )
 
-            self.img_side = cv2.rotate( self.img_side, cv2.ROTATE_90_COUNTERCLOCKWISE )
+            draw_img_side = cv2.rotate( draw_img_side, cv2.ROTATE_90_COUNTERCLOCKWISE )
             draw_img_top = cv2.rotate( draw_img_top, cv2.ROTATE_90_COUNTERCLOCKWISE )
 
-            #--------------
-            
-            #--------------
             self.ui.set_image_label(self.ui.label_img_top_live, draw_img_top)
-            self.ui.set_image_label(self.ui.label_img_side_live,self.img_side)
-            #print('Qtimer', datetime.now())
+            self.ui.set_image_label(self.ui.label_img_side_live,draw_img_side)
             
             threading.Timer(0.1, self.set_images).start()
             

@@ -4,6 +4,129 @@
         "3_side"
     ],
     "direction": "side",
+    "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/temp_side/1.jpg",
     "name": "Asd",
-    "settings": {}
+    "settings": {
+        "1_side": {
+            "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/temp_side/1.jpg",
+            "noise_filter0": 21,
+            "rect_roi0": [
+                [
+                    24,
+                    40
+                ],
+                [
+                    1331,
+                    430
+                ]
+            ],
+            "thresh0": 155,
+            "thresh_inv0": true
+        },
+        "2_side": {
+            "limits": {
+                "max": {
+                    "lenght": 1300
+                },
+                "min": {
+                    "lenght": 1150
+                }
+            },
+            "rect_roi0": [
+                [
+                    0,
+                    209
+                ],
+                [
+                    1351,
+                    271
+                ]
+            ]
+        },
+        "3_side": {
+            "jump_thresh": 6,
+            "navel": true,
+            "rect_roi0": [
+                [
+                    109,
+                    121
+                ],
+                [
+                    525,
+                    224
+                ]
+            ]
+        },
+        "4_side": {
+            "area1": {
+                "rect_roi0": [
+                    [
+                        547,
+                        132
+                    ],
+                    [
+                        750,
+                        367
+                    ]
+                ]
+            },
+            "area2": {
+                "rect_roi0": [
+                    [
+                        854,
+                        143
+                    ],
+                    [
+                        987,
+                        360
+                    ]
+                ]
+            }
+        },
+        "5_side": {
+            "edge_direction": "top",
+            "from_belt": false,
+            "jump_thresh": 5,
+            "limits": {
+                "max": {
+                    "height": 145
+                },
+                "min": {
+                    "height": 100
+                }
+            },
+            "rect_roi0": [
+                [
+                    1078,
+                    81
+                ],
+                [
+                    1365,
+                    418
+                ]
+            ]
+        },
+        "6_side": {
+            "side defect": {
+                "limits": {
+                    "max": {
+                        "damage": 2500
+                    },
+                    "min": {
+                        "damage": 2000
+                    }
+                },
+                "rect_roi0": [
+                    [
+                        94,
+                        125
+                    ],
+                    [
+                        587,
+                        224
+                    ]
+                ]
+            }
+        }
+    }
 }
