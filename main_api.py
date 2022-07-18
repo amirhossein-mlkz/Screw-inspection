@@ -1544,8 +1544,6 @@ class API:
         img, mask_roi, _ = proccessings.preprocessing_top_img( img, screw_json, direction  )
         draw_img = np.copy(img)
         results = []
-        #return Utils.mask_viewer(draw_img, mask_roi, color=(0,10,250)), results
-
 
         for active_tool in screw_json.get_active_tools():
             result, draw_img = proccessings.tools_dict_top[active_tool]( img, mask_roi, screw_json, draw_img )
@@ -1773,7 +1771,6 @@ class API:
     def set_images(self):
 
         if self.SAMPLE_IMAGE:
-            print('asdaw')
             
             if self.image_num>2:
                 self.image_num=0
@@ -1792,7 +1789,9 @@ class API:
             results_top = []
             # print(self.img_side)
             draw_img_top, results_top = self.proccessing_live_top(self.img_top)
-            # draw_img_side, results_side = self.proccessing_live_side(self.img_side)
+            draw_img_side, results_side = self.proccessing_live_side(self.img_side)
+
+            # print('resault side',results_side)
             
             # results = results_top + results_side
             # print('resault',results)
@@ -1800,15 +1799,14 @@ class API:
             self.ui.set_live_table( self.ui.table_live_top_live_page, results_top )
             self.ui.set_live_table( self.ui.table_live_side_live_page, results_side )
 
-            # draw_img_side = cv2.rotate( draw_img_side, cv2.ROTATE_90_COUNTERCLOCKWISE )
+            draw_img_side = cv2.rotate( draw_img_side, cv2.ROTATE_90_COUNTERCLOCKWISE )
             draw_img_top = cv2.rotate( draw_img_top, cv2.ROTATE_90_COUNTERCLOCKWISE )
 
             self.ui.set_image_label(self.ui.label_img_top_live, draw_img_top)
-            # self.ui.set_image_label(self.ui.label_img_side_live,draw_img_side)
+            self.ui.set_image_label(self.ui.label_img_side_live,draw_img_side)
 
-            if self.run_detect:
-            
-                threading.Timer(0.1, self.set_images).start()
+            # if self.run_detect:
+                # threading.Timer(0.1, self.set_images).start()
             
             
 
@@ -1839,9 +1837,11 @@ class API:
         self.set_images()
         self.ui.start_capture_live_page.setEnabled(False)
         self.ui.stop_capture_live_page.setEnabled(True)
+        self.ui.timer_live.start(60)
 
     def stop_detection(self):
 
         self.run_detect=False
         self.ui.start_capture_live_page.setEnabled(True)
         self.ui.stop_capture_live_page.setEnabled(False)
+        self.ui.timer_live.stop()

@@ -1227,19 +1227,37 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addWidget(self.label_20, 0, Qt.AlignHCenter|Qt.AlignTop)
 
+        self.verticalSpacer_21 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_4.addItem(self.verticalSpacer_21)
+
         self.label_img_top_live = QLabel(self.frame_147)
         self.label_img_top_live.setObjectName(u"label_img_top_live")
+        self.label_img_top_live.setFrameShape(QFrame.Box)
+        self.label_img_top_live.setFrameShadow(QFrame.Raised)
         self.label_img_top_live.setScaledContents(True)
+        self.label_img_top_live.setMargin(1)
 
-        self.verticalLayout_4.addWidget(self.label_img_top_live)
+        self.verticalLayout_4.addWidget(self.label_img_top_live, 0, Qt.AlignHCenter|Qt.AlignTop)
+
+        self.verticalSpacer_22 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_4.addItem(self.verticalSpacer_22)
+
+        self.line_37 = QFrame(self.frame_147)
+        self.line_37.setObjectName(u"line_37")
+        self.line_37.setFrameShape(QFrame.HLine)
+        self.line_37.setFrameShadow(QFrame.Sunken)
+
+        self.verticalLayout_4.addWidget(self.line_37)
 
         self.frame_45 = QFrame(self.frame_147)
         self.frame_45.setObjectName(u"frame_45")
         self.frame_45.setMinimumSize(QSize(266, 47))
         self.frame_45.setMaximumSize(QSize(500, 47))
-        self.frame_45.setFrameShape(QFrame.Box)
-        self.frame_45.setFrameShadow(QFrame.Plain)
-        self.frame_45.setLineWidth(2)
+        self.frame_45.setFrameShape(QFrame.Panel)
+        self.frame_45.setFrameShadow(QFrame.Raised)
+        self.frame_45.setLineWidth(1)
         self.horizontalLayout_18 = QHBoxLayout(self.frame_45)
         self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
         self.horizontalLayout_18.setContentsMargins(0, 0, 0, 0)
@@ -1298,20 +1316,38 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_20.addWidget(self.label_21, 0, Qt.AlignHCenter|Qt.AlignTop)
 
+        self.verticalSpacer_23 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_20.addItem(self.verticalSpacer_23)
+
         self.label_img_side_live = QLabel(self.frame_139)
         self.label_img_side_live.setObjectName(u"label_img_side_live")
+        self.label_img_side_live.setFrameShape(QFrame.Box)
+        self.label_img_side_live.setFrameShadow(QFrame.Raised)
         self.label_img_side_live.setScaledContents(True)
+        self.label_img_side_live.setMargin(1)
 
-        self.verticalLayout_20.addWidget(self.label_img_side_live)
+        self.verticalLayout_20.addWidget(self.label_img_side_live, 0, Qt.AlignHCenter|Qt.AlignTop)
+
+        self.verticalSpacer_24 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_20.addItem(self.verticalSpacer_24)
+
+        self.line_38 = QFrame(self.frame_139)
+        self.line_38.setObjectName(u"line_38")
+        self.line_38.setFrameShape(QFrame.HLine)
+        self.line_38.setFrameShadow(QFrame.Sunken)
+
+        self.verticalLayout_20.addWidget(self.line_38)
 
         self.frame_22 = QFrame(self.frame_139)
         self.frame_22.setObjectName(u"frame_22")
         self.frame_22.setMinimumSize(QSize(266, 47))
         self.frame_22.setMaximumSize(QSize(500, 47))
         self.frame_22.setSizeIncrement(QSize(0, 203))
-        self.frame_22.setFrameShape(QFrame.Box)
-        self.frame_22.setFrameShadow(QFrame.Plain)
-        self.frame_22.setLineWidth(2)
+        self.frame_22.setFrameShape(QFrame.Panel)
+        self.frame_22.setFrameShadow(QFrame.Raised)
+        self.frame_22.setLineWidth(1)
         self.horizontalLayout_78 = QHBoxLayout(self.frame_22)
         self.horizontalLayout_78.setObjectName(u"horizontalLayout_78")
         self.horizontalLayout_78.setContentsMargins(0, 0, 0, 0)
@@ -1371,22 +1407,28 @@ class Ui_MainWindow(object):
         self.frame_67.setLineWidth(2)
         self.verticalLayout_23 = QVBoxLayout(self.frame_67)
         self.verticalLayout_23.setObjectName(u"verticalLayout_23")
-        self.frame_148 = QFrame(self.frame_67)
-        self.frame_148.setObjectName(u"frame_148")
-        self.frame_148.setFrameShape(QFrame.StyledPanel)
-        self.frame_148.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_23 = QHBoxLayout(self.frame_148)
-        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
-        self.frame_18 = QFrame(self.frame_148)
+        self.frame_18 = QFrame(self.frame_67)
         self.frame_18.setObjectName(u"frame_18")
         self.frame_18.setMinimumSize(QSize(54, 0))
-        self.frame_18.setMaximumSize(QSize(428, 223))
+        self.frame_18.setMaximumSize(QSize(500, 205))
         self.frame_18.setFrameShape(QFrame.Box)
         self.frame_18.setFrameShadow(QFrame.Plain)
         self.frame_18.setLineWidth(1)
         self.verticalLayout_58 = QVBoxLayout(self.frame_18)
         self.verticalLayout_58.setObjectName(u"verticalLayout_58")
-        self.frame_64 = QFrame(self.frame_18)
+        self.frame_220 = QFrame(self.frame_18)
+        self.frame_220.setObjectName(u"frame_220")
+        self.frame_220.setFrameShape(QFrame.StyledPanel)
+        self.frame_220.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_196 = QHBoxLayout(self.frame_220)
+        self.horizontalLayout_196.setObjectName(u"horizontalLayout_196")
+        self.horizontalLayout_196.setContentsMargins(0, 0, 0, 0)
+        self.groupBox_29 = QGroupBox(self.frame_220)
+        self.groupBox_29.setObjectName(u"groupBox_29")
+        self.horizontalLayout_195 = QHBoxLayout(self.groupBox_29)
+        self.horizontalLayout_195.setObjectName(u"horizontalLayout_195")
+        self.horizontalLayout_195.setContentsMargins(0, 0, 0, 0)
+        self.frame_64 = QFrame(self.groupBox_29)
         self.frame_64.setObjectName(u"frame_64")
         self.frame_64.setMaximumSize(QSize(340, 42))
         self.frame_64.setFrameShape(QFrame.StyledPanel)
@@ -1434,9 +1476,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_70.addWidget(self.disconnect_cameras_live_page)
 
 
-        self.verticalLayout_58.addWidget(self.frame_64, 0, Qt.AlignHCenter)
+        self.horizontalLayout_195.addWidget(self.frame_64)
 
-        self.groupBox_14 = QGroupBox(self.frame_18)
+
+        self.horizontalLayout_196.addWidget(self.groupBox_29)
+
+        self.groupBox_14 = QGroupBox(self.frame_220)
         self.groupBox_14.setObjectName(u"groupBox_14")
         self.groupBox_14.setMinimumSize(QSize(0, 43))
         self.horizontalLayout_182 = QHBoxLayout(self.groupBox_14)
@@ -1474,7 +1519,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_182.addWidget(self.plc_reject_live_page)
 
 
-        self.verticalLayout_58.addWidget(self.groupBox_14)
+        self.horizontalLayout_196.addWidget(self.groupBox_14)
+
+
+        self.verticalLayout_58.addWidget(self.frame_220)
 
         self.line_17 = QFrame(self.frame_18)
         self.line_17.setObjectName(u"line_17")
@@ -1521,24 +1569,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_112 = QHBoxLayout(self.frame_75)
         self.horizontalLayout_112.setObjectName(u"horizontalLayout_112")
         self.horizontalLayout_112.setContentsMargins(-1, 0, -1, 0)
-        self.label_selected_screw_side_live = QLabel(self.frame_75)
-        self.label_selected_screw_side_live.setObjectName(u"label_selected_screw_side_live")
-        self.label_selected_screw_side_live.setFrameShape(QFrame.WinPanel)
-        self.label_selected_screw_side_live.setLineWidth(3)
-        self.label_selected_screw_side_live.setPixmap(QPixmap(u"../../../../../home/milad/.designer/backup/sample images/New folder/42x_0_20.png"))
-        self.label_selected_screw_side_live.setScaledContents(True)
-
-        self.horizontalLayout_112.addWidget(self.label_selected_screw_side_live)
-
-        self.line_18 = QFrame(self.frame_75)
-        self.line_18.setObjectName(u"line_18")
-        self.line_18.setFrameShape(QFrame.VLine)
-        self.line_18.setFrameShadow(QFrame.Sunken)
-
-        self.horizontalLayout_112.addWidget(self.line_18)
-
         self.label_selected_screw_top_live = QLabel(self.frame_75)
         self.label_selected_screw_top_live.setObjectName(u"label_selected_screw_top_live")
+        self.label_selected_screw_top_live.setMinimumSize(QSize(66, 66))
+        self.label_selected_screw_top_live.setMaximumSize(QSize(66, 66))
         self.label_selected_screw_top_live.setFrameShape(QFrame.WinPanel)
         self.label_selected_screw_top_live.setFrameShadow(QFrame.Plain)
         self.label_selected_screw_top_live.setLineWidth(3)
@@ -1548,17 +1582,29 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_112.addWidget(self.label_selected_screw_top_live)
 
+        self.label_selected_screw_side_live = QLabel(self.frame_75)
+        self.label_selected_screw_side_live.setObjectName(u"label_selected_screw_side_live")
+        self.label_selected_screw_side_live.setMinimumSize(QSize(41, 66))
+        self.label_selected_screw_side_live.setMaximumSize(QSize(41, 66))
+        self.label_selected_screw_side_live.setFrameShape(QFrame.WinPanel)
+        self.label_selected_screw_side_live.setLineWidth(3)
+        self.label_selected_screw_side_live.setPixmap(QPixmap(u"../../../../../home/milad/.designer/backup/sample images/New folder/42x_0_20.png"))
+        self.label_selected_screw_side_live.setScaledContents(True)
 
-        self.verticalLayout_58.addWidget(self.frame_75)
+        self.horizontalLayout_112.addWidget(self.label_selected_screw_side_live)
 
-        self.frame_219 = QFrame(self.frame_18)
+        self.horizontalSpacer_35 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_112.addItem(self.horizontalSpacer_35)
+
+        self.frame_219 = QFrame(self.frame_75)
         self.frame_219.setObjectName(u"frame_219")
         self.frame_219.setMinimumSize(QSize(0, 34))
         self.frame_219.setFrameShape(QFrame.StyledPanel)
         self.frame_219.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_194 = QHBoxLayout(self.frame_219)
-        self.horizontalLayout_194.setObjectName(u"horizontalLayout_194")
-        self.horizontalLayout_194.setContentsMargins(-1, 0, -1, 0)
+        self.verticalLayout_138 = QVBoxLayout(self.frame_219)
+        self.verticalLayout_138.setObjectName(u"verticalLayout_138")
+        self.verticalLayout_138.setContentsMargins(-1, 0, -1, 0)
         self.start_capture_live_page = QPushButton(self.frame_219)
         self.start_capture_live_page.setObjectName(u"start_capture_live_page")
         self.start_capture_live_page.setMinimumSize(QSize(130, 32))
@@ -1579,7 +1625,7 @@ class Ui_MainWindow(object):
 "}")
         self.start_capture_live_page.setIconSize(QSize(41, 26))
 
-        self.horizontalLayout_194.addWidget(self.start_capture_live_page)
+        self.verticalLayout_138.addWidget(self.start_capture_live_page)
 
         self.stop_capture_live_page = QPushButton(self.frame_219)
         self.stop_capture_live_page.setObjectName(u"stop_capture_live_page")
@@ -1601,16 +1647,16 @@ class Ui_MainWindow(object):
 "}")
         self.stop_capture_live_page.setIconSize(QSize(41, 26))
 
-        self.horizontalLayout_194.addWidget(self.stop_capture_live_page)
+        self.verticalLayout_138.addWidget(self.stop_capture_live_page)
 
 
-        self.verticalLayout_58.addWidget(self.frame_219)
+        self.horizontalLayout_112.addWidget(self.frame_219)
 
 
-        self.horizontalLayout_23.addWidget(self.frame_18)
+        self.verticalLayout_58.addWidget(self.frame_75, 0, Qt.AlignHCenter)
 
 
-        self.verticalLayout_23.addWidget(self.frame_148)
+        self.verticalLayout_23.addWidget(self.frame_18, 0, Qt.AlignHCenter)
 
         self.line_19 = QFrame(self.frame_67)
         self.line_19.setObjectName(u"line_19")
@@ -1623,7 +1669,12 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_23.addItem(self.verticalSpacer_14)
 
-        self.table_live_top_live_page = QTableWidget(self.frame_67)
+        self.groupBox_19 = QGroupBox(self.frame_67)
+        self.groupBox_19.setObjectName(u"groupBox_19")
+        self.verticalLayout_136 = QVBoxLayout(self.groupBox_19)
+        self.verticalLayout_136.setObjectName(u"verticalLayout_136")
+        self.verticalLayout_136.setContentsMargins(2, 2, 2, 2)
+        self.table_live_top_live_page = QTableWidget(self.groupBox_19)
         if (self.table_live_top_live_page.columnCount() < 6):
             self.table_live_top_live_page.setColumnCount(6)
         if (self.table_live_top_live_page.rowCount() < 9):
@@ -1662,9 +1713,24 @@ class Ui_MainWindow(object):
         self.table_live_top_live_page.horizontalHeader().setProperty("showSortIndicator", True)
         self.table_live_top_live_page.verticalHeader().setProperty("showSortIndicator", True)
 
-        self.verticalLayout_23.addWidget(self.table_live_top_live_page)
+        self.verticalLayout_136.addWidget(self.table_live_top_live_page)
 
-        self.table_live_side_live_page = QTableWidget(self.frame_67)
+
+        self.verticalLayout_23.addWidget(self.groupBox_19)
+
+        self.line_39 = QFrame(self.frame_67)
+        self.line_39.setObjectName(u"line_39")
+        self.line_39.setFrameShape(QFrame.HLine)
+        self.line_39.setFrameShadow(QFrame.Sunken)
+
+        self.verticalLayout_23.addWidget(self.line_39)
+
+        self.groupBox_21 = QGroupBox(self.frame_67)
+        self.groupBox_21.setObjectName(u"groupBox_21")
+        self.verticalLayout_137 = QVBoxLayout(self.groupBox_21)
+        self.verticalLayout_137.setObjectName(u"verticalLayout_137")
+        self.verticalLayout_137.setContentsMargins(2, 2, 2, 2)
+        self.table_live_side_live_page = QTableWidget(self.groupBox_21)
         if (self.table_live_side_live_page.columnCount() < 6):
             self.table_live_side_live_page.setColumnCount(6)
         if (self.table_live_side_live_page.rowCount() < 9):
@@ -1675,13 +1741,8 @@ class Ui_MainWindow(object):
 "	border-radius:1px;\n"
 "	gridline-color: rgb(190,170,160);\n"
 "	border-bottom: 1px solid rgb(180,180,180);\n"
+"	color:rgb(255,255,255);\n"
 "\n"
-"}\n"
-"QTableWidget::item{\n"
-"	border-color: rgb(180,180,108);\n"
-"	padding-left: 5px;\n"
-"	padding-right: 5px;\n"
-"	gridline-color: rgb(180,180,108);\n"
 "}\n"
 "QHeaderView::section:horizontal\n"
 "{\n"
@@ -1698,15 +1759,15 @@ class Ui_MainWindow(object):
 "color:rgb(255,255,255);\n"
 "\n"
 "}\n"
-"QTableWidget::item:selected{\n"
-"	background-color: rgb(70,135,230);\n"
-"	color : White;\n"
-"}")
+"")
         self.table_live_side_live_page.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table_live_side_live_page.setRowCount(9)
         self.table_live_side_live_page.setColumnCount(6)
 
-        self.verticalLayout_23.addWidget(self.table_live_side_live_page)
+        self.verticalLayout_137.addWidget(self.table_live_side_live_page)
+
+
+        self.verticalLayout_23.addWidget(self.groupBox_21)
 
 
         self.horizontalLayout_7.addWidget(self.frame_67)
@@ -7666,7 +7727,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents_3 = QWidget()
         self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 276, 772))
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 67, 67))
         self.horizontalLayout_29 = QHBoxLayout(self.scrollAreaWidgetContents_3)
         self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
         self.tableWidget_users = QTableWidget(self.scrollAreaWidgetContents_3)
@@ -9254,10 +9315,11 @@ class Ui_MainWindow(object):
         self.btn_save_side_cam_live_page.setToolTip(QCoreApplication.translate("MainWindow", u"save image", None))
 #endif // QT_CONFIG(tooltip)
         self.btn_save_side_cam_live_page.setText("")
+        self.groupBox_29.setTitle(QCoreApplication.translate("MainWindow", u"Camera :", None))
         self.connect_cameras_live_page.setText("")
         self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Connection Status", None))
         self.disconnect_cameras_live_page.setText("")
-        self.groupBox_14.setTitle(QCoreApplication.translate("MainWindow", u"PLC", None))
+        self.groupBox_14.setTitle(QCoreApplication.translate("MainWindow", u"PLC :", None))
         self.label_176.setText(QCoreApplication.translate("MainWindow", u"Status :", None))
         self.plc_status_live_page.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.label_179.setText(QCoreApplication.translate("MainWindow", u"Mode :", None))
@@ -9266,10 +9328,12 @@ class Ui_MainWindow(object):
         self.plc_reject_live_page.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.label_29.setText(QCoreApplication.translate("MainWindow", u"Select Screw :", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Select", None))
-        self.label_selected_screw_side_live.setText("")
         self.label_selected_screw_top_live.setText("")
+        self.label_selected_screw_side_live.setText("")
         self.start_capture_live_page.setText(QCoreApplication.translate("MainWindow", u"Start Detect", None))
         self.stop_capture_live_page.setText(QCoreApplication.translate("MainWindow", u"Stop Detect", None))
+        self.groupBox_19.setTitle(QCoreApplication.translate("MainWindow", u"Top Camera Table :", None))
+        self.groupBox_21.setTitle(QCoreApplication.translate("MainWindow", u"Side Camera Table :", None))
         self.add_btn.setText(QCoreApplication.translate("MainWindow", u"ADD", None))
         self.edit_remove_btn.setText(QCoreApplication.translate("MainWindow", u"Edit/Remove", None))
         self.edit_btn.setText(QCoreApplication.translate("MainWindow", u"Edit", None))

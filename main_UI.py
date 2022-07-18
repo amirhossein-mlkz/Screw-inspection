@@ -184,13 +184,13 @@ class UI_main_window(QMainWindow, ui):
         self.img_top=cv2.imread('images/defualt.jpg')
         self.img_side=cv2.imread('images/defualt.jpg')
 
-        # self.timer_live = QTimer(self)
-  
-        # # adding action to timer
-        # self.timer_live.timeout.connect(self.update_images)
-  
-        # # # update the timer every second
+        self.timer_live = QTimer(self)
+        # adding action to timer
+        self.timer_live.timeout.connect(self.update_images)
+        # # update the timer every second
         # self.timer_live.start(60)
+
+
         self.set_list_pack_items('sub_pages', ['flanch', 'head'], page_name='5_top')
 
         # self.set_activate_pages('checkbox_page0_4_top',True)
@@ -207,16 +207,8 @@ class UI_main_window(QMainWindow, ui):
     # method called by timer
     def update_images(self):
 
-        self.set_image_label(self.label_img_top_live,self.img_top)
-        self.set_image_label(self.label_img_side_live,self.img_side)
-        # getting current time
-        current_time = QTime.currentTime()
-  
-        # converting QTime object to string
-        label_time = current_time.toString('hh:mm:ss')
-        print(label_time)
-        # showing it to the label
-        # self.label.setText(label_time)
+        api.set_images()
+
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
@@ -1702,8 +1694,6 @@ class UI_main_window(QMainWindow, ui):
 
     def set_live_table(self,table_name,values=False):
 
-        print('values',values)
-
         table_item = QTableWidgetItem()
         str1=[]
         if values:
@@ -1719,21 +1709,21 @@ class UI_main_window(QMainWindow, ui):
                         # self.set_color_table_name_col(table_item,page_value[col_value],limit_min,limit_max)
                     else:
                         self.set_color_table(table_item,page_value[col_value],limit_min,limit_max)
+                        
+                    if page_value[col_value]==-1 or page_value[col_value]==-2:
+                        table_item.setBackground(QBrush(QColor("#D4AC0D")))
+
         table_name.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
             # table_name.item(1, 1).setText("Put here whatever you want!")
 
     def set_color_table(self,table_item,value=0,limit_min=0,limit_max=0):
-        print('limit_min , max',value,limit_min,limit_max)
-        if value<=limit_min:
-            print('min')
-            table_item.setBackground(QBrush(QColor("#1F618D")))
-            # table_item.setForeground(QColor('#196F3D'))
-        elif value>=limit_max:
-            print('max')
-            table_item.setBackground(QColor('#CB4335'))  
+        # print('limit_min , max',value,limit_min,limit_max)
+        if value<=limit_min or value>=limit_max:
+            # print('min')
+            table_item.setBackground(QBrush(QColor("#E74C3C")))
         else:
-            print('else')
+            # print('else')
             table_item.setBackground(QColor('#239B56'))                       
 
 
