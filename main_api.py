@@ -156,7 +156,7 @@ class API:
 
         #-------------------------------------------------------------------------------------------------------------------
         self.laod_images()
-        self.set_images()
+        # self.set_images()
         # creating a timer object
     #     from PyQt5.QtCore import QTimer, QTime, Qt
     #     ui_obj=self.ui.ret_self
@@ -1751,7 +1751,7 @@ class API:
         # self.set_images()
 
         # threading.Thread(target=self.set_images,de).start()
-        threading.Timer(0.2,self.set_images).start()
+        # threading.Timer(0.2,self.set_images).start()
 
     def laod_images(self):
 

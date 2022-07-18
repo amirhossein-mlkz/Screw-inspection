@@ -183,7 +183,7 @@ class UI_main_window(QMainWindow, ui):
         self.timer_live.timeout.connect(self.update_images)
   
         # # update the timer every second
-        # self.timer_live.start(60)
+        self.timer_live.start(200)
 
     def ret_self(self):
 
@@ -196,8 +196,14 @@ class UI_main_window(QMainWindow, ui):
     # method called by timer
     def update_images(self):
 
-        self.set_image_label(self.label_img_top_live,self.img_top)
-        self.set_image_label(self.label_img_side_live,self.img_side)
+        for i in range(1,5):
+            self.img_top=cv2.imread('sample images/temp_top/{}.jpg'.format(i))
+            self.img_side=cv2.imread('sample images/temp_side/{}.jpg'.format(i))
+
+            self.set_image_label(self.label_img_top_live,self.img_top)
+            self.set_image_label(self.label_img_side_live,self.img_side)
+            cv2.waitKey(200)
+            # time.sleep(0.2)
         # getting current time
         current_time = QTime.currentTime()
   
