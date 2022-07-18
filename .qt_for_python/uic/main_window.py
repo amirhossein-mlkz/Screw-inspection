@@ -625,7 +625,7 @@ class Ui_MainWindow(object):
         self.side_calibration_setting_btn.setCursor(QCursor(Qt.PointingHandCursor))
         self.side_calibration_setting_btn.setLayoutDirection(Qt.LeftToRight)
         icon4 = QIcon()
-        icon4.addFile(u"../../../../../../home/milad/Downloads/output-onlinepngtools (1).png", QSize(), QIcon.Normal, QIcon.Off)
+        icon4.addFile(u"../../../../../home/milad/Downloads/output-onlinepngtools (1).png", QSize(), QIcon.Normal, QIcon.Off)
         self.side_calibration_setting_btn.setIcon(icon4)
         self.side_calibration_setting_btn.setIconSize(QSize(35, 35))
 
@@ -1217,7 +1217,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_89.setContentsMargins(0, 3, 0, 2)
         self.frame_147 = QFrame(self.frame_14)
         self.frame_147.setObjectName(u"frame_147")
-        self.frame_147.setSizeIncrement(QSize(2, 4))
         self.frame_147.setFrameShape(QFrame.StyledPanel)
         self.frame_147.setFrameShadow(QFrame.Raised)
         self.verticalLayout_4 = QVBoxLayout(self.frame_147)
@@ -1228,24 +1227,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addWidget(self.label_20, 0, Qt.AlignHCenter|Qt.AlignTop)
 
-        self.verticalSpacer_23 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_4.addItem(self.verticalSpacer_23)
-
         self.label_img_top_live = QLabel(self.frame_147)
         self.label_img_top_live.setObjectName(u"label_img_top_live")
-        self.label_img_top_live.setMaximumSize(QSize(16777211, 16777207))
-        self.label_img_top_live.setFrameShape(QFrame.Box)
-        self.label_img_top_live.setLineWidth(2)
-        self.label_img_top_live.setPixmap(QPixmap(u"../../../../../home/milad/.designer/backup/sample images/New folder (3)/test1_0_14.png"))
         self.label_img_top_live.setScaledContents(True)
-        self.label_img_top_live.setMargin(5)
 
-        self.verticalLayout_4.addWidget(self.label_img_top_live, 0, Qt.AlignHCenter|Qt.AlignTop)
-
-        self.verticalSpacer_21 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_4.addItem(self.verticalSpacer_21)
+        self.verticalLayout_4.addWidget(self.label_img_top_live)
 
         self.frame_45 = QFrame(self.frame_147)
         self.frame_45.setObjectName(u"frame_45")
@@ -1302,7 +1288,6 @@ class Ui_MainWindow(object):
         self.frame_139 = QFrame(self.frame_14)
         self.frame_139.setObjectName(u"frame_139")
         self.frame_139.setMinimumSize(QSize(0, 0))
-        self.frame_139.setMaximumSize(QSize(16777203, 16777215))
         self.frame_139.setFrameShape(QFrame.StyledPanel)
         self.frame_139.setFrameShadow(QFrame.Raised)
         self.verticalLayout_20 = QVBoxLayout(self.frame_139)
@@ -1313,25 +1298,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_20.addWidget(self.label_21, 0, Qt.AlignHCenter|Qt.AlignTop)
 
-        self.verticalSpacer_24 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_20.addItem(self.verticalSpacer_24)
-
         self.label_img_side_live = QLabel(self.frame_139)
         self.label_img_side_live.setObjectName(u"label_img_side_live")
-        self.label_img_side_live.setMaximumSize(QSize(16777211, 16777210))
-        self.label_img_side_live.setFrameShape(QFrame.Box)
-        self.label_img_side_live.setLineWidth(2)
-        self.label_img_side_live.setPixmap(QPixmap(u"../../../../../home/milad/.designer/backup/sample images/New folder/31x_1_4.png"))
         self.label_img_side_live.setScaledContents(True)
-        self.label_img_side_live.setMargin(5)
-        self.label_img_side_live.setIndent(-1)
 
-        self.verticalLayout_20.addWidget(self.label_img_side_live, 0, Qt.AlignHCenter|Qt.AlignTop)
-
-        self.verticalSpacer_22 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.verticalLayout_20.addItem(self.verticalSpacer_22)
+        self.verticalLayout_20.addWidget(self.label_img_side_live)
 
         self.frame_22 = QFrame(self.frame_139)
         self.frame_22.setObjectName(u"frame_22")
@@ -1596,6 +1567,15 @@ class Ui_MainWindow(object):
         self.start_capture_live_page.setStyleSheet(u"QPushButton:hover {\n"
 "	background-color: rgb(200,200,200);\n"
 "	border: 2px solid rgb(61, 70, 86);\n"
+"}\n"
+"QPushButton:enabled { \n"
+"	background-color: rgb(255,255,255);\n"
+"	color: black;\n"
+"}\n"
+"\n"
+"QPushButton:disabled{\n"
+"	background-color:rgb(50,50,50);\n"
+"	color: white;\n"
 "}")
         self.start_capture_live_page.setIconSize(QSize(41, 26))
 
@@ -1609,6 +1589,15 @@ class Ui_MainWindow(object):
         self.stop_capture_live_page.setStyleSheet(u"QPushButton:hover {\n"
 "	background-color: rgb(200,200,200);\n"
 "	border: 2px solid rgb(61, 70, 86);\n"
+"}\n"
+"QPushButton:enabled { \n"
+"	background-color: rgb(255,255,255);\n"
+"	color: black;\n"
+"}\n"
+"\n"
+"QPushButton:disabled{\n"
+"	background-color:rgb(50,50,50);\n"
+"	color: white;\n"
 "}")
         self.stop_capture_live_page.setIconSize(QSize(41, 26))
 
@@ -1634,13 +1623,54 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_23.addItem(self.verticalSpacer_14)
 
-        self.table_live_live_page = QTableWidget(self.frame_67)
-        if (self.table_live_live_page.columnCount() < 6):
-            self.table_live_live_page.setColumnCount(6)
-        if (self.table_live_live_page.rowCount() < 9):
-            self.table_live_live_page.setRowCount(9)
-        self.table_live_live_page.setObjectName(u"table_live_live_page")
-        self.table_live_live_page.setStyleSheet(u"QTableWidget {	\n"
+        self.table_live_top_live_page = QTableWidget(self.frame_67)
+        if (self.table_live_top_live_page.columnCount() < 6):
+            self.table_live_top_live_page.setColumnCount(6)
+        if (self.table_live_top_live_page.rowCount() < 9):
+            self.table_live_top_live_page.setRowCount(9)
+        self.table_live_top_live_page.setObjectName(u"table_live_top_live_page")
+        self.table_live_top_live_page.setStyleSheet(u"QTableWidget {	\n"
+"	padding: 1px;\n"
+"	border-radius:1px;\n"
+"	gridline-color: rgb(190,170,160);\n"
+"	border-bottom: 1px solid rgb(180,180,180);\n"
+"	color:rgb(255,255,255);\n"
+"\n"
+"}\n"
+"QHeaderView::section:horizontal\n"
+"{\n"
+"    border: 1px solid rgb(0,0,0);\n"
+"	padding: 3px;\n"
+"    background-color: rgb(30,30,30);\n"
+"\n"
+"	color:rgb(255,255,255);\n"
+"}\n"
+"QHeaderView::section:vertical\n"
+"{\n"
+"    border: 1px solid rgb(0,0,0);\n"
+"background-color: rgb(30,30,30);\n"
+"color:rgb(255,255,255);\n"
+"\n"
+"}\n"
+"")
+        self.table_live_top_live_page.setInputMethodHints(Qt.ImhNone)
+        self.table_live_top_live_page.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.table_live_top_live_page.setTextElideMode(Qt.ElideMiddle)
+        self.table_live_top_live_page.setSortingEnabled(True)
+        self.table_live_top_live_page.setRowCount(9)
+        self.table_live_top_live_page.setColumnCount(6)
+        self.table_live_top_live_page.horizontalHeader().setProperty("showSortIndicator", True)
+        self.table_live_top_live_page.verticalHeader().setProperty("showSortIndicator", True)
+
+        self.verticalLayout_23.addWidget(self.table_live_top_live_page)
+
+        self.table_live_side_live_page = QTableWidget(self.frame_67)
+        if (self.table_live_side_live_page.columnCount() < 6):
+            self.table_live_side_live_page.setColumnCount(6)
+        if (self.table_live_side_live_page.rowCount() < 9):
+            self.table_live_side_live_page.setRowCount(9)
+        self.table_live_side_live_page.setObjectName(u"table_live_side_live_page")
+        self.table_live_side_live_page.setStyleSheet(u"QTableWidget {	\n"
 "	padding: 1px;\n"
 "	border-radius:1px;\n"
 "	gridline-color: rgb(190,170,160);\n"
@@ -1672,11 +1702,11 @@ class Ui_MainWindow(object):
 "	background-color: rgb(70,135,230);\n"
 "	color : White;\n"
 "}")
-        self.table_live_live_page.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.table_live_live_page.setRowCount(9)
-        self.table_live_live_page.setColumnCount(6)
+        self.table_live_side_live_page.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.table_live_side_live_page.setRowCount(9)
+        self.table_live_side_live_page.setColumnCount(6)
 
-        self.verticalLayout_23.addWidget(self.table_live_live_page)
+        self.verticalLayout_23.addWidget(self.table_live_side_live_page)
 
 
         self.horizontalLayout_7.addWidget(self.frame_67)
@@ -2034,7 +2064,7 @@ class Ui_MainWindow(object):
         palette1.setBrush(QPalette.Disabled, QPalette.Base, brush8)
         palette1.setBrush(QPalette.Disabled, QPalette.Window, brush8)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette1.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush6)
+        palette1.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush7)
 #endif
         self.btn_page0_2_top.setPalette(palette1)
         self.btn_page0_2_top.setCursor(QCursor(Qt.PointingHandCursor))
@@ -2100,7 +2130,7 @@ class Ui_MainWindow(object):
         palette2.setBrush(QPalette.Disabled, QPalette.Base, brush8)
         palette2.setBrush(QPalette.Disabled, QPalette.Window, brush8)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette2.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush6)
+        palette2.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush7)
 #endif
         self.btn_page0_3_top.setPalette(palette2)
         self.btn_page0_3_top.setCursor(QCursor(Qt.PointingHandCursor))
@@ -2165,7 +2195,7 @@ class Ui_MainWindow(object):
         palette3.setBrush(QPalette.Disabled, QPalette.Base, brush8)
         palette3.setBrush(QPalette.Disabled, QPalette.Window, brush8)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette3.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush6)
+        palette3.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush7)
 #endif
         self.btn_page0_4_top.setPalette(palette3)
         self.btn_page0_4_top.setCursor(QCursor(Qt.PointingHandCursor))
@@ -2230,7 +2260,7 @@ class Ui_MainWindow(object):
         palette4.setBrush(QPalette.Disabled, QPalette.Base, brush8)
         palette4.setBrush(QPalette.Disabled, QPalette.Window, brush8)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette4.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush6)
+        palette4.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush7)
 #endif
         self.btn_page0_5_top.setPalette(palette4)
         self.btn_page0_5_top.setCursor(QCursor(Qt.PointingHandCursor))
@@ -2829,7 +2859,7 @@ class Ui_MainWindow(object):
         self.btn_add_region0_2_top.setStyleSheet(u"border:none;\n"
 "")
         icon17 = QIcon()
-        icon17.addFile(u"../../../../../home/milad/.designer/backup/images/plus.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon17.addFile(u"images/plus.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_add_region0_2_top.setIcon(icon17)
         self.btn_add_region0_2_top.setIconSize(QSize(26, 26))
 
@@ -2848,7 +2878,7 @@ class Ui_MainWindow(object):
         self.btn_remove_region0_2_top.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_remove_region0_2_top.setStyleSheet(u"border:none;")
         icon18 = QIcon()
-        icon18.addFile(u"../../../../../home/milad/.designer/backup/images/minus.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon18.addFile(u"images/minus.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_remove_region0_2_top.setIcon(icon18)
         self.btn_remove_region0_2_top.setIconSize(QSize(26, 27))
 
@@ -3879,10 +3909,10 @@ class Ui_MainWindow(object):
         self.frame_172.setFrameShadow(QFrame.Raised)
         self.verticalLayout_135 = QVBoxLayout(self.frame_172)
         self.verticalLayout_135.setObjectName(u"verticalLayout_135")
-        self.combo_5_top = QComboBox(self.frame_172)
-        self.combo_5_top.setObjectName(u"combo_5_top")
+        self.combo_regions_name0_5_top = QComboBox(self.frame_172)
+        self.combo_regions_name0_5_top.setObjectName(u"combo_regions_name0_5_top")
 
-        self.verticalLayout_135.addWidget(self.combo_5_top)
+        self.verticalLayout_135.addWidget(self.combo_regions_name0_5_top)
 
         self.frame_214 = QFrame(self.frame_172)
         self.frame_214.setObjectName(u"frame_214")
@@ -5127,8 +5157,7 @@ class Ui_MainWindow(object):
 
         self.frame_141 = QFrame(self.page_4_side)
         self.frame_141.setObjectName(u"frame_141")
-        self.frame_141.setMinimumSize(QSize(0, 0))
-        self.frame_141.setMaximumSize(QSize(16777215, 0))
+        self.frame_141.setMaximumSize(QSize(16777215, 300))
         self.frame_141.setFrameShape(QFrame.StyledPanel)
         self.frame_141.setFrameShadow(QFrame.Raised)
         self.verticalLayout_80 = QVBoxLayout(self.frame_141)
@@ -5288,6 +5317,7 @@ class Ui_MainWindow(object):
 
         self.frame_136 = QFrame(self.frame_141)
         self.frame_136.setObjectName(u"frame_136")
+        self.frame_136.setMinimumSize(QSize(0, 0))
         self.frame_136.setFrameShape(QFrame.StyledPanel)
         self.frame_136.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_143 = QHBoxLayout(self.frame_136)
@@ -5644,26 +5674,26 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_166.addWidget(self.label_109)
 
-        self.spin_min_height_6_side = QSpinBox(self.frame_138)
-        self.spin_min_height_6_side.setObjectName(u"spin_min_height_6_side")
-        self.spin_min_height_6_side.setMaximumSize(QSize(50, 16777215))
-        self.spin_min_height_6_side.setMaximum(20000)
-        self.spin_min_height_6_side.setSingleStep(5)
+        self.spin_min_height_5_side = QSpinBox(self.frame_138)
+        self.spin_min_height_5_side.setObjectName(u"spin_min_height_5_side")
+        self.spin_min_height_5_side.setMaximumSize(QSize(50, 16777215))
+        self.spin_min_height_5_side.setMaximum(20000)
+        self.spin_min_height_5_side.setSingleStep(5)
 
-        self.horizontalLayout_166.addWidget(self.spin_min_height_6_side)
+        self.horizontalLayout_166.addWidget(self.spin_min_height_5_side)
 
         self.label_110 = QLabel(self.frame_138)
         self.label_110.setObjectName(u"label_110")
 
         self.horizontalLayout_166.addWidget(self.label_110)
 
-        self.spin_max_head_5_side = QSpinBox(self.frame_138)
-        self.spin_max_head_5_side.setObjectName(u"spin_max_head_5_side")
-        self.spin_max_head_5_side.setMaximumSize(QSize(50, 16777215))
-        self.spin_max_head_5_side.setMaximum(20000)
-        self.spin_max_head_5_side.setSingleStep(5)
+        self.spin_max_height_5_side = QSpinBox(self.frame_138)
+        self.spin_max_height_5_side.setObjectName(u"spin_max_height_5_side")
+        self.spin_max_height_5_side.setMaximumSize(QSize(50, 16777215))
+        self.spin_max_height_5_side.setMaximum(20000)
+        self.spin_max_height_5_side.setSingleStep(5)
 
-        self.horizontalLayout_166.addWidget(self.spin_max_head_5_side)
+        self.horizontalLayout_166.addWidget(self.spin_max_height_5_side)
 
 
         self.verticalLayout_83.addWidget(self.frame_138)
@@ -9133,7 +9163,7 @@ class Ui_MainWindow(object):
         self.bar_noise_filter0_5_top.valueChanged.connect(self.spinBox_22.setValue)
 
         self.stackedWidget.setCurrentIndex(0)
-        self.stackedWidget_2.setCurrentIndex(0)
+        self.stackedWidget_2.setCurrentIndex(9)
         self.stackedWidget_3.setCurrentIndex(1)
 
 
@@ -9259,7 +9289,7 @@ class Ui_MainWindow(object):
         self.checkbox_page0_4_top.setText("")
         self.btn_page0_4_top.setText(QCoreApplication.translate("MainWindow", u"Edge crack", None))
         self.checkbox_page0_5_top.setText("")
-        self.btn_page0_5_top.setText(QCoreApplication.translate("MainWindow", u"5_top", None))
+        self.btn_page0_5_top.setText(QCoreApplication.translate("MainWindow", u"centerality", None))
         self.groupBox_22.setTitle(QCoreApplication.translate("MainWindow", u"Side Camera", None))
         self.checkbox_page0_1_side.setText("")
         self.btn_page0_1_side.setText(QCoreApplication.translate("MainWindow", u"Main", None))

@@ -9,6 +9,7 @@
 
 import sys
 from tabnanny import check
+from tkinter import E
 from tkinter.tix import Tree
 from traceback import print_tb
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -172,12 +173,11 @@ class UI_main_window(QMainWindow, ui):
 
 
         self.col_parms=['name','min','max','avg','limit_min','limit_max']
+        self.set_header_live_table(self.table_live_top_live_page,self.col_parms)
 
-        self.set_header_live_table(self.table_live_live_page,self.col_parms)
+        self.col_parms=['name','min','max','avg','limit_min','limit_max']
+        self.set_header_live_table(self.table_live_side_live_page,self.col_parms)
 
-        #self.set_live_table(self.table_live_live_page,['1','2'])
-
-        # self.set_img_btns(self.side_tool_setting_btn,'images/setting_main_window/bug.png')
         self.set_color_value_image_tool_page(value=50)
 
 
@@ -192,6 +192,9 @@ class UI_main_window(QMainWindow, ui):
         # # # update the timer every second
         # self.timer_live.start(60)
         self.set_list_pack_items('sub_pages', ['flanch', 'head'], page_name='5_top')
+
+        # self.set_activate_pages('checkbox_page0_4_top',True)
+        self.set_deactive_all_pages()
 
     def ret_self(self):
 
@@ -945,7 +948,7 @@ class UI_main_window(QMainWindow, ui):
             self.frame_size(self.frame_193,0)
 
         if btnName=='btn_add_region0_4_side':
-            self.frame_size(self.frame_141,1000)
+            self.frame_size(self.frame_141,310)
 
         if btnName=='btn_remove_region0_4_side':
             self.frame_size(self.frame_141,0)
@@ -959,6 +962,7 @@ class UI_main_window(QMainWindow, ui):
 
 
         if btnName=='btn_add_area0_4_side':
+            # print('asdawdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
             self.frame_size(self.frame_141,310)
 
 
@@ -1174,6 +1178,17 @@ class UI_main_window(QMainWindow, ui):
                 if direction in page_name:
                     checked_btns.append(page_name)
         return checked_btns
+
+    def set_activate_pages(self,name,bool):
+
+        check_box=self.checkboxes['page'][name]
+        check_box.setChecked(bool)
+
+    def set_deactive_all_pages(self):
+
+        for page_name in self.tool_pages_name_dict.values():
+            check_box=self.checkboxes['page']['checkbox_page0_{}'.format(page_name)]
+            check_box.setChecked(False)
 
 
     #Combobox utils ----------------------------------------------------------------  
@@ -1687,17 +1702,39 @@ class UI_main_window(QMainWindow, ui):
 
     def set_live_table(self,table_name,values=False):
 
+        print('values',values)
+
         table_item = QTableWidgetItem()
         str1=[]
         if values:
             table_name.setRowCount(len(values))
             for id,page_value in enumerate(values):
+                limit_min=page_value['limit_min']
+                limit_max=page_value['limit_max']
                 for col_id , col_value in enumerate(self.col_parms) :
-                    #print(page_value['min'])
-
                     table_item = QTableWidgetItem(str(page_value[col_value]))
                     table_name.setItem(id,col_id,table_item)
+                    if col_id==0:
+                        table_item.setBackground(QBrush(QColor("#17202A")))
+                        # self.set_color_table_name_col(table_item,page_value[col_value],limit_min,limit_max)
+                    else:
+                        self.set_color_table(table_item,page_value[col_value],limit_min,limit_max)
         table_name.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+            # table_name.item(1, 1).setText("Put here whatever you want!")
+
+    def set_color_table(self,table_item,value=0,limit_min=0,limit_max=0):
+        print('limit_min , max',value,limit_min,limit_max)
+        if value<=limit_min:
+            print('min')
+            table_item.setBackground(QBrush(QColor("#1F618D")))
+            # table_item.setForeground(QColor('#196F3D'))
+        elif value>=limit_max:
+            print('max')
+            table_item.setBackground(QColor('#CB4335'))  
+        else:
+            print('else')
+            table_item.setBackground(QColor('#239B56'))                       
 
 
     def set_selected_image_live_page(self,direction,img):
@@ -1772,6 +1809,12 @@ class UI_main_window(QMainWindow, ui):
         w = self.centralwidget.width()
         h = self.centralwidget.height()
         return h,w
+
+
+
+
+
+
 if __name__ == "__main__":
     app = QApplication()
     win = UI_main_window()

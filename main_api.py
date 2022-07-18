@@ -21,6 +21,7 @@
 ################################
 
 from datetime import datetime
+from this import d
 import threading
 from functools import partial
 from unittest import result
@@ -63,6 +64,8 @@ DEFAULT_SCERW_PATH = 'database\defualt_screw'
 class API:
 
     SAMPLE_IMAGE=True
+
+    run_detect=False
 
     image_num=0
 
@@ -283,7 +286,9 @@ class API:
         self.load_plc_ip()
         self.load_plc_parms()
         #self.check_plc_status()
-
+        self.ui.start_capture_live_page.clicked.connect(self.start_detection)
+        self.ui.stop_capture_live_page.clicked.connect(self.stop_detection)
+        
         # self.ui.connect_sliders('thresh',self.update_threshould)
 
         #setting page2
@@ -1526,6 +1531,7 @@ class API:
             results.extend(result)
 
         results.sort( key = lambda x:x['name'])
+
         return draw_img, results
 
 
@@ -1546,7 +1552,8 @@ class API:
             results.extend(result)
 
         results.sort( key = lambda x:x['name'])
-
+        ['name','min','max','avg','limit_min','limit_max']
+        # results={'name':12,'min':12,'max':12,'avg':13,'limit_min':14,'limit_max':15}
         return draw_img , results
 
 
@@ -1766,6 +1773,7 @@ class API:
     def set_images(self):
 
         if self.SAMPLE_IMAGE:
+            print('asdaw')
             
             if self.image_num>2:
                 self.image_num=0
@@ -1782,20 +1790,25 @@ class API:
             draw_img_side = np.copy( self.img_side)
             results_side = []
             results_top = []
-            
+            # print(self.img_side)
             draw_img_top, results_top = self.proccessing_live_top(self.img_top)
-            draw_img_side, results_side = self.proccessing_live_side(self.img_side)
+            # draw_img_side, results_side = self.proccessing_live_side(self.img_side)
             
-            results = results_top + results_side
-            self.ui.set_live_table( self.ui.table_live_live_page, results )
+            # results = results_top + results_side
+            # print('resault',results)
+            # results_top={'pag_qtop':{'name':12,'min':12,'max':12,'avg':13,'limit_min':14,'limit_max':15}}
+            self.ui.set_live_table( self.ui.table_live_top_live_page, results_top )
+            self.ui.set_live_table( self.ui.table_live_side_live_page, results_side )
 
-            draw_img_side = cv2.rotate( draw_img_side, cv2.ROTATE_90_COUNTERCLOCKWISE )
+            # draw_img_side = cv2.rotate( draw_img_side, cv2.ROTATE_90_COUNTERCLOCKWISE )
             draw_img_top = cv2.rotate( draw_img_top, cv2.ROTATE_90_COUNTERCLOCKWISE )
 
             self.ui.set_image_label(self.ui.label_img_top_live, draw_img_top)
-            self.ui.set_image_label(self.ui.label_img_side_live,draw_img_side)
+            # self.ui.set_image_label(self.ui.label_img_side_live,draw_img_side)
+
+            if self.run_detect:
             
-            threading.Timer(0.1, self.set_images).start()
+                threading.Timer(0.1, self.set_images).start()
             
             
 
@@ -1820,8 +1833,15 @@ class API:
         
         #print('len',len(self.top_images),len(self.side_images))
 
+    def start_detection(self):
 
+        self.run_detect=True
+        self.set_images()
+        self.ui.start_capture_live_page.setEnabled(False)
+        self.ui.stop_capture_live_page.setEnabled(True)
 
+    def stop_detection(self):
 
-    def print_test(self):
-        print('Qtimer Test')
+        self.run_detect=False
+        self.ui.start_capture_live_page.setEnabled(True)
+        self.ui.stop_capture_live_page.setEnabled(False)
