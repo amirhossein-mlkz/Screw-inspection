@@ -29,6 +29,11 @@ THRESH_C = 7
 
 
 
+def preprocess(img):
+    normalizedImg = np.zeros_like(img)
+    normalizedImg = cv2.normalize(img,  normalizedImg, 0, 255, cv2.NORM_MINMAX)
+    return normalizedImg
+
 def threshould(img, thresh , mask_roi = None, inv=False):
     if len(img.shape) == 3:
         img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
@@ -280,11 +285,12 @@ def shapes_drawer(shape_type, color, thickness=-1):
     return func
 
 
-def crop_rect(img, rect):    
-    [[x1,y1], [x2,y2]] = rect
-    crop = img[y1:y2 , x1:x2]
-    return np.copy( crop )
-
+def crop_rect(img, rect):   
+    if Utils.is_rect(rect): 
+        [[x1,y1], [x2,y2]] = rect
+        crop = img[y1:y2 , x1:x2]
+        return np.copy( crop )
+    return img
 
 
 
@@ -293,7 +299,9 @@ def extract_bigest_contour(mask):
     cnts,_ = cv2.findContours(mask , cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnts = list(cnts)
     cnts.sort( key = lambda x:cv2.contourArea(x) , reverse=True)
-    return cnts[0]        
+    if len(cnts)>0:
+        return cnts[0]
+    return []     
 
 
 def mask_bigest_contour(mask):
@@ -379,19 +387,25 @@ def centerise_top(mask, img = None):
     cnts, _ = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
     cnts = list(cnts)
     cnts.sort( key = lambda x:cv2.contourArea(x) , reverse = True )
-    biggest_cnt = cnts[0]
-    (x,y), r = cv2.minEnclosingCircle(biggest_cnt )
+    if len(cnts) > 0:
+        biggest_cnt = cnts[0]
+        (x,y), r = cv2.minEnclosingCircle(biggest_cnt )
 
-    h,w = mask.shape[:2]
-    div_y = h//2 - y
-    div_x = w//2 - x
+        h,w = mask.shape[:2]
+        div_y = h//2 - y
+        div_x = w//2 - x
 
-    M = np.float32( [[1, 0, div_x ],
-                     [0, 1, div_y ]
-                    ])
+        M = np.float32( [[1, 0, div_x ],
+                        [0, 1, div_y ]
+                        ])
 
-    res_img = cv2.warpAffine(img,M,(w,h))
-    res_mask = cv2.warpAffine(mask,M,(w,h))
+        res_img = cv2.warpAffine(img,M,(w,h))
+        res_mask = cv2.warpAffine(mask,M,(w,h))
+    
+    else:
+        res_mask = np.copy(mask)
+        res_img = np.copy(img)
+        div_x, div_y = 0,0
 
     return res_mask,res_img, (div_x, div_y)
 
@@ -755,20 +769,22 @@ def draw_cnt( img, cnt, color, thickness=5):
 
 
 def poly_fit_image(cnt, border=50, draw=True ):
-    cnt = np.copy(cnt)
-    min_x, min_y = cnt.min(axis=0)[0]
-    max_x, max_y = cnt.max(axis=0)[0]
+    if len(cnt)>0:
+        cnt = np.copy(cnt)
+        min_x, min_y = cnt.min(axis=0)[0]
+        max_x, max_y = cnt.max(axis=0)[0]
 
-    w = max_x - min_x + border * 2
-    h = max_y - min_y + border * 2
+        w = max_x - min_x + border * 2
+        h = max_y - min_y + border * 2
 
-    cnt[:,0,0] = cnt[:,0,0] - min_x + border
-    cnt[:,0,1] = cnt[:,0,1] - min_y + border
-    
-    mask = np.zeros((h,w), dtype=np.uint8)
-    if draw:
-        cv2.drawContours( mask, [cnt], 0, 255, thickness=-1)
-    return cnt,  mask
+        cnt[:,0,0] = cnt[:,0,0] - min_x + border
+        cnt[:,0,1] = cnt[:,0,1] - min_y + border
+        
+        mask = np.zeros((h,w), dtype=np.uint8)
+        if draw:
+            cv2.drawContours( mask, [cnt], 0, 255, thickness=-1)
+        return cnt,  mask
+    return [], 0
 
 
 #@time_measure
@@ -819,7 +835,6 @@ def hexagonal_measument(cnt):
 
 #@time_measure
 def circel_measument(cnt):
-    
     cnt, poly_img = poly_fit_image(cnt)
 
     diameters = diameters_measurment(poly_img, cnt, range(0,180,5))
@@ -838,7 +853,7 @@ def get_top_region_cnt(img, thresh, thresh_inv, roi_mask):
     biggest_cnt = cnts[0]
     return biggest_cnt
         
-@time_measure
+#@time_measure
 def conture_moving_avg(cnt, w= 10, iter=1):
     xs = cnt[:,0,0]
     ys = cnt[:,0,1]
@@ -854,24 +869,57 @@ def conture_moving_avg(cnt, w= 10, iter=1):
 def find_edge_crack(mask, thresh_area, filter_w=10 ):
     cnts,_ = cv2.findContours(mask , cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     cnts = list(cnts)
-    cnt = cnts[0]        
-    #--------------------------
-    cnt = conture_moving_avg(cnt, w = filter_w, iter=1)
-    #res_cnt = conture_moving_avg(cnt, w = 100, iter=1)
-    approx_cnt = cv2.convexHull(cnt)
-    #--------------------------
-    crack_mask = np.zeros_like(mask)
-    crack_mask = cv2.drawContours( crack_mask, [approx_cnt], 0, 255 , thickness=-1)
-    crack_mask = cv2.drawContours( crack_mask, [cnt], 0, 0 , thickness=-1)
-    #--------------------------
-    crack_mask = cv2.erode(crack_mask, np.ones((3,3)), iterations=1)
-    crack_mask = cv2.dilate(crack_mask, np.ones((3,3)), iterations=1)
-    #--------------------------
-    crack_cnts,_ = cv2.findContours( crack_mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
-    crack_cnts = list(filter( lambda x:cv2.contourArea(x) > thresh_area, crack_cnts ))
-    #crack_areas.sort( key = lambda x:cv2.contourArea(x), reverse=True)
-    crack_areas = np.array(list( map( lambda x:cv2.contourArea(x), crack_cnts ) ))
-    return crack_cnts, crack_areas
+    if len(cnts) > 0:
+        cnt = cnts[0]        
+        #--------------------------
+        cnt = conture_moving_avg(cnt, w = filter_w, iter=1)
+        #res_cnt = conture_moving_avg(cnt, w = 100, iter=1)
+        approx_cnt = cv2.convexHull(cnt)
+        #--------------------------
+        crack_mask = np.zeros_like(mask)
+        crack_mask = cv2.drawContours( crack_mask, [approx_cnt], 0, 255 , thickness=-1)
+        crack_mask = cv2.drawContours( crack_mask, [cnt], 0, 0 , thickness=-1)
+        #--------------------------
+        crack_mask = cv2.erode(crack_mask, np.ones((3,3)), iterations=1)
+        crack_mask = cv2.dilate(crack_mask, np.ones((3,3)), iterations=1)
+        #--------------------------
+        crack_cnts,_ = cv2.findContours( crack_mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+        crack_cnts = list(filter( lambda x:cv2.contourArea(x) > thresh_area, crack_cnts ))
+        #crack_areas.sort( key = lambda x:cv2.contourArea(x), reverse=True)
+        crack_areas = np.array(list( map( lambda x:cv2.contourArea(x), crack_cnts ) ))
+        return crack_cnts, crack_areas
+    return [], []
+
+
+
+
+
+def centerise_measurment(masks):
+    res_cnts = []
+    res_centers = []
+    for mask in masks:
+        cnts,_ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if len(cnts) == 0:
+            continue
+        cnt = cnts[0]
+        M = cv2.moments(cnt)
+        res_centers.append( (int(M['m10']/M['m00']) , int(M['m01']/M['m00']) ) )
+        res_cnts.append(cnt)
+    
+    dist = -1
+    if len(res_centers)==2:
+        pt1 =  res_centers[0]
+        pt2 =  res_centers[1]
+        dist = ((pt1[0] - pt2[0])**2 + (pt1[1] - pt2[1])**2 )**0.5
+    return res_cnts, res_centers, np.round(dist,1)
+
+
+def random_light(img,low=-20,high=20):
+    light = np.random.randint(low, high)
+    res = np.copy(img).astype(np.int32)
+    res = res + light
+    res = np.clip(res, 0, 255)
+    return res.astype(np.uint8)
 
 
 

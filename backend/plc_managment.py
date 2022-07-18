@@ -1,5 +1,5 @@
 from opcua import Client,ua
-
+#pip install cryptography
 class management():
     def __init__(self,ip):
 

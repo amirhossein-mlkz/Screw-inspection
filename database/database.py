@@ -86,8 +86,7 @@ class dataBase:
             mySql_insert_query = """INSERT INTO {} {} 
                                 VALUES 
                                 {} """.format(table_name,parametrs,s)
-            print(mySql_insert_query)
-            print(data)
+            
             cursor.execute(mySql_insert_query,data)
             # mySql_insert_query=(mySql_insert_query,data)
             # self.execute_quary(mySql_insert_query, cursor, connection, close=False,need_data=True )

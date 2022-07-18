@@ -38,7 +38,7 @@ if show_eror:
 
 class Collector():
 
-    def __init__(self, serial_number,gain = 0 , exposure = 70000, max_buffer = 20, trigger=True, delay_packet=100, packet_size=1500 ,
+    def __init__(self, serial_number,gain = 0 , exposure = 5000, max_buffer = 20, trigger=True, delay_packet=100, packet_size=1500 ,
                 frame_transmission_delay=0 ,width=1000,height=1000,offet_x=0,offset_y=0, manual=False, list_devices_mode=False):
         """Initializes the Collector
 
@@ -298,7 +298,6 @@ class Collector():
                 grabResult = self.camera.RetrieveResult(time_out, pylon.TimeoutHandling_ThrowException)
                 
 
-                # print(self.camera.GetQueuedBufferCount(), 'f'*100)
                 if DEBUG:
                     print('RetrieveResult')
 
@@ -323,10 +322,7 @@ class Collector():
         except:
             print('eror')
         
-        # print(self.camera.GetQueuedBufferCount(), 'f'*100)
-        # time.sleep(0.1)
-        # print(self.camera.GetQueuedBufferCount(), 'f'*100)
-        # self.img = img
+
         
         return img
 
@@ -334,7 +330,6 @@ class Collector():
     def get_cam(self,i):
         return self.camera
     
-
 
 
 def get_threading(cameras):
