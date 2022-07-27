@@ -2231,7 +2231,7 @@ QPushButton:hover {
                          <string notr="true">background-color : #F3F6FE;</string>
                         </property>
                         <property name="currentIndex">
-                         <number>0</number>
+                         <number>1</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -2418,7 +2418,7 @@ QPushButton:hover {
                                        <widget class="QLabel" name="label_54">
                                         <property name="maximumSize">
                                          <size>
-                                          <width>45</width>
+                                          <width>81</width>
                                           <height>16777215</height>
                                          </size>
                                         </property>
@@ -2630,7 +2630,7 @@ QPushButton:hover {
                                        <widget class="QLabel" name="label_168">
                                         <property name="maximumSize">
                                          <size>
-                                          <width>45</width>
+                                          <width>81</width>
                                           <height>16777215</height>
                                          </size>
                                         </property>
@@ -5753,7 +5753,7 @@ QPushButton:disabled{
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>9</number>
+                                   <number>3</number>
                                   </property>
                                   <widget class="QWidget" name="page"/>
                                   <widget class="QWidget" name="page_1_top">
@@ -7432,10 +7432,16 @@ QPushButton:disabled{
                                     </item>
                                     <item>
                                      <widget class="QFrame" name="frame_193">
+                                      <property name="minimumSize">
+                                       <size>
+                                        <width>0</width>
+                                        <height>540</height>
+                                       </size>
+                                      </property>
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
-                                        <height>0</height>
+                                        <height>604</height>
                                        </size>
                                       </property>
                                       <property name="frameShape">
@@ -7735,7 +7741,7 @@ QPushButton:disabled{
                                          <property name="maximumSize">
                                           <size>
                                            <width>16777215</width>
-                                           <height>72</height>
+                                           <height>65</height>
                                           </size>
                                          </property>
                                          <property name="frameShape">
@@ -7816,6 +7822,12 @@ QPushButton:disabled{
                                        </item>
                                        <item>
                                         <widget class="QFrame" name="frame_192">
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>50</height>
+                                          </size>
+                                         </property>
                                          <property name="frameShape">
                                           <enum>QFrame::StyledPanel</enum>
                                          </property>
@@ -7870,6 +7882,12 @@ QPushButton:disabled{
                                        </item>
                                        <item>
                                         <widget class="QGroupBox" name="groupBox_18">
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>82</height>
+                                          </size>
+                                         </property>
                                          <property name="title">
                                           <string>Area</string>
                                          </property>
@@ -7923,6 +7941,19 @@ QPushButton:disabled{
                                           </item>
                                          </layout>
                                         </widget>
+                                       </item>
+                                       <item>
+                                        <spacer name="verticalSpacer_25">
+                                         <property name="orientation">
+                                          <enum>Qt::Vertical</enum>
+                                         </property>
+                                         <property name="sizeHint" stdset="0">
+                                          <size>
+                                           <width>20</width>
+                                           <height>40</height>
+                                          </size>
+                                         </property>
+                                        </spacer>
                                        </item>
                                       </layout>
                                      </widget>
@@ -12684,34 +12715,9 @@ QPushButton:disabled{
                                        </spacer>
                                       </item>
                                       <item>
-                                       <widget class="QPushButton" name="fullscreen_cam_grab_4">
-                                        <property name="maximumSize">
-                                         <size>
-                                          <width>50</width>
-                                          <height>50</height>
-                                         </size>
-                                        </property>
-                                        <property name="cursor">
-                                         <cursorShape>PointingHandCursor</cursorShape>
-                                        </property>
-                                        <property name="toolTip">
-                                         <string>clear all</string>
-                                        </property>
-                                        <property name="styleSheet">
-                                         <string notr="true">border:None;</string>
-                                        </property>
+                                       <widget class="QLabel" name="label_188">
                                         <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="icon">
-                                         <iconset>
-                                          <normaloff>images/rotate-left.png</normaloff>images/rotate-left.png</iconset>
-                                        </property>
-                                        <property name="iconSize">
-                                         <size>
-                                          <width>21</width>
-                                          <height>40</height>
-                                         </size>
+                                         <string>Show Mask :</string>
                                         </property>
                                        </widget>
                                       </item>
@@ -12725,38 +12731,6 @@ QPushButton:disabled{
                                         </property>
                                         <property name="tristate">
                                          <bool>false</bool>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                      <item>
-                                       <widget class="QPushButton" name="fullscreen_cam_grab_3">
-                                        <property name="maximumSize">
-                                         <size>
-                                          <width>50</width>
-                                          <height>50</height>
-                                         </size>
-                                        </property>
-                                        <property name="cursor">
-                                         <cursorShape>PointingHandCursor</cursorShape>
-                                        </property>
-                                        <property name="toolTip">
-                                         <string>clear all</string>
-                                        </property>
-                                        <property name="styleSheet">
-                                         <string notr="true">border:None;</string>
-                                        </property>
-                                        <property name="text">
-                                         <string/>
-                                        </property>
-                                        <property name="icon">
-                                         <iconset>
-                                          <normaloff>images/rotate-right.png</normaloff>images/rotate-right.png</iconset>
-                                        </property>
-                                        <property name="iconSize">
-                                         <size>
-                                          <width>21</width>
-                                          <height>40</height>
-                                         </size>
                                         </property>
                                        </widget>
                                       </item>
@@ -15796,7 +15770,7 @@ QPushButton:pressed {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>67</width>
+                                  <width>92</width>
                                   <height>67</height>
                                  </rect>
                                 </property>
@@ -16523,7 +16497,7 @@ QPushButton:pressed {
                                         <property name="minimumSize">
                                          <size>
                                           <width>0</width>
-                                          <height>266</height>
+                                          <height>297</height>
                                          </size>
                                         </property>
                                         <property name="maximumSize">
@@ -16981,7 +16955,7 @@ QPushButton:pressed {
                                              </widget>
                                             </item>
                                             <item>
-                                             <widget class="QComboBox" name="setting_language_comboBox">
+                                             <widget class="QComboBox" name="combo_change_language">
                                               <property name="minimumSize">
                                                <size>
                                                 <width>150</width>
@@ -16997,6 +16971,28 @@ QPushButton:pressed {
                                              </widget>
                                             </item>
                                            </layout>
+                                          </widget>
+                                         </item>
+                                         <item alignment="Qt::AlignHCenter">
+                                          <widget class="QLabel" name="label_language">
+                                           <property name="minimumSize">
+                                            <size>
+                                             <width>40</width>
+                                             <height>35</height>
+                                            </size>
+                                           </property>
+                                           <property name="maximumSize">
+                                            <size>
+                                             <width>40</width>
+                                             <height>35</height>
+                                            </size>
+                                           </property>
+                                           <property name="text">
+                                            <string/>
+                                           </property>
+                                           <property name="scaledContents">
+                                            <bool>true</bool>
+                                           </property>
                                           </widget>
                                          </item>
                                         </layout>

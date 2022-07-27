@@ -3,7 +3,6 @@
         "1_top",
         "2_top",
         "3_top",
-        "4_top",
         "5_top"
     ],
     "direction": "top",
@@ -26,32 +25,6 @@
             "thresh0": 254
         },
         "2_top": {
-            "flanch": {
-                "circels_roi": [
-                    [
-                        [
-                            694,
-                            512
-                        ],
-                        362
-                    ]
-                ],
-                "limits": {
-                    "max": {
-                        "corner": 0,
-                        "diameter": 3000,
-                        "district": 0
-                    },
-                    "min": {
-                        "corner": 0,
-                        "diameter": 1500,
-                        "district": 0
-                    }
-                },
-                "noise_filter0": 80,
-                "shape_type": "circel",
-                "thresh0": 252
-            },
             "hex": {
                 "circels_roi": [
                     [

@@ -205,17 +205,29 @@ class dataBaseUtils():
         self.res = self.db.update_record(self.setting_tabel, 'side_calibration', str(value) ,'id','0')
 
 
+    def set_language(self,name):
+        self.db.update_record(self.setting_tabel, 'language',str(name), 'id', '0')
+
+
+    def load_language(self):
+        record = self.db.search( self.setting_tabel , 'id', '0' )[0]
+        # print(record)
+        return record['language']
+
+
 
 if __name__ == '__main__':
     db = dataBaseUtils(user_name='root',password='password')
-    x=db.load_calibration_parms()
+    x=db.load_language()
     print(x)
-    db.save_top_calibration(70)
-    x=db.load_calibration_parms()
-    print(x)  
-    db.save_side_calibration(90.885)
-    x=db.load_calibration_parms()
-    print(x)  
+    # x=db.load_calibration_parms()
+    # print(x)
+    # db.save_top_calibration(70)
+    # x=db.load_calibration_parms()
+    # print(x)  
+    # db.save_side_calibration(90.885)
+    # x=db.load_calibration_parms()
+    # print(x)  
     # db.get_size_table('side_live')
     # parms={'min_x':10,'min_y':20,'max_x':30,'max_y':40}
     # db.set_size_table_side(parms)

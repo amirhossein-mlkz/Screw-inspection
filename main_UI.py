@@ -196,9 +196,52 @@ class UI_main_window(QMainWindow, ui):
         # self.set_activate_pages('checkbox_page0_4_top',True)
         self.set_deactive_all_pages()
 
-    def ret_self(self):
 
-        return self
+        #change_language
+
+        self.combo_change_language.currentTextChanged.connect(self.change_language)
+
+        # self.logger.create_new_log(message='UI object for train app created.')
+        # self.load_lang()
+
+        
+    def load_lang(self):
+        # lan=api.load_language()
+        self.set_language(lan)
+
+    def set_language(self,name):
+        """set language
+        Args:
+            name (string): input language from api
+        Returns: None
+        """
+
+        self.combo_change_language.setCurrentText(name)
+        self.change_language()
+
+    def change_language(self):
+        """Change language in ui and update image
+        Returns: None
+        """
+        if self.combo_change_language.currentText()=='English':
+            self.language = 'en'
+            # api.language = 'en'
+            img_path=('images/english.png')
+
+
+        else:
+            self.language='fa'
+            # api.language = 'fa'
+            img_path=('images/persian.png')
+
+        pixmap = QPixmap(img_path)
+        self.label_language.setPixmap(pixmap)
+        
+        # self.set_image_label(self.label_language, img)
+        # image = QImage(img, img.shape[1], img.shape[0], img.strides[0], QImage.Format_BGR888)
+        # self.label_language.setPixmap(QPixmap.fromImage(image))
+        texts.set_title(self, self.language)
+        # self.logger.create_new_log(message='cahange language.')
 
 
     
@@ -492,6 +535,8 @@ class UI_main_window(QMainWindow, ui):
         x=["Operator", "Admin"]
         self.user_role.addItems(x)
 
+        string=['English', 'Persian']
+        self.combo_change_language.addItems(string)
 
     def set_combo_boxes(self,combo_name,items):
 
@@ -713,7 +758,7 @@ class UI_main_window(QMainWindow, ui):
             self.animation_move(self.frame_24,300)
             self.animation_move(self.frame_23,0)
             self.stackedWidget_2.setCurrentIndex(1)
-            self.set_label(self.label_status_mode,'Edit Mode')
+            self.set_label(self.label_status_mode,texts.MESSEGES['Edit Mode'][self.language])
             self.editmode=True
             self.enable_bar_btn_tool_page('top',enable=True)
             self.enable_bar_btn_tool_page('side',enable=True)
@@ -1171,10 +1216,10 @@ class UI_main_window(QMainWindow, ui):
                     checked_btns.append(page_name)
         return checked_btns
 
-    def set_activate_pages(self,name,bool):
-
-        check_box=self.checkboxes['page'][name]
-        check_box.setChecked(bool)
+    def set_activate_pages(self,list,bool):
+        for name in list:
+            check_box=self.checkboxes['page']['checkbox_page0_{}'.format(name)]
+            check_box.setChecked(bool)
 
     def set_deactive_all_pages(self):
 
@@ -1692,8 +1737,15 @@ class UI_main_window(QMainWindow, ui):
         table_name.verticalHeader().setVisible(True)
         table_name.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
-    def set_live_table(self,table_name,values=False):
 
+    def clear_table(self,table_name):
+        """Clear table of selected Images in Data aquization page
+        """
+        for i in range(table_name.rowCount()):
+            table_name.removeRow(0)
+
+    def set_live_table(self,table_name,values=False):
+        self.clear_table(table_name)
         table_item = QTableWidgetItem()
         str1=[]
         if values:
@@ -1719,7 +1771,7 @@ class UI_main_window(QMainWindow, ui):
 
     def set_color_table(self,table_item,value=0,limit_min=0,limit_max=0):
         # print('limit_min , max',value,limit_min,limit_max)
-        if value<=limit_min or value>=limit_max:
+        if value<limit_min or value>limit_max:
             # print('min')
             table_item.setBackground(QBrush(QColor("#E74C3C")))
         else:

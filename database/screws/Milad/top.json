@@ -1,0 +1,68 @@
+{
+    "active_tools": [
+        "1_top",
+        "2_top",
+        "5_top"
+    ],
+    "direction": "top",
+    "img_path": "/media/milad/PYTHON/myproject/Screw-inspection/sample images/New folder (3)/test1_0_13.png",
+    "name": "Milad",
+    "settings": {
+        "1_top": {
+            "img_path": "/media/milad/PYTHON/myproject/Screw-inspection/sample images/New folder (3)/test1_0_13.png",
+            "noise_filter0": 27,
+            "rect_roi0": [
+                [
+                    318,
+                    172
+                ],
+                [
+                    990,
+                    799
+                ]
+            ],
+            "thresh0": 83,
+            "thresh_inv0": false
+        },
+        "2_top": {
+            "x": {
+                "circels_roi": [
+                    [
+                        [
+                            697,
+                            521
+                        ],
+                        265
+                    ]
+                ],
+                "noise_filter0": 115,
+                "thresh0": 39
+            }
+        },
+        "3_top": {
+            "t1": {
+                "circels_roi": [
+                    [
+                        [
+                            690,
+                            508
+                        ],
+                        276
+                    ],
+                    [
+                        [
+                            693,
+                            502
+                        ],
+                        185
+                    ]
+                ],
+                "min_area": 300,
+                "noise_filter0": 0,
+                "thresh0": 216,
+                "thresh_inv0": true
+            }
+        },
+        "5_top": {}
+    }
+}

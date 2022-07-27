@@ -159,6 +159,10 @@ class API:
         #self.timer_live.timeout.connect(self.set_images)
         #self.timer_live.start(200)
 
+        # Language
+        self.load_language()
+        self.ui.combo_change_language.currentTextChanged.connect(self.set_language)
+
 
     def pr(self):
         print('Hello Thread!')
@@ -692,6 +696,7 @@ class API:
     def edit_load_screw(self):
         name = self.ui.comboBox_edit_remove.currentText()
         print('name',name)
+        self.ui.set_deactive_all_pages()
         if name !='':
             self.ui.edit_mode()
             path = dbUtils.get_screw_path(name)
@@ -709,6 +714,9 @@ class API:
                 else:
                     self.ui.enable_bar_btn_tool_page( direction, False )
                 #-----------------------------------------
+                active_pages=self.screw_jasons[direction].get_active_tools()
+                print('active_pages',active_pages)
+                self.ui.set_activate_pages(active_pages,True)
 
             self.update_setting_page_info()
             
@@ -1779,8 +1787,10 @@ class API:
             # for i in range(1,5):
             # self.ui.img_top=cv2.imread('sample images/temp_top/{}.jpg'.format(self.image_num))
             # self.ui.img_side=cv2.imread('sample images/temp_side/{}.jpg'.format(self.image_num))
-            self.img_top= cvTools.random_light( self.top_images[self.image_num] )
+            # self.img_top= cvTools.random_light( self.top_images[self.image_num] )
+            self.img_top=self.top_images[self.image_num]
             self.img_side= cvTools.random_light( self.side_images[self.image_num] )
+
             
 
             draw_img_top = np.copy( self.img_top)
@@ -1845,3 +1855,24 @@ class API:
         self.ui.start_capture_live_page.setEnabled(True)
         self.ui.stop_capture_live_page.setEnabled(False)
         self.ui.timer_live.stop()
+
+
+    def load_language(self):
+        lan=self.db.load_language()
+        # self.ui.language=
+        self.ui.set_language(lan)
+
+        if lan =='English':
+            self.language='en'
+        else:
+            self.language='fa'
+
+
+        return lan
+        
+
+    def set_language(self):
+
+        lan=self.ui.combo_change_language.currentText()
+        print('save')
+        self.db.set_language(lan)

@@ -153,22 +153,25 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
     rect_roi_2 = jsondb.get_rect_roi( page_name, subpage_name)
     jump_thresh = jsondb.get_numerical_parm(page_name, subpage_name, 'jump_thresh')
 
-    thread_lenght = jsondb.get_limit('thread_lenght', page_name, subpage_name)
-    thread_distance = jsondb.get_limit('thread_distance', page_name, subpage_name)
-    thread_count = jsondb.get_limit('thread_count', page_name, subpage_name)
+    limit_thread_lenght = jsondb.get_limit('thread_lenght', page_name, subpage_name)
+    limit_thread_distance = jsondb.get_limit('thread_distance', page_name, subpage_name)
+    limit_thread_count = jsondb.get_limit('thread_count', page_name, subpage_name)
 
     result = []
-    res_dict_lenght = set_dict('thread_lenght', -2, -2, -2, thread_lenght )
-    thread_distance = set_dict('thread_distance', -2, -2, -2, thread_distance )
-    thread_count = set_dict('thread_count', -2, -2, -2, thread_count )
+    dict_lenght = set_dict('thread_lenght', -2, -2, -2, limit_thread_lenght )
+    dict_thread_distance = set_dict('thread_distance', -2, -2, -2, limit_thread_distance )
+    dict_thread_count = set_dict('thread_count', -2, -2, -2, limit_thread_count )
+
     if Utils.is_rect(rect_roi_2):
+
         male_thread_l, male_thread_h = cvTools.find_screw_thread_top( mask, rect_roi_2,  min_diff=jump_thresh)
 
         if len(male_thread_h) > 2:
+
             _,_,lenght_male_avg,_  = mathTools.thread_lenght( male_thread_h )
-            res_dict_lenght = {'name' : 'thread male length',
-                                'limit_min': thread_lenght['min'],
-                                'limit_max': thread_lenght['max'],
+            dict_lenght = {'name' : 'thread male length',
+                                'limit_min': limit_thread_lenght['min'],
+                                'limit_max': limit_thread_lenght['max'],
                                 'min': lenght_male_avg,
                                 'max': lenght_male_avg,
                                 'avg': lenght_male_avg }
@@ -176,17 +179,17 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
 
             min_s,max_s, avg_s,_  = mathTools.thread_step_distance( male_thread_h )
             
-            thread_distance = {'name' : 'thread male distance',
-                                'limit_min': thread_distance['min'],
-                                'limit_max': thread_distance['max'],
+            dict_thread_distance = {'name' : 'thread male distance',
+                                'limit_min': limit_thread_distance['min'],
+                                'limit_max': limit_thread_distance['max'],
                                 'min': min_s,
                                 'max': max_s,
                                 'avg': avg_s }
              
             min_s,max_s, avg_s,_  = mathTools.thread_step_distance( male_thread_h )
-            thread_count = {'name' : 'thread male distance',
-                            'limit_min': thread_count['min'],
-                            'limit_max': thread_count['max'],
+            dict_thread_count = {'name' : 'thread male distance',
+                            'limit_min': limit_thread_count['min'],
+                            'limit_max': limit_thread_count['max'],
                             'min': len(male_thread_h),
                             'max': len(male_thread_h),
                             'avg': len(male_thread_h) }
@@ -197,14 +200,14 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
                 draw = cvTools.draw_points(draw, male_thread_l, (200,50,0), 5)
 
         else:
-            res_dict_lenght = set_dict('thread_lenght', -1, -1, -1, thread_lenght )
-            thread_distance = set_dict('thread_distance', -1, -1, -1, thread_distance )
-            thread_count = set_dict('thread_count', -1, -1, -1, thread_count )
+            dict_lenght = set_dict('thread_lenght', -1, -1, -1, limit_thread_lenght )
+            dict_thread_distance = set_dict('thread_distance', -1, -1, -1, limit_thread_distance )
+            dict_thread_count = set_dict('thread_count', -1, -1, -1, limit_thread_count )
     
     
-    result.append( thread_distance )
-    result.append( res_dict_lenght )
-    result.append( thread_count )
+    result.append( dict_thread_distance )
+    result.append( dict_lenght )
+    result.append( dict_thread_count )
 
     if draw is None:
         draw = np.copy(img)

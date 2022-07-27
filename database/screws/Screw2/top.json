@@ -1,0 +1,70 @@
+{
+    "active_tools": [
+        "5_top"
+    ],
+    "direction": "top",
+    "img_path": "/media/milad/PYTHON/myproject/Screw-inspection/sample images/top/Image__2047-01-06__12-02-12.bmp",
+    "name": "Screw2",
+    "settings": {
+        "1_top": {
+            "img_path": "/media/milad/PYTHON/myproject/Screw-inspection/sample images/top/Image__2047-01-06__12-02-12.bmp",
+            "noise_filter0": 80,
+            "rect_roi0": [
+                [
+                    307,
+                    49
+                ],
+                [
+                    1343,
+                    1040
+                ]
+            ],
+            "thresh0": 164
+        },
+        "2_top": {},
+        "4_top": {
+            "circels_roi": [
+                [
+                    [
+                        701,
+                        524
+                    ],
+                    480
+                ]
+            ],
+            "min_area": 150,
+            "noise_filter0": 24,
+            "thresh0": 123
+        },
+        "5_top": {
+            "flanch": {
+                "circels_roi": [
+                    [
+                        [
+                            697,
+                            515
+                        ],
+                        471
+                    ]
+                ],
+                "noise_filter0": 26,
+                "thresh0": 176,
+                "thresh_inv0": false
+            },
+            "head": {
+                "circels_roi": [
+                    [
+                        [
+                            696,
+                            521
+                        ],
+                        358
+                    ]
+                ],
+                "noise_filter0": 28,
+                "thresh0": 183,
+                "thresh_inv0": true
+            }
+        }
+    }
+}

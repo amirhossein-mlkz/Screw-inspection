@@ -1,14 +1,16 @@
 {
     "active_tools": [
         "1_side",
-        "3_side"
+        "2_side",
+        "3_side",
+        "4_side"
     ],
     "direction": "side",
-    "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/temp_side/1.jpg",
+    "img_path": "/media/milad/PYTHON/myproject/Screw-inspection/sample images/New folder (3)/test1_0_16.png",
     "name": "Asd",
     "settings": {
         "1_side": {
-            "img_path": "D:/Electrical And Programming office/2-Open CV/project/work project/Screw-inspection/sample images/temp_side/1.jpg",
+            "img_path": "/media/milad/PYTHON/myproject/Screw-inspection/sample images/New folder (3)/test1_0_16.png",
             "noise_filter0": 21,
             "rect_roi0": [
                 [
@@ -45,6 +47,18 @@
         },
         "3_side": {
             "jump_thresh": 6,
+            "limits": {
+                "max": {
+                    "thread_count": 20,
+                    "thread_distance": 0,
+                    "thread_lenght": 0
+                },
+                "min": {
+                    "thread_count": 0,
+                    "thread_distance": 0,
+                    "thread_lenght": 35
+                }
+            },
             "navel": true,
             "rect_roi0": [
                 [
