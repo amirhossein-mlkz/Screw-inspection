@@ -1,16 +1,21 @@
 
+sql_mode='none'
 
+if sql_mode=='mysql':
 # from sqlalchemy import false, true
-import database.database as database
-import datetime
-
-import os
+    import database.database as database
+if sql_mode=='none':
+    from database.database_const import CAMERA_INFO,USERS,GENERAL_SETTINGS,PLC_IP,PLC_PARMS
 
 
 class dataBaseUtils():
     def __init__(self,user_name='root',password='') :
         # password='@mm@9398787515AmmA'
-        self.db=database.dataBase(user_name,password,'localhost','screw')
+        if sql_mode=='mysql':
+            self.db=database.dataBase(user_name,password,'localhost','screw')
+
+        if sql_mode=='none':
+            self.db=None
 
         self.page_grab='screw_page_grab'
         self.table_cameras = 'camera_settings'
@@ -25,6 +30,10 @@ class dataBaseUtils():
     #
     #________________________________________________________________
     def search_user(self,input_user_name):
+
+        if sql_mode=='none':
+            return []
+
         try:
             record = self.db.search( self.table_user , 'user_name', input_user_name )[0]
             #print('asd',record)
@@ -34,6 +43,10 @@ class dataBaseUtils():
 
 
     def search_camera_by_ip(self, input_camera_ip):
+
+        if sql_mode=='none':
+            return []
+
         try:
             record = self.db.search( self.table_cameras , 'ip_address', input_camera_ip)[0]
             #print('asd',record)
@@ -43,6 +56,11 @@ class dataBaseUtils():
 
 
     def search_camera_by_serial(self, input_camera_serial):
+
+
+        if sql_mode=='none':
+            return []
+
         try:
             record = self.db.search( self.table_cameras , 'serial_number', input_camera_serial)[0]
             #print('asd',record)
@@ -52,14 +70,20 @@ class dataBaseUtils():
     
 
     def load_cam_params(self, input_camera_id):
+
+
+        if sql_mode=='none':
+            return CAMERA_INFO
         try:
             record = self.db.search( self.table_cameras , 'id', input_camera_id )[0]
-            #print('camera info:', record)
+            print('camera info:', record)
             return record
         except:
             return []
 
     def update_cam_params(self, input_camera_id, input_camera_params):
+        if sql_mode=='none':
+            return True
         try:
             for camera_param in input_camera_params.keys():
                 res = self.db.update_record(self.table_cameras, camera_param, str(input_camera_params[camera_param]), self.camera_id, input_camera_id)
@@ -69,6 +93,10 @@ class dataBaseUtils():
 
 
     def update_general_setting_params(self, input_setting_params):
+
+        if sql_mode=='none':
+            return True
+
         try:
             for param in input_setting_params.keys():
                 res = self.db.update_record(self.table_general_settings, param, str(input_setting_params[param]), self.general_settings_id, '0')
@@ -77,9 +105,13 @@ class dataBaseUtils():
             return False
 
     def load_general_setting_params(self):
+
+        if sql_mode=='none':
+            return GENERAL_SETTINGS
+
         try:
             record = self.db.search( self.table_general_settings , self.general_settings_id, '0' )[0]
-            #print('camera info:', record)
+            print('camera info:', record)
             return record
         except:
             return []
@@ -87,9 +119,13 @@ class dataBaseUtils():
 
 
     def load_users(self):
+
+        if sql_mode=='none':
+            return USERS
+
         try:
             users=self.db.get_all_content('users')
-
+            print('users',users)
             return users
         
         except:
@@ -99,11 +135,20 @@ class dataBaseUtils():
 
     def remove_users(self,users_name):
 
+        if sql_mode=='none':
+            return True
+
+
         for i in range(len(users_name)):
             
             self.db.remove_record(col_name='user_name',id=users_name[i],table_name='users')
 
     def add_user(self,parms):
+
+        if sql_mode=='none':
+            return True
+
+
         data=(parms['user_name'],parms['password'],parms['role'])
         #print(data)
         try:
@@ -115,17 +160,12 @@ class dataBaseUtils():
 
     
     def search_user_by_user_name(self, input_user_name):
+
+        if sql_mode=='none':
+            return []     
+
         try:
             record = self.db.search( self.table_user , 'user_name', input_user_name)[0]
-            return record
-        except:
-            return []
-
-
-
-    def search_page_grab(self,name):
-        try:
-            record = self.db.search( self.page_grab , 'name', name,int_type=False)
             return record
         except:
             return []
@@ -153,9 +193,13 @@ class dataBaseUtils():
 
     def load_plc_parms(self):
 
+        if sql_mode=='none':
+            return PLC_PARMS   
+
         try:
 
             parms=self.db.get_all_content(self.plc)
+            # print('parms',parms)
             return parms
         except:
             return []
@@ -163,17 +207,25 @@ class dataBaseUtils():
 
     def load_plc_ip(self):
 
+        if sql_mode=='none':
+            return PLC_IP    
+
         ip=self.db.search( self.setting_tabel , 'id', 0 )[0]
+        # print('ip',ip)
         return ip['plc_ip']
 
     def save_plc_ip(self,ip):
 
+        if sql_mode=='none':
+            return True  
 
         res = self.db.update_record(self.setting_tabel, 'plc_ip',ip, 'id', '0')
 
 
     def update_plc_parms(self, plc_parms):
-        # try:
+        if sql_mode=='none':
+            return True  
+        try:
             for _,param in enumerate(plc_parms.keys()):
                 # update_record(self,table_name,col_name,value,id,id_value):
                 i=_+1
@@ -182,14 +234,17 @@ class dataBaseUtils():
                 res = self.db.update_record(self.plc, 'path', str(plc_parms[param]), 'name',param)
 
             return res
-        # except:
-            # return False
+        except:
+            return False
 
 
     def load_calibration_parms(self):
+
+        if sql_mode=='none':
+            return(GENERAL_SETTINGS['top_calibration'],GENERAL_SETTINGS['side_calibration'])
         try:
             record = self.db.search( self.setting_tabel , 'id', 0)[0]
-            # print('asd',record)
+            print('asd',record)
             return (record['top_calibration'],record['side_calibration'])
         except:
             return []
@@ -206,10 +261,14 @@ class dataBaseUtils():
 
 
     def set_language(self,name):
+        if sql_mode=='none':
+            return True
         self.db.update_record(self.setting_tabel, 'language',str(name), 'id', '0')
 
 
     def load_language(self):
+        if sql_mode=='none':
+            return 'english'
         record = self.db.search( self.setting_tabel , 'id', '0' )[0]
         # print(record)
         return record['language']
@@ -218,7 +277,7 @@ class dataBaseUtils():
 
 if __name__ == '__main__':
     db = dataBaseUtils(user_name='root',password='password')
-    x=db.load_language()
+    x=db.load_calibration_parms()
     print(x)
     # x=db.load_calibration_parms()
     # print(x)

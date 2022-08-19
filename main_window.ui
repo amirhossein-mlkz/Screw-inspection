@@ -2231,7 +2231,7 @@ QPushButton:hover {
                          <string notr="true">background-color : #F3F6FE;</string>
                         </property>
                         <property name="currentIndex">
-                         <number>1</number>
+                         <number>0</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -2378,7 +2378,7 @@ QPushButton:hover {
                                      </property>
                                     </widget>
                                    </item>
-                                   <item alignment="Qt::AlignHCenter">
+                                   <item>
                                     <widget class="QFrame" name="frame_45">
                                      <property name="minimumSize">
                                       <size>
@@ -2415,31 +2415,9 @@ QPushButton:hover {
                                        <number>0</number>
                                       </property>
                                       <item>
-                                       <widget class="QLabel" name="label_54">
-                                        <property name="maximumSize">
-                                         <size>
-                                          <width>81</width>
-                                          <height>16777215</height>
-                                         </size>
-                                        </property>
+                                       <widget class="QCheckBox" name="btn_enabel_mask_draw_live_side">
                                         <property name="text">
-                                         <string>Scale :</string>
-                                        </property>
-                                       </widget>
-                                      </item>
-                                      <item>
-                                       <widget class="QSpinBox" name="spin_scale_top_cam_live_page">
-                                        <property name="maximumSize">
-                                         <size>
-                                          <width>55</width>
-                                          <height>16777215</height>
-                                         </size>
-                                        </property>
-                                        <property name="minimum">
-                                         <number>10</number>
-                                        </property>
-                                        <property name="maximum">
-                                         <number>200</number>
+                                         <string/>
                                         </property>
                                        </widget>
                                       </item>
@@ -2627,31 +2605,12 @@ QPushButton:hover {
                                        <number>0</number>
                                       </property>
                                       <item>
-                                       <widget class="QLabel" name="label_168">
-                                        <property name="maximumSize">
-                                         <size>
-                                          <width>81</width>
-                                          <height>16777215</height>
-                                         </size>
-                                        </property>
+                                       <widget class="QCheckBox" name="btn_enabel_mask_draw_live_top">
                                         <property name="text">
-                                         <string>Scale :</string>
+                                         <string/>
                                         </property>
-                                       </widget>
-                                      </item>
-                                      <item>
-                                       <widget class="QSpinBox" name="spin_scale_side_cam_live_page">
-                                        <property name="maximumSize">
-                                         <size>
-                                          <width>55</width>
-                                          <height>16777215</height>
-                                         </size>
-                                        </property>
-                                        <property name="minimum">
-                                         <number>10</number>
-                                        </property>
-                                        <property name="maximum">
-                                         <number>200</number>
+                                        <property name="checked">
+                                         <bool>false</bool>
                                         </property>
                                        </widget>
                                       </item>
@@ -15770,8 +15729,8 @@ QPushButton:pressed {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>92</width>
-                                  <height>67</height>
+                                  <width>276</width>
+                                  <height>772</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">

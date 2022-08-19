@@ -36,7 +36,7 @@ import cv2
 import login_UI
 import confirm_UI
 from backend import camera_funcs, colors_pallete, confirm_window_messages, mainsetting_funcs\
-                    , user_login_logout_funcs, user_management_funcs, Screw, Utils, Drawing, cvTools, mathTools, proccessings,plc_managment
+                    , user_login_logout_funcs, user_management_funcs, Screw, Utils, Drawing, cvTools, mathTools, proccessings,plc_managment, camera_connection
 
 from backend.mouse import Mouse
 
@@ -88,7 +88,14 @@ class API:
         #------------------------------------------------------------------------------------------------------------------------
         # APIs of the app
         #self.login_api = login_UI.login_api.API(self.login_ui)
+        #------------------------------------------------------------------------------------------------------------------------
         
+        cameras_info = self.db.load_cam_params
+        self.cameras = {}
+        for cam_info in cameras_info:
+            self.cameras [ cam_info['direction'] ] = camera_connection.Collector(cam_info['serial_number'],exposure=cam_info['exposure'],gain=cam_info['gain'])
+
+
         #------------------------------------------------------------------------------------------------------------------------
         # database module api
         
@@ -207,7 +214,7 @@ class API:
         
         # general-settings
 
-        self.ui.btn_set_szies.clicked.connect(self.set_apply_imgs_live)
+        # self.ui.btn_set_szies.clicked.connect(self.set_apply_imgs_live)
 
         self.ui.setting_color_comboBox.currentTextChanged.connect(lambda: mainsetting_funcs.update_combo_color(ui_obj=self.ui))
         self.ui.setting_fontstyle_comboBox.currentTextChanged.connect(lambda: mainsetting_funcs.update_combo_fontstyle(ui_obj=self.ui))
@@ -260,7 +267,8 @@ class API:
         self.ui.roi_connect(self.update_roi_input)        
         self.ui.save_btn_page_grab.clicked.connect(self.save_screw)
         
-        
+        self.ui.connect_cameras_live_page.clicked.connect(self.connect_camera)
+        self.ui.disconnect_cameras_live_page.clicked.connect(self.disconnect_camera)
 
 
         self.ui.side_dashboard_btn.clicked.connect(self.load_live_page_infoes)
@@ -348,13 +356,13 @@ class API:
         set_dimensions(self.ui.label_img_side_live,(x*scale),(y*scale*ratio))
 
 
-    def set_apply_imgs_live(self):
+    # def set_apply_imgs_live(self):
 
-        side_parms,top_parms=self.ui.get_sizes_parms()
+    #     side_parms,top_parms=self.ui.get_sizes_parms()
 
-        self.db.set_size_table_side(side_parms)
-        self.db.set_size_table_top(top_parms)
-        self.set_load_imgs_live()
+    #     self.db.set_size_table_side(side_parms)
+    #     self.db.set_size_table_top(top_parms)
+    #     self.set_load_imgs_live()
 
 
 
@@ -393,27 +401,6 @@ class API:
             camera_funcs.set_camera_params_to_ui(ui_obj=self.ui, db_obj=self.db, camera_params=camera_params, camera_id=camera_id, available_serials=self.available_camera_serials)
 
     
-    # connect to cameras given entered serial number and camera parameters
-    def connect_dissconnect_to_camera(self, calibration=False):
-        # get camera parametrs on camera-settings page
-        if not calibration:
-            camera_serial_number = camera_funcs.get_camera_params_from_ui(ui_obj=self.ui)['serial_number']
-        # check if serial is assigned
-        if camera_serial_number == '0':
-            # if not calibration:
-            self.ui.show_mesagges(self.ui.camera_setting_message_label, 'No Serial is Assigned', color=colors_pallete.failed_red)
-        else:
-            # connect to camera
-            if not self.ui.camera_connect_flag:
-                # if not calibration:
-                self.camera_connection = camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=True, current_cam_connection=None)
-                camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=True)
-            # disconnect from camera
-            else:
-                # if not calibration:
-                camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=False, current_cam_connection=self.camera_connection)
-                camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=False)
-
 
     # show cameras picture on UI
     def show_camera_picture(self, calibration=False):
@@ -1487,15 +1474,20 @@ class API:
 
 
     def load_screw_live(self):
+        
         name = self.ui.combobox_select_screw_live.currentText()
         name  = name.replace(" ","")
         if len(name)>=3:
             path = dbUtils.get_screw_path(name)
+            # if path
             self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
             for direction in self.screw_jasons.keys():
                 self.screw_jasons[direction].read(path, direction)
                 img_path = self.screw_jasons[direction].get_img_path()
-                img=cv2.imread(img_path)
+                try:
+                    img=cv2.imread(img_path)
+                except:
+                    img = np.zeros(shape=(1040,1392),dtype='uint8')
                 self.ui.set_selected_image_live_page(direction,img)
 
 
@@ -1527,6 +1519,11 @@ class API:
         screw_json = self.screw_jasons[ direction ]  
 
         img, mask_roi,_ = proccessings.preprocessing_side_img( img, screw_json, direction )
+
+        if img  is None:
+            print('fuuuuuck'*50)
+            black_img = np.zeros(shape=(1040,1392),dtype='uint8')
+            return (black_img,[])
         #img = Utils.mask_viewer(img, thresh_img, color=(0,100,0))
         draw_img = np.copy(img)
         results = []
@@ -1798,6 +1795,7 @@ class API:
             results_side = []
             results_top = []
             # print(self.img_side)
+        
             draw_img_top, results_top = self.proccessing_live_top(self.img_top)
             draw_img_side, results_side = self.proccessing_live_side(self.img_side)
 
@@ -1809,9 +1807,16 @@ class API:
             self.ui.set_live_table( self.ui.table_live_top_live_page, results_top )
             self.ui.set_live_table( self.ui.table_live_side_live_page, results_side )
 
+            if not self.ui.btn_enabel_mask_draw_live_top.isChecked():
+                draw_img_side = self.img_side
             draw_img_side = cv2.rotate( draw_img_side, cv2.ROTATE_90_COUNTERCLOCKWISE )
+
+            if not self.ui.btn_enabel_mask_draw_live_side.isChecked():
+                draw_img_top = self.img_top
             draw_img_top = cv2.rotate( draw_img_top, cv2.ROTATE_90_COUNTERCLOCKWISE )
 
+
+            
             self.ui.set_image_label(self.ui.label_img_top_live, draw_img_top)
             self.ui.set_image_label(self.ui.label_img_side_live,draw_img_side)
 
@@ -1876,3 +1881,22 @@ class API:
         lan=self.ui.combo_change_language.currentText()
         print('save')
         self.db.set_language(lan)
+
+
+
+
+    def connect_camera(self):
+        for cam in self.cameras.values():
+
+            cam.start_grabbing()
+
+
+
+
+    
+    def disconnect_camera(self):
+        print('ffff')
+        for cam in self.cameras.values():
+
+            cam.stop_grabbing()
+        

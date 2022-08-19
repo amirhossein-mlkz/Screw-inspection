@@ -88,6 +88,8 @@ def preprocessing_side_img( img, json, direction):
     #--------------------------------------------------------------------------------------
     mask_unbelt, _ = cvTools.remove_belt( thresh_img,rect_roi_main, thresh=0.7 )
     angle, _ = cvTools.correct_rotation_angle(mask_unbelt)
+    if angle==None:
+        return None,None,None
     thresh_img = cvTools.rotate_image(thresh_img,  angle   )
     img = cvTools.rotate_image(img,  angle   )
 

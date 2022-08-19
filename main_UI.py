@@ -1758,10 +1758,12 @@ class UI_main_window(QMainWindow, ui):
                     table_name.setItem(id,col_id,table_item)
                     if col_id==0:
                         table_item.setBackground(QBrush(QColor("#17202A")))
+
                         # self.set_color_table_name_col(table_item,page_value[col_value],limit_min,limit_max)
                     else:
                         self.set_color_table(table_item,page_value[col_value],limit_min,limit_max)
-                        
+                    if col_id==4 or col_id==5:
+                        table_item.setBackground(QBrush(QColor("#808080")))    
                     if page_value[col_value]==-1 or page_value[col_value]==-2:
                         table_item.setBackground(QBrush(QColor("#D4AC0D")))
 

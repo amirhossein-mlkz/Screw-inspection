@@ -1261,19 +1261,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_18 = QHBoxLayout(self.frame_45)
         self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
         self.horizontalLayout_18.setContentsMargins(0, 0, 0, 0)
-        self.label_54 = QLabel(self.frame_45)
-        self.label_54.setObjectName(u"label_54")
-        self.label_54.setMaximumSize(QSize(81, 16777215))
+        self.btn_enabel_mask_draw_live_side = QCheckBox(self.frame_45)
+        self.btn_enabel_mask_draw_live_side.setObjectName(u"btn_enabel_mask_draw_live_side")
 
-        self.horizontalLayout_18.addWidget(self.label_54)
-
-        self.spin_scale_top_cam_live_page = QSpinBox(self.frame_45)
-        self.spin_scale_top_cam_live_page.setObjectName(u"spin_scale_top_cam_live_page")
-        self.spin_scale_top_cam_live_page.setMaximumSize(QSize(55, 16777215))
-        self.spin_scale_top_cam_live_page.setMinimum(10)
-        self.spin_scale_top_cam_live_page.setMaximum(200)
-
-        self.horizontalLayout_18.addWidget(self.spin_scale_top_cam_live_page)
+        self.horizontalLayout_18.addWidget(self.btn_enabel_mask_draw_live_side)
 
         self.fullscreen_cam_1 = QPushButton(self.frame_45)
         self.fullscreen_cam_1.setObjectName(u"fullscreen_cam_1")
@@ -1298,7 +1289,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_18.addWidget(self.btn_save_top_cam_live_page)
 
 
-        self.verticalLayout_4.addWidget(self.frame_45, 0, Qt.AlignHCenter)
+        self.verticalLayout_4.addWidget(self.frame_45)
 
 
         self.horizontalLayout_89.addWidget(self.frame_147)
@@ -1351,19 +1342,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_78 = QHBoxLayout(self.frame_22)
         self.horizontalLayout_78.setObjectName(u"horizontalLayout_78")
         self.horizontalLayout_78.setContentsMargins(0, 0, 0, 0)
-        self.label_168 = QLabel(self.frame_22)
-        self.label_168.setObjectName(u"label_168")
-        self.label_168.setMaximumSize(QSize(81, 16777215))
+        self.btn_enabel_mask_draw_live_top = QCheckBox(self.frame_22)
+        self.btn_enabel_mask_draw_live_top.setObjectName(u"btn_enabel_mask_draw_live_top")
+        self.btn_enabel_mask_draw_live_top.setChecked(False)
 
-        self.horizontalLayout_78.addWidget(self.label_168)
-
-        self.spin_scale_side_cam_live_page = QSpinBox(self.frame_22)
-        self.spin_scale_side_cam_live_page.setObjectName(u"spin_scale_side_cam_live_page")
-        self.spin_scale_side_cam_live_page.setMaximumSize(QSize(55, 16777215))
-        self.spin_scale_side_cam_live_page.setMinimum(10)
-        self.spin_scale_side_cam_live_page.setMaximum(200)
-
-        self.horizontalLayout_78.addWidget(self.spin_scale_side_cam_live_page)
+        self.horizontalLayout_78.addWidget(self.btn_enabel_mask_draw_live_top)
 
         self.fullscreen_cam2 = QPushButton(self.frame_22)
         self.fullscreen_cam2.setObjectName(u"fullscreen_cam2")
@@ -7715,7 +7698,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents_3 = QWidget()
         self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 92, 67))
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 276, 772))
         self.horizontalLayout_29 = QHBoxLayout(self.scrollAreaWidgetContents_3)
         self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
         self.tableWidget_users = QTableWidget(self.scrollAreaWidgetContents_3)
@@ -9219,7 +9202,7 @@ class Ui_MainWindow(object):
         self.bar_thresh0_5_top.valueChanged.connect(self.spinBox_21.setValue)
         self.bar_noise_filter0_5_top.valueChanged.connect(self.spinBox_22.setValue)
 
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(3)
         self.stackedWidget_3.setCurrentIndex(1)
 
@@ -9297,7 +9280,7 @@ class Ui_MainWindow(object):
         self.pushButton_17.setText(QCoreApplication.translate("MainWindow", u"Storage Setting", None))
         self.label_20.setText(QCoreApplication.translate("MainWindow", u"Top Camera", None))
         self.label_img_top_live.setText("")
-        self.label_54.setText(QCoreApplication.translate("MainWindow", u"Scale :", None))
+        self.btn_enabel_mask_draw_live_side.setText("")
         self.fullscreen_cam_1.setText("")
 #if QT_CONFIG(tooltip)
         self.btn_save_top_cam_live_page.setToolTip(QCoreApplication.translate("MainWindow", u"save image", None))
@@ -9305,7 +9288,7 @@ class Ui_MainWindow(object):
         self.btn_save_top_cam_live_page.setText("")
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Side Camera", None))
         self.label_img_side_live.setText("")
-        self.label_168.setText(QCoreApplication.translate("MainWindow", u"Scale :", None))
+        self.btn_enabel_mask_draw_live_top.setText("")
         self.fullscreen_cam2.setText("")
 #if QT_CONFIG(tooltip)
         self.btn_save_side_cam_live_page.setToolTip(QCoreApplication.translate("MainWindow", u"save image", None))
