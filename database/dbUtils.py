@@ -3,7 +3,10 @@ import shutil
 import cv2
 import time
 from datetime import datetime
-
+try:
+    import date_funcs
+except:
+    from backend import date_funcs
 PATH = 'database/screws'
 def get_screw_path(name):
     return os.path.join(PATH, name)

@@ -1,6 +1,6 @@
 from dis import dis
 from re import S
-from turtle import Shape, color
+# from turtle import Shape, color
 
 import numpy as np
 import cv2

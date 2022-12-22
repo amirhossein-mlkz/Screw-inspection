@@ -21,33 +21,42 @@
 ################################
 
 from datetime import datetime
+from this import d
 import threading
 from functools import partial
-from unittest import result
-from cv2 import normalize
-from matplotlib.pyplot import draw
+
+
 import numpy as np
-import random
+
 
 import database_utils
 import cv2
 
-import login_UI
+# import login_UI
 import confirm_UI
 from backend import camera_funcs, colors_pallete, confirm_window_messages, mainsetting_funcs\
-                    , user_login_logout_funcs, user_management_funcs, Screw, Utils, Drawing, cvTools, mathTools, proccessings,plc_managment
+                    , user_login_logout_funcs, user_management_funcs, Screw, Utils, Drawing, cvTools, mathTools, proccessings,plc_modbus
 
 from backend.mouse import Mouse
-
+from backend import camera_connection #2 as camera_connection
 from full_screen_UI import FullScreen_UI
 import texts
 
 from database import dbUtils, screwDB
 import platform
 from Keys import set_dimensions
-from PyQt5.QtCore import QTimer,QDateTime,QObject, QThread
+from PySide6.QtCore import QDateTime as sQDateTime
+from PySide6.QtCore import QObject as sQObject
+from PySide6.QtCore import QThread as sQThread
+
+
 # from PyQt5.QtCore import 
 import time
+from PySide6.QtCore import QTimer as sQTimer
+# from PyQt5.QtCore import QTimer
+
+from history_UI import UI_history_window
+
 
 def time_measure(func):
     def wrapper(*args, **kwargs):
@@ -62,9 +71,17 @@ DEFAULT_SCERW_PATH = 'database\defualt_screw'
 
 class API:
 
-    SAMPLE_IMAGE=True
+    SAMPLE_IMAGE=False
+
+    run_detect=False
 
     image_num=0
+
+    #variable for history 
+
+    all_screw=0
+    defect_screw =0
+
 
     def __init__(self,ui):
         self.ui = ui
@@ -85,7 +102,9 @@ class API:
         #------------------------------------------------------------------------------------------------------------------------
         # APIs of the app
         #self.login_api = login_UI.login_api.API(self.login_ui)
-        
+        #------------------------------------------------------------------------------------------------------------------------
+
+
         #------------------------------------------------------------------------------------------------------------------------
         # database module api
         
@@ -98,21 +117,24 @@ class API:
         else:
             self.db = database_utils.dataBaseUtils(password='@mm@9398787515AmmA')
             #self.db = database_utils.dataBaseUtils(password='root')
+        
+        cameras_info = self.db.load_cam_params(1)
+        print('cameras_info',cameras_info)
+        self.cameras = {}
+        # for cam_info in cameras_info:
+        self.cameras [ cameras_info['direction'] ] = camera_connection.Collector(cameras_info['serial_number'],exposure=cameras_info['expo_value'],gain=cameras_info['gain_value'])
 
-        #------------------------------------------------------------------------------------------------------------------------
-        # start-up functions
-        # get available cameras and update database
+
         self.available_camera_serials = camera_funcs.get_available_cameras_list_serial_numbers()
-        # camera_funcs.update_available_camera_serials_on_db(db_obj=self.db, available_serials=self.available_camera_serials)
-        # assign base parameters to UI
+
         mainsetting_funcs.assign_appearance_existing_params_to_ui(ui_obj=self.ui)
         # load and apply program appearance params
         self.load_appearance_params_on_start()
         # refresh dashboard
         self.language='en'
-        # function to active the UI buttons functionality
-        self.button_connector()
 
+
+        # self.test_trig_camera()
 
         
 
@@ -152,19 +174,23 @@ class API:
         
         self.laod_images()
         self.set_images()
-        #self.timer_live = QTimer()
-        #self.timer_live.timeout.connect(self.set_images)
-        #self.timer_live.start(200)
+
+        self.connect_plc()         #check plc status at startup
+        self.timer_check_plc = sQTimer()
+        self.timer_check_plc.timeout.connect(self.check_plc_status)
+        self.timer_check_plc.start(500)
+
+        # Language
+        self.load_language()
+        self.ui.combo_change_language.currentTextChanged.connect(self.set_language)
+
+        #history
+
+        self.history_obj = UI_history_window()
 
 
-    def pr(self):
-        print('Hello Thread!')
-
-
-
-
-
-
+        # function to active the UI buttons functionality
+        self.button_connector()
 
     def button_connector(self):
         
@@ -174,7 +200,7 @@ class API:
         
         
         # login button
-        self.ui.main_login_btn.clicked.connect(partial(lambda: user_login_logout_funcs.run_login_window(ui_obj=self.ui, login_ui_obj=self.login_ui, confirm_ui_obj=self.confirm_ui)))
+        # self.ui.main_login_btn.clicked.connect(partial(lambda: user_login_logout_funcs.run_login_window(ui_obj=self.ui, login_ui_obj=self.login_ui, confirm_ui_obj=self.confirm_ui)))
 
         # camera buttons in the camera-settings section
         for cam_id in camera_funcs.all_camera_ids:
@@ -182,9 +208,7 @@ class API:
 
         # buttons in the camera-settings section
         self.ui.camera_setting_apply_btn.clicked.connect(partial(self.save_changed_camera_params))
-        self.ui.camera_setting_connect_btn.clicked.connect(partial(self.connect_dissconnect_to_camera))
-        # self.ui.camera_setting_getpic_btn.clicked.connect(partial(self.show_camera_picture))
-        self.ui.camera_setting_get_top_camera
+
 
 
         # login window and confirm window
@@ -200,7 +224,7 @@ class API:
         
         # general-settings
 
-        self.ui.btn_set_szies.clicked.connect(self.set_apply_imgs_live)
+        # self.ui.btn_set_szies.clicked.connect(self.set_apply_imgs_live)
 
         self.ui.setting_color_comboBox.currentTextChanged.connect(lambda: mainsetting_funcs.update_combo_color(ui_obj=self.ui))
         self.ui.setting_fontstyle_comboBox.currentTextChanged.connect(lambda: mainsetting_funcs.update_combo_fontstyle(ui_obj=self.ui))
@@ -211,9 +235,9 @@ class API:
         self.ui.side_general_setting_btn.clicked.connect(lambda: self.load_appearance_params_on_start(mainsetting_page=True))
 
         #Fullscreen  
-        self.ui.fullscreen_cam_1.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam_1))
-        self.ui.fullscreen_cam2.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam2))
-        self.ui.fullscreen_page_tools.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_page_tools))
+        # self.ui.fullscreen_cam_1.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam_1))
+        # self.ui.fullscreen_cam2.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam2))
+        # self.ui.fullscreen_page_tools.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_page_tools))
 
 
         #tools page
@@ -229,14 +253,11 @@ class API:
         # publice setting-------------------------------------------------------
         #page_setting
 
-        self.ui.camera_setting_get_top_camera.clicked.connect(self.capture_image(direction='top'))
-        self.ui.camera_setting_get_side_camera.clicked.connect(self.capture_image(direction='side'))
+        self.ui.camera_setting_get_top_camera.clicked.connect(lambda:self.capture_image(direction='top'))
+        self.ui.camera_setting_get_side_camera.clicked.connect(lambda:self.capture_image(direction='side'))
 
         #Page 1_top----------------------------------------------------------
       
-        
-        #self.ui.btn_set_image0_1_top.clicked.connect(self.update_main_image)
-        #self.ui.btn_page_1_top.clicked.connect(self.update_setting_page_info)
         
         self.ui.connect_btn('set_img', self.update_main_image )
         self.ui.connect_btn('page', self.update_setting_page_info)     
@@ -253,7 +274,8 @@ class API:
         self.ui.roi_connect(self.update_roi_input)        
         self.ui.save_btn_page_grab.clicked.connect(self.save_screw)
         
-        
+        self.ui.connect_cameras_live_page.clicked.connect(self.connect_camera)
+        self.ui.disconnect_cameras_live_page.clicked.connect(self.disconnect_camera)
 
 
         self.ui.side_dashboard_btn.clicked.connect(self.load_live_page_infoes)
@@ -282,15 +304,28 @@ class API:
         self.ui.set_value_plc.clicked.connect(self.set_plc_value)
         self.load_plc_ip()
         self.load_plc_parms()
-        #self.check_plc_status()
 
-        # self.ui.connect_sliders('thresh',self.update_threshould)
+        self.ui.start_capture_live_page.clicked.connect(self.start_detection)
+        self.ui.stop_capture_live_page.clicked.connect(self.stop_detection)
 
-        #setting page2
-        #self.ui.threshouldSetingPage2_slider.valueChanged.connect(self.update_threshould_setting_page2)   
-        #self.ui.page2_noise_filter_top_Slider.valueChanged.connect(self.update_noise_filter_setting_page2)   
+        #history
+        self.ui.history_btn.clicked.connect(self.show_history_win)
+        # self.ui.history_btn.clicked.connect(self.show_history_win)
+        self.history_obj.reset_btn.clicked.connect(self.reset_history)
+        # self.update_history()
 
-        # self.ui.get_sliders('thresh')
+        #calibration page
+
+        self.ui.btn_connect_top_cal_page.clicked.connect(lambda:self.show_camera_picture(side='top'))
+        self.ui.btn_connect_side_cal_page.clicked.connect(lambda:self.show_camera_picture(side='side'))
+
+
+
+        #save image
+
+        self.ui.btn_save_top_cam_live_page.clicked.connect(lambda:self.capture_image_live(direction='top'))
+        self.ui.btn_save_side_cam_live_page.clicked.connect(lambda:self.capture_image_live(direction='side'))
+
         
     # dashboard page
     #------------------------------------------------------------------------------------------------------------------------
@@ -315,10 +350,9 @@ class API:
             parms=self.db.get_size_table('{}'.format(side))[0]
             self.ui.load_sizes(parms,'{}'.format(side))
             parms_.append(parms)
-        print(parms_)
+
         self.camera_ratio=parms_
-        print(self.camera_ratio)
-        # set_dimensions(self.ui,parms_[0],parms_[1])
+
 
         
 
@@ -337,15 +371,6 @@ class API:
         y=int(self.camera_ratio[1]['y'])
         ratio=y/x
         set_dimensions(self.ui.label_img_side_live,(x*scale),(y*scale*ratio))
-
-
-    def set_apply_imgs_live(self):
-
-        side_parms,top_parms=self.ui.get_sizes_parms()
-
-        self.db.set_size_table_side(side_parms)
-        self.db.set_size_table_top(top_parms)
-        self.set_load_imgs_live()
 
 
 
@@ -384,55 +409,10 @@ class API:
             camera_funcs.set_camera_params_to_ui(ui_obj=self.ui, db_obj=self.db, camera_params=camera_params, camera_id=camera_id, available_serials=self.available_camera_serials)
 
     
-    # connect to cameras given entered serial number and camera parameters
-    def connect_dissconnect_to_camera(self, calibration=False):
-        # get camera parametrs on camera-settings page
-        if not calibration:
-            camera_serial_number = camera_funcs.get_camera_params_from_ui(ui_obj=self.ui)['serial_number']
-        # check if serial is assigned
-        if camera_serial_number == '0':
-            # if not calibration:
-            self.ui.show_mesagges(self.ui.camera_setting_message_label, 'No Serial is Assigned', color=colors_pallete.failed_red)
-        else:
-            # connect to camera
-            if not self.ui.camera_connect_flag:
-                # if not calibration:
-                self.camera_connection = camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=True, current_cam_connection=None)
-                camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=True)
-            # disconnect from camera
-            else:
-                # if not calibration:
-                camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number=camera_serial_number, connect=False, current_cam_connection=self.camera_connection)
-                camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=False)
 
 
-    # show cameras picture on UI
-    def show_camera_picture(self, calibration=False):
-        # set soft-calibration buttons enavle/disable
-        self.ui.calib_rotate_spinbox.setEnabled(True)
-        self.ui.calib_shifth_spinbox.setEnabled(True)
-        self.ui.calib_shiftw_spinbox.setEnabled(True)
-        self.ui.calib_radio_corsshair.setEnabled(True)
-        self.ui.calib_radio_grid.setEnabled(True)
-        self.pxcalibration_step = 0
-        self.ui.pixelvalue_prev_btn.setEnabled(False)
-        self.ui.pixelvalue_next_btn.setEnabled(True)
-        #
-        while True and self.ui.camera_connect_flag:
-            # get picture
-            live_image = camera_funcs.get_picture_from_camera(self.camera_connection)
-            # set/show picture to UI
-            if not calibration:
-                camera_funcs.set_camera_picture_to_ui(ui_image_label=self.ui.camera_setting_picture_label, image=live_image)
-            else:
-                self.apply_calibration_on_image(live_image)
-                #cameras.set_camera_picture_to_ui(ui_image_label=self.ui.calib_camera_image, image=live_image)
-            cv2.waitKey(self.update_picture_delay) # must change
-            if calibration:
-                self.ui.calibration_image = cv2.cvtColor(live_image, cv2.COLOR_BGR2GRAY)
-                break
 
-    
+
     # disconnect camera on UI change
     def disconnect_camera_on_ui_change(self):
         if self.ui.camera_connect_flag:
@@ -687,6 +667,7 @@ class API:
     def edit_load_screw(self):
         name = self.ui.comboBox_edit_remove.currentText()
         print('name',name)
+        self.ui.set_deactive_all_pages()
         if name !='':
             self.ui.edit_mode()
             path = dbUtils.get_screw_path(name)
@@ -704,6 +685,9 @@ class API:
                 else:
                     self.ui.enable_bar_btn_tool_page( direction, False )
                 #-----------------------------------------
+                active_pages=self.screw_jasons[direction].get_active_tools()
+                print('active_pages',active_pages)
+                self.ui.set_activate_pages(active_pages,True)
 
             self.update_setting_page_info()
             
@@ -1013,16 +997,38 @@ class API:
     
     def capture_image(self, direction):
         # print('asdawdawdawdawcadc'*20)
-        def fuc():
-            # img=self.cameras[direction].get_img()
-            img=cv2.imread('images/cambtm_actived.png')
+        def fuc(direction):
+            try:
+                img=self.cameras[direction].get_img()
+            except:
+                print('eroooooooooooooooooooooooooor')
+                img=cv2.imread('images/cambtm_actived.png')
+
             f_name=self.ui.label_screw_name.text()
             main_path=self.ui.line_main_path.text()
             path=dbUtils.save_image(img,main_path=main_path,screw_name=f_name,direction=direction)
             self.ui.set_line_value('img_path',path,page_name='1_{}'.format(direction))
             self.update_main_image()
+            print('image saved ',path)
 
-        return fuc
+        return fuc(direction)
+
+    
+    def capture_image_live(self, direction):
+        # print('asdawdawdawdawcadc'*20)
+        def fuc(direction):
+            try:
+                img=self.cameras[direction].get_img()
+            except:
+                print('eroooooooooooooooooooooooooor')
+                img=cv2.imread('images/camera.png')
+            f_name=direction
+            main_path=self.ui.line_main_path.text()
+            path=dbUtils.save_image(img,main_path=main_path,screw_name=f_name,direction=direction)
+            print('image saved ',path)
+
+        return fuc(direction)
+
     
     #____________________________________________________________________________________________________________
     #                                           
@@ -1092,13 +1098,13 @@ class API:
         #--------------------------------------------------------------------------------------
         info = {}
         if shape_type == 'circel':
-            print('circle')
+
             diameters = cvTools.circel_measument(cnt)
             info = {'min_diameter' : diameters.min(), 'max_diameter': diameters.max()}
             self.ui.stackedWidget_3.setCurrentIndex(0)
         
         elif shape_type == 'hexagonal':
-            print('hexagonal')
+
             c2c , e2e = cvTools.hexagonal_measument(cnt)
             info = { 'min_district': e2e.min(),
                      'max_district': e2e.max(), 
@@ -1107,12 +1113,8 @@ class API:
             self.ui.stackedWidget_3.setCurrentIndex(1)
 
         elif shape_type == 'rect':
-            print('rect')
-            # c2c , e2e = cvTools.hexagonal_measument(cnt)
-            # info = { 'min_district': e2e.min(),
-            #          'max_district': e2e.max(), 
-            #          'min_corner' : c2c.min(),
-            #          'max_corner' : c2c.max(),  }
+
+
             self.ui.stackedWidget_3.setCurrentIndex(1)
         self.ui.set_stetting_page_label_info(info)
         #--------------------------------------------------------------------------------------
@@ -1474,15 +1476,20 @@ class API:
 
 
     def load_screw_live(self):
+        
         name = self.ui.combobox_select_screw_live.currentText()
         name  = name.replace(" ","")
         if len(name)>=3:
             path = dbUtils.get_screw_path(name)
+            # if path
             self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
             for direction in self.screw_jasons.keys():
                 self.screw_jasons[direction].read(path, direction)
                 img_path = self.screw_jasons[direction].get_img_path()
-                img=cv2.imread(img_path)
+                try:
+                    img=cv2.imread(img_path)
+                except:
+                    img = np.zeros(shape=(1040,1392),dtype='uint8')
                 self.ui.set_selected_image_live_page(direction,img)
 
 
@@ -1514,6 +1521,11 @@ class API:
         screw_json = self.screw_jasons[ direction ]  
 
         img, mask_roi,_ = proccessings.preprocessing_side_img( img, screw_json, direction )
+
+        if img  is None:
+            print('fuuuuuck'*50)
+            black_img = np.zeros(shape=(1040,1392),dtype='uint8')
+            return (black_img,[])
         #img = Utils.mask_viewer(img, thresh_img, color=(0,100,0))
         draw_img = np.copy(img)
         results = []
@@ -1526,6 +1538,7 @@ class API:
             results.extend(result)
 
         results.sort( key = lambda x:x['name'])
+
         return draw_img, results
 
 
@@ -1538,24 +1551,27 @@ class API:
         img, mask_roi, _ = proccessings.preprocessing_top_img( img, screw_json, direction  )
         draw_img = np.copy(img)
         results = []
-        #return Utils.mask_viewer(draw_img, mask_roi, color=(0,10,250)), results
-
 
         for active_tool in screw_json.get_active_tools():
             result, draw_img = proccessings.tools_dict_top[active_tool]( img, mask_roi, screw_json, draw_img )
             results.extend(result)
 
         results.sort( key = lambda x:x['name'])
-
+        ['name','min','max','avg','limit_min','limit_max']
+        # results={'name':12,'min':12,'max':12,'avg':13,'limit_min':14,'limit_max':15}
         return draw_img , results
 
 
     # PLC ////////////////////////////////////////////////////////////////////
-
+    #________________________________________________________________________________________________________________________
+    #
+    #                                                          PLC
+    #
+    #________________________________________________________________________________________________________________________
     def connect_plc(self):
 
-        ip=self.ui.get_plc_ip()
-        self.my_plc=plc_managment.management(ip)
+        self.ip=self.ui.get_plc_ip()
+        self.my_plc=plc_modbus.plc_modbus(self.ip)
         self.connection_status=self.my_plc.connection()
         if self.connection_status:
             self.load_plc_parms()
@@ -1567,7 +1583,6 @@ class API:
             self.ui.frame_size(self.ui.frame_175, 0)
             self.ui.show_mesagges(self.ui.plc_warnings,texts.WARNINGS['Connection_eror'][self.language],color='red')
 
-    # def check_connectiom_plc(self):
 
 
     
@@ -1582,78 +1597,18 @@ class API:
 
 
     def check_plc_status(self):
-        self.connect_plc()
-        # from PySide6.QtCore import sQTimer
-        
-        parms=self.db.load_plc_parms()
-        self.node_run=parms[0]['path']
-        self.node_reject=parms[2]['path']
-        self.plc_thread=threading.Thread(target=self.auto_plc)
-        self.plc_thread.start()
-
-    def auto_plc(self):
-
-        
 
         try:
-
-            
-            
-            if self.connection_status:
-                mode=self.my_plc.get_value(self.node_run)
-                print('mode',mode)
+            connection_status = self.my_plc.connection()
+            if connection_status:
                 self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connected'][self.language],color='green')
-
-                if mode!="Path Eror":
-
-                    if mode[0]=='True':
-                        self.ui.set_label(self.ui.plc_mode_live_page,texts.WARNINGS['Mode_run_plc'][self.language],color='green')
-                    else:
-                        self.ui.set_label(self.ui.plc_mode_live_page,texts.WARNINGS['Mode_stop_plc'][self.language],color='red')
-
-                else:
-                    self.ui.set_label(self.ui.plc_mode_live_page,texts.WARNINGS['path_eror_plc'][self.language],color='red')                
-
-
-                mode=self.my_plc.get_value(self.node_reject)
-                print('mode',mode)
-                self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connected'][self.language],color='green')
-
-                if mode!="Path Eror":
-
-                    if mode[0]=='True':
-                        self.ui.set_label(self.ui.plc_reject_live_page,texts.WARNINGS['Mode_run_plc'][self.language],color='green')
-                    else:
-                        self.ui.set_label(self.ui.plc_reject_live_page,texts.WARNINGS['Mode_stop_plc'][self.language],color='red')
-
-                else:
-                    self.ui.set_label(self.ui.plc_reject_live_page,texts.WARNINGS['path_eror_plc'][self.language],color='red') 
-
-
-
             else:
                 self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connection_eror'][self.language],color='red')
-                self.ui.set_label(self.ui.plc_mode_live_page,'-',color='red')
-                self.ui.set_label(self.ui.plc_reject_live_page,'-',color='red')
-
-        
         except:
-            self.connect_plc()
-            print('except')
-            self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Disconnected'][self.language],color='red')
+            self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connection_eror'][self.language],color='red')
+
         
 
-        time.sleep(0.3)
-        # self.plc_thread.stop()
-
-        self.plc_thread=threading.Thread(target=self.auto_plc)
-        self.plc_thread.start()
-        
-    #________________________________________________________________________________________________________________________
-    #
-    #                                                          PLC
-    #
-    #________________________________________________________________________________________________________________________
     def check_spec_plc_parms(self):
 
         btns=['check_run_plc','check_reject_plc']
@@ -1760,52 +1715,63 @@ class API:
             self.db.save_side_calibration(side)
 
 
-
-    # def load_sample_images(self):
-
     def set_images(self):
-
+        
         if self.SAMPLE_IMAGE:
-            
             if self.image_num>2:
                 self.image_num=0
             self.image_num+=1
-
-            # for i in range(1,5):
-            # self.ui.img_top=cv2.imread('sample images/temp_top/{}.jpg'.format(self.image_num))
-            # self.ui.img_side=cv2.imread('sample images/temp_side/{}.jpg'.format(self.image_num))
-            self.img_top= cvTools.random_light( self.top_images[self.image_num] )
+            self.img_top=self.top_images[self.image_num]
             self.img_side= cvTools.random_light( self.side_images[self.image_num] )
-            
-
-            draw_img_top = np.copy( self.img_top)
-            draw_img_side = np.copy( self.img_side)
-            results_side = []
-            results_top = []
-            
-            draw_img_top, results_top = self.proccessing_live_top(self.img_top)
-            draw_img_side, results_side = self.proccessing_live_side(self.img_side)
-            
-            results = results_top + results_side
-            self.ui.set_live_table( self.ui.table_live_live_page, results )
-
-            draw_img_side = cv2.rotate( draw_img_side, cv2.ROTATE_90_COUNTERCLOCKWISE )
-            draw_img_top = cv2.rotate( draw_img_top, cv2.ROTATE_90_COUNTERCLOCKWISE )
-
-            self.ui.set_image_label(self.ui.label_img_top_live, draw_img_top)
-            self.ui.set_image_label(self.ui.label_img_side_live,draw_img_side)
-            
-            threading.Timer(0.1, self.set_images).start()
-            
-            
-
-            
+        else:
+            try:
+                self.img_side = self.cameras['side'].image
+            except:
+                self.img_side = np.zeros(shape=(1920,1200,3),dtype='uint8')
+            try:
+                self.img_top = self.cameras['top'].image
+            except:
+                self.img_top = np.zeros(shape=(1920,1200,3),dtype='uint8')
 
 
-    def set_live_image(self):
-        self.ui.set_image_label(self.ui.label_img_top_live,self.img_top)
-        self.ui.set_image_label(self.ui.label_img_side_live,self.img_side)
-        print(datetime.now())
+        draw_img_top = np.copy( self.img_top)
+        draw_img_side = np.copy( self.img_side)
+
+        # print('set image')
+
+        # cv2.imshow('asd',draw_img_side)
+        # cv2.imshow('asd2',draw_img_top)
+
+        # if self.run_detect:
+
+
+        #     results_side = []
+        #     results_top = []
+
+        
+        #     draw_img_top, results_top = self.proccessing_live_top(self.img_top)
+        #     draw_img_side, results_side = self.proccessing_live_side(self.img_side)
+
+        #     #here add plc for reject
+
+
+        #     self.ui.set_live_table( self.ui.table_live_top_live_page, results_top )
+        #     self.ui.set_live_table( self.ui.table_live_side_live_page, results_side )
+
+
+        #     if not self.ui.btn_enabel_mask_draw_live_top.isChecked():
+        #         draw_img_side = self.img_side
+        #     draw_img_side = cv2.rotate( draw_img_side, cv2.ROTATE_90_COUNTERCLOCKWISE )
+
+        #     if not self.ui.btn_enabel_mask_draw_live_side.isChecked():
+        #         draw_img_top = self.img_top
+        #     draw_img_top = cv2.rotate( draw_img_top, cv2.ROTATE_90_COUNTERCLOCKWISE )
+
+
+            
+        self.ui.set_image_label(self.ui.label_img_top_live, draw_img_top)
+        self.ui.set_image_label(self.ui.label_img_side_live,draw_img_side)
+
 
 
     def laod_images(self):
@@ -1818,10 +1784,202 @@ class API:
             self.top_images.append(cv2.imread('sample images/temp_top/{}.jpg'.format(i)))
             self.side_images.append(cv2.imread('sample images/temp_side/{}.jpg'.format(i)))
         
-        #print('len',len(self.top_images),len(self.side_images))
+
+    
+
+
+    def load_language(self):
+        lan=self.db.load_language()
+        # self.ui.language=
+        self.ui.set_language(lan)
+
+        if lan =='English':
+            self.language='en'
+        else:
+            self.language='fa'
+
+
+        return lan
+        
+
+    def set_language(self):
+
+        lan=self.ui.combo_change_language.currentText()
+        print('save')
+        self.db.set_language(lan)
 
 
 
 
-    def print_test(self):
-        print('Qtimer Test')
+    def init_cameras(self):
+
+        for _ in range(2):
+            cameras_info = self.db.load_cam_params(_)
+            print('cameras_info',cameras_info)
+            self.cameras = {}
+            # for cam_info in cameras_info:
+            self.cameras [ cameras_info['direction'] ] = camera_connection.Collector(cameras_info['serial_number'],exposure=cameras_info['expo_value'],gain=cameras_info['gain_value'])
+
+
+    def connect_camera(self):
+        self.init_cameras()
+        text = ''
+
+        try:
+
+            for cam in self.cameras.values():
+                try:
+                    print(cam.camera)
+                    if cam.camera is not None:
+                        cam.start_grabbing()
+                        print(cam.camera.IsGrabbing())
+                    else:
+                        print('camera error')
+                except:
+                    text=text+cam
+
+            if text =='':
+
+                self.ui.show_warning('Successfull',texts.WARNINGS['camrea_connection_ok'][self.language])
+                self.ui.start_capture_live_page.setEnabled(True)
+                self.ui.line_camera_status.setText(texts.WARNINGS['camrea_connection_ok'][self.language])
+                self.ui.disconnect_cameras_live_page.setEnabled(True)
+            
+            else:
+                self.ui.show_warning('Warning',texts.WARNINGS['camrea_connection_not_ok'][self.language])
+                self.ui.start_capture_live_page.setEnabled(False)
+                self.ui.line_camera_status.setText(texts.WARNINGS['camrea_connection_not_ok'][self.language])
+
+
+                    
+        except:
+            print('eror')
+
+            self.ui.show_warning('Eror', texts.WARNINGS['camrea_connection_not_ok'][self.language])
+            self.ui.start_capture_live_page.setEnabled(False)
+            self.ui.line_camera_status.setText(texts.WARNINGS['camrea_connection_not_ok'][self.language])
+
+
+
+
+    def start_detection(self):
+
+        self.run_detect=True
+        self.set_images()
+        self.ui.start_capture_live_page.setEnabled(False)
+        self.ui.stop_capture_live_page.setEnabled(True)
+
+    def stop_detection(self):
+
+        self.run_detect=False
+        self.ui.start_capture_live_page.setEnabled(True)
+        self.ui.stop_capture_live_page.setEnabled(False)
+        #self.ui.timer_live.stop()
+
+    
+    def disconnect_camera(self):
+        for cam in self.cameras.values():
+            if cam.camera is not None:
+                cam.stop_grabbing()
+            else:
+                print('camera error')
+
+
+
+    def camera_trig_side(self,img):
+        img = cv2.cvtColor( img, cv2.COLOR_GRAY2BGR)
+        self.ui.set_image_label(self.ui.label_img_side_live, img)
+        print('----------------')
+        print('ff', img)
+        print('----------------')
+        #cv2.imshow('img',img)
+        
+        #cv2.waitKey(100)
+
+
+
+    def test_trig_camera(self):
+        self.collector =self.cameras['top']
+
+        # cameras = self.collector
+
+        self.collector.start_grabbing()
+        #cameras.getPictures()
+
+        self.thread = sQThread()
+        self.collector.moveToThread(self.thread)
+        self.thread.started.connect(self.collector.get_picture_while)
+        self.collector.finished.connect(self.thread.quit)
+        self.collector.finished.connect(self.collector.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
+        self.collector.trig_signal.connect(self.set_images)
+        self.thread.start()
+    
+
+    def show_image(self):
+        
+        # img = np.zeros(shape=(300,300),dtype='uint8')
+        img = self.collector.image
+        # print('dddd', value)
+        cv2.imshow('a',img)
+        cv2.waitKey(10)
+
+
+    #History
+
+
+    def show_history_win(self):
+
+        history = self.db.load_history()
+
+        print('history',history)
+
+        perfect = int(history['all_screw'])-int(history['defect'])
+
+        self.history_obj.total.setText(str(history['all_screw']))
+        self.history_obj.defect.setText(str(history['defect']))
+        self.history_obj.perfect.setText(str(perfect))
+
+        self.history_obj.show()
+
+
+    def update_history(self):
+
+        history = self.db.load_history()
+
+        new_all_screw = int(history['all_screw'])+self.all_screw
+        new_defect = int(history['defect']) + self.defect_screw
+
+        self.db.update_history(all=new_all_screw,defect=new_defect)
+
+    def reset_history(self):
+
+        ret = self.ui.show_question('Warning',texts.WARNINGS['reset'][self.language])
+
+        if ret:
+            self.db.update_history(all=0,defect=0)
+            self.show_history_win()
+        
+
+
+    # show cameras picture on UI
+    def show_camera_picture(self, side):
+
+        label = eval('self.ui.camera_{}_cal_page'.format(side))
+        status = eval('self.ui.connection_status_{}_cal_page'.format(side))
+        while True:
+            try:
+                ret , img = self.cameras[side].getPictures()
+                if ret:
+                    self.ui.set_image_label(label,img)
+                    
+                else:
+                    status.setText('Eror Connection')
+                    break                
+            except:
+                status.setText('Eror Connection')
+                print('asdaw')
+                break
+            # print('asd')
+            cv2.waitKey(10)
+                

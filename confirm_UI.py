@@ -18,7 +18,7 @@ from PyQt5.QtGui import QPainter
 import os
 import login_api
 import cv2
-from qt_material import apply_stylesheet
+
 ui, _ = loadUiType("confirm_window.ui")
 
 

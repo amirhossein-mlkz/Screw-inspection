@@ -42,7 +42,7 @@ def assign_appearance_existing_params_to_ui(ui_obj):
         item.setBackground(sQColor(app_color))
         ui_obj.setting_color_comboBox.model().appendRow(item)
     # app language
-    ui_obj.setting_language_comboBox.addItems(app_languages)
+    # ui_obj.setting_language_comboBox.addItems(app_languages)
 
     # ui_obj.
 
@@ -53,8 +53,8 @@ def set_appearance_params_to_ui(ui_obj, appearance_params):
     ui_obj.setting_fontstyle_comboBox.setCurrentText(appearance_params['font_style'])
     ui_obj.setting_style_comboBox.setCurrentText(appearance_params['window_style'])
     ui_obj.setting_color_comboBox.setCurrentText(appearance_params['window_color'])
-    ui_obj.setting_language_comboBox.setCurrentText(appearance_params['language'])
-    ui_obj.setting_language_comboBox.setCurrentText(appearance_params['parent_path'])
+    # ui_obj.setting_language_comboBox.setCurrentText(appearance_params['language'])
+    # ui_obj.setting_language_comboBox.setCurrentText(appearance_params['parent_path'])
 
     # ui_obj.large_rect_area_label.setText(str(appearance_params['large_rect_area']))
     # ui_obj.small_rect_area_label.setText(str(appearance_params['small_rect_area']))
@@ -77,7 +77,7 @@ def get_appearance_params_from_ui(ui_obj):
     appearance_params['font_style'] = ui_obj.setting_fontstyle_comboBox.currentText()
     appearance_params['window_style'] = ui_obj.setting_style_comboBox.currentText()
     appearance_params['window_color'] = ui_obj.setting_color_comboBox.currentText()
-    appearance_params['language'] = ui_obj.setting_language_comboBox.currentText()
+    # appearance_params['language'] = ui_obj.setting_language_comboBox.currentText()
     appearance_params['parent_path'] = ui_obj.line_main_path.text()
     return appearance_params
 

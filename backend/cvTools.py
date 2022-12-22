@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import copy
 
-from traitlets import default
+
 try:
     from backend import Utils
     from backend import mathTools
@@ -325,6 +325,8 @@ def correct_rotation_angle(mask , left_or_right='left'):
     cnts,_ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnts = list(cnts)
     cnts = list(cnts)
+    if len(cnts)==0:
+        return None,None
     #sort by area and extract two bigest contour
     cnts.sort( key = lambda x: cv2.contourArea(x) , reverse = True)
     cnts = cnts[:2]

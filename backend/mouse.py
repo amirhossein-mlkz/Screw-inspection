@@ -1,4 +1,4 @@
-from tkinter import W
+
 from PySide6.QtCore import *
 from matplotlib.widgets import Widget
 from consts.mouse_events import EVENTS_TYPE, BUTTONS

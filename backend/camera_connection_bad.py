@@ -24,39 +24,38 @@ import time
 import numpy as np
 import sqlite3
 import threading
+from PyQt5.QtCore import QTimer,QObject,pyqtSignal,QThread
 from pypylon import genicam
-
-from PySide6.QtCore import QDateTime as sQDateTime
-from PySide6.QtCore import QObject as sQObject
-from PySide6.QtCore import QThread as sQThread
-from PySide6.QtCore import Signal
-
-
-
-
-DEBUG = False
-
-# import database_utils
-
+import threading
+DEBUG = True
+try:
+    import database_utils
+except:
+    pass
 show_eror = False
 
 if show_eror:
 
     from eror_window import UI_eror_window
 
-class Collector(sQObject):
-    trig_signal = Signal()
-    finished = Signal()
+debug_img = 0
+class Collector(QObject):
+    trig_signal = pyqtSignal()
 
     def __init__(self, serial_number,gain = 0 , exposure = 70000, max_buffer = 20, trigger=True, delay_packet=100, packet_size=1500 ,
-                frame_transmission_delay=0 ,width=1000,height=1000,offet_x=0,offset_y=0, manual=True, list_devices_mode=False, trigger_source='Line1',parent=None):
+                frame_transmission_delay=0 ,width=1392,height=1040,offet_x=0,offset_y=0, manual=False, list_devices_mode=False, trigger_source='Software',parent=None):
+        global debug_img
+        
+        # Q thread
+        super(Collector,self).__init__(parent)
+        
+
         """Initializes the Collector
         Args:
             gain (int, optional): The gain of images. Defaults to 0.
             exposure (float, optional): The exposure of the images. Defaults to 3000.
             max_buffer (int, optional): Image buffer for cameras. Defaults to 5.
         """
-        super(Collector,self).__init__(parent)
         self.gain = gain
         self.exposure = exposure
         self.max_buffer = max_buffer
@@ -74,6 +73,9 @@ class Collector(sQObject):
         self.manual=manual
         self.list_devices_mode=list_devices_mode
         self.exitCode=0
+        self.camera = None
+
+        self.trig_func = None
 
         if show_eror:
             self.window_eror = UI_eror_window()
@@ -82,18 +84,17 @@ class Collector(sQObject):
         devices = []
 
 
-        # self.converter = pylon.ImageFormatConverter()
-        # self.converter.OutputPixelFormat = pylon.PixelType_BGR8packed
-        # self.converter.OutputBitAlignment = pylon.OutputBitAlignment_MsbAligned
         self.converter = pylon.ImageFormatConverter()
         self.converter.OutputPixelFormat = pylon.PixelType_Mono8
         self.converter.OutputBitAlignment = pylon.OutputBitAlignment_MsbAligned
 
+
         for device in self.__tl_factory.EnumerateDevices():
-            # if (device.GetDeviceClass() == 'BaslerGigE'):                
+            #if (device.GetDeviceClass() == 'BaslerGigE'):                
                 devices.append(device)
 
-        # assert len(devices) > 0 , 'No Camera is Connected!
+        #assert len(devices) > 0 , 'No Camera is Connected!
+        print(len(devices))
         if self.list_devices_mode:
             self.cameras = list()
 
@@ -104,15 +105,19 @@ class Collector(sQObject):
         else:
             for device in devices:
                 camera = pylon.InstantCamera(self.__tl_factory.CreateDevice(device))
-                print(camera.GetDeviceInfo().GetSerialNumber())
+                print(camera.GetDeviceInfo().GetSerialNumber(),'    ', self.serial_number)
                 if camera.GetDeviceInfo().GetSerialNumber() == str(self.serial_number):
                     self.camera = camera
-                
                     break
 
         #assert len(devices) > 0 , 'No Camera is Connected!'
         
+        #self.caprturing_timer = QTimer()
+        #self.caprturing_timer.timeout.connect(self.getPictures)
 
+    
+    def add_triger_function(self,trig_func):
+        self.trig_func = trig_func
 
     def eror_window(self,msg,level):
         self.window_eror = UI_eror_window()
@@ -141,7 +146,7 @@ class Collector(sQObject):
         # print(model[-3:])
 
 
-        # try:
+        #try:
             print(self.camera.IsOpen())
             print(device_info.GetSerialNumber())
 
@@ -149,21 +154,13 @@ class Collector(sQObject):
             
             if self.manual:
 
-                
-                if model=='PRO':
-                    print('yes pro')
-                    # print(self.camera.DeviceTemperature.GetValue())
-                    self.camera.ExposureTime.SetValue(self.exposure)
+                    self.camera.ExposureTimeAbs.SetValue(self.exposure)
+                    self.camera.GainRaw.SetValue(self.gain)
 
-                    self.camera.Gain.SetValue(self.gain)
-                    
-                    # self.camera.GevSCPSPacketSize.SetValue(int(self.ps)+1000)
-                    # self.camera.Close()
-                    # self.camera.Open()
-                    self.camera.GevSCPSPacketSize.SetValue(int(self.ps))
+                    self.camera.GevSCPSPacketSize.SetValue(int(self.ps)+1000)
                     self.camera.Close()
                     self.camera.Open()
-                                                  
+                                
                     self.camera.GevSCPD.SetValue(self.dp)
                     self.camera.Close()
                     self.camera.Open()                   
@@ -171,50 +168,14 @@ class Collector(sQObject):
                     self.camera.Close()
                     self.camera.Open()
 
-
-
-
+                    self.camera.GevSCPSPacketSize.SetValue(int(self.ps))
+                    self.camera.Close()
+                    self.camera.Open()
                     self.camera.Width.SetValue(self.width)
                     self.camera.Height.SetValue(self.height)
 
                     self.camera.OffsetX.SetValue(self.offset_x)
                     self.camera.OffsetY.SetValue(self.offset_y)
-                    
-
-
-
-                
-
-                else:
-                    
-
-
-                    # self.camera.ExposureTimeAbs.SetValue(self.exposure)
-                    try:
-                        self.camera.GainRaw.SetValue(self.gain)
-                    except:
-                        self.camera.GainRaw.SetValue(192)
-
-                    # self.camera.GevSCPSPacketSize.SetValue(int(self.ps)+1000)
-                    # self.camera.Close()
-                    # self.camera.Open()
-                                
-                    # self.camera.GevSCPD.SetValue(self.dp)
-                    # self.camera.Close()
-                    # self.camera.Open()                   
-                    # self.camera.GevSCFTD.SetValue(self.ftd)
-                    # self.camera.Close()
-                    # self.camera.Open()
-
-                    # self.camera.GevSCPSPacketSize.SetValue(int(self.ps))
-                    # self.camera.Close()
-                    # self.camera.Open()
-
-                    # self.camera.Width.SetValue(self.width)
-                    # self.camera.Height.SetValue(self.height)
-
-                    # self.camera.OffsetX.SetValue(self.offset_x)
-                    # self.camera.OffsetY.SetValue(self.offset_y)
                     
 
 
@@ -226,10 +187,11 @@ class Collector(sQObject):
 
             if self.trigger:
                 self.camera.TriggerMode.SetValue('On')
-                # self.camera.TriggerSelector.SetValue('FrameStart')
+                self.camera.TriggerSource.SetValue('Line1')
                 
                 self.camera.TriggerSource.SetValue(self.trigger_source)
                 print('triggeron on %s' % self.trigger_source)
+               
             else:
                 # self.camera.TriggerMode.SetValue('Off')
                 print('triggeroff')
@@ -252,19 +214,19 @@ class Collector(sQObject):
 
             return True, 'start grabbing ok'
             
-        # except genicam.GenericException as e:
-        #     # Error handling
-            
-        #     message = self.start_grabbing_error_handling(error=e)
-        #     #print(e)  
-        
-        #     self.stop_grabbing()
-        #     #print("An exception occurred.", e.GetDescription())
-        #     self.exitCode = 1
-        #     # self.eror_window('Check The Number of cameras',3)
+##        except genicam.GenericException as e:
+##            # Error handling
+##            
+##            message = self.start_grabbing_error_handling(error=e)
+##            #print(e)  
+##        
+##            self.stop_grabbing()
+##            #print("An exception occurred.", e.GetDescription())
+##            self.exitCode = 1
+##            # self.eror_window('Check The Number of cameras',3)
 
             
-        #     return False, message
+            return False, message
 
     
     def start_grabbing_error_handling(self, error):
@@ -394,7 +356,7 @@ class Collector(sQObject):
 
     def getPictures(self, time_out = 50):
         Flag=True
-
+        #self.continiuse_capturing()
 
         try:
 
@@ -407,7 +369,7 @@ class Collector(sQObject):
                     print('Is grabbing')
                     
                     if self.camera.GetQueuedBufferCount() == 10:
-                        print('ERRRRRRRRRRRRRRRRRRRRRRRRRROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORRRRRRRRRRRRRRRRRRRRRRRRR')
+                        print('Er')
                 grabResult = self.camera.RetrieveResult(time_out, pylon.TimeoutHandling_ThrowException)
 
                 # print('grab',grabResult)
@@ -427,6 +389,9 @@ class Collector(sQObject):
                     image = self.converter.Convert(grabResult)
                     # img=image.Array
                     img = image.GetArray()
+                    print('asd')
+
+                    
 
                     # cv2.imshow('img',img)
                     # cv2.waitKey(50)
@@ -448,8 +413,8 @@ class Collector(sQObject):
             img=np.zeros([1200,1920,3],dtype=np.uint8)
             Flag=False
 
-        # cv2.imshow("img1", cv2.resize(img, None, fx=0.5, fy=0.5))
-        # cv2.waitKey(50)
+        #cv2.imshow("img1", cv2.resize(img, None, fx=0.5, fy=0.5))
+        #cv2.waitKey(50)
         if Flag:
             #print('yes')
             return True, img
@@ -457,7 +422,27 @@ class Collector(sQObject):
             #print('no')
             return False, np.zeros([1200,1920,3],dtype=np.uint8)
         
-        
+##        except:
+##            #print('Time out')
+##            img=np.zeros([1200,1920,3],dtype=np.uint8)
+##            Flag=False
+
+        # cv2.imshow("img1", cv2.resize(img, None, fx=0.5, fy=0.5))
+        # cv2.waitKey(50)
+##        if Flag:
+##            #print('yes')
+##            return True, img
+##        else:
+##            #print('no')
+##            return False, np.zeros([1200,1920,3],dtype=np.uint8)
+##
+##        
+##
+
+    # def continiuse_capturing(self):
+    #     threadingetPicturesg.Timer( 0.05 , self. ).start()
+    #     #self.caprturing_timer.start()
+
 
 
     def get_cam(self,i):
@@ -467,13 +452,31 @@ class Collector(sQObject):
     def get_picture_while(self):
 
         while True:
-            cv2.waitKey(200)
-            # time.sleep(0.5)
             ret,self.image = self.getPictures()
             if ret:
-                # cv2.imshow('img_panjere dige',self.image)
-                # cv2.waitKey(20)
+                cv2.imshow('img_panjere dige',self.image)
+                cv2.waitKey(0)
                 self.trig_signal.emit()
+
+
+def get_all_devices():
+
+    tl_factory = pylon.TlFactory.GetInstance()
+
+    cam = None
+    # tlf = pylon.TlFactory.GetInstance()
+
+    # for tl in tlf.EnumerateTls():
+    #     print(tl.GetDeviceClass(), tl.GetFileName(), tl.GetFullName())
+    for dev_info in tl_factory.EnumerateDevices():
+        if dev_info.GetDeviceClass() == "BaslerGigE":
+            print("using %s @ %s" % (dev_info.GetModelName(), dev_info.GetIpAddress()))
+            cam = pylon.InstantCamera(tl_factory.CreateDevice(dev_info))
+            # break
+    return False
+
+
+
 
 
 
@@ -496,23 +499,25 @@ class ctrl():
             manual=False,
         )
 
-        cameras = self.collector.start_grabbing()
+        cameras = self.collector
+
+        cameras.start_grabbing()
         #cameras.getPictures()
 
         self.thread = QThread()
         self.collector.moveToThread(self.thread)
-        self.thread.started.connect(self.collector.test_signal)
+        self.thread.started.connect(self.collector.get_picture_while)
         # self.collector.finished.connect(self.thread.quit)
         self.collector.trig_signal.connect(self.show_image)
         self.thread.start()
     
 
     def show_image(self):
-        print('dddd1')
-        # img = self.collector.image
-        # print('dddd')
-        # cv2.imshow('a',img)
-        # cv2.waitKey(0)
+
+        img = self.collector.image
+        print('dddd')
+        cv2.imshow('a',img)
+        cv2.waitKey(0)
 
 
 
@@ -551,7 +556,8 @@ if __name__ == "__main__":
     # cameras.getPictures()
     # # print(cameras.)
 
-    # while True:
+    # #cameras.continiuse_capturing()
+    # while False:
 
     #     #     # for cam in cameras:
     #     #     #         cam.trigg_exec()
@@ -560,29 +566,9 @@ if __name__ == "__main__":
     #     #     #print(cam.camera.GetQueuedBufferCount())
     #     img = cameras.getPictures()
     #     img=img[1]
-    #     # print(img.shape)
+    #     print(img.shape)
     #     # print(cam.camera.GetQueuedBufferCount())
     #     cv2.imshow("img1", cv2.resize(img, None, fx=0.5, fy=0.5))
     #     img=np.uint8(img)
     #     # cv2.imshow('img',img)
     #     cv2.waitKey(50)
-    #     # img = cameras[1].getPictures()
-    #     # #print(cam.camera.GetQueuedBufferCount())
-    #     # cv2.imshow('img2', cv2.resize( img, None, fx=0.5, fy=0.5 ))
-    #     # cv2.waitKey(50)
-    #     # img = cameras[2].getPictures()
-    #     # #print(cam.camera.GetQueuedBufferCount())
-    #     # cv2.imshow('img3', cv2.resize( img, None, fx=0.5, fy=0.5 ))
-    #     # cv2.waitKey(50)
-    #     # img = cameras[3].getPictures()
-    #     # #print(cam.camera.GetQueuedBufferCount())
-    #     # cv2.imshow('img4', cv2.resize( img, None, fx=0.5, fy=0.5 ))
-    #     # cv2.waitKey(50)
-
-    #     # time.sleep(0.330)
-    #     # while cam.camera.GetQueuedBufferCount()!=10:
-    #     #     pass
-    #     # print(cam.camera.GetQueuedBufferCount(), 'f'*100)
-    #     # print('-'*100)
-    # # func = get_threading(cameras)
-    # # func()

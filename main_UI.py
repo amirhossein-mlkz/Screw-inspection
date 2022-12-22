@@ -1,29 +1,15 @@
-# import os
-# import PySide6
-
-# dirname = os.path.dirname(PySide6.__file__)
-# plugin_path = os.path.join(dirname, 'plugins', 'platforms')
-# os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = plugin_path
-
-# from PySide6.QtWidgets import *
 
 import sys
-from tabnanny import check
-from tkinter.tix import Tree
-from traceback import print_tb
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import * 
+
+
 from PyQt5.QtGui import * 
-from PyQt5.QtGui import *
-from matplotlib import image
-from pyparsing import col
-from pyqt5_plugins import *
-from PySide6.QtCharts import *
+
+from PySide6 import QtCore
 from PySide6.QtCore import *
 from PySide6.QtUiTools import loadUiType
 from PySide6.QtWidgets import *
 from PyQt5.QtGui import QPainter
-from PyQt5.QtCore import QSize, QRegExp
+
 import numpy as np
 import threading
 import time
@@ -33,41 +19,26 @@ import os
 # from regex import F
 import main_api
 import cv2
-from qt_material import apply_stylesheet
 from app_settings import Settings
 from functools import partial
 
 import numpy as np
 
-from backend import camera_funcs, user_login_logout_funcs, colors_pallete
+
 import resources
 
 
 from PySide6.QtGui import QImage as sQImage    # should change
 from PySide6.QtGui import QPixmap as sQPixmap   # should change
-from PySide6.QtCharts import QChart as sQChart
-from PySide6.QtCharts import QChartView as sQChartView
-from PySide6.QtCharts import QLineSeries as sQLineSeries
-from PySide6.QtCharts import QScatterSeries as sQScatterSeries
-from PySide6.QtCharts import QSplineSeries as sQSplineSeries
-from PySide6.QtCharts import QValueAxis as sQValueAxis
-from PySide6.QtCore import QPointF as sQPointF
-from PySide6.QtWidgets import QHBoxLayout as sQHBoxLayout
-from PySide6.QtWidgets import QVBoxLayout as sQVBoxLayout
-from PySide6.QtWidgets import QScrollBar as sQScrollBar
-from PySide6.QtWidgets import QAbstractSlider as sQAbstractSlider
-from PySide6.QtWidgets import QSlider as sQSlider
-from PySide6.QtWidgets import QLabel as sQLabel
-from PySide6 import QtCore as sQtCore
-from PySide6.QtGui import QColor as sQColor
-from PySide6.QtGui import QBrush as sQBrush
-from PySide6.QtGui import QPen as sQPen
-from PySide6.QtGui import QPainter as sQPainter
-from PySide6.QtGui import QCursor as sQCursor
+
 
 import texts
 from backend import Utils
 import Keys
+
+from history_UI import UI_history_window
+
+
 ui, _ = loadUiType("main_window.ui")
 
 
@@ -172,30 +143,70 @@ class UI_main_window(QMainWindow, ui):
 
 
         self.col_parms=['name','min','max','avg','limit_min','limit_max']
+        self.set_header_live_table(self.table_live_top_live_page,self.col_parms)
 
-        self.set_header_live_table(self.table_live_live_page,self.col_parms)
+        self.col_parms=['name','min','max','avg','limit_min','limit_max']
+        self.set_header_live_table(self.table_live_side_live_page,self.col_parms)
 
-        #self.set_live_table(self.table_live_live_page,['1','2'])
-
-        # self.set_img_btns(self.side_tool_setting_btn,'images/setting_main_window/bug.png')
         self.set_color_value_image_tool_page(value=50)
 
 
         self.img_top=cv2.imread('images/defualt.jpg')
         self.img_side=cv2.imread('images/defualt.jpg')
 
-        # self.timer_live = QTimer(self)
-  
-        # # adding action to timer
-        # self.timer_live.timeout.connect(self.update_images)
-  
-        # # # update the timer every second
-        # self.timer_live.start(60)
+
+
         self.set_list_pack_items('sub_pages', ['flanch', 'head'], page_name='5_top')
 
-    def ret_self(self):
+        # self.set_activate_pages('checkbox_page0_4_top',True)
+        self.set_deactive_all_pages()
 
-        return self
+
+        #change_language
+
+        self.combo_change_language.currentTextChanged.connect(self.change_language)
+
+        # self.logger.create_new_log(message='UI object for train app created.')
+        # self.load_lang()
+        
+        
+    def load_lang(self):
+        # lan=api.load_language()
+        self.set_language(self.language)
+
+    def set_language(self,name):
+        """set language
+        Args:
+            name (string): input language from api
+        Returns: None
+        """
+
+        self.combo_change_language.setCurrentText(name)
+        self.change_language()
+
+    def change_language(self):
+        """Change language in ui and update image
+        Returns: None
+        """
+        if self.combo_change_language.currentText()=='English':
+            self.language = 'en'
+            # api.language = 'en'
+            img_path=('images/english.png')
+
+
+        else:
+            self.language='fa'
+            # api.language = 'fa'
+            img_path=('images/persian.png')
+
+        pixmap = QPixmap(img_path)
+        self.label_language.setPixmap(pixmap)
+        
+        # self.set_image_label(self.label_language, img)
+        # image = QImage(img, img.shape[1], img.shape[0], img.strides[0], QImage.Format_BGR888)
+        # self.label_language.setPixmap(QPixmap.fromImage(image))
+        texts.set_title(self, self.language)
+        # self.logger.create_new_log(message='cahange language.')
 
 
     
@@ -204,16 +215,8 @@ class UI_main_window(QMainWindow, ui):
     # method called by timer
     def update_images(self):
 
-        self.set_image_label(self.label_img_top_live,self.img_top)
-        self.set_image_label(self.label_img_side_live,self.img_side)
-        # getting current time
-        current_time = QTime.currentTime()
-  
-        # converting QTime object to string
-        label_time = current_time.toString('hh:mm:ss')
-        print(label_time)
-        # showing it to the label
-        # self.label.setText(label_time)
+        api.set_images()
+
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
@@ -476,8 +479,11 @@ class UI_main_window(QMainWindow, ui):
         
 
     def close_win(self):
-        self.close()
-        sys.exit()
+
+        ret = self.show_question('Warning',texts.WARNINGS['close_win'][self.language])
+        if ret:
+            self.close()
+            sys.exit()
 
     def minimize_win(self):
         self.showMinimized()
@@ -497,6 +503,8 @@ class UI_main_window(QMainWindow, ui):
         x=["Operator", "Admin"]
         self.user_role.addItems(x)
 
+        string=['English', 'Persian']
+        self.combo_change_language.addItems(string)
 
     def set_combo_boxes(self,combo_name,items):
 
@@ -718,7 +726,7 @@ class UI_main_window(QMainWindow, ui):
             self.animation_move(self.frame_24,300)
             self.animation_move(self.frame_23,0)
             self.stackedWidget_2.setCurrentIndex(1)
-            self.set_label(self.label_status_mode,'Edit Mode')
+            self.set_label(self.label_status_mode,texts.MESSEGES['Edit Mode'][self.language])
             self.editmode=True
             self.enable_bar_btn_tool_page('top',enable=True)
             self.enable_bar_btn_tool_page('side',enable=True)
@@ -945,7 +953,7 @@ class UI_main_window(QMainWindow, ui):
             self.frame_size(self.frame_193,0)
 
         if btnName=='btn_add_region0_4_side':
-            self.frame_size(self.frame_141,1000)
+            self.frame_size(self.frame_141,310)
 
         if btnName=='btn_remove_region0_4_side':
             self.frame_size(self.frame_141,0)
@@ -959,6 +967,7 @@ class UI_main_window(QMainWindow, ui):
 
 
         if btnName=='btn_add_area0_4_side':
+            # print('asdawdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
             self.frame_size(self.frame_141,310)
 
 
@@ -1074,13 +1083,21 @@ class UI_main_window(QMainWindow, ui):
                 max_w = int( win_w * width_percent )
         
         if max_h is not None and max_w is not None:
-            h, w, ch = img.shape
+            try:
+                h, w, ch = img.shape
+            except:
+                h,w=img.shape
+                ch=3
             scale_h = max_h/h
             scale_w = max_w/w
             scale = min( scale_h, scale_w)
             img = cv2.resize(img, None, fx=scale, fy=scale)
 
-        h, w, ch = img.shape
+        try:
+            h, w, ch = img.shape
+        except:
+            h,w=img.shape
+            ch=3
         bytes_per_line = ch * w  
         
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -1174,6 +1191,17 @@ class UI_main_window(QMainWindow, ui):
                 if direction in page_name:
                     checked_btns.append(page_name)
         return checked_btns
+
+    def set_activate_pages(self,list,bool):
+        for name in list:
+            check_box=self.checkboxes['page']['checkbox_page0_{}'.format(name)]
+            check_box.setChecked(bool)
+
+    def set_deactive_all_pages(self):
+
+        for page_name in self.tool_pages_name_dict.values():
+            check_box=self.checkboxes['page']['checkbox_page0_{}'.format(page_name)]
+            check_box.setChecked(False)
 
 
     #Combobox utils ----------------------------------------------------------------  
@@ -1685,19 +1713,48 @@ class UI_main_window(QMainWindow, ui):
         table_name.verticalHeader().setVisible(True)
         table_name.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
-    def set_live_table(self,table_name,values=False):
 
+    def clear_table(self,table_name):
+        """Clear table of selected Images in Data aquization page
+        """
+        for i in range(table_name.rowCount()):
+            table_name.removeRow(0)
+
+    def set_live_table(self,table_name,values=False):
+        self.clear_table(table_name)
         table_item = QTableWidgetItem()
         str1=[]
         if values:
             table_name.setRowCount(len(values))
             for id,page_value in enumerate(values):
+                limit_min=page_value['limit_min']
+                limit_max=page_value['limit_max']
                 for col_id , col_value in enumerate(self.col_parms) :
-                    #print(page_value['min'])
-
                     table_item = QTableWidgetItem(str(page_value[col_value]))
                     table_name.setItem(id,col_id,table_item)
+                    if col_id==0:
+                        table_item.setBackground(QBrush(QColor("#17202A")))
+
+                        # self.set_color_table_name_col(table_item,page_value[col_value],limit_min,limit_max)
+                    else:
+                        self.set_color_table(table_item,page_value[col_value],limit_min,limit_max)
+                    if col_id==4 or col_id==5:
+                        table_item.setBackground(QBrush(QColor("#808080")))    
+                    if page_value[col_value]==-1 or page_value[col_value]==-2:
+                        table_item.setBackground(QBrush(QColor("#D4AC0D")))
+
         table_name.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+            # table_name.item(1, 1).setText("Put here whatever you want!")
+
+    def set_color_table(self,table_item,value=0,limit_min=0,limit_max=0):
+        # print('limit_min , max',value,limit_min,limit_max)
+        if value<limit_min or value>limit_max:
+            # print('min')
+            table_item.setBackground(QBrush(QColor("#E74C3C")))
+        else:
+            # print('else')
+            table_item.setBackground(QColor('#239B56'))                       
 
 
     def set_selected_image_live_page(self,direction,img):
@@ -1748,6 +1805,15 @@ class UI_main_window(QMainWindow, ui):
             'delay_plc':delay_plc,'duration_plc':duration_plc,'spare_plc':spare_plc}
 
 
+
+
+
+
+
+
+
+
+
     def set_tools_defualt(self):
         self.set_sliders_defualt('thresh', 0)
         self.set_sliders_defualt('noise_filter', 0)
@@ -1772,6 +1838,12 @@ class UI_main_window(QMainWindow, ui):
         w = self.centralwidget.width()
         h = self.centralwidget.height()
         return h,w
+
+
+
+
+
+
 if __name__ == "__main__":
     app = QApplication()
     win = UI_main_window()

@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import * 
 from PyQt5.QtGui import *
 from pyparsing import col
-from pyqt5_plugins import *
+# from pyqt5_plugins import *
 from PySide6.QtCharts import *
 from PySide6.QtCore import *
 from PySide6.QtUiTools import loadUiType
@@ -20,7 +20,7 @@ from PyQt5.QtGui import QPainter
 import os
 import login_api
 import cv2
-from qt_material import apply_stylesheet
+# from qt_material import apply_stylesheet
 ui, _ = loadUiType("login_setting.ui")
 
 
