@@ -1,12 +1,13 @@
 {
     "active_tools": [
-        "1_side",
-        "3_side"
-    ],
+        "1_side"
+        ],
+    "img_path": "images//defualt.jpg",
     "direction": "side",
     "name": "P3",
     "settings": {
         "1_side": {
+            "img_path": "images//defualt.jpg",
             "noise_filter0": 20,
             "rect_roi0": [
                 [
