@@ -93,7 +93,7 @@ Titles = {
     'Add': {'fa': "افزودن بیچ",
                         'en': 'Add'},
     'Edit/Remove': {'fa': "وایرایش/حذف",
-                        'en': 'Scale'}, 
+                        'en': 'Edit/Remove'}, 
     'Edit': {'fa': "ویرایش",
                         'en': 'Edit'},
     'Remove': {'fa': "حذف",

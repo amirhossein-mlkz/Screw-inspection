@@ -599,6 +599,7 @@ class API:
             if not flag:
                 self.ui.show_warning('Same Error 105', 'Error:same screw already exist ')
 
+            # self.ui.stackedWidget_2.setCurrentIndex(1)
             self.update_setting_page_info()
         else:
             self.ui.show_warning('Name Error', 'Screw Name Should be more than 3 character')

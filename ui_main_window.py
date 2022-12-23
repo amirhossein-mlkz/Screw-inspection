@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(1162, 621)
+        MainWindow.resize(1162, 783)
         MainWindow.setMinimumSize(QSize(0, 28))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -884,7 +884,7 @@ class Ui_MainWindow(object):
         self.toogle_btn_2.setMinimumSize(QSize(0, 30))
         self.toogle_btn_2.setMaximumSize(QSize(0, 30))
         icon8 = QIcon()
-        icon8.addFile(u"../../../../../../home/milad/.designer/backup/images/setting_main_window/toogle_left.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon8.addFile(u"images/setting_main_window/toogle_left.png", QSize(), QIcon.Normal, QIcon.Off)
         self.toogle_btn_2.setIcon(icon8)
         self.toogle_btn_2.setIconSize(QSize(30, 30))
 
@@ -2937,7 +2937,7 @@ class Ui_MainWindow(object):
         self.btn_add_region0_2_top.setStyleSheet(u"border:none;\n"
 "")
         icon16 = QIcon()
-        icon16.addFile(u"../../../../../home/milad/.designer/backup/images/plus.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon16.addFile(u"images/plus.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_add_region0_2_top.setIcon(icon16)
         self.btn_add_region0_2_top.setIconSize(QSize(26, 26))
 
@@ -2956,7 +2956,7 @@ class Ui_MainWindow(object):
         self.btn_remove_region0_2_top.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_remove_region0_2_top.setStyleSheet(u"border:none;")
         icon17 = QIcon()
-        icon17.addFile(u"../../../../../home/milad/.designer/backup/images/minus.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon17.addFile(u"images/minus.png", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_remove_region0_2_top.setIcon(icon17)
         self.btn_remove_region0_2_top.setIconSize(QSize(26, 27))
 
@@ -6185,12 +6185,16 @@ class Ui_MainWindow(object):
         self.prev_page_btn = QPushButton(self.frame_save_btns)
         self.prev_page_btn.setObjectName(u"prev_page_btn")
         self.prev_page_btn.setCursor(QCursor(Qt.PointingHandCursor))
-        self.prev_page_btn.setStyleSheet(u"QPushButton:hover {\n"
+        self.prev_page_btn.setStyleSheet(u"QPushButton {\n"
+"	border: none;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
 "	background-color: rgb(200,200,200);\n"
 "	border: 2px solid rgb(61, 70, 86);\n"
 "}")
         icon18 = QIcon()
-        icon18.addFile(u"../../../../../home/milad/.designer/backup/images/prev.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon18.addFile(u"images/prev.png", QSize(), QIcon.Normal, QIcon.Off)
         self.prev_page_btn.setIcon(icon18)
 
         self.horizontalLayout_39.addWidget(self.prev_page_btn)
@@ -6207,12 +6211,16 @@ class Ui_MainWindow(object):
         self.next_page_btn = QPushButton(self.frame_save_btns)
         self.next_page_btn.setObjectName(u"next_page_btn")
         self.next_page_btn.setCursor(QCursor(Qt.PointingHandCursor))
-        self.next_page_btn.setStyleSheet(u"QPushButton:hover {\n"
+        self.next_page_btn.setStyleSheet(u"QPushButton {\n"
+"	border: none;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
 "	background-color: rgb(200,200,200);\n"
 "	border: 2px solid rgb(61, 70, 86);\n"
 "}")
         icon19 = QIcon()
-        icon19.addFile(u"../../../../../home/milad/.designer/backup/images/next.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon19.addFile(u"images/next.png", QSize(), QIcon.Normal, QIcon.Off)
         self.next_page_btn.setIcon(icon19)
 
         self.horizontalLayout_39.addWidget(self.next_page_btn)
@@ -7734,7 +7742,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents_3 = QWidget()
         self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 276, 482))
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 276, 666))
         self.horizontalLayout_29 = QHBoxLayout(self.scrollAreaWidgetContents_3)
         self.horizontalLayout_29.setObjectName(u"horizontalLayout_29")
         self.tableWidget_users = QTableWidget(self.scrollAreaWidgetContents_3)
@@ -8486,8 +8494,8 @@ class Ui_MainWindow(object):
         self.btn_save_ip_plc.setObjectName(u"btn_save_ip_plc")
         self.btn_save_ip_plc.setMaximumSize(QSize(50, 16777215))
         self.btn_save_ip_plc.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_save_ip_plc.setStyleSheet(u"background-color: rgb(0, 0, 0);")
-        self.btn_save_ip_plc.setIcon(icon24)
+        self.btn_save_ip_plc.setStyleSheet(u"background-color: rgb(100,100,100);")
+        self.btn_save_ip_plc.setIcon(icon13)
 
         self.horizontalLayout_83.addWidget(self.btn_save_ip_plc)
 
@@ -9195,8 +9203,8 @@ class Ui_MainWindow(object):
         self.bar_thresh0_5_top.valueChanged.connect(self.spinBox_21.setValue)
         self.bar_noise_filter0_5_top.valueChanged.connect(self.spinBox_22.setValue)
 
-        self.stackedWidget.setCurrentIndex(0)
-        self.stackedWidget_2.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(5)
+        self.stackedWidget_2.setCurrentIndex(6)
         self.stackedWidget_3.setCurrentIndex(1)
 
 

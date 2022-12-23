@@ -838,7 +838,7 @@ class UI_main_window(QMainWindow, ui):
         if btnName =='save_new_btn' :
 
             self.animation_move(self.frame_23,300)
-            self.stackedWidget_2.setCurrentIndex(1)
+            
 
         if btnName =='edit_btn' :
             # if self.
