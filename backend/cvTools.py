@@ -196,7 +196,7 @@ def rects2mask(img_size, rects, defualt=255):
     return mask
 
 
-def circels2mask(img_size, circels , defualt=255):
+def circels2mask(img_size, circels , defualt=0):
     mask = np.zeros(img_size, dtype=np.uint8)
     if len(circels) == 0:
         mask+= defualt
@@ -766,7 +766,10 @@ def draw_head_diameter(img, pt1, pt2, color, thickness=3, line_lenght=10):
 
 
 def draw_cnt( img, cnt, color, thickness=5):
-    return cv2.drawContours(img, [cnt], 0, color, thickness=thickness)
+    if len(cnt)>0:
+        return cv2.drawContours(img, [cnt], 0, color, thickness=thickness)
+    else:
+        return img
 
 
 

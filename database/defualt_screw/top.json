@@ -8,7 +8,7 @@
     "settings": {
         "1_top": {
             "img_path": "images//defualt.jpg",
-            "noise_filter0": 20,
+            "noise_filter0": 5,
             "rect_roi0": [
                 [
                     0,

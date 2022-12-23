@@ -1070,6 +1070,10 @@ class UI_main_window(QMainWindow, ui):
         return label_name.text()
 
 
+    def clear_image_label(self,label_name):
+        label_name.clear()
+
+
     def set_image_label(self,label_name, img, height_percent=None, width_percent=None):
 
         page_name = self.get_main_page_idx(page_name=True)
@@ -1116,12 +1120,15 @@ class UI_main_window(QMainWindow, ui):
 
 
     def set_image_page_tool_labels(self,img):
-
-
         self.set_image_label(self.label_image_grab_page,img)
-
         self.img_page_tool=img
     
+
+    def clear_image_page_tool_labels(self):
+        self.clear_image_label(self.label_image_grab_page)
+        #self.img_page_tool=img
+
+
     def set_img_btns(self,btn_name,img_path):
         btn_name.setIcon(sQPixmap.fromImage(sQImage('{}'.format(img_path))))
     
