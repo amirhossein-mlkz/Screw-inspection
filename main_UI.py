@@ -1079,14 +1079,14 @@ class UI_main_window(QMainWindow, ui):
             if page_name in self.scales.keys():
                 height_percent, width_percent = self.scales[page_name]
                 win_h, win_w = self.app_size()
-                max_h = int(win_h * height_percent)
+                max_h = int( win_h * height_percent )
                 max_w = int( win_w * width_percent )
         
         if max_h is not None and max_w is not None:
             try:
                 h, w, ch = img.shape
             except:
-                h,w=img.shape
+                h,w = img.shape
                 ch=3
             scale_h = max_h/h
             scale_w = max_w/w
@@ -1096,8 +1096,8 @@ class UI_main_window(QMainWindow, ui):
         try:
             h, w, ch = img.shape
         except:
-            h,w=img.shape
-            ch=3
+            h,w = img.shape
+            ch = 3
         bytes_per_line = ch * w  
         
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -1135,6 +1135,8 @@ class UI_main_window(QMainWindow, ui):
         return self.line_new_screw.text().strip().capitalize()
 
 
+    def clear_line_scraw_name(self):
+        self.line_new_screw.setText('')
 
 
     def camera_select_radios_connect(self, func):

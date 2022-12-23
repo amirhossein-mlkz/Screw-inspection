@@ -579,13 +579,14 @@ class API:
     
     def add_new_screw(self):
         name = self.ui.get_line_scraw_name()
+        self.ui.clear_line_scraw_name()
         name  = name.replace(" ","")
         if len(name)>=3:
             flag = dbUtils.add_screw(name)
             self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
             self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
             
-            for direction in ['top', 'side']:
+            for direction in self.screw_jasons.keys(): #['top', 'side']
                 try:
                     self.screw_jasons[direction].read(DEFAULT_SCERW_PATH, direction)
                 except:
@@ -600,7 +601,11 @@ class API:
                 self.ui.show_warning('Same Error 105', 'Error:same screw already exist ')
 
             # self.ui.stackedWidget_2.setCurrentIndex(1)
-            self.update_setting_page_info()
+            #self.update_setting_page_info()
+            #self.ui.comboBox_edit_remove.S
+            self.ui.comboBox_edit_remove.setCurrentText(name)
+            self.edit_load_screw()
+            
         else:
             self.ui.show_warning('Name Error', 'Screw Name Should be more than 3 character')
 
@@ -611,7 +616,6 @@ class API:
             flag = self.ui.show_save_question('Save Screw', 'Do you want to Save screw ?')
         # try:
             if flag !=None:
-
                 if flag:
                     for key in self.screw_jasons.keys():
                         
