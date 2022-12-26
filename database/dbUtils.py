@@ -16,12 +16,21 @@ def save_image(img, main_path, screw_name, direction):
     path = os.path.join(main_path, screw_name)
     if not os.path.isdir(path):
         os.mkdir(path)
+        
+    for _dir_ in ['top','side']:
+        sub_path = os.path.join(path, _dir_)
+        if not os.path.isdir(sub_path):
+            os.mkdir(sub_path)
+                
+
     
+    
+    idx = max( len(os.listdir(os.path.join(path,'side'))),  len(os.listdir(os.path.join(path,'top'))) )  # THIS FUN IS FOR GET MAX IDX OF TWO 
+
     path = os.path.join( path, direction )
     if not os.path.isdir(path):
         os.mkdir(path)
     
-    idx = len(os.listdir(path))
     now = datetime.now()
     
     name = '{idx}_{year}-{month}-{day}__{hour}-{minute}.bmp'.format( idx = idx,

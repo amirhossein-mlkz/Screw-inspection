@@ -65,7 +65,7 @@ class UI_main_window(QMainWindow, ui):
 
 
         self.login_flag = True
-        self.camera_connect_flag = False
+        self.camera_connect_flag = True
 
         #   Define and set UI_KEYS
 
@@ -82,6 +82,23 @@ class UI_main_window(QMainWindow, ui):
                             ,self.trigger_combo, self.maxbuffer_spinbox, self.packetdelay_spinbox\
                                 , self.packetsize_spinbox, self.transmissiondelay_spinbox, self.ip_lineedit, self.serial_number_combo, self.camera_setting_connect_btn]
         
+
+        self.dict_camera_params = {
+
+                'serial_number': self.serial_number_combo,
+
+                'expo_value':self.expo_spinbox,
+                'gain_value':self.gain_spinbox,
+                'height':self.height_spinbox,
+                'width':self.width_spinbox,
+                'offsetx_value':self.offsetx_spinbox,
+                'offsety_value':self.offsety_spinbox,
+            # 'pxvalue_a':
+            # 'pxvalue_b':
+            # 'pxvalue_c':
+
+        }
+
 
         self.main_login_btn.setIcon(sQPixmap.fromImage(sQImage('images/login_white.png')))
         # APP NAME
@@ -168,7 +185,7 @@ class UI_main_window(QMainWindow, ui):
 
         # self.logger.create_new_log(message='UI object for train app created.')
         # self.load_lang()
-        
+        self.capture_mode_flag = 'general'
         
     def load_lang(self):
         # lan=api.load_language()
@@ -506,6 +523,10 @@ class UI_main_window(QMainWindow, ui):
         string=['English', 'Persian']
         self.combo_change_language.addItems(string)
 
+        camera_serials = ['20407477','0']
+        self.serial_number_combo.addItems(camera_serials)
+
+
     def set_combo_boxes(self,combo_name,items):
 
         combo_name.clear()
@@ -771,6 +792,11 @@ class UI_main_window(QMainWindow, ui):
             self.frame_size_width(self.frame_210,100000,width=True,max_width=True)
             self.frame_size_width(self.frame_209,100000,width=True,max_width=True)
             self.frame_size(self.camera_setting_tools_page,0)
+
+
+            self.capture_mode_flag = 'general'
+            self.line_path_top_cam_live_page_2.setEnabled(True)
+
         
         if btnName =='side_dashboard_btn' and self.stackedWidget.currentWidget()!=self.page_dashboard:
             self.clear_side_btns(current_page=0)
@@ -1000,6 +1026,8 @@ class UI_main_window(QMainWindow, ui):
             self.frame_size(self.camera_setting_tools_page,30)
             self.line_path_top_cam_live_page_2.setText(self.label_screw_name.text())
 
+            self.capture_mode_flag = 'edit_page'
+            self.line_path_top_cam_live_page_2.setEnabled(False)
 
         if btnName=='btn_connect_camera0_1_side':
             self.clear_side_btns(current_page=2)
@@ -1011,6 +1039,10 @@ class UI_main_window(QMainWindow, ui):
             self.frame_size(self.camera_setting_tools_page,30)
 
             self.line_path_top_cam_live_page_2.setText(self.label_screw_name.text())
+
+            self.capture_mode_flag = 'edit_page'
+            self.line_path_top_cam_live_page_2.setEnabled(False)
+
 
         if btnName=='camera_setting_tools_page':
 
@@ -1848,6 +1880,17 @@ class UI_main_window(QMainWindow, ui):
         h = self.centralwidget.height()
         return h,w
 
+    def set_camera_parms(self, parms):
+
+
+        for parm in self.dict_camera_params.keys():
+
+            if parm=='serial_number':
+
+                self.dict_camera_params[parm].setCurrentText(parms[parm])
+            
+            else:
+                self.dict_camera_params[parm].setValue(int(parms[parm]))
 
 
 

@@ -88,7 +88,7 @@ class API:
 
         
         
-        
+        self.current_camera_imgs = {}
         self.sides=['side','top']
         #------------------------------------------------------------------------------------------------------------------------
         # UIs of the app
@@ -120,11 +120,11 @@ class API:
         
         cameras_info = self.db.load_cam_params(1)
         print('cameras_info',cameras_info)
-        self.cameras = {}
+        
         # for cam_info in cameras_info:
-        self.cameras [ cameras_info['direction'] ] = camera_connection.Collector(cameras_info['serial_number'],exposure=cameras_info['expo_value'],gain=cameras_info['gain_value'])
 
 
+        self.cameras = {}
         self.available_camera_serials = camera_funcs.get_available_cameras_list_serial_numbers()
 
         mainsetting_funcs.assign_appearance_existing_params_to_ui(ui_obj=self.ui)
@@ -136,7 +136,7 @@ class API:
 
         # self.test_trig_camera()
 
-        
+        self.play_pause_status=True
 
         
         #------------------------------------------------------------------------------------------------------------------------
@@ -203,8 +203,11 @@ class API:
         # self.ui.main_login_btn.clicked.connect(partial(lambda: user_login_logout_funcs.run_login_window(ui_obj=self.ui, login_ui_obj=self.login_ui, confirm_ui_obj=self.confirm_ui)))
 
         # camera buttons in the camera-settings section
-        for cam_id in camera_funcs.all_camera_ids:
-            eval('self.ui.camera%s_btn' % cam_id).clicked.connect(partial(self.load_camera_params_from_db_to_UI))
+        # for cam_id in camera_funcs.all_camera_ids:
+        #     eval('self.ui.camera%s_btn' % cam_id).clicked.connect(partial(lambda: self.load_camera_params_from_db_to_UI(self.)))
+
+        self.ui.camera01_btn.clicked.connect(partial(lambda: self.load_camera_params_from_db_to_UI('top')))
+        self.ui.camera02_btn.clicked.connect(partial(lambda: self.load_camera_params_from_db_to_UI('side')))
 
         # buttons in the camera-settings section
         self.ui.camera_setting_apply_btn.clicked.connect(partial(self.save_changed_camera_params))
@@ -320,6 +323,11 @@ class API:
         self.ui.btn_connect_side_cal_page.clicked.connect(lambda:self.show_camera_picture(side='side'))
 
 
+        #camera setting page
+
+        self.ui.play_camera_setting_btn.clicked.connect(lambda: self.set_prev_flag(True))
+        self.ui.pause_camera_setting_btn.clicked.connect(lambda: self.set_prev_flag(False))
+
 
         #save image
 
@@ -394,21 +402,14 @@ class API:
 
 
     # get cameras parameters from database given camera-id and apply to UI
-    def load_camera_params_from_db_to_UI(self):
-        # disconnect camera if connected:
-        if self.ui.camera_connect_flag:
-            camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number='0', connect=False, current_cam_connection=self.camera_connection)
-            camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=False)
-            if not self.ui.camera_setting_connect_btn.isEnabled():
-                self.ui.camera_setting_connect_btn.setStyleSheet("background-color:{}; border:Transparent".format(colors_pallete.disabled_btn))
-        # get camera-id and camera params
-        camera_id = camera_funcs.get_camera_id(self.ui.cameraname_label.text())
-        camera_params = camera_funcs.get_camera_params_from_db(db_obj=self.db, camera_id=camera_id)
-        # set to UI
-        if len(camera_params) != 0:
-            camera_funcs.set_camera_params_to_ui(ui_obj=self.ui, db_obj=self.db, camera_params=camera_params, camera_id=camera_id, available_serials=self.available_camera_serials)
+    def load_camera_params_from_db_to_UI(self,camera_id):
 
-    
+
+
+        parm = self.db.load_cam_params(camera_id)
+
+        self.ui.set_camera_parms(parm)
+
 
 
 
@@ -416,7 +417,7 @@ class API:
     # disconnect camera on UI change
     def disconnect_camera_on_ui_change(self):
         if self.ui.camera_connect_flag:
-            camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number='0', connect=False, current_cam_connection=self.camera_connection)
+            camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number='0', connect=False)
             camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=False)
             camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=False, calibration=True)
             self.ui.camera_setting_connect_btn.setStyleSheet("background-color:{}; border:Transparent".format(colors_pallete.disabled_btn))
@@ -1001,20 +1002,28 @@ class API:
             pass
     
     def capture_image(self, direction):
-        # print('asdawdawdawdawcadc'*20)
+        
         def fuc(direction):
             try:
-                img=self.cameras[direction].get_img()
+                img = self.current_camera_imgs[direction]
             except:
-                print('eroooooooooooooooooooooooooor')
-                img=cv2.imread('images/cambtm_actived.png')
+                print('eror')
+                img=cv2.imread('images/capture_eror.jpg')
+            if self.ui.capture_mode_flag == 'edit_page':
+                f_name=self.ui.label_screw_name.text()
+                main_path=self.ui.line_main_path.text()
+                path=dbUtils.save_image(img,main_path=main_path,screw_name=f_name,direction=direction)
+                self.ui.set_line_value('img_path',path,page_name='1_{}'.format(direction))
+                self.update_main_image()
+            else:
+                f_name=self.ui.line_path_top_cam_live_page_2.text()
+                if len(f_name)>2:
+                    main_path=self.ui.line_main_path.text()
+                    path=dbUtils.save_image(img,main_path=main_path,screw_name=f_name,direction=direction)   
+                else:
+                    self.ui.show_warning('Eror','Folder Name Should be more than 3 character')       
+           
 
-            f_name=self.ui.label_screw_name.text()
-            main_path=self.ui.line_main_path.text()
-            path=dbUtils.save_image(img,main_path=main_path,screw_name=f_name,direction=direction)
-            self.ui.set_line_value('img_path',path,page_name='1_{}'.format(direction))
-            self.update_main_image()
-            print('image saved ',path)
 
         return fuc(direction)
 
@@ -1022,15 +1031,17 @@ class API:
     def capture_image_live(self, direction):
         # print('asdawdawdawdawcadc'*20)
         def fuc(direction):
-            try:
-                img=self.cameras[direction].get_img()
-            except:
-                print('eroooooooooooooooooooooooooor')
-                img=cv2.imread('images/camera.png')
-            f_name=direction
-            main_path=self.ui.line_main_path.text()
-            path=dbUtils.save_image(img,main_path=main_path,screw_name=f_name,direction=direction)
-            print('image saved ',path)
+            for direction in ['top','side']:
+                try:
+                    img=self.cameras[direction].get_img()
+                except:
+                    print('eror capture image')
+                    img=cv2.imread('images/capture_eror.jpg')
+                f_name=self.ui.combobox_select_screw_live.currentText()
+                main_path=self.ui.line_main_path.text()
+            
+                path=dbUtils.save_image(img,main_path=main_path,screw_name=f_name,direction=direction)
+                print('image saved ',path)
 
         return fuc(direction)
 
@@ -1731,57 +1742,19 @@ class API:
             self.db.save_side_calibration(side)
 
 
-    def set_images(self):
-        
-        if self.SAMPLE_IMAGE:
-            if self.image_num>2:
-                self.image_num=0
-            self.image_num+=1
-            self.img_top=self.top_images[self.image_num]
-            self.img_side= cvTools.random_light( self.side_images[self.image_num] )
-        else:
-            try:
-                self.img_side = self.cameras['side'].image
-            except:
-                self.img_side = np.zeros(shape=(1920,1200,3),dtype='uint8')
-            try:
-                self.img_top = self.cameras['top'].image
-            except:
-                self.img_top = np.zeros(shape=(1920,1200,3),dtype='uint8')
 
 
-        draw_img_top = np.copy( self.img_top)
-        draw_img_side = np.copy( self.img_side)
-
-        # print('set image')
-
-        # cv2.imshow('asd',draw_img_side)
-        # cv2.imshow('asd2',draw_img_top)
-
-        # if self.run_detect:
 
 
-        #     results_side = []
-        #     results_top = []
-
-        
-        #     draw_img_top, results_top = self.proccessing_live_top(self.img_top)
-        #     draw_img_side, results_side = self.proccessing_live_side(self.img_side)
-
-        #     #here add plc for reject
 
 
-        #     self.ui.set_live_table( self.ui.table_live_top_live_page, results_top )
-        #     self.ui.set_live_table( self.ui.table_live_side_live_page, results_side )
+        if not self.ui.btn_enabel_mask_draw_live_top.isChecked():
+            draw_img_side = self.img_side
+        draw_img_side = cv2.rotate( draw_img_side, cv2.ROTATE_90_COUNTERCLOCKWISE )
 
-
-        #     if not self.ui.btn_enabel_mask_draw_live_top.isChecked():
-        #         draw_img_side = self.img_side
-        #     draw_img_side = cv2.rotate( draw_img_side, cv2.ROTATE_90_COUNTERCLOCKWISE )
-
-        #     if not self.ui.btn_enabel_mask_draw_live_side.isChecked():
-        #         draw_img_top = self.img_top
-        #     draw_img_top = cv2.rotate( draw_img_top, cv2.ROTATE_90_COUNTERCLOCKWISE )
+        if not self.ui.btn_enabel_mask_draw_live_side.isChecked():
+            draw_img_top = self.img_top
+        draw_img_top = cv2.rotate( draw_img_top, cv2.ROTATE_90_COUNTERCLOCKWISE )
 
 
             
@@ -1829,51 +1802,51 @@ class API:
 
     def init_cameras(self):
 
-        for _ in range(2):
-            cameras_info = self.db.load_cam_params(_)
-            print('cameras_info',cameras_info)
-            self.cameras = {}
-            # for cam_info in cameras_info:
-            self.cameras [ cameras_info['direction'] ] = camera_connection.Collector(cameras_info['serial_number'],exposure=cameras_info['expo_value'],gain=cameras_info['gain_value'])
+        for direction in ['top','side']:
+            try:
+                cameras_info = self.db.load_cam_params(direction)
+                self.cameras [ cameras_info['direction'] ] = camera_connection.Collector(cameras_info['serial_number'],exposure=cameras_info['expo_value'],gain=cameras_info['gain_value'])
+            except:
+                print('eror in create camera objects')
+                self.cameras [ cameras_info['direction'] ] = None
 
+    # def connect_camera(self):
+    #     self.init_cameras()
+    #     text = ''
 
-    def connect_camera(self):
-        self.init_cameras()
-        text = ''
+        # try:
 
-        try:
+        #     for cam in self.cameras.values():
+        #         try:
+        #             print(cam.camera)
+        #             if cam.camera is not None:
+        #                 cam.start_grabbing()
 
-            for cam in self.cameras.values():
-                try:
-                    print(cam.camera)
-                    if cam.camera is not None:
-                        cam.start_grabbing()
-                        print(cam.camera.IsGrabbing())
-                    else:
-                        print('camera error')
-                except:
-                    text=text+cam
+        #             else:
+        #                 print('camera error')
+        #         except:
+        #             text=text+cam
 
-            if text =='':
+        #     if text =='':
 
-                self.ui.show_warning('Successfull',texts.WARNINGS['camrea_connection_ok'][self.language])
-                self.ui.start_capture_live_page.setEnabled(True)
-                self.ui.line_camera_status.setText(texts.WARNINGS['camrea_connection_ok'][self.language])
-                self.ui.disconnect_cameras_live_page.setEnabled(True)
+        #         self.ui.show_warning('Successfull',texts.WARNINGS['camrea_connection_ok'][self.language])
+        #         self.ui.start_capture_live_page.setEnabled(True)
+        #         self.ui.line_camera_status.setText(texts.WARNINGS['camrea_connection_ok'][self.language])
+        #         self.ui.disconnect_cameras_live_page.setEnabled(True)
             
-            else:
-                self.ui.show_warning('Warning',texts.WARNINGS['camrea_connection_not_ok'][self.language])
-                self.ui.start_capture_live_page.setEnabled(False)
-                self.ui.line_camera_status.setText(texts.WARNINGS['camrea_connection_not_ok'][self.language])
+        #     else:
+        #         self.ui.show_warning('Warning',texts.WARNINGS['camrea_connection_not_ok'][self.language])
+        #         self.ui.start_capture_live_page.setEnabled(False)
+        #         self.ui.line_camera_status.setText(texts.WARNINGS['camrea_connection_not_ok'][self.language])
 
 
                     
-        except:
-            print('eror')
+        # except:
+        #     print('eror')
 
-            self.ui.show_warning('Eror', texts.WARNINGS['camrea_connection_not_ok'][self.language])
-            self.ui.start_capture_live_page.setEnabled(False)
-            self.ui.line_camera_status.setText(texts.WARNINGS['camrea_connection_not_ok'][self.language])
+        #     self.ui.show_warning('Eror', texts.WARNINGS['camrea_connection_not_ok'][self.language])
+        #     self.ui.start_capture_live_page.setEnabled(False)
+        #     self.ui.line_camera_status.setText(texts.WARNINGS['camrea_connection_not_ok'][self.language])
 
 
 
@@ -1914,22 +1887,21 @@ class API:
 
 
 
-    def test_trig_camera(self):
-        self.collector =self.cameras['top']
+    def connect_camera(self):
 
-        # cameras = self.collector
-
-        self.collector.start_grabbing()
-        #cameras.getPictures()
-
-        self.thread = sQThread()
-        self.collector.moveToThread(self.thread)
-        self.thread.started.connect(self.collector.get_picture_while)
-        self.collector.finished.connect(self.thread.quit)
-        self.collector.finished.connect(self.collector.deleteLater)
-        self.thread.finished.connect(self.thread.deleteLater)
-        self.collector.trig_signal.connect(self.set_images)
-        self.thread.start()
+        self.init_cameras()
+        self.threads = {}
+        for direction in self.cameras.keys():
+            if self.cameras[direction]:
+                self.cameras[direction].start_grabbing()
+                self.threads[direction] = sQThread()
+                self.cameras[direction].moveToThread(self.threads[direction])
+                self.threads[direction].started.connect(self.cameras[direction].get_picture_while)
+                self.cameras[direction].finished.connect(self.threads[direction].quit)
+                self.cameras[direction].finished.connect(self.cameras[direction].deleteLater)
+                self.threads[direction].finished.connect(self.threads[direction].deleteLater)
+                self.cameras[direction].trig_signal.connect(self.set_images)
+                self.threads[direction].start()
     
 
     def show_image(self):
@@ -1999,3 +1971,66 @@ class API:
             # print('asd')
             cv2.waitKey(10)
                 
+
+    #set play or pause flag for camera page
+    def set_prev_flag(self,mode):
+        self.play_pause_status = mode
+
+
+
+    def set_images(self):
+        
+        if self.ui.stackedWidget.currentWidget()==self.ui.page_dashboard:
+            
+            draw_imgs = {
+                'top': np.zeros(shape=(1920,1200,3),dtype='uint8'),
+                'side': np.zeros(shape=(1920,1200,3),dtype='uint8')
+
+            }
+
+            results = {
+                'top': [],
+                'side': []
+            }
+
+            for direction in ['top', 'side']:
+                try:
+                    self.current_camera_imgs[direction] = self.cameras[direction].image
+                    if self.run_detect:
+                        draw_imgs[direction], results[direction] = self.proccessing_live_side(self.current_camera_imgs[direction])
+
+                
+                except:
+                    self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
+                    results[direction] = []
+                    draw_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
+
+
+                
+                if not self.ui.btn_enabel_mask_draw_live[direction].isChecked():
+                    draw_imgs[direction] = self.current_camera_imgs[direction]
+
+                draw_imgs[direction] = cv2.rotate( draw_imgs[direction], cv2.ROTATE_90_COUNTERCLOCKWISE )
+
+
+                self.ui.set_live_table( self.ui.table_live_page[direction], results[direction] )
+                self.ui.set_image_label( self.ui.label_img_live[direction], draw_imgs[direction] )
+
+
+                
+
+
+        elif self.ui.stackedWidget.currentWidget()==self.ui.page_camera_setting:
+
+            if self.play_pause_status:
+                print('play')
+                for direction in ['top', 'side']:
+                    try:
+                        self.current_camera_imgs[direction] = self.cameras[direction].image
+                    except:
+                        self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
+
+
+                    self.ui.set_image_label(self.ui.camera_setting_picture[direction], self.current_camera_imgs[direction])
+
+        

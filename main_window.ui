@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1162</width>
+    <width>1168</width>
     <height>783</height>
    </rect>
   </property>
@@ -716,6 +716,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -765,6 +766,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -814,6 +816,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -863,6 +866,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -912,6 +916,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -961,6 +966,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1047,6 +1053,7 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1065,7 +1072,7 @@ Button */
                      </property>
                      <property name="icon">
                       <iconset>
-                       <normaloff>../../../../../../home/milad/.designer/backup/images/login_white.png</normaloff>../../../../../../home/milad/.designer/backup/images/login_white.png</iconset>
+                       <normaloff>../../../../../home/milad/.designer/backup/images/login_white.png</normaloff>../../../../../home/milad/.designer/backup/images/login_white.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -1536,7 +1543,7 @@ text-align:left;</string>
                          <string/>
                         </property>
                         <property name="pixmap">
-                         <pixmap>../../../../../../home/milad/.designer/backup/images/images/whitew.png</pixmap>
+                         <pixmap>../../../../../home/milad/.designer/backup/images/images/whitew.png</pixmap>
                         </property>
                         <property name="scaledContents">
                          <bool>true</bool>
@@ -1747,7 +1754,7 @@ QPushButton:hover {
                            </property>
                            <property name="icon">
                             <iconset>
-                             <normaloff>../../../../../../home/milad/.designer/backup/images/enter.png</normaloff>../../../../../../home/milad/.designer/backup/images/enter.png</iconset>
+                             <normaloff>../../../../../home/milad/.designer/backup/images/enter.png</normaloff>../../../../../home/milad/.designer/backup/images/enter.png</iconset>
                            </property>
                            <property name="iconSize">
                             <size>
@@ -1842,6 +1849,7 @@ QPushButton:hover {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                        <stylestrategy>PreferDefault</stylestrategy>
@@ -2223,7 +2231,7 @@ QPushButton:hover {
                          <string notr="true">background-color : #F3F6FE;</string>
                         </property>
                         <property name="currentIndex">
-                         <number>5</number>
+                         <number>2</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -3054,7 +3062,7 @@ QPushButton:hover {
                                          <string/>
                                         </property>
                                         <property name="pixmap">
-                                         <pixmap>../../../../../../home/milad/.designer/backup/sample images/New folder/31x_1_2.png</pixmap>
+                                         <pixmap>../../../../../home/milad/.designer/backup/sample images/New folder/31x_1_2.png</pixmap>
                                         </property>
                                         <property name="scaledContents">
                                          <bool>true</bool>
@@ -3088,7 +3096,7 @@ QPushButton:hover {
                                          <string/>
                                         </property>
                                         <property name="pixmap">
-                                         <pixmap>../../../../../../home/milad/.designer/backup/sample images/New folder/42x_0_20.png</pixmap>
+                                         <pixmap>../../../../../home/milad/.designer/backup/sample images/New folder/42x_0_20.png</pixmap>
                                         </property>
                                         <property name="scaledContents">
                                          <bool>true</bool>
@@ -3509,6 +3517,7 @@ color:rgb(255,255,255);
                                    <font>
                                     <family>Segoe UI</family>
                                     <pointsize>-1</pointsize>
+                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -12534,7 +12543,7 @@ QPushButton:hover {
                                    <string/>
                                   </property>
                                   <property name="pixmap">
-                                   <pixmap>../../../../../../home/milad/.designer/backup/images/test1_0_12.png</pixmap>
+                                   <pixmap>../../../../../home/milad/.designer/backup/images/test1_0_12.png</pixmap>
                                   </property>
                                   <property name="scaledContents">
                                    <bool>true</bool>
@@ -13164,6 +13173,7 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
+                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -13204,6 +13214,7 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
+                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -13332,6 +13343,7 @@ QPushButton:pressed {
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -13359,6 +13371,7 @@ QPushButton:pressed {
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -13386,6 +13399,7 @@ QPushButton:pressed {
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -13413,6 +13427,7 @@ QPushButton:pressed {
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -13440,6 +13455,7 @@ QPushButton:pressed {
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -13467,6 +13483,7 @@ QPushButton:pressed {
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -13494,6 +13511,7 @@ QPushButton:pressed {
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -13521,6 +13539,7 @@ QPushButton:pressed {
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -13548,6 +13567,7 @@ QPushButton:pressed {
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -13575,6 +13595,7 @@ QPushButton:pressed {
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -13602,6 +13623,7 @@ QPushButton:pressed {
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -13629,6 +13651,7 @@ QPushButton:pressed {
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -13656,6 +13679,7 @@ QPushButton:pressed {
                                      <font>
                                       <family>Segoe UI</family>
                                       <pointsize>10</pointsize>
+                                      <weight>50</weight>
                                       <italic>false</italic>
                                       <bold>false</bold>
                                      </font>
@@ -14209,6 +14233,65 @@ QPushButton:pressed {
                                  </widget>
                                 </item>
                                 <item>
+                                 <widget class="QFrame" name="frame_148">
+                                  <property name="frameShape">
+                                   <enum>QFrame::StyledPanel</enum>
+                                  </property>
+                                  <property name="frameShadow">
+                                   <enum>QFrame::Raised</enum>
+                                  </property>
+                                  <layout class="QHBoxLayout" name="horizontalLayout_23">
+                                   <item>
+                                    <widget class="QPushButton" name="play_camera_setting_btn">
+                                     <property name="enabled">
+                                      <bool>false</bool>
+                                     </property>
+                                     <property name="maximumSize">
+                                      <size>
+                                       <width>50</width>
+                                       <height>16777215</height>
+                                      </size>
+                                     </property>
+                                     <property name="styleSheet">
+                                      <string notr="true">
+background-color: rgb(0, 170, 0);</string>
+                                     </property>
+                                     <property name="text">
+                                      <string/>
+                                     </property>
+                                     <property name="icon">
+                                      <iconset>
+                                       <normaloff>images/icons/cil-media-play.png</normaloff>images/icons/cil-media-play.png</iconset>
+                                     </property>
+                                    </widget>
+                                   </item>
+                                   <item>
+                                    <widget class="QPushButton" name="pause_camera_setting_btn">
+                                     <property name="enabled">
+                                      <bool>false</bool>
+                                     </property>
+                                     <property name="maximumSize">
+                                      <size>
+                                       <width>50</width>
+                                       <height>16777215</height>
+                                      </size>
+                                     </property>
+                                     <property name="styleSheet">
+                                      <string notr="true">background-color: rgb(255, 0, 0);</string>
+                                     </property>
+                                     <property name="text">
+                                      <string/>
+                                     </property>
+                                     <property name="icon">
+                                      <iconset>
+                                       <normaloff>images/icons/cil-media-pause.png</normaloff>images/icons/cil-media-pause.png</iconset>
+                                     </property>
+                                    </widget>
+                                   </item>
+                                  </layout>
+                                 </widget>
+                                </item>
+                                <item>
                                  <widget class="Line" name="line_31">
                                   <property name="orientation">
                                    <enum>Qt::Horizontal</enum>
@@ -14300,6 +14383,7 @@ QPushButton:pressed {
                                <property name="font">
                                 <font>
                                  <pointsize>10</pointsize>
+                                 <weight>75</weight>
                                  <bold>true</bold>
                                 </font>
                                </property>
@@ -14419,7 +14503,7 @@ QPushButton:pressed {
                                       <string/>
                                      </property>
                                      <property name="pixmap">
-                                      <pixmap>../../../../../../home/milad/.designer/backup/images/camera.png</pixmap>
+                                      <pixmap>../../../../../home/milad/.designer/backup/images/camera.png</pixmap>
                                      </property>
                                      <property name="scaledContents">
                                       <bool>true</bool>
@@ -14470,7 +14554,7 @@ QPushButton:pressed {
 }</string>
                                      </property>
                                      <property name="text">
-                                      <string>Caprute</string>
+                                      <string>Capture</string>
                                      </property>
                                     </widget>
                                    </item>
@@ -14520,7 +14604,7 @@ QPushButton:pressed {
                                       <string/>
                                      </property>
                                      <property name="pixmap">
-                                      <pixmap>../../../../../../home/milad/.designer/backup/images/camera.png</pixmap>
+                                      <pixmap>../../../../../home/milad/.designer/backup/images/camera.png</pixmap>
                                      </property>
                                      <property name="scaledContents">
                                       <bool>true</bool>
@@ -14819,7 +14903,7 @@ QPushButton:pressed {
                                       <string/>
                                      </property>
                                      <property name="pixmap">
-                                      <pixmap>../../../../../../home/milad/.designer/backup/images/settings.png</pixmap>
+                                      <pixmap>../../../../../home/milad/.designer/backup/images/settings.png</pixmap>
                                      </property>
                                      <property name="scaledContents">
                                       <bool>true</bool>
@@ -15381,7 +15465,7 @@ QPushButton:pressed {
                                       <string/>
                                      </property>
                                      <property name="pixmap">
-                                      <pixmap>../../../../../../home/milad/.designer/backup/images/settings.png</pixmap>
+                                      <pixmap>../../../../../home/milad/.designer/backup/images/settings.png</pixmap>
                                      </property>
                                      <property name="scaledContents">
                                       <bool>true</bool>
@@ -15804,7 +15888,7 @@ QPushButton:pressed {
                                   <x>0</x>
                                   <y>0</y>
                                   <width>276</width>
-                                  <height>666</height>
+                                  <height>662</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">
@@ -16332,6 +16416,7 @@ border: 1px solid #CDCDCE;
                                   <property name="font">
                                    <font>
                                     <pointsize>8</pointsize>
+                                    <weight>50</weight>
                                     <bold>false</bold>
                                    </font>
                                   </property>
@@ -17119,6 +17204,7 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
+                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -18563,6 +18649,7 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
+                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -18599,6 +18686,7 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
+                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -18638,6 +18726,7 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
+                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>

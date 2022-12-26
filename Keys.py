@@ -545,7 +545,31 @@ def object_dict_builder(ui_object):
             'page_tools':[0.8,0.7]
 
         }
+
+
     
+    self.table_live_page = {
+                'top': self.table_live_top_live_page,
+                'side': self.table_live_side_live_page
+            }
+
+
+    self.btn_enabel_mask_draw_live = {
+        'top': self.btn_enabel_mask_draw_live_top,
+        'side': self.btn_enabel_mask_draw_live_side
+    } 
+
+
+    self.label_img_live = {
+        'top':  self.label_img_top_live,
+        'side': self.label_img_side_live
+    }
+
+    self.camera_setting_picture = {
+        'side': self.camera_setting_picture_side,
+        'top': self.camera_setting_picture_top
+    }
+
 
 def set_dimensions(label_name,x,y,side=False,top=False):
             # f_name.setMaximumHeight(size)

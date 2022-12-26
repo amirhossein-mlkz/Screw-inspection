@@ -91,6 +91,10 @@ class dataBaseUtils():
     
 
     def load_cam_params(self, input_camera_id):
+        if input_camera_id == 'top':
+            input_camera_id=1
+        elif input_camera_id =='side':
+            input_camera_id = 2
 
 
         if sql_mode=='none':
