@@ -13050,7 +13050,7 @@ border-color:Transparent</string>
                                        </property>
                                        <property name="icon">
                                         <iconset>
-                                         <normaloff>images/camtop_actived.png</normaloff>images/camtop_actived.png</iconset>
+                                         <normaloff>images/camtop.png</normaloff>images/camtop.png</iconset>
                                        </property>
                                        <property name="iconSize">
                                         <size>
@@ -13074,7 +13074,7 @@ border-color:Transparent</string>
                                        </property>
                                        <property name="icon">
                                         <iconset>
-                                         <normaloff>images/camside_actived.png</normaloff>images/camside_actived.png</iconset>
+                                         <normaloff>images/camside.png</normaloff>images/camside.png</iconset>
                                        </property>
                                        <property name="iconSize">
                                         <size>
@@ -15887,8 +15887,8 @@ QPushButton:pressed {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>276</width>
-                                  <height>662</height>
+                                  <width>92</width>
+                                  <height>71</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">

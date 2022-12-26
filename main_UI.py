@@ -86,7 +86,7 @@ class UI_main_window(QMainWindow, ui):
         self.dict_camera_params = {
 
                 'serial_number': self.serial_number_combo,
-
+                'trigger_mode':self.trigger_combo,
                 'expo_value':self.expo_spinbox,
                 'gain_value':self.gain_spinbox,
                 'height':self.height_spinbox,
@@ -1885,13 +1885,38 @@ class UI_main_window(QMainWindow, ui):
 
         for parm in self.dict_camera_params.keys():
 
-            if parm=='serial_number':
+            if parm=='serial_number' or parm == 'trigger_mode':
 
                 self.dict_camera_params[parm].setCurrentText(parms[parm])
-            
+
+
             else:
                 self.dict_camera_params[parm].setValue(int(parms[parm]))
 
+
+    def get_camera_setting_parms(self):
+        camera_params = {}
+        camera_params['gain_value'] = self.gain_spinbox.value()
+        camera_params['expo_value'] = self.expo_spinbox.value()
+        camera_params['width'] = self.width_spinbox.value()
+        camera_params['height'] = self.height_spinbox.value()
+        camera_params['offsetx_value'] = self.offsetx_spinbox.value()
+        camera_params['offsety_value'] = self.offsety_spinbox.value()
+        camera_params['trigger_mode'] = self.trigger_combo.currentText()
+        camera_params['serial_number'] = '0' if self.serial_number_combo.currentText()=='No Serial' else self.serial_number_combo.currentText()
+        return camera_params
+
+
+    def get_current_direction_camera_setting(self):
+        return str(self.cameraname_label.text()).lower()
+
+    def connect_camera_setting_event(self, func):
+        for parm,obj in self.dict_camera_params.items():
+            if parm in ['trigger_mode', 'serial_number']:
+                
+                obj.currentTextChanged.connect( func )
+            else:
+                obj.textChanged.connect(func)
 
 
 

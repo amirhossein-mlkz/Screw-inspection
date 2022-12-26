@@ -53,7 +53,7 @@ def get_camera_params_from_ui(ui_obj):
     camera_params['packet_size'] = ui_obj.packetsize_spinbox.value()
     camera_params['transmission_delay'] = ui_obj.transmissiondelay_spinbox.value()
     camera_params['ip_address'] = ui_obj.ip_lineedit.text()
-    camera_params['trigger_mode'] = '1' if ui_obj.trigger_combo.currentText()=='On' else '0'
+    camera_params['trigger_mode'] = ui_obj.trigger_combo.currentText()
     camera_params['serial_number'] = '0' if ui_obj.serial_number_combo.currentText()=='No Serial' else ui_obj.serial_number_combo.currentText()
     return camera_params
 
