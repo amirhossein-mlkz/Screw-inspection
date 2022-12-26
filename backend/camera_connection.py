@@ -160,7 +160,8 @@ class Collector(sQObject):
             
     
     def stop_grabbing(self):
-        self.camera.Close()
+        if self.camera:
+            self.camera.Close()
 
             
         

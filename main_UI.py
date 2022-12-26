@@ -1884,14 +1884,16 @@ class UI_main_window(QMainWindow, ui):
 
 
         for parm in self.dict_camera_params.keys():
-
+            self.dict_camera_params[parm].blockSignals(True)
             if parm=='serial_number' or parm == 'trigger_mode':
-
+                
                 self.dict_camera_params[parm].setCurrentText(parms[parm])
 
 
             else:
                 self.dict_camera_params[parm].setValue(int(parms[parm]))
+
+            self.dict_camera_params[parm].blockSignals(False)
 
 
     def get_camera_setting_parms(self):

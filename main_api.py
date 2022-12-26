@@ -125,6 +125,7 @@ class API:
 
 
         self.cameras = {}
+        self.connect_camera()
         self.available_camera_serials = camera_funcs.get_available_cameras_list_serial_numbers()
 
         mainsetting_funcs.assign_appearance_existing_params_to_ui(ui_obj=self.ui)
@@ -287,7 +288,9 @@ class API:
 
 
         self.ui.side_dashboard_btn.clicked.connect(self.load_live_page_infoes)
-
+        self.ui.side_dashboard_btn.clicked.connect(self.load_camera_params_from_db_to_camera)
+        self.ui.side_camera_setting_btn.clicked.connect(self.load_camera_params_from_UI_to_camera)
+        self.ui.camera_setting_reset_btn.clicked.connect(self.reset_camera_parms_from_db)
 
         # Live Page
 
@@ -332,7 +335,7 @@ class API:
 
         self.ui.play_camera_setting_btn.clicked.connect(lambda: self.set_prev_flag(True))
         self.ui.pause_camera_setting_btn.clicked.connect(lambda: self.set_prev_flag(False))
-
+        print('**'*100)
 
         #save image
 
@@ -459,18 +462,27 @@ class API:
         self.ui.set_camera_parms(parm)
 
 
-    def load_camera_params_from_db_to_camera(self,direction):
-        self.cameras[direction].stop_grabbing()
-        parm = self.db.load_cam_params(direction)
-        self.cameras[direction].update_parms(parm)
-        self.cameras[direction].start_grabbing()
+    def load_camera_params_from_db_to_camera(self,):
+        print('load_camera_params_from_db_to_camera')
+        for direction in ['top','side']:
+            self.cameras[direction].stop_grabbing()
+            parm = self.db.load_cam_params(direction)
+            self.cameras[direction].update_parms(parm)
+            self.cameras[direction].start_grabbing()
 
 
     
     def load_camera_params_from_UI_to_camera(self):
+        print('load_camera_params_from_UI_to_camera')
         direction = self.ui.get_current_direction_camera_setting()
         parms = self.ui.get_camera_setting_parms()
         self.cameras[direction].update_parms(parms)
+
+    def reset_camera_parms_from_db(self):
+        print('reset_camera_parms_from_db')
+        direction = self.ui.get_current_direction_camera_setting()
+        self.load_camera_params_from_db_to_UI(direction)
+        self.load_camera_params_from_UI_to_camera()
         
 
 
@@ -486,11 +498,14 @@ class API:
 
     #set play or pause flag for camera page
     def set_prev_flag(self,mode):
+        print('play-pause')
         self.play_pause_status = mode
         for direction in ['top', 'side']:
             if mode:
+                print('start grabbing')
                 self.cameras[direction].start_grabbing()
             else:
+                print('stop grabbing')
                 self.cameras[direction].stop_grabbing()
 
     # appearance parameters in the general-settings page
@@ -2016,7 +2031,7 @@ class API:
         elif self.ui.stackedWidget.currentWidget()==self.ui.page_camera_setting:
 
             if self.play_pause_status:
-                print('play')
+                #print('play')
                 for direction in ['top', 'side']:
                     try:
                         self.current_camera_imgs[direction] = self.cameras[direction].image
