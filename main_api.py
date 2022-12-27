@@ -85,6 +85,7 @@ class API:
 
     def __init__(self,ui):
         self.ui = ui
+        self.win_fullscreen = FullScreen_UI()
 
         
         
@@ -192,10 +193,10 @@ class API:
 
         #fullscreen
         self.eror_img = cv2.imread('images/capture_eror.jpg')
-        self.win_fullscreen = FullScreen_UI()
-        self.timer_update_fullscreen = sQTimer()
-        self.timer_update_fullscreen.timeout.connect(self.update_fullscreen_img)
-        self.win_fullscreen.closeButton.clicked.connect(self.stop_update_fullscreen_img)
+        
+        #self.timer_update_fullscreen = sQTimer()
+        #self.timer_update_fullscreen.timeout.connect(self.update_fullscreen_img)
+        #self.win_fullscreen.closeButton.clicked.connect(self.stop_update_fullscreen_img)
         
         # function to active the UI buttons functionality
         self.button_connector()
@@ -643,26 +644,7 @@ class API:
         self.edit_defect = False
         self.edit_defect_group = False
 
-    #------------------------------------------------------------------------------------------------------------------------
-    # NEW----------------------------------------------------------------
-
-
-    def show_full_screen(self,direction):
-
-
-        self.full_screen_direction = direction
-        self.win_fullscreen.show()
-        self.timer_update_fullscreen.start(100)
     
-    def update_fullscreen_img(self):
-        print('updatessss')
-        try:
-            self.win_fullscreen.show_image(self.cameras[self.full_screen_direction])
-        except:
-            self.win_fullscreen.show_image(img=self.eror_img)
-    
-    def stop_update_fullscreen_img(self):
-        self.timer_update_fullscreen.stop()
 
     
 
@@ -2063,4 +2045,22 @@ class API:
 
                     self.ui.set_image_label(self.ui.camera_setting_picture[direction], self.current_camera_imgs[direction])
 
+                if self.win_fullscreen.isVisible():
+                    self.update_fullscreen_img()
+                
         
+#------------------------------------------------------------------------------------------------------------------------
+# NEW----------------------------------------------------------------
+
+
+    def show_full_screen(self,direction):
+
+
+        self.full_screen_direction = direction
+        self.win_fullscreen.show()
+    
+    def update_fullscreen_img(self):
+        #print('updatessss')
+        self.win_fullscreen.show_image(self.current_camera_imgs[self.full_screen_direction])
+        #cv2.imshow('a', self.current_camera_imgs[self.full_screen_direction])
+        #cv2.waitKey(30)

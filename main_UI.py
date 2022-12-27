@@ -1132,12 +1132,14 @@ class UI_main_window(QMainWindow, ui):
 
         try:
             h, w, ch = img.shape
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         except:
             h,w = img.shape
             ch = 3
+            img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
         bytes_per_line = ch * w  
         
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        
         convert_to_Qt_format = sQImage(img.data, w, h, bytes_per_line, sQImage.Format_RGB888)
 
         label_name.setPixmap(sQPixmap.fromImage(convert_to_Qt_format))
