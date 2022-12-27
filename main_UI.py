@@ -65,7 +65,7 @@ class UI_main_window(QMainWindow, ui):
 
 
         self.login_flag = True
-        self.camera_connect_flag = True
+        self.camera_connect_flag = False
 
         #   Define and set UI_KEYS
 

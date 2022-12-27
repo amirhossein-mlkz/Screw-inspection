@@ -70,6 +70,7 @@ class Collector(sQObject):
         self.list_devices_mode=list_devices_mode
         self.exitCode=0
         self.camera = None
+        self.capturing = True
         # if show_eror:
         #     self.window_eror = UI_eror_window()
 
@@ -90,7 +91,8 @@ class Collector(sQObject):
 
         # assert len(devices) > 0 , 'No Camera is Connected!'
         
-
+    def set_capturing(self,status):
+        self.capturing = status
 
     def tempreture(self):
         device_info = self.camera.GetDeviceInfo()
@@ -231,11 +233,14 @@ class Collector(sQObject):
     def get_picture_while(self):
 
         while True:
-            cv2.waitKey(50)
-            ret,self.image = self.getPictures()
-            if ret:
-                self.trig_signal.emit()
-
+            if self.capturing:
+                cv2.waitKey(100)
+                ret,self.image = self.getPictures()
+                if ret:
+                    self.trig_signal.emit()
+            else:
+                break
+        self.finished.emit()
 
     def update_parms(self, parms):
         for parm, value in parms.items():
