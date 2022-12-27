@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(1162, 783)
+        MainWindow.resize(1168, 783)
         MainWindow.setMinimumSize(QSize(0, 28))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -687,7 +687,7 @@ class Ui_MainWindow(object):
         self.main_login_btn.setCursor(QCursor(Qt.PointingHandCursor))
         self.main_login_btn.setLayoutDirection(Qt.RightToLeft)
         icon7 = QIcon()
-        icon7.addFile(u"../../../../../../home/milad/.designer/backup/images/login_white.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon7.addFile(u"../../../../../home/milad/.designer/backup/images/login_white.png", QSize(), QIcon.Normal, QIcon.Off)
         self.main_login_btn.setIcon(icon7)
         self.main_login_btn.setIconSize(QSize(25, 25))
 
@@ -873,7 +873,7 @@ class Ui_MainWindow(object):
         self.label_dorsa = QLabel(self.leftBox)
         self.label_dorsa.setObjectName(u"label_dorsa")
         self.label_dorsa.setMaximumSize(QSize(0, 16777215))
-        self.label_dorsa.setPixmap(QPixmap(u"../../../../../../home/milad/.designer/backup/images/images/whitew.png"))
+        self.label_dorsa.setPixmap(QPixmap(u"../../../../../home/milad/.designer/backup/images/images/whitew.png"))
         self.label_dorsa.setScaledContents(True)
         self.label_dorsa.setMargin(-11)
 
@@ -965,7 +965,7 @@ class Ui_MainWindow(object):
 "	background-color:  rgb(197 , 195,196);\n"
 "}")
         icon9 = QIcon()
-        icon9.addFile(u"../../../../../../home/milad/.designer/backup/images/enter.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon9.addFile(u"../../../../../home/milad/.designer/backup/images/enter.png", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton_7.setIcon(icon9)
         self.pushButton_7.setIconSize(QSize(24, 24))
 
@@ -1549,7 +1549,7 @@ class Ui_MainWindow(object):
         self.label_selected_screw_top_live.setFrameShape(QFrame.WinPanel)
         self.label_selected_screw_top_live.setFrameShadow(QFrame.Plain)
         self.label_selected_screw_top_live.setLineWidth(3)
-        self.label_selected_screw_top_live.setPixmap(QPixmap(u"../../../../../../home/milad/.designer/backup/sample images/New folder/31x_1_2.png"))
+        self.label_selected_screw_top_live.setPixmap(QPixmap(u"../../../../../home/milad/.designer/backup/sample images/New folder/31x_1_2.png"))
         self.label_selected_screw_top_live.setScaledContents(True)
         self.label_selected_screw_top_live.setMargin(0)
 
@@ -1561,7 +1561,7 @@ class Ui_MainWindow(object):
         self.label_selected_screw_side_live.setMaximumSize(QSize(41, 66))
         self.label_selected_screw_side_live.setFrameShape(QFrame.WinPanel)
         self.label_selected_screw_side_live.setLineWidth(3)
-        self.label_selected_screw_side_live.setPixmap(QPixmap(u"../../../../../../home/milad/.designer/backup/sample images/New folder/42x_0_20.png"))
+        self.label_selected_screw_side_live.setPixmap(QPixmap(u"../../../../../home/milad/.designer/backup/sample images/New folder/42x_0_20.png"))
         self.label_selected_screw_side_live.setScaledContents(True)
 
         self.horizontalLayout_112.addWidget(self.label_selected_screw_side_live)
@@ -6249,7 +6249,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_40.setObjectName(u"verticalLayout_40")
         self.label_image_grab_page = QLabel(self.frame_51)
         self.label_image_grab_page.setObjectName(u"label_image_grab_page")
-        self.label_image_grab_page.setPixmap(QPixmap(u"../../../../../../home/milad/.designer/backup/images/test1_0_12.png"))
+        self.label_image_grab_page.setPixmap(QPixmap(u"../../../../../home/milad/.designer/backup/images/test1_0_12.png"))
         self.label_image_grab_page.setScaledContents(True)
 
         self.verticalLayout_40.addWidget(self.label_image_grab_page)
@@ -6472,7 +6472,7 @@ class Ui_MainWindow(object):
         self.camera01_btn.setStyleSheet(u"background-color:Transparent;\n"
 "border-color:Transparent")
         icon22 = QIcon()
-        icon22.addFile(u"images/camtop_actived.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon22.addFile(u"images/camtop.png", QSize(), QIcon.Normal, QIcon.Off)
         self.camera01_btn.setIcon(icon22)
         self.camera01_btn.setIconSize(QSize(50, 50))
 
@@ -6484,7 +6484,7 @@ class Ui_MainWindow(object):
         self.camera02_btn.setStyleSheet(u"background-color:Transparent;\n"
 "border-color:Transparent")
         icon23 = QIcon()
-        icon23.addFile(u"images/camside_actived.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon23.addFile(u"images/camside.png", QSize(), QIcon.Normal, QIcon.Off)
         self.camera02_btn.setIcon(icon23)
         self.camera02_btn.setIconSize(QSize(50, 50))
 
@@ -6716,7 +6716,8 @@ class Ui_MainWindow(object):
         self.gain_spinbox.setMaximumSize(QSize(100, 30))
         self.gain_spinbox.setCursor(QCursor(Qt.PointingHandCursor))
         self.gain_spinbox.setAlignment(Qt.AlignCenter)
-        self.gain_spinbox.setMaximum(360)
+        self.gain_spinbox.setMinimum(200)
+        self.gain_spinbox.setMaximum(1000)
         self.gain_spinbox.setSingleStep(1)
 
         self.verticalLayout_21.addWidget(self.gain_spinbox)
@@ -6728,7 +6729,7 @@ class Ui_MainWindow(object):
         self.expo_spinbox.setMaximumSize(QSize(100, 30))
         self.expo_spinbox.setCursor(QCursor(Qt.PointingHandCursor))
         self.expo_spinbox.setAlignment(Qt.AlignCenter)
-        self.expo_spinbox.setMinimum(35)
+        self.expo_spinbox.setMinimum(100)
         self.expo_spinbox.setMaximum(10000000)
         self.expo_spinbox.setSingleStep(1)
         self.expo_spinbox.setValue(3000)
@@ -6742,7 +6743,7 @@ class Ui_MainWindow(object):
         self.width_spinbox.setMaximumSize(QSize(100, 30))
         self.width_spinbox.setCursor(QCursor(Qt.PointingHandCursor))
         self.width_spinbox.setAlignment(Qt.AlignCenter)
-        self.width_spinbox.setMinimum(10)
+        self.width_spinbox.setMinimum(500)
         self.width_spinbox.setMaximum(1920)
         self.width_spinbox.setSingleStep(1)
         self.width_spinbox.setValue(1920)
@@ -6756,7 +6757,7 @@ class Ui_MainWindow(object):
         self.height_spinbox.setMaximumSize(QSize(100, 30))
         self.height_spinbox.setCursor(QCursor(Qt.PointingHandCursor))
         self.height_spinbox.setAlignment(Qt.AlignCenter)
-        self.height_spinbox.setMinimum(10)
+        self.height_spinbox.setMinimum(500)
         self.height_spinbox.setMaximum(1200)
         self.height_spinbox.setSingleStep(1)
         self.height_spinbox.setValue(1200)
@@ -6904,11 +6905,30 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_12.addWidget(self.camera_setting_apply_btn)
 
+        self.camera_setting_reset_btn = QPushButton(self.frame_160)
+        self.camera_setting_reset_btn.setObjectName(u"camera_setting_reset_btn")
+        self.camera_setting_reset_btn.setMinimumSize(QSize(0, 30))
+        self.camera_setting_reset_btn.setMaximumSize(QSize(16777215, 30))
+        self.camera_setting_reset_btn.setStyleSheet(u"QPushButton{\n"
+"	background-color: rgb(255, 120, 0);\n"
+"border: Transparent;\n"
+"}\n"
+"\n"
+"QPushButton:disabled {\n"
+"    background-color: #8D8D8D;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"	background-color: rgb(0, 0, 0);\n"
+"}")
+
+        self.horizontalLayout_12.addWidget(self.camera_setting_reset_btn)
+
         self.camera_setting_connect_btn = QPushButton(self.frame_160)
         self.camera_setting_connect_btn.setObjectName(u"camera_setting_connect_btn")
         self.camera_setting_connect_btn.setEnabled(True)
-        self.camera_setting_connect_btn.setMinimumSize(QSize(0, 30))
-        self.camera_setting_connect_btn.setMaximumSize(QSize(16777215, 30))
+        self.camera_setting_connect_btn.setMinimumSize(QSize(0, 0))
+        self.camera_setting_connect_btn.setMaximumSize(QSize(0, 0))
         self.camera_setting_connect_btn.setCursor(QCursor(Qt.PointingHandCursor))
         self.camera_setting_connect_btn.setStyleSheet(u"QPushButton{\n"
 "background: #78AD40;\n"
@@ -6927,6 +6947,38 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_70.addWidget(self.frame_160)
+
+        self.frame_148 = QFrame(self.frame_11)
+        self.frame_148.setObjectName(u"frame_148")
+        self.frame_148.setFrameShape(QFrame.StyledPanel)
+        self.frame_148.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_23 = QHBoxLayout(self.frame_148)
+        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
+        self.play_camera_setting_btn = QPushButton(self.frame_148)
+        self.play_camera_setting_btn.setObjectName(u"play_camera_setting_btn")
+        self.play_camera_setting_btn.setEnabled(True)
+        self.play_camera_setting_btn.setMaximumSize(QSize(50, 16777215))
+        self.play_camera_setting_btn.setStyleSheet(u"\n"
+"background-color: rgb(0, 170, 0);")
+        icon24 = QIcon()
+        icon24.addFile(u"images/icons/cil-media-play.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.play_camera_setting_btn.setIcon(icon24)
+
+        self.horizontalLayout_23.addWidget(self.play_camera_setting_btn)
+
+        self.pause_camera_setting_btn = QPushButton(self.frame_148)
+        self.pause_camera_setting_btn.setObjectName(u"pause_camera_setting_btn")
+        self.pause_camera_setting_btn.setEnabled(True)
+        self.pause_camera_setting_btn.setMaximumSize(QSize(50, 16777215))
+        self.pause_camera_setting_btn.setStyleSheet(u"background-color: rgb(255, 0, 0);")
+        icon25 = QIcon()
+        icon25.addFile(u"images/icons/cil-media-pause.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.pause_camera_setting_btn.setIcon(icon25)
+
+        self.horizontalLayout_23.addWidget(self.pause_camera_setting_btn)
+
+
+        self.verticalLayout_70.addWidget(self.frame_148)
 
         self.line_31 = QFrame(self.frame_11)
         self.line_31.setObjectName(u"line_31")
@@ -6947,21 +6999,23 @@ class Ui_MainWindow(object):
         self.frame_189 = QFrame(self.frame_99)
         self.frame_189.setObjectName(u"frame_189")
         self.frame_189.setMinimumSize(QSize(0, 44))
+        self.frame_189.setStyleSheet(u"\n"
+"background-color: rgb(153, 193, 241);")
         self.frame_189.setFrameShape(QFrame.StyledPanel)
         self.frame_189.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_100 = QHBoxLayout(self.frame_189)
-        self.horizontalLayout_100.setObjectName(u"horizontalLayout_100")
-        self.horizontalLayout_100.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_139 = QVBoxLayout(self.frame_189)
+        self.verticalLayout_139.setObjectName(u"verticalLayout_139")
+        self.verticalLayout_139.setContentsMargins(0, 0, 0, 0)
         self.label_178 = QLabel(self.frame_189)
         self.label_178.setObjectName(u"label_178")
 
-        self.horizontalLayout_100.addWidget(self.label_178)
+        self.verticalLayout_139.addWidget(self.label_178, 0, Qt.AlignHCenter)
 
         self.line_path_top_cam_live_page_2 = QLineEdit(self.frame_189)
         self.line_path_top_cam_live_page_2.setObjectName(u"line_path_top_cam_live_page_2")
         self.line_path_top_cam_live_page_2.setReadOnly(False)
 
-        self.horizontalLayout_100.addWidget(self.line_path_top_cam_live_page_2)
+        self.verticalLayout_139.addWidget(self.line_path_top_cam_live_page_2)
 
 
         self.verticalLayout_118.addWidget(self.frame_189)
@@ -7029,7 +7083,7 @@ class Ui_MainWindow(object):
         self.camera_setting_picture_top.setFrameShape(QFrame.Box)
         self.camera_setting_picture_top.setFrameShadow(QFrame.Sunken)
         self.camera_setting_picture_top.setLineWidth(2)
-        self.camera_setting_picture_top.setPixmap(QPixmap(u"../../../../../../home/milad/.designer/backup/images/camera.png"))
+        self.camera_setting_picture_top.setPixmap(QPixmap(u"../../../../../home/milad/.designer/backup/images/camera.png"))
         self.camera_setting_picture_top.setScaledContents(True)
         self.camera_setting_picture_top.setWordWrap(True)
         self.camera_setting_picture_top.setMargin(13)
@@ -7058,6 +7112,18 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_110.addWidget(self.camera_setting_get_top_camera, 0, Qt.AlignHCenter)
 
+        self.fullscreen_cam_top_btn = QPushButton(self.frame_209)
+        self.fullscreen_cam_top_btn.setObjectName(u"fullscreen_cam_top_btn")
+        self.fullscreen_cam_top_btn.setMaximumSize(QSize(50, 16777215))
+        self.fullscreen_cam_top_btn.setCursor(QCursor(Qt.PointingHandCursor))
+        self.fullscreen_cam_top_btn.setStyleSheet(u"border:none;")
+        icon26 = QIcon()
+        icon26.addFile(u"images/full-screen.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.fullscreen_cam_top_btn.setIcon(icon26)
+        self.fullscreen_cam_top_btn.setIconSize(QSize(26, 26))
+
+        self.verticalLayout_110.addWidget(self.fullscreen_cam_top_btn, 0, Qt.AlignHCenter)
+
 
         self.horizontalLayout_53.addWidget(self.frame_209)
 
@@ -7079,7 +7145,7 @@ class Ui_MainWindow(object):
         self.camera_setting_picture_side.setFrameShape(QFrame.Box)
         self.camera_setting_picture_side.setFrameShadow(QFrame.Sunken)
         self.camera_setting_picture_side.setLineWidth(2)
-        self.camera_setting_picture_side.setPixmap(QPixmap(u"../../../../../../home/milad/.designer/backup/images/camera.png"))
+        self.camera_setting_picture_side.setPixmap(QPixmap(u"../../../../../home/milad/.designer/backup/images/camera.png"))
         self.camera_setting_picture_side.setScaledContents(True)
         self.camera_setting_picture_side.setMargin(13)
         self.camera_setting_picture_side.setIndent(-1)
@@ -7106,6 +7172,16 @@ class Ui_MainWindow(object):
 "}")
 
         self.verticalLayout_131.addWidget(self.camera_setting_get_side_camera, 0, Qt.AlignHCenter)
+
+        self.fullscreen_cam_side_btn = QPushButton(self.frame_210)
+        self.fullscreen_cam_side_btn.setObjectName(u"fullscreen_cam_side_btn")
+        self.fullscreen_cam_side_btn.setMaximumSize(QSize(50, 16777215))
+        self.fullscreen_cam_side_btn.setCursor(QCursor(Qt.PointingHandCursor))
+        self.fullscreen_cam_side_btn.setStyleSheet(u"border:none;")
+        self.fullscreen_cam_side_btn.setIcon(icon26)
+        self.fullscreen_cam_side_btn.setIconSize(QSize(26, 26))
+
+        self.verticalLayout_131.addWidget(self.fullscreen_cam_side_btn, 0, Qt.AlignHCenter)
 
 
         self.horizontalLayout_53.addWidget(self.frame_210)
@@ -7236,7 +7312,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_104.setObjectName(u"verticalLayout_104")
         self.camera_top_cal_page = QLabel(self.frame_159)
         self.camera_top_cal_page.setObjectName(u"camera_top_cal_page")
-        self.camera_top_cal_page.setPixmap(QPixmap(u"../../../../../../home/milad/.designer/backup/images/settings.png"))
+        self.camera_top_cal_page.setPixmap(QPixmap(u"../../../../../home/milad/.designer/backup/images/settings.png"))
         self.camera_top_cal_page.setScaledContents(True)
 
         self.verticalLayout_104.addWidget(self.camera_top_cal_page)
@@ -7419,9 +7495,9 @@ class Ui_MainWindow(object):
         self.btn_save_value_top_cal_page.setObjectName(u"btn_save_value_top_cal_page")
         self.btn_save_value_top_cal_page.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_save_value_top_cal_page.setStyleSheet(u"background-color: rgb(0, 0, 0);")
-        icon24 = QIcon()
-        icon24.addFile(u"../../../../../home/milad/.designer/backup/images/icons/cil-save.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_save_value_top_cal_page.setIcon(icon24)
+        icon27 = QIcon()
+        icon27.addFile(u"../../../../../home/milad/.designer/backup/images/icons/cil-save.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_save_value_top_cal_page.setIcon(icon27)
 
         self.horizontalLayout_104.addWidget(self.btn_save_value_top_cal_page)
 
@@ -7525,7 +7601,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_123.setObjectName(u"verticalLayout_123")
         self.camera_side_cal_page = QLabel(self.frame_200)
         self.camera_side_cal_page.setObjectName(u"camera_side_cal_page")
-        self.camera_side_cal_page.setPixmap(QPixmap(u"../../../../../../home/milad/.designer/backup/images/settings.png"))
+        self.camera_side_cal_page.setPixmap(QPixmap(u"../../../../../home/milad/.designer/backup/images/settings.png"))
         self.camera_side_cal_page.setScaledContents(True)
 
         self.verticalLayout_123.addWidget(self.camera_side_cal_page)
@@ -7708,7 +7784,7 @@ class Ui_MainWindow(object):
         self.btn_save_value_side_cal_page.setObjectName(u"btn_save_value_side_cal_page")
         self.btn_save_value_side_cal_page.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_save_value_side_cal_page.setStyleSheet(u"background-color: rgb(0, 0, 0);")
-        self.btn_save_value_side_cal_page.setIcon(icon24)
+        self.btn_save_value_side_cal_page.setIcon(icon27)
 
         self.horizontalLayout_185.addWidget(self.btn_save_value_side_cal_page)
 
@@ -9203,7 +9279,7 @@ class Ui_MainWindow(object):
         self.bar_thresh0_5_top.valueChanged.connect(self.spinBox_21.setValue)
         self.bar_noise_filter0_5_top.valueChanged.connect(self.spinBox_22.setValue)
 
-        self.stackedWidget.setCurrentIndex(5)
+        self.stackedWidget.setCurrentIndex(2)
         self.stackedWidget_2.setCurrentIndex(6)
         self.stackedWidget_3.setCurrentIndex(1)
 
@@ -9600,15 +9676,20 @@ class Ui_MainWindow(object):
         self.trigger_combo.setItemText(1, QCoreApplication.translate("MainWindow", u"Off", None))
 
         self.camera_setting_apply_btn.setText(QCoreApplication.translate("MainWindow", u"Apply Settings", None))
+        self.camera_setting_reset_btn.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
         self.camera_setting_connect_btn.setText(QCoreApplication.translate("MainWindow", u"Connect", None))
+        self.play_camera_setting_btn.setText("")
+        self.pause_camera_setting_btn.setText("")
         self.label_178.setText(QCoreApplication.translate("MainWindow", u"Folder Name :", None))
         self.camera_setting_message_label.setText("")
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Top Camera", None))
         self.camera_setting_picture_top.setText("")
-        self.camera_setting_get_top_camera.setText(QCoreApplication.translate("MainWindow", u"Caprute", None))
+        self.camera_setting_get_top_camera.setText(QCoreApplication.translate("MainWindow", u"Capture", None))
+        self.fullscreen_cam_top_btn.setText("")
         self.label_150.setText(QCoreApplication.translate("MainWindow", u"Side Camera", None))
         self.camera_setting_picture_side.setText("")
         self.camera_setting_get_side_camera.setText(QCoreApplication.translate("MainWindow", u"Capture", None))
+        self.fullscreen_cam_side_btn.setText("")
         self.camera_setting_tools_page.setText(QCoreApplication.translate("MainWindow", u"Tools Page", None))
         self.label_172.setText(QCoreApplication.translate("MainWindow", u"Top Camera :", None))
         self.btn_connect_top_cal_page.setText("")

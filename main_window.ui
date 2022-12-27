@@ -14573,8 +14573,17 @@ QPushButton:pressed {
                                      </property>
                                     </widget>
                                    </item>
-                                   <item>
+                                   <item alignment="Qt::AlignHCenter">
                                     <widget class="QPushButton" name="fullscreen_cam_top_btn">
+                                     <property name="maximumSize">
+                                      <size>
+                                       <width>50</width>
+                                       <height>16777215</height>
+                                      </size>
+                                     </property>
+                                     <property name="cursor">
+                                      <cursorShape>PointingHandCursor</cursorShape>
+                                     </property>
                                      <property name="styleSheet">
                                       <string notr="true">border:none;</string>
                                      </property>
@@ -14691,8 +14700,17 @@ QPushButton:pressed {
                                      </property>
                                     </widget>
                                    </item>
-                                   <item>
+                                   <item alignment="Qt::AlignHCenter">
                                     <widget class="QPushButton" name="fullscreen_cam_side_btn">
+                                     <property name="maximumSize">
+                                      <size>
+                                       <width>50</width>
+                                       <height>16777215</height>
+                                      </size>
+                                     </property>
+                                     <property name="cursor">
+                                      <cursorShape>PointingHandCursor</cursorShape>
+                                     </property>
                                      <property name="styleSheet">
                                       <string notr="true">border:none;</string>
                                      </property>
@@ -15942,8 +15960,8 @@ QPushButton:pressed {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>67</width>
-                                  <height>67</height>
+                                  <width>276</width>
+                                  <height>666</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">

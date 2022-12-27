@@ -15,26 +15,17 @@ class FullScreen_UI(QMainWindow, ui):
     widgets = ui
     x=0
 
-    def __init__(self, img):
+    def __init__(self):
         super(FullScreen_UI, self).__init__()
         self.setupUi(self)
         flags = Qt.WindowFlags(Qt.FramelessWindowHint)
         self.pos_ = self.pos()
         self.setWindowFlags(flags)
-        self.n_image.setPixmap(QPixmap.fromImage(
-            QImage(img, img.shape[1], img.shape[0], img.strides[0], QImage.Format_BGR888)))
         self.activate_()
 
-        print('image')
-
-        self.show()
-
         self.checkBox_ontop.stateChanged.connect(lambda:self.check_box_state(self.checkBox_ontop))
-
-        self.win_set_geometry()
         self._old_pos = None
 
-        self.maxmize_minimize()
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
@@ -74,7 +65,7 @@ class FullScreen_UI(QMainWindow, ui):
 
 
     def check_box_state(self,b):
-
+            print(b.isChecked())
             if b.isChecked() == True:
                 flags = Qt.WindowFlags(Qt.FramelessWindowHint|Qt.WindowStaysOnTopHint)
                 # QtCore.Qt.WindowStaysOnTopHint
@@ -85,6 +76,14 @@ class FullScreen_UI(QMainWindow, ui):
                 self.setWindowFlags(flags)
                 self.show()
 
+
+
+    def show_image(self,img):
+        self.n_image.setPixmap(QPixmap.fromImage(
+            QImage(img, img.shape[1], img.shape[0], img.strides[0], QImage.Format_BGR888)))
+
+
+
 # api = labeling_api.labeling_API(win)
 import cv2
 if __name__ == "__main__":
@@ -92,6 +91,6 @@ if __name__ == "__main__":
     # cv2.imshow('asd',img)
     # cv2.waitKey(0)
     app = QApplication()
-    win = FullScreen_UI(img)
+    win = FullScreen_UI()
     # win.show()
     sys.exit(app.exec())

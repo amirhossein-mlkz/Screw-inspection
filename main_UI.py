@@ -186,7 +186,8 @@ class UI_main_window(QMainWindow, ui):
         # self.logger.create_new_log(message='UI object for train app created.')
         # self.load_lang()
         self.capture_mode_flag = 'general'
-        
+
+        self.camera01_btn.click() #first click on top camera
     def load_lang(self):
         # lan=api.load_language()
         self.set_language(self.language)

@@ -190,6 +190,13 @@ class API:
         self.history_obj = UI_history_window()
 
 
+        #fullscreen
+        self.eror_img = cv2.imread('images/capture_eror.jpg')
+        self.win_fullscreen = FullScreen_UI()
+        self.timer_update_fullscreen = sQTimer()
+        self.timer_update_fullscreen.timeout.connect(self.update_fullscreen_img)
+        self.win_fullscreen.closeButton.clicked.connect(self.stop_update_fullscreen_img)
+        
         # function to active the UI buttons functionality
         self.button_connector()
 
@@ -244,9 +251,8 @@ class API:
         self.ui.side_general_setting_btn.clicked.connect(lambda: self.load_appearance_params_on_start(mainsetting_page=True))
 
         #Fullscreen  
-        # self.ui.fullscreen_cam_1.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam_1))
-        # self.ui.fullscreen_cam2.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam2))
-        # self.ui.fullscreen_page_tools.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_page_tools))
+        self.ui.fullscreen_cam_top_btn.clicked.connect(lambda: self.show_full_screen('top'))
+        self.ui.fullscreen_cam_side_btn.clicked.connect(lambda: self.show_full_screen('side'))
 
 
         #tools page
@@ -641,23 +647,22 @@ class API:
     # NEW----------------------------------------------------------------
 
 
-    def show_full_screen(self,cam_num):
-        
+    def show_full_screen(self,direction):
 
-        # fullscreen_dict={'fullscreen_cam_1':self.image_cam_1,'fullscreen_cam2':self.image_cam_2,'fullscreen_page_tools':self.ui.img_page_tool}
-        fullscreen_dict={'fullscreen_page_tools':self.ui.img_page_tool}
-        print('cam_num',fullscreen_dict[str(cam_num.objectName())])
-        self.win_fullscreen = FullScreen_UI(fullscreen_dict[str(cam_num.objectName())])
-        # full_screen_obj.show()
+
+        self.full_screen_direction = direction
         self.win_fullscreen.show()
-
-
-
+        self.timer_update_fullscreen.start(100)
     
-
+    def update_fullscreen_img(self):
+        print('updatessss')
+        try:
+            self.win_fullscreen.show_image(self.cameras[self.full_screen_direction])
+        except:
+            self.win_fullscreen.show_image(img=self.eror_img)
     
-    
-
+    def stop_update_fullscreen_img(self):
+        self.timer_update_fullscreen.stop()
 
     
 
