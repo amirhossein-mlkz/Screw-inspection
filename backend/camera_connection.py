@@ -148,9 +148,9 @@ class Collector(sQObject):
 
             self.camera.Open()
 
-            if self.trigger=='on':
+            if self.trigger=='On':
                 self.camera.TriggerMode.SetValue('On')
-                self.camera.TriggerSource.SetValue(self.trigger_source)
+                #self.camera.TriggerSource.SetValue(self.trigger_source)
                 print('triggeron on %s' % self.trigger_source)
             else:
                 self.camera.TriggerMode.SetValue('Off')

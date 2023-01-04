@@ -524,7 +524,7 @@ class UI_main_window(QMainWindow, ui):
         string=['English', 'Persian']
         self.combo_change_language.addItems(string)
 
-        camera_serials = ['20407477','0']
+        camera_serials = ['20407477','20306145']
         self.serial_number_combo.addItems(camera_serials)
 
 

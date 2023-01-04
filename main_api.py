@@ -1892,7 +1892,8 @@ class API:
         for direction in ['top','side']:
             try:
                 cameras_info = self.db.load_cam_params(direction)
-                print('serial number in for ',cameras_info['serial_number'])                
+                print('serial number in for ',cameras_info['serial_number'])   
+		#print('asd'*80,cameras_info['trigger_mode'])             
                 self.cameras [ cameras_info['direction'] ] = camera_connection.Collector(cameras_info['serial_number'],exposure=cameras_info['expo_value'],gain=cameras_info['gain_value'],trigger=cameras_info['trigger_mode'])
             except:
                 print('eror in create camera objects')
