@@ -85,6 +85,7 @@ class API:
 
     def __init__(self,ui):
         self.ui = ui
+        self.win_fullscreen = FullScreen_UI()
 
         
         
@@ -190,6 +191,13 @@ class API:
         self.history_obj = UI_history_window()
 
 
+        #fullscreen
+        self.eror_img = cv2.imread('images/capture_eror.jpg')
+        
+        #self.timer_update_fullscreen = sQTimer()
+        #self.timer_update_fullscreen.timeout.connect(self.update_fullscreen_img)
+        #self.win_fullscreen.closeButton.clicked.connect(self.stop_update_fullscreen_img)
+        
         # function to active the UI buttons functionality
         self.button_connector()
 
@@ -244,9 +252,8 @@ class API:
         self.ui.side_general_setting_btn.clicked.connect(lambda: self.load_appearance_params_on_start(mainsetting_page=True))
 
         #Fullscreen  
-        # self.ui.fullscreen_cam_1.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam_1))
-        # self.ui.fullscreen_cam2.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_cam2))
-        # self.ui.fullscreen_page_tools.clicked.connect(lambda: self.show_full_screen(self.ui.fullscreen_page_tools))
+        self.ui.fullscreen_cam_top_btn.clicked.connect(lambda: self.show_full_screen('top'))
+        self.ui.fullscreen_cam_side_btn.clicked.connect(lambda: self.show_full_screen('side'))
 
 
         #tools page
@@ -283,7 +290,7 @@ class API:
         self.ui.save_btn_page_grab.clicked.connect(self.save_screw)
         
         self.ui.connect_cameras_live_page.clicked.connect(self.connect_camera)
-        self.ui.disconnect_cameras_live_page.clicked.connect(self.disconnect_camera)
+        self.ui.disconnect_cameras_live_page.clicked.connect(self.disconnect_camera_on_ui_change)
         
 
 
@@ -424,22 +431,26 @@ class API:
 
 
     def connect_camera(self):
-
-        self.init_cameras()
-        self.threads = {}
-        for direction in self.cameras.keys():
-            if self.cameras[direction]:
-                self.cameras[direction].start_grabbing()
-                self.threads[direction] = sQThread()
-                self.cameras[direction].moveToThread(self.threads[direction])
-                self.threads[direction].started.connect(self.cameras[direction].get_picture_while)
-                self.cameras[direction].finished.connect(self.threads[direction].quit)
-                self.cameras[direction].finished.connect(self.cameras[direction].deleteLater)
-                self.threads[direction].finished.connect(self.threads[direction].deleteLater)
-                self.cameras[direction].trig_signal.connect(self.set_images)
-                self.threads[direction].start()
-    
-
+        # if self.cameras==None:
+        if not self.ui.camera_connect_flag:
+            self.init_cameras()
+            self.threads = {}
+            for direction in self.cameras.keys():
+                if self.cameras[direction]:
+                    self.cameras[direction].start_grabbing()
+                    self.threads[direction] = sQThread()
+                    self.cameras[direction].moveToThread(self.threads[direction])
+                    self.threads[direction].started.connect(self.cameras[direction].get_picture_while)
+                    self.cameras[direction].finished.connect(self.threads[direction].quit)
+                    self.cameras[direction].finished.connect(self.cameras[direction].deleteLater)
+                    self.threads[direction].finished.connect(self.threads[direction].deleteLater)
+                    self.cameras[direction].trig_signal.connect(self.set_images)
+                    self.threads[direction].start()
+            self.ui.camera_connect_flag=True
+            self.ui.disconnect_cameras_live_page.setEnabled(True)
+            self.ui.connect_cameras_live_page.setEnabled(False)
+        else:
+            print('camera connection already exist')
 
     # # apply camera parameters to camera(s) (in database) on apply button click
     def save_changed_camera_params(self, apply_to_multiple=False):
@@ -490,10 +501,23 @@ class API:
     # disconnect camera on UI change
     def disconnect_camera_on_ui_change(self):
         if self.ui.camera_connect_flag:
-            camera_funcs.connect_disconnect_camera(ui_obj=self.ui, db_pbj=self.db, serial_number='0', connect=False)
-            camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=False)
-            camera_funcs.update_ui_on_camera_connect_disconnect(ui_obj=self.ui, api_obj=self, connect=False, calibration=True)
-            self.ui.camera_setting_connect_btn.setStyleSheet("background-color:{}; border:Transparent".format(colors_pallete.disabled_btn))
+            #print('start disconnection')
+            for direction in self.sides:
+
+                    
+                    self.cameras[direction].stop_grabbing()
+                    self.cameras[direction].set_capturing(False)
+                    self.threads[direction].quit()
+
+
+            self.ui.connect_cameras_live_page.setEnabled(True)
+            self.ui.disconnect_cameras_live_page.setEnabled(False)
+            
+            self.cameras={}
+            self.ui.camera_connect_flag=False
+            print('end disconnection')
+            cv2.waitKey(1000)
+
 
 
     #set play or pause flag for camera page
@@ -620,27 +644,7 @@ class API:
         self.edit_defect = False
         self.edit_defect_group = False
 
-    #------------------------------------------------------------------------------------------------------------------------
-    # NEW----------------------------------------------------------------
-
-
-    def show_full_screen(self,cam_num):
-        
-
-        # fullscreen_dict={'fullscreen_cam_1':self.image_cam_1,'fullscreen_cam2':self.image_cam_2,'fullscreen_page_tools':self.ui.img_page_tool}
-        fullscreen_dict={'fullscreen_page_tools':self.ui.img_page_tool}
-        print('cam_num',fullscreen_dict[str(cam_num.objectName())])
-        self.win_fullscreen = FullScreen_UI(fullscreen_dict[str(cam_num.objectName())])
-        # full_screen_obj.show()
-        self.win_fullscreen.show()
-
-
-
     
-
-    
-    
-
 
     
 
@@ -2041,4 +2045,22 @@ class API:
 
                     self.ui.set_image_label(self.ui.camera_setting_picture[direction], self.current_camera_imgs[direction])
 
+                if self.win_fullscreen.isVisible():
+                    self.update_fullscreen_img()
+                
         
+#------------------------------------------------------------------------------------------------------------------------
+# NEW----------------------------------------------------------------
+
+
+    def show_full_screen(self,direction):
+
+
+        self.full_screen_direction = direction
+        self.win_fullscreen.show()
+    
+    def update_fullscreen_img(self):
+        #print('updatessss')
+        self.win_fullscreen.show_image(self.current_camera_imgs[self.full_screen_direction])
+        #cv2.imshow('a', self.current_camera_imgs[self.full_screen_direction])
+        #cv2.waitKey(30)

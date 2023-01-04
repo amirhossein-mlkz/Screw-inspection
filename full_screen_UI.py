@@ -9,32 +9,25 @@ from PySide6.QtWidgets import *
 ui, _ = loadUiType("full_screen.ui")
 os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 
+from PySide6.QtGui import QImage as sQImage    # should change
+from PySide6.QtGui import QPixmap as sQPixmap   # should change
 
 class FullScreen_UI(QMainWindow, ui):
     global widgets
     widgets = ui
     x=0
 
-    def __init__(self, img):
+    def __init__(self):
         super(FullScreen_UI, self).__init__()
         self.setupUi(self)
         flags = Qt.WindowFlags(Qt.FramelessWindowHint)
         self.pos_ = self.pos()
         self.setWindowFlags(flags)
-        self.n_image.setPixmap(QPixmap.fromImage(
-            QImage(img, img.shape[1], img.shape[0], img.strides[0], QImage.Format_BGR888)))
         self.activate_()
 
-        print('image')
-
-        self.show()
-
         self.checkBox_ontop.stateChanged.connect(lambda:self.check_box_state(self.checkBox_ontop))
-
-        self.win_set_geometry()
         self._old_pos = None
 
-        self.maxmize_minimize()
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
@@ -74,7 +67,7 @@ class FullScreen_UI(QMainWindow, ui):
 
 
     def check_box_state(self,b):
-
+            print(b.isChecked())
             if b.isChecked() == True:
                 flags = Qt.WindowFlags(Qt.FramelessWindowHint|Qt.WindowStaysOnTopHint)
                 # QtCore.Qt.WindowStaysOnTopHint
@@ -85,13 +78,38 @@ class FullScreen_UI(QMainWindow, ui):
                 self.setWindowFlags(flags)
                 self.show()
 
+
+
+    def show_image_(self,img):
+        self.n_image.setPixmap(QPixmap.fromImage(
+            QImage(img, img.shape[1], img.shape[0], img.strides[0], QImage.Format_BGR888)))
+
+
+    def show_image(self,img):
+
+        try:
+            h, w, ch = img.shape
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        except:
+            h,w = img.shape
+            ch = 3
+            img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+        bytes_per_line = ch * w  
+        
+        
+        convert_to_Qt_format = sQImage(img.data, w, h, bytes_per_line, sQImage.Format_RGB888)
+
+        self.n_image.setPixmap(sQPixmap.fromImage(convert_to_Qt_format))
+
+        
 # api = labeling_api.labeling_API(win)
 import cv2
 if __name__ == "__main__":
-    img = cv2.imread('images/icons/240_F_296806337_usQssx5FBitebzcGsaOF5qOltJ4AZfBJ.jpg')
+    img = cv2.imread('images/capture_eror.jpg')
     # cv2.imshow('asd',img)
     # cv2.waitKey(0)
     app = QApplication()
-    win = FullScreen_UI(img)
-    # win.show()
+    win = FullScreen_UI()
+    win.show()
+    win.show_image(img)
     sys.exit(app.exec())
