@@ -58,9 +58,9 @@ if __name__=='__main__':
     bit =False
     while True:
         # bit = not bit
-        # for i in range(2030,2050):
-        #     c.set_value(i,bit)
+        for i in range(2030,2050):
+            c.set_value(i,bit)
             
-        #     time.sleep(0.1)
-        #     print(i)
+            time.sleep(0.1)
+            print(i)
         c.connection()

@@ -27,7 +27,6 @@ import numpy as np
 
 import resources
 
-
 from PySide6.QtGui import QImage as sQImage    # should change
 from PySide6.QtGui import QPixmap as sQPixmap   # should change
 
@@ -42,7 +41,7 @@ from history_UI import UI_history_window
 ui, _ = loadUiType("main_window.ui")
 
 
-os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
+# os.environ["QT_FONT_DPI"] = "96" # FIX Problem for High DPI and Scale above 100%
 class UI_main_window(QMainWindow, ui):
     global widgets
     widgets = ui
@@ -98,6 +97,9 @@ class UI_main_window(QMainWindow, ui):
             # 'pxvalue_c':
 
         }
+
+
+
 
 
         self.main_login_btn.setIcon(sQPixmap.fromImage(sQImage('images/login_white.png')))
@@ -188,6 +190,13 @@ class UI_main_window(QMainWindow, ui):
         self.capture_mode_flag = 'general'
 
         self.camera01_btn.click() #first click on top camera
+        self.side_dashboard_btn.click()
+
+        self.side_camera_setting_btn.click()
+        self.side_dashboard_btn.click()
+
+
+
     def load_lang(self):
         # lan=api.load_language()
         self.set_language(self.language)
@@ -231,9 +240,9 @@ class UI_main_window(QMainWindow, ui):
 
 
     # method called by timer
-    def update_images(self):
+    # def update_images(self):
 
-        api.set_images()
+    #     api.set_images()
 
 
     def mousePressEvent(self, event):
@@ -523,8 +532,9 @@ class UI_main_window(QMainWindow, ui):
 
         string=['English', 'Persian']
         self.combo_change_language.addItems(string)
-
-        camera_serials = ['20407477','20306145']
+        
+    def set_camera_setting_combobox_ids(self,ids):
+        camera_serials = ids
         self.serial_number_combo.addItems(camera_serials)
 
 
@@ -797,7 +807,7 @@ class UI_main_window(QMainWindow, ui):
 
             self.capture_mode_flag = 'general'
             self.line_path_top_cam_live_page_2.setEnabled(True)
-
+            self.camera01_btn.click()
         
         if btnName =='side_dashboard_btn' and self.stackedWidget.currentWidget()!=self.page_dashboard:
             self.clear_side_btns(current_page=0)
@@ -853,7 +863,6 @@ class UI_main_window(QMainWindow, ui):
 
         if btnName =='camera01_btn':
             self.set_label(self.cameraname_label,'Top')
-            print('adswd',cv2.imread('images/camtop_actived.png'))
             self.change_btn_icon(self.camera01_btn,'images/camtop_actived.png')
             self.change_btn_icon(self.camera02_btn,'images/camside.png')
 
@@ -1016,15 +1025,17 @@ class UI_main_window(QMainWindow, ui):
                 self.frame_size(self.frame_10,460)   
             else:
                 self.frame_size(self.frame_10,0)  
-
+            self.camera01_btn.click()
         if btnName=='btn_connect_camera0_1_top':
             self.clear_side_btns(current_page=2)
 
-            self.stackedWidget.setCurrentWidget(self.page_camera_setting)
+            self.side_camera_setting_btn.click()
+            self.camera01_btn.click()
 
             self.frame_size_width(self.frame_210,0,width=True,both_width=True)
             self.frame_size_width(self.frame_209,5000,width=True,max_width=True)
             self.frame_size(self.camera_setting_tools_page,30)
+            print('we'*50)
             self.line_path_top_cam_live_page_2.setText(self.label_screw_name.text())
 
             self.capture_mode_flag = 'edit_page'
@@ -1033,8 +1044,9 @@ class UI_main_window(QMainWindow, ui):
         if btnName=='btn_connect_camera0_1_side':
             self.clear_side_btns(current_page=2)
 
-            self.stackedWidget.setCurrentWidget(self.page_camera_setting)
-
+            # self.stackedWidget.setCurrentWidget(self.page_camera_setting)
+            self.side_camera_setting_btn.click()
+            self.camera02_btn.click()
             self.frame_size_width(self.frame_209,0,width=True,both_width=True)
             self.frame_size_width(self.frame_210,100000,width=True,max_width=True)
             self.frame_size(self.camera_setting_tools_page,30)
@@ -1106,34 +1118,39 @@ class UI_main_window(QMainWindow, ui):
     def clear_image_label(self,label_name):
         label_name.clear()
 
+    def set_image_label(self,label_name , img, height_percent=None, width_percent=None):
+        lbl_w = label_name.width()
+        lbl_h = label_name.height()
+        if lbl_w<=10 or lbl_h<= 10:
+            return
+        img_h , img_w = img.shape[:2]
+        scale = min(lbl_w/img_w, lbl_h/img_h)
+        img = cv2.resize(img, None, fx=scale, fy= scale)
+        # page_name = self.get_main_page_idx(page_name=True)
 
-    def set_image_label(self,label_name, img, height_percent=None, width_percent=None):
-
-        page_name = self.get_main_page_idx(page_name=True)
-
-        max_h, max_w = None, None
-        if height_percent is None or width_percent is None:
-            if page_name in self.scales.keys():
-                height_percent, width_percent = self.scales[page_name]
-                win_h, win_w = self.app_size()
-                max_h = int( win_h * height_percent )
-                max_w = int( win_w * width_percent )
+        # max_h, max_w = None, None
+        # if height_percent is None or width_percent is None:
+        #     if page_name in self.scales.keys():
+        #         height_percent, width_percent = self.scales[page_name]
+        #         win_h, win_w = self.app_size()
+        #         max_h = int( win_h * height_percent )
+        #         max_w = int( win_w * width_percent )
         
-        if max_h is not None and max_w is not None:
-            try:
-                h, w, ch = img.shape
-            except:
-                h,w = img.shape
-                ch=3
-            scale_h = max_h/h
-            scale_w = max_w/w
-            scale = min( scale_h, scale_w)
-            img = cv2.resize(img, None, fx=scale, fy=scale)
+        # if max_h is not None and max_w is not None:
+        #     if len(img.shape) == 3:
+        #         h, w, ch = img.shape
+        #     else:
+        #         h,w = img.shape
+        #         ch=3
+        #     scale_h = max_h/h
+        #     scale_w = max_w/w
+        #     scale = min( scale_h, scale_w)
+        #     img = cv2.resize(img, None, fx=scale, fy=scale)
 
-        try:
+        if len(img.shape) == 3:
             h, w, ch = img.shape
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        except:
+        else:
             h,w = img.shape
             ch = 3
             img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
@@ -1595,9 +1612,14 @@ class UI_main_window(QMainWindow, ui):
     def set_line_value(self, name, value, page_name = None, idx=0):
             
             if page_name is None:
+
                 page_name =self.get_setting_page_idx(page_name=True)
-            
-            obj = self.lines['{}'.format(name)]['line_{}{}_{}'.format(name, idx, page_name)]
+            if name == 'img_path':
+                direction=self.get_setting_page_idx(direction=True)  
+                obj = self.lines['{}'.format(name)]['line_{}0_1_{}'.format(name,direction)]
+            else:
+                obj = self.lines['{}'.format(name)]['line_{}{}_{}'.format(name, idx, page_name)]
+
             obj.blockSignals(True)
             obj.setText(value)
             obj.blockSignals(False)
@@ -1605,8 +1627,12 @@ class UI_main_window(QMainWindow, ui):
     
     def get_line_value(self, name, page_name = None, idx=0):          
             if page_name is None:
-                page_name =self.get_setting_page_idx(page_name=True)
-            
+                
+                if name == 'img_path':
+                    page_name=self.get_setting_page_idx(direction=True)                 # temp
+                    page_name = '1_'+page_name
+                else:
+                    page_name =self.get_setting_page_idx(page_name=True)
             obj = self.lines['{}'.format(name)]['line_{}{}_{}'.format(name, idx, page_name)]
             return obj.text()
         

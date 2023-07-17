@@ -59,7 +59,7 @@ class UI_eror_window(QMainWindow, ui2):
     def set_text(self,msg='خطای سیستم',level=3):
         self.label.setText(msg)
         if level==1:
-            print('awdwq')
+           
             self.frame.setStyleSheet("background-color: green")
 
         if level==3:

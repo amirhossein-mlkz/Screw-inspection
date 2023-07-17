@@ -6,7 +6,7 @@ import numpy as np
 
 def mask_viewer(img,mask, color=(40,127,255)):
     if len(img.shape) == 2:
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 
         
     thresh_layer = np.zeros_like(img)

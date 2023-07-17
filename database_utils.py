@@ -98,7 +98,7 @@ class dataBaseUtils():
 
 
         if sql_mode=='none':
-            print('CAMERA_INFO',CAMERA_INFO)
+           
             return CAMERA_INFO
 
         # if sql_mode=='sqlite':
@@ -156,9 +156,10 @@ class dataBaseUtils():
         #     return record
         try:
             record = self.db.search( self.table_general_settings , self.general_settings_id, '0' )[0]
-            print('camera info:', record)
+         
             return record
         except:
+            print('Except load_general_setting_params')
             return []
 
 
@@ -250,9 +251,10 @@ class dataBaseUtils():
         try:
 
             parms=self.db.get_all_content(self.plc)
-            print('parms',parms)
+        
             return parms
         except:
+            print('Except load_plc_parms')
             return []
 
 
@@ -309,7 +311,7 @@ class dataBaseUtils():
 
         try:
             record = self.db.search( self.setting_tabel , 'id', 0)[0]
-            print('asd',record)
+          
             return (record['top_calibration'],record['side_calibration'])
         except:
             return []
@@ -357,7 +359,7 @@ class dataBaseUtils():
         #     return record['language']
 
         record = self.db.search( self.history , 'id', '0' )
-        print(record)
+      
         return record[0]
 
     def update_history(self,all,defect):

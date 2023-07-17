@@ -75,7 +75,7 @@ class Collector():
 
 
         for device in self.__tl_factory.EnumerateDevices():
-            print(device.GetDeviceClass())
+        
             if (device.GetDeviceClass() == 'Basler1394'):                
                 devices.append(device)
 
@@ -84,7 +84,7 @@ class Collector():
         
         for device in devices:
             camera = pylon.InstantCamera(self.__tl_factory.CreateDevice(device))
-            print(camera.GetDeviceInfo().GetSerialNumber())
+    
             if camera.GetDeviceInfo().GetSerialNumber() == self.serial_number:
                 self.camera = camera
                 
@@ -120,8 +120,6 @@ class Collector():
 
 
         try:
-            print(self.camera.IsOpen())
-            print(device_info.GetSerialNumber())
 
             self.camera.Open()
             if self.manual:
@@ -242,17 +240,8 @@ class Collector():
         """
         for i ,  camera in enumerate(self.cameras):
             device_info = camera.GetDeviceInfo()
-            print(
-                "Camera #%d %s @ %s (%s) @ %s" % (
-                i,
-                device_info.GetModelName(),
-                device_info.GetIpAddress(),
-                device_info.GetMacAddress(),
-                device_info.GetSerialNumber(),
-                )
             
-            )
-            print(device_info)
+            print('device_info: ',device_info)
 
 
     def serialnumber(self):
@@ -269,10 +258,10 @@ class Collector():
         
         if self.trigger:
             self.camera.TriggerSoftware()
-            print(self.camera.GetQueuedBufferCount(), 'T'*100)
+     
             while self.camera.GetQueuedBufferCount() >=10:
                 pass
-            print(self.camera.GetQueuedBufferCount(), 'T'*100)
+       
 
 
     def getPictures(self, time_out = 5000):

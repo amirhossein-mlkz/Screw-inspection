@@ -91,7 +91,7 @@ def preprocessing_side_img( img, json, direction):
     if angle==None:
         return None,None,None
     thresh_img = cvTools.rotate_image(thresh_img,  angle   )
-    img = cvTools.rotate_image(img,  angle   )
+    # img = cvTools.rotate_image(img,  angle   )
 
     thresh_img, img, _ = cvTools.centerise_side( thresh_img, img )
     return img, thresh_img, angle
@@ -385,6 +385,8 @@ def proccessing_top_measurment( img, mask, jsondb, draw = None):
     
         thresh_img = cvTools.threshould(img, thresh, mask, inv_state)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
+        cv2.imshow(subpage_name, thresh_img)
+        cv2.waitKey(10)
         cnt = cvTools.extract_bigest_contour(thresh_img)
         
         
@@ -434,7 +436,14 @@ def proccessing_top_measurment( img, mask, jsondb, draw = None):
 
             
             if draw is not None:
-                draw = cv2.drawContours(draw, [cnt], 0, (0,200,0), thickness=5)
+                
+                #draw = cv2.drawContours(draw, [cnt], 0, (0,200,0), thickness=5)
+                if subpage_name == 'a2':
+                    draw = cv2.drawContours(draw, [cnt], 0, (0,0,220), thickness=2)
+                    cv2.imshow('a', draw);cv2.waitKey(10)
+
+                else:
+                    draw = cv2.drawContours(draw, [cnt], 0, (0,200,0), thickness=5)
 
         else:
             if shape_type == 'circel':

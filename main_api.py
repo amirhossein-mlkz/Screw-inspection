@@ -87,7 +87,7 @@ class API:
         self.ui = ui
         self.win_fullscreen = FullScreen_UI()
 
-        
+        self.tools_live_enable = False        
         
         self.current_camera_imgs = {}
         self.sides=['side','top']
@@ -120,8 +120,8 @@ class API:
             #self.db = database_utils.dataBaseUtils(password='root')
         
         cameras_info = self.db.load_cam_params(1)
-        print('cameras_info',cameras_info)
-        
+        # print('cameras_info',cameras_info)'
+        print('8'*100)
         # for cam_info in cameras_info:
 
 
@@ -214,7 +214,7 @@ class API:
         # camera buttons in the camera-settings section
         # for cam_id in camera_funcs.all_camera_ids:
         #     eval('self.ui.camera%s_btn' % cam_id).clicked.connect(partial(lambda: self.load_camera_params_from_db_to_UI(self.)))
-
+        self.ui.btn_tools_live.clicked.connect(self.enable_live_view_for_tools)
         self.ui.camera01_btn.clicked.connect(partial(lambda: self.load_camera_params_from_db_to_UI('top')))
         self.ui.camera02_btn.clicked.connect(partial(lambda: self.load_camera_params_from_db_to_UI('side')))
 
@@ -389,6 +389,7 @@ class API:
 
 
     def size_update_side_cam_live(self):
+        return 
         scale=self.ui.spin_scale_side_cam_live_page.value()
         x=int(self.camera_ratio[1]['x'])
         y=int(self.camera_ratio[1]['y'])
@@ -414,7 +415,7 @@ class API:
             if cam.camera is not None:
                 cam.stop_grabbing()
             else:
-                print('camera error')
+                print('camera error disconnect_camera')
 
 
 
@@ -438,14 +439,15 @@ class API:
             for direction in self.cameras.keys():
                 if self.cameras[direction]:
                     self.cameras[direction].start_grabbing()
-                    self.threads[direction] = sQThread()
-                    self.cameras[direction].moveToThread(self.threads[direction])
-                    self.threads[direction].started.connect(self.cameras[direction].get_picture_while)
-                    self.cameras[direction].finished.connect(self.threads[direction].quit)
-                    self.cameras[direction].finished.connect(self.cameras[direction].deleteLater)
-                    self.threads[direction].finished.connect(self.threads[direction].deleteLater)
-                    self.cameras[direction].trig_signal.connect(self.set_images)
-                    self.threads[direction].start()
+                    if direction == 'top':
+                        self.threads[direction] = sQThread()
+                        self.cameras[direction].moveToThread(self.threads[direction])
+                        self.threads[direction].started.connect(self.cameras[direction].get_picture_while)
+                        self.cameras[direction].finished.connect(self.threads[direction].quit)
+                        self.cameras[direction].finished.connect(self.cameras[direction].deleteLater)
+                        self.threads[direction].finished.connect(self.threads[direction].deleteLater)
+                        self.cameras[direction].trig_signal.connect(self.set_images)
+                        self.threads[direction].start()
             self.ui.camera_connect_flag=True
             self.ui.disconnect_cameras_live_page.setEnabled(True)
             self.ui.connect_cameras_live_page.setEnabled(False)
@@ -479,7 +481,14 @@ class API:
             self.cameras[direction].stop_grabbing()
             parm = self.db.load_cam_params(direction)
             self.cameras[direction].update_parms(parm)
+            
             self.cameras[direction].start_grabbing()
+            if self.cameras!= None:
+                try:
+                    pass
+                    #self.cameras[direction].on_trigger()
+                except:
+                    print('eror in set trigger in api')
 
 
     
@@ -502,13 +511,16 @@ class API:
     def disconnect_camera_on_ui_change(self):
         if self.ui.camera_connect_flag:
             #print('start disconnection')
+            self.stop_detection()
             for direction in self.sides:
 
                     
                     self.cameras[direction].stop_grabbing()
                     self.cameras[direction].set_capturing(False)
-                    self.threads[direction].quit()
-
+                    try:
+                        self.threads[direction].quit()
+                    except:
+                        pass
 
             self.ui.connect_cameras_live_page.setEnabled(True)
             self.ui.disconnect_cameras_live_page.setEnabled(False)
@@ -933,7 +945,6 @@ class API:
             state = self.ui.get_checkbox_value(name)        
             self.screw_jasons[ direction ].set_checkbox( page_name, subpage_name, name,  state )
             self.setting_image_updater()
-            print(name, state)
         return func
 
 
@@ -947,7 +958,6 @@ class API:
             self.ui.set_multi_options_value(group_name, option_name)
             self.screw_jasons[ direction ].set_multi_option( page_name, subpage_name, group_name,  option_name )
             
-            print( group_name, option_name)
             self.setting_image_updater()
         return func
 
@@ -1013,10 +1023,19 @@ class API:
         if cv2.imread(path) is not None:
             self.screw_jasons[ direction ].set_img_path(path, page_name, subpage_name)
             self.current_image_screw = cv2.imread(path)
-            self.rect_roi_drawing.set_img_size( self.current_image_screw.shape[:2] )
-            self.setting_image_updater()
         else:
             print('Error! : image not exist')
+        
+
+        if self.tools_live_enable:
+            self.set_images()
+        
+
+        #-----------------------------------------------------------------------
+        
+        self.rect_roi_drawing.set_img_size( self.current_image_screw.shape[:2] )
+        self.setting_image_updater()
+        
             
         
     
@@ -1036,8 +1055,9 @@ class API:
         parms = self.screw_jasons[ direction ].get_setting( page_name, subpage_name )
         self.ui.set_setting_page_parms(parms)
         
-        img_path = self.screw_jasons[ direction ].get_img_path()
-        self.current_image_screw = cv2.imread(img_path)
+        #img_path = self.screw_jasons[ direction ].get_img_path()
+        #self.current_image_screw = cv2.imread(img_path)
+        self.update_main_image()
         
         for drawer in self.roi_drawings.values():
             drawer.set_img_size( self.current_image_screw.shape[:2] )
@@ -1117,7 +1137,7 @@ class API:
     
     def capture_image_live(self, direction):
         # print('asdawdawdawdawcadc'*20)
-        def fuc(direction):
+        def func(direction):
             for direction in ['top','side']:
                 try:
                     img=self.cameras[direction].get_img()
@@ -1130,7 +1150,7 @@ class API:
                 path=dbUtils.save_image(img,main_path=main_path,screw_name=f_name,direction=direction)
                 print('image saved ',path)
 
-        return fuc(direction)
+        return func(direction)
 
     
     #____________________________________________________________________________________________________________
@@ -1144,8 +1164,11 @@ class API:
         page_name = self.ui.get_setting_page_idx(page_name = True)
         direction = self.ui.get_setting_page_idx(direction = True)
         subpage_name = self.ui.get_sub_page_name( page_name )
-        
         img = np.copy(self.current_image_screw)
+        # if not self.tools_live_enable:
+        #     img = np.copy(self.current_image_screw)
+        # else:
+        #     img = self.current_camera_imgs['top']
 
         thresh = self.screw_jasons[ direction ].get_thresh(page_name, subpage_name)
         noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
@@ -1286,7 +1309,8 @@ class API:
         direction = self.ui.get_setting_page_idx(direction = True)
         subpage_name = self.ui.get_sub_page_name( page_name )
 
-        img = np.copy(self.current_image_screw)
+        img = np.copy(self.current_image_screw)        
+
         json = self.screw_jasons[ direction ]
         img, mask_roi, _ = proccessings.preprocessing_top_img( img, json, direction  )
         
@@ -1331,6 +1355,7 @@ class API:
         subpage_name = self.ui.get_sub_page_name( page_name )
         
         img = np.copy(self.current_image_screw)
+
         json = self.screw_jasons[ direction ]
         img, mask_roi, _ = proccessings.preprocessing_top_img( img, json, direction  )
         
@@ -1381,7 +1406,8 @@ class API:
         subpage_name = self.ui.get_sub_page_name( page_name )
         
         
-        img = self.current_image_screw
+        img = np.copy(self.current_image_screw)
+
         thresh = self.screw_jasons[ direction ].get_thresh(page_name, subpage_name)
         noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
         rect = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
@@ -1412,6 +1438,7 @@ class API:
         subpage_name = self.ui.get_sub_page_name( page_name )
         
         img = np.copy(self.current_image_screw)
+        
         json = self.screw_jasons[ direction ]
         img, thresh_img, _ = proccessings.preprocessing_side_img( img, json, direction  )
         
@@ -1445,6 +1472,7 @@ class API:
         subpage_name = self.ui.get_sub_page_name( page_name )
         
         img = np.copy(self.current_image_screw)
+
         json = self.screw_jasons[ direction ]
         img, thresh_img, _ = proccessings.preprocessing_side_img( img, json, direction  )
 
@@ -1480,6 +1508,7 @@ class API:
         subpage_name = self.ui.get_sub_page_name( page_name )
         
         img = np.copy(self.current_image_screw)
+
         json = self.screw_jasons[ direction ]
         img, thresh_img, _ = proccessings.preprocessing_side_img( img, json, direction  )
         
@@ -1498,7 +1527,7 @@ class API:
                     img = cvTools.draw_horizental_point( img, [left_pts, right_pts], (0,0,255), thicknes=5 )
 
                     min_dist, max_dist, avg_dist, _ = mathTools.vertical_distance( left_pts, right_pts )
-                    print(min_dist, max_dist, avg_dist)
+                    #print(min_dist, max_dist, avg_dist)
                     info = {'min_diameter' : min_dist, 'max_diameter': max_dist, 'avg_diameter': avg_dist}                
                     self.ui.set_stetting_page_label_info(info)       
 
@@ -1514,6 +1543,7 @@ class API:
         subpage_name = self.ui.get_sub_page_name( page_name )
         
         img = np.copy(self.current_image_screw)
+
         json = self.screw_jasons[ direction ]
         img, thresh_img, _ = proccessings.preprocessing_side_img( img, json, direction  )
 
@@ -1554,6 +1584,8 @@ class API:
         subpage_name = self.ui.get_sub_page_name( page_name )
         
         img = np.copy(self.current_image_screw)
+
+
         json = self.screw_jasons[ direction ]
         img, thresh_img, _ = proccessings.preprocessing_side_img( img, json, direction  )
         
@@ -1637,7 +1669,7 @@ class API:
         img, mask_roi,_ = proccessings.preprocessing_side_img( img, screw_json, direction )
 
         if img  is None:
-            print('fuuuuuck'*50)
+            print('ERROR: proccessing_live_side() img is None')
             black_img = np.zeros(shape=(1040,1392),dtype='uint8')
             return (black_img,[])
         #img = Utils.mask_viewer(img, thresh_img, color=(0,100,0))
@@ -1648,9 +1680,14 @@ class API:
         
 
         for active_tool in screw_json.get_active_tools():
+
+            # cv2.imshow('b',draw_img)
+            # cv2.imshow('c',img)
+            # cv2.waitKey(0)
             result, draw_img = proccessings.tools_dict_side[active_tool]( img, mask_roi, screw_json, draw_img )
             results.extend(result)
-
+        # cv2.imshow('c',draw_img)
+        # cv2.waitKey(0)
         results.sort( key = lambda x:x['name'])
 
         return draw_img, results
@@ -1664,7 +1701,11 @@ class API:
         screw_json = self.screw_jasons[ direction ]        
         img, mask_roi, _ = proccessings.preprocessing_top_img( img, screw_json, direction  )
         draw_img = np.copy(img)
+        #draw_img = cv2.cvtColor(draw_img, cv2.COLOR_GRAY2BGR)
         results = []
+
+
+        draw_img = Utils.mask_viewer(draw_img, mask_roi, color=(0,80,150))
 
         for active_tool in screw_json.get_active_tools():
             result, draw_img = proccessings.tools_dict_top[active_tool]( img, mask_roi, screw_json, draw_img )
@@ -1683,7 +1724,7 @@ class API:
     #
     #________________________________________________________________________________________________________________________
     def connect_plc(self):
-
+        self.load_plc_ip()
         self.ip=self.ui.get_plc_ip()
         self.my_plc=plc_modbus.plc_modbus(self.ip)
         self.connection_status=self.my_plc.connection()
@@ -1837,6 +1878,7 @@ class API:
 
         if not self.ui.btn_enabel_mask_draw_live_top.isChecked():
             draw_img_side = self.img_side
+        
         draw_img_side = cv2.rotate( draw_img_side, cv2.ROTATE_90_COUNTERCLOCKWISE )
 
         if not self.ui.btn_enabel_mask_draw_live_side.isChecked():
@@ -1888,19 +1930,28 @@ class API:
 
 
     def init_cameras(self):
-
+        cam_ids=[]
+        
         for direction in ['top','side']:
             try:
                 cameras_info = self.db.load_cam_params(direction)
-                print('serial number in for ',cameras_info['serial_number'])   
-		#print('asd'*80,cameras_info['trigger_mode'])             
-                self.cameras [ cameras_info['direction'] ] = camera_connection.Collector(cameras_info['serial_number'],exposure=cameras_info['expo_value'],gain=cameras_info['gain_value'],trigger=cameras_info['trigger_mode'])
-            except:
+                 
+
+                       
+                self.cameras [ cameras_info['direction'] ] = camera_connection.Collector(cameras_info['serial_number'],
+                                                                                         exposure=cameras_info['expo_value'],
+                                                                                         gain=cameras_info['gain_value'],
+                                                                                         trigger=cameras_info['trigger_mode'],
+                                                                                         height=cameras_info['height'],
+                                                                                         width=cameras_info['width'],
+                                                                                         manual=True)
+                cam_ids.append(cameras_info['serial_number'])
+            except:                                                                                                 
                 print('eror in create camera objects')
                 self.cameras [ cameras_info['direction'] ] = None
 
 
-
+            self.ui.set_camera_setting_combobox_ids(cam_ids)
 
     def start_detection(self):
 
@@ -1935,7 +1986,7 @@ class API:
 
         history = self.db.load_history()
 
-        print('history',history)
+      
 
         perfect = int(history['all_screw'])-int(history['defect'])
 
@@ -1981,7 +2032,7 @@ class API:
                     break                
             except:
                 status.setText('Eror Connection')
-                print('asdaw')
+                print('Except show_camera_picture main_api')
                 break
             # print('asd')
             cv2.waitKey(10)
@@ -1992,7 +2043,39 @@ class API:
 
 
     def set_images(self):
+        #print('set_images')
+        if not self.ui.camera_connect_flag:
+            return
+        # for direction in self.cameras.keys():
+        try:
+            self.cameras['side'].off_trigger()
+        except:
+            print("ERROR:  self.cameras['side'].off_trigger()")
         
+        for i in range(10):
+            side_ret,side_image = self.cameras['side'].getPictures()  # temp for get side image
+
+            if side_ret:
+                # print('aaaaaaaaaaaa')
+                self.cameras['side'].image=side_image
+                break
+
+
+        if self.tools_live_enable:
+            direction = self.ui.get_setting_page_idx(direction = True)
+            try:
+                self.current_image_screw = self.cameras[direction].image
+                    #self.current_camera_imgs[direction] = self.cameras[direction].image
+
+                
+            except:
+                self.current_image_screw = np.zeros(shape=(1920,1200),dtype='uint8')
+                self.current_image_screw = np.random.randint(0,255,1920*1200).reshape((1920,1200)).astype(np.uint8)
+                
+
+
+            self.setting_image_updater()
+
         if self.ui.stackedWidget.currentWidget()==self.ui.page_dashboard:
             
             draw_imgs = {
@@ -2005,16 +2088,23 @@ class API:
                 'top': [],
                 'side': []
             }
+            proccessing_functions = {
+                'side':self.proccessing_live_side,
 
+                'top': self.proccessing_live_top
+            }
             for direction in ['top', 'side']:
                 try:
                     self.current_camera_imgs[direction] = self.cameras[direction].image
                     if self.run_detect:
-                        draw_imgs[direction], results[direction] = self.proccessing_live_side(self.current_camera_imgs[direction])
-
+                       
+                        #draw_imgs[direction], results[direction] = self.proccessing_live_side(self.current_camera_imgs[direction])
+                        draw_imgs[direction], results[direction] = proccessing_functions[direction](self.current_camera_imgs[direction])
+                        print(direction, draw_imgs[direction].shape)        
                 
                 except:
-                    self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
+                    print('e'*50)
+                    self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
                     results[direction] = []
                     draw_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
 
@@ -2041,7 +2131,7 @@ class API:
                     try:
                         self.current_camera_imgs[direction] = self.cameras[direction].image
                     except:
-                        self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
+                        self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
 
 
                     self.ui.set_image_label(self.ui.camera_setting_picture[direction], self.current_camera_imgs[direction])
@@ -2065,3 +2155,21 @@ class API:
         self.win_fullscreen.show_image(self.current_camera_imgs[self.full_screen_direction])
         #cv2.imshow('a', self.current_camera_imgs[self.full_screen_direction])
         #cv2.waitKey(30)
+
+    def enable_live_view_for_tools(self):
+        self.tools_live_enable = not(self.tools_live_enable)
+
+        try:
+            if self.tools_live_enable:
+                for direction in self.cameras.keys():
+                    self.cameras[direction].off_trigger()
+            
+            else:
+                self.update_main_image()
+                for direction in self.cameras.keys():
+                    pass
+                    #self.cameras[direction].on_trigger()
+        except:
+            print('ERROR: set trigger - enable_live_view_for_tools', direction)
+        self.update_main_image()
+        

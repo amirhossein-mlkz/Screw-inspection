@@ -54,6 +54,27 @@ def threshould(img, thresh , mask_roi = None, inv=False):
     return mask
 
 
+def threshould_new(img, thresh , mask_roi = None, inv=False):
+    thresh=max(thresh,5)
+    if thresh%2==0:
+        thresh+=1
+    if len(img.shape) == 3:
+        img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    
+    if inv:
+        mask = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY_INV,thresh,10)
+    else:
+        mask = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,thresh,10)
+    kernel = np.ones((3,3))
+    
+    #mask = cv2.erode(mask, kernel, iterations=3)
+    #mask = cv2.dilate(mask, kernel, iterations=3)
+    
+    
+           
+    if mask_roi is not None:
+        mask = cv2.bitwise_and( mask, mask , mask=mask_roi)
+    return mask
 
 def morph_correction(mask, iter, kernel_size=3):
     kernel = np.ones((kernel_size,kernel_size))

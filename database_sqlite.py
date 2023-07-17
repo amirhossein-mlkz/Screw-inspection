@@ -67,7 +67,7 @@ class dataBase:
                         record_dict[ field_names[i] ] = record[i]
                     res.append( record_dict )
                     
-                print(res)
+              
                 return res
 
                 

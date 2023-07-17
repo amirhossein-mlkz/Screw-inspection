@@ -140,15 +140,8 @@ class Collector(QObject):
 
     def start_grabbing(self):
 
-            device_info = self.camera.GetDeviceInfo()
-            model=str(device_info.GetModelName())
-            model=model[-3:]
-        # print(model[-3:])
+        try:
 
-
-        #try:
-            print(self.camera.IsOpen())
-            print(device_info.GetSerialNumber())
 
             self.camera.Open()
             
@@ -171,8 +164,11 @@ class Collector(QObject):
                     self.camera.GevSCPSPacketSize.SetValue(int(self.ps))
                     self.camera.Close()
                     self.camera.Open()
+
+                    self.camera.Close()
                     self.camera.Width.SetValue(self.width)
                     self.camera.Height.SetValue(self.height)
+                    self.camera.Open()
 
                     self.camera.OffsetX.SetValue(self.offset_x)
                     self.camera.OffsetY.SetValue(self.offset_y)
@@ -196,37 +192,15 @@ class Collector(QObject):
                 # self.camera.TriggerMode.SetValue('Off')
                 print('triggeroff')
 
-            # if self.manual:
-            #     self.camera.ExposureTimeAbs.SetValue(20000)
-
-
-            #     # self.camera.Width.SetValue(600)
-            #     print(self.camera.Width.GetValue())
-            #     self.camera.Width.SetValue(600)
-            #     # int64_t = self.camera.PayloadSize.GetValue()
-            #     # self.camera.GevStreamChannelSelectorCamera.GevStreamChannelSelector.SetValue( 'GevStreamChannelSelector_StreamChannel0 ')
-            #     # self.camera.GevSCPSPacketSize.SetValue(1500)
-                             
-            #     self.camera.GevSCPD.SetValue(self.dp)
-                
-            #     self.camera.GevSCFTD.SetValue(self.ftd)
+    
             self.exitCode=0
 
             return True, 'start grabbing ok'
             
-##        except genicam.GenericException as e:
-##            # Error handling
-##            
-##            message = self.start_grabbing_error_handling(error=e)
-##            #print(e)  
-##        
-##            self.stop_grabbing()
-##            #print("An exception occurred.", e.GetDescription())
-##            self.exitCode = 1
-##            # self.eror_window('Check The Number of cameras',3)
-
-            
-            return False, message
+        except genicam.GenericException as e:
+            print(e)  
+            self.stop_grabbing()
+            return False, e
 
     
     def start_grabbing_error_handling(self, error):

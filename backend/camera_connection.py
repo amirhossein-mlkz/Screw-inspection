@@ -83,12 +83,24 @@ class Collector(sQObject):
         for device in self.__tl_factory.EnumerateDevices():              
                 devices.append(device)
 
+
         for device in devices:
             camera = pylon.InstantCamera(self.__tl_factory.CreateDevice(device))
             if camera.GetDeviceInfo().GetSerialNumber() == str(self.serial_number):                
                 self.camera = camera
                 break
-
+        try:
+            if self.camera.GetDeviceInfo().GetDeviceClass() == 'BaslerGigE':
+                self.camera.Open()
+                self.camera.GevSCPSPacketSize.SetValue(1500)
+                self.camera.GevSCPD.SetValue(23188)
+                self.camera.GevSCFTD.SetValue(0)
+                self.camera.GevSCBWR.SetValue(10)
+                self.camera.GevSCBWRA.SetValue(3)
+                self.camera.Close()
+        except:
+            self.camera.Close()
+            print('eror in set bandwisth')
         # assert len(devices) > 0 , 'No Camera is Connected!'
         
     def set_capturing(self,status):
@@ -110,35 +122,50 @@ class Collector(sQObject):
         if self.camera:
             device_info = self.camera.GetDeviceInfo()
             model=str(device_info.GetModelName())
-
+            print(model)
             print(self.camera.IsOpen())
             print(device_info.GetSerialNumber())
 
             self.camera.Open()
-            
+
             if self.manual:
 
                     try:
                         self.camera.GainRaw.SetValue(self.gain)
                     except:
-                        self.camera.GainRaw.SetValue(192)
+                        #  self.camera.GainRaw.SetValue(192)
+                        print(f'{self.serial_number} GainRaw set Error')
 
                     try:
+                        self.camera.StopGrabbing()
                         self.camera.ExposureTimeRaw.SetValue(self.exposure)
                     except:
-                        self.camera.ExposureTimeRaw.SetValue(1000)
+                        # self.camera.ExposureTimeRaw.SetValue(1000)
+                        print(f'{self.serial_number} ExposureTimeRaw set Error')
 
-
-                    self.camera.Width.SetValue(self.width)
-                    self.camera.Height.SetValue(self.height)
                     try:
+                        # self.camera.Close()
+                        self.camera.StopGrabbing()
+                        self.camera.Width.SetValue(self.width)
+                    except:
+                        print(f'{self.serial_number} Width set Error')
+                    try:
+                        # self.camera.Close()
+                        # self.camera.StopGrabbing()
+                        self.camera.Height.SetValue(self.height)
+                    except:
+                        print('height errror')
+                        # print(f'{self.serial_number} Height set Error')
+                    try:
+                        self.camera.Open()
                         self.camera.OffsetX.SetValue(self.offset_x)
                     except:
-                        pass
+                        print(f'{self.serial_number} OffsetX set Error')
                     try:
+                        self.camera.Open()
                         self.camera.OffsetY.SetValue(self.offset_y)
                     except:
-                        pass
+                        print(f'{self.serial_number} OffsetY set Error')
                     
 
 
@@ -165,6 +192,13 @@ class Collector(sQObject):
         if self.camera:
             self.camera.Close()
 
+
+    def off_trigger(self):
+        self.camera.TriggerMode.SetValue('Off')
+    
+    def on_trigger(self):
+
+        self.camera.TriggerMode.SetValue('On')
             
         
     def listDevices(self):
@@ -195,8 +229,9 @@ class Collector(sQObject):
 
 
     def getPictures(self, time_out = 50):
+        
         if self.camera:
-            Flag=True
+            Flag=False
             try:
                 if self.camera.IsGrabbing():
 
@@ -205,6 +240,7 @@ class Collector(sQObject):
                         image = self.converter.Convert(grabResult)
 
                         img = image.GetArray()
+                        Flag =  True
                     else:
                         img=np.zeros([1200,1920,3],dtype=np.uint8)
                         self.cont_eror+=1
@@ -213,7 +249,7 @@ class Collector(sQObject):
                         Flag=False
 
                 else:
-                        print('erpr')
+                        #print('erpr')
                         img=np.zeros([1200,1920,3],dtype=np.uint8)
                         Flag=False
 
@@ -221,7 +257,7 @@ class Collector(sQObject):
 
                 img=np.zeros([1200,1920,3],dtype=np.uint8)
                 Flag=False
-
+            # self.image = img
             if Flag:
                 return True, img
             else:
@@ -229,13 +265,17 @@ class Collector(sQObject):
                 return False, np.zeros([1200,1920,3],dtype=np.uint8)
             
 
+    def software_trig(self):
+
+        self.camera.TriggerSoftware.Execute()
+
 
     def get_picture_while(self):
 
         while True:
             if self.capturing:
                 cv2.waitKey(100)
-                ret,self.image = self.getPictures()
+                ret, self.image = self.getPictures()
                 if ret:
                     self.trig_signal.emit()
             else:
@@ -304,18 +344,18 @@ if __name__ == "__main__":
 
 
     collector = Collector(
-        "20407477",
+        "20306145",
         exposure=3000,
         gain=10,
-        trigger=False,
+        trigger='On',
         delay_packet=81062,
         packet_size=9000,
         frame_transmission_delay=18036,
-        height=1000,
-        width=1000,
+        height=500,
+        width=500,
         offet_x=16,
         offset_y=4,
-        manual=False
+        manual=True
     )
 
     # # x=collector.get_cam()
@@ -328,21 +368,22 @@ if __name__ == "__main__":
     # cameras.getPictures()
     # # print(cameras.)
 
-    # while True:
+    while True:
 
-    #     #     # for cam in cameras:
-    #     #     #         cam.trigg_exec()
+        #     # for cam in cameras:
+        #     #         cam.trigg_exec()
 
-    #     #     # for cam in cameras:
-    #     #     #print(cam.camera.GetQueuedBufferCount())
-    #     img = cameras.getPictures()
-    #     img=img[1]
-    #     # print(img.shape)
-    #     # print(cam.camera.GetQueuedBufferCount())
-    #     cv2.imshow("img1", cv2.resize(img, None, fx=0.5, fy=0.5))
-    #     img=np.uint8(img)
-    #     # cv2.imshow('img',img)
-    #     cv2.waitKey(50)
+        #     # for cam in cameras:
+        #     #print(cam.camera.GetQueuedBufferCount())
+        img = collector.getPictures()
+        # print(img)
+        img=img[1]
+        # print(img.shape)
+        # print(cam.camera.GetQueuedBufferCount())
+        cv2.imshow("img1", cv2.resize(img, None, fx=0.5, fy=0.5))
+        img=np.uint8(img)
+        # cv2.imshow('img',img)
+        cv2.waitKey(50)
     #     # img = cameras[1].getPictures()
     #     # #print(cam.camera.GetQueuedBufferCount())
     #     # cv2.imshow('img2', cv2.resize( img, None, fx=0.5, fy=0.5 ))
