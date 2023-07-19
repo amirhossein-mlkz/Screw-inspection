@@ -1,26 +1,30 @@
 {
     "active_tools": [
-        "1_side"
+        "1_side",
+        "2_side",
+        "3_side"
     ],
     "direction": "side",
-    "img_path": "images//defualt.jpg",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs/aaa/side/24_2023-7-19__20-25.bmp",
     "name": "Aaa",
     "settings": {
         "1_side": {
-            "img_path": "images//defualt.jpg",
+            "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs/aaa/side/24_2023-7-19__20-25.bmp",
             "noise_filter0": 5,
             "rect_roi0": [
                 [
-                    20,
-                    81
+                    36,
+                    294
                 ],
                 [
-                    617,
-                    342
+                    1285,
+                    653
                 ]
             ],
-            "thresh0": 0,
-            "thresh_inv0": true
+            "thresh0": 158,
+            "thresh_inv0": true,
+            "thresh_max0": 255,
+            "thresh_min0": 50
         },
         "2_side": {
             "limits": {
@@ -33,12 +37,12 @@
             },
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    36,
+                    528
                 ],
                 [
-                    0,
-                    0
+                    1259,
+                    567
                 ]
             ]
         },
@@ -59,12 +63,12 @@
             "navel": false,
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    117,
+                    365
                 ],
                 [
-                    0,
-                    0
+                    541,
+                    505
                 ]
             ]
         },

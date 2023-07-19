@@ -847,9 +847,13 @@ def diameters_measurment(mask, cnt, angles):
         line_mask = np.zeros_like(mask)
         pt1, pt2 = mathTools.angle2line(angle, center,  r*1.5)
 
-        cv2.line(line_mask, pt1, pt2, 255,2)
+        cv2.line(line_mask, pt1, pt2, 255,1)
         line_mask = cv2.bitwise_and( line_mask, line_mask, mask=mask)
-        corners_dist.append(np.count_nonzero(line_mask))
+        cnts,_ = cv2.findContours(line_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)       
+        _,r = cv2.minEnclosingCircle(cnts[0])
+        corners_dist.append(int(r))
+
+        #corners_dist.append(np.count_nonzero(line_mask))
 
         # res_img = np.zeros( mask.shape + (3,), dtype=np.uint8)
         # res_img[:,:,0] = mask

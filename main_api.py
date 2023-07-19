@@ -1495,8 +1495,8 @@ class API:
 
         ####CHange
         thresh = self.screw_jasons[ direction ].get_thresh(page_name, subpage_name)
-        thresh_min = self.screw_jasons[ direction ].get_thresh_min(page_name, subpage_name)
-        thresh_max = self.screw_jasons[ direction ].get_thresh_max(page_name, subpage_name)
+        #thresh_min = self.screw_jasons[ direction ].get_thresh_min(page_name, subpage_name)
+        #thresh_max = self.screw_jasons[ direction ].get_thresh_max(page_name, subpage_name)
 
 
         noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
@@ -1509,7 +1509,7 @@ class API:
 
         ####Change
         thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
-        thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
+        #thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
         #########################
 
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
