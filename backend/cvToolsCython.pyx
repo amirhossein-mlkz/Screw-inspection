@@ -14,15 +14,22 @@ ctypedef numpy.float32_t DTYPE_float32
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function
 @cython.wraparound(False)  # turn off negative index wrapping for entire function
-def moving_avrage(numpy.ndarray[DTYPE_int32, ndim=1] arr, int window):
+def fill_gap(numpy.ndarray[DTYPE_uint8, ndim=2] img, int gap):
 
-    cdef long int total
-    cdef int i,w
-    cdef int arr_shape = arr.shape[0]
-    cdef numpy.ndarray[DTYPE_int32, ndim=1] res = numpy.zeros((arr_shape - window,), dtype = numpy.int32)
-    #res = numpy.zeros((arr_shape - window,), dtype = numpy.int32 )
+    cdef int i,j
+    cdef int img_h = img.shape[0]
+    cdef int img_w = img.shape[1]
+    cdef int start, end
+    cdef bool find_gap = FALSE
 
-    for i in range(arr_shape - window):
+    cdef numpy.ndarray[DTYPE_uint8, ndim=2] res = numpy.zeros((img_h, img_w), dtype = numpy.uint8)
+
+    for i in range(img_h):
+        for j in range(img_w):
+            if img[i,j] == 0 and img[i,j-1] == 255 find_gap == FALSE:
+                start = j
+            elif 
+
         total = 0
         for w in range(window):
             total += arr[i+w]

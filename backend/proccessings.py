@@ -38,6 +38,8 @@ def get_general_masks(img, json, page_name, main_roi_mask=None):
 
 def preprocessing_top_img( img, json, direction):
     thresh = json.get_thresh('1_{}'.format( direction ), None )
+    thresh_min = json.get_thresh_min('1_{}'.format( direction ), None )
+    thresh_max = json.get_thresh_max('1_{}'.format( direction ), None )
     noise_filter = json.get_noise_filter( '1_{}'.format( direction ), None  )
     rect_roi_main = json.get_rect_roi( '1_{}'.format( direction ), None )
     inv_state = json.get_thresh_inv('1_{}'.format( direction ), None )
@@ -46,8 +48,10 @@ def preprocessing_top_img( img, json, direction):
     img = cvTools.preprocess(img)
 
     mask_roi = cvTools.rects2mask(img.shape[:2], [rect_roi_main])
-    thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
+    #thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
+    thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
     thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
+    thresh_img=cvTools.erode(thresh_img, 5)
     #--------------------------------------------------------------------------------------
     #correct rotation
     #--------------------------------------------------------------------------------------
@@ -370,11 +374,13 @@ def preprocessing_empty(img, mask, jsondb, draw=None):
 
 
 
-def proccessing_top_measurment( img, mask, jsondb, draw = None):
+def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
     page_name = '2_top'
     results = []
     for subpage_name in jsondb.get_subpages(page_name):
         thresh = jsondb.get_thresh(page_name, subpage_name)
+        thresh_min = jsondb.get_thresh_min(page_name, subpage_name)
+        thresh_max = jsondb.get_thresh_max(page_name, subpage_name)
         noise_filter = jsondb.get_noise_filter( page_name, subpage_name )
         inv_state = jsondb.get_thresh_inv(page_name, subpage_name)
         shape_type = jsondb.get_multi_option( page_name, subpage_name, 'shape_type' )
@@ -382,8 +388,9 @@ def proccessing_top_measurment( img, mask, jsondb, draw = None):
         #--------------------------------------------------------------------------------------
         #specific Operation
         #--------------------------------------------------------------------------------------
-        mask = cvTools.circels2mask(mask.shape, circel_roi)
-        thresh_img = cvTools.threshould(img, thresh, mask, inv_state)
+        mask = cvTools.circels2mask(mask_roi_main.shape, circel_roi)
+        mask = cv2.bitwise_and(mask, mask_roi_main)
+        thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
         cnt = cvTools.extract_bigest_contour(thresh_img)
         

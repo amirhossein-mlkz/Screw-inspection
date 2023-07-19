@@ -19,7 +19,9 @@
                     0
                 ]
             ],
-            "thresh0": 0
+            "thresh0": 0,
+            "thresh_max0": 255,
+            "thresh_min0": 0
         },
         "2_top": {
         },

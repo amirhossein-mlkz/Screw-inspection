@@ -20,9 +20,7 @@
                 ]
             ],
             "thresh0": 0,
-            "thresh_inv0": true,
-            "thresh_max0": 84,
-            "thresh_min0": 30
+            "thresh_inv0": true
         },
         "2_side": {
             "limits": {

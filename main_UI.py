@@ -482,7 +482,8 @@ class UI_main_window(QMainWindow, ui):
         self.btn_load_image0_1_side.clicked.connect(self.buttonClick)  
         self.btn_connect_camera0_1_side.clicked.connect(self.buttonClick)
 
-
+        self.camera_setting_full_screen_top_camera.clicked.connect(self.buttonClick)  
+        self.camera_setting_full_screen_side_camera.clicked.connect(self.buttonClick)
 
         # page 4_side  btn_add_area0_4_side
 
@@ -1052,6 +1053,18 @@ class UI_main_window(QMainWindow, ui):
             self.capture_mode_flag = 'edit_page'
             self.line_path_top_cam_live_page_2.setEnabled(False)
 
+        if btnName == 'camera_setting_full_screen_top_camera':
+            if self.frame_210.width()!=0:
+                self.frame_size_width(self.frame_210,0,both_width=True)
+                self.frame_size_width(self.frame_209,5000,max_width=True)
+                self.camera_setting_full_screen_top_camera.setText('Exit Fullscreen')
+
+            else:
+                self.frame_size_width(self.frame_210,100000,max_width=True)
+                self.frame_size_width(self.frame_209,100000,max_width=True)
+                self.camera_setting_full_screen_top_camera.setText(' FullScreen')
+
+
         if btnName=='btn_connect_camera0_1_side':
             self.clear_side_btns(current_page=2)
 
@@ -1067,6 +1080,16 @@ class UI_main_window(QMainWindow, ui):
             self.capture_mode_flag = 'edit_page'
             self.line_path_top_cam_live_page_2.setEnabled(False)
 
+
+        if btnName == 'camera_setting_full_screen_side_camera':
+            if self.frame_209.width()!=0:
+                self.frame_size_width(self.frame_209,0,both_width=True)
+                self.frame_size_width(self.frame_210,100000,max_width=True)
+                self.camera_setting_full_screen_side_camera.setText('Exit Fullscreen')
+            else:
+                self.frame_size_width(self.frame_210,100000,max_width=True)
+                self.frame_size_width(self.frame_209,100000,max_width=True)
+                self.camera_setting_full_screen_side_camera.setText(' FullScreen')
 
         if btnName=='camera_setting_tools_page':
 
@@ -1893,8 +1916,8 @@ class UI_main_window(QMainWindow, ui):
         spare_plc=self.line_spare.text()
         # line_spare_plc=self.line_spare_plc.text()
         # line_detect_sensor_plc=self.line_detect_sensor_plc.text()
-        delay_plc=str(self.line_delay.text())
-        duration_plc=str(self.line_duration.text())
+        delay_plc=str(self.spin_delay.value())
+        duration_plc=str(self.spin_duration.value())
 
 
         return{'run':limit_1,'stop':limit_2,'reject':line_down_motor_plc,\

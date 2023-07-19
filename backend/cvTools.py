@@ -58,11 +58,6 @@ def threshould_minmax(img, thresh_min, thresh_max , mask_roi = None):
     
     _,mask_min = cv2.threshold(img, thresh_min, 255, cv2.THRESH_BINARY)
     _,mask_max = cv2.threshold(img, thresh_max, 255, cv2.THRESH_BINARY_INV)
-    kernel = np.ones((3,3))
-    
-    mask = cv2.erode(mask, kernel, iterations=3)
-    mask = cv2.dilate(mask, kernel, iterations=3)
-
            
     if mask_roi is not None:
         mask = cv2.bitwise_and( mask_min, mask_max , mask=mask_roi)
@@ -78,7 +73,7 @@ def erode(mask, iteration=3):
     
     mask = cv2.erode(mask, kernel, iterations=iteration)
     mask = cv2.dilate(mask, kernel, iterations=iteration)
-
+    return mask
 
 def threshould_new(img, thresh , mask_roi = None, inv=False):
     thresh=max(thresh,5)

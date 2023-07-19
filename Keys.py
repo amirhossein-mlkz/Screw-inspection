@@ -97,12 +97,14 @@ def object_dict_builder(ui_object):
         'thresh_min':{
 
             'bar_thresh_min0_1_top':self.bar_thresh_min0_1_top,
+            'bar_thresh_min0_2_top':self.bar_thresh_min0_2_top,
             'bar_thresh_min0_1_side':self.bar_thresh_min0_1_side,
 
         }, 
         'thresh_max':
         {
             'bar_thresh_max0_1_top':self.bar_thresh_max0_1_top,
+            'bar_thresh_max0_2_top':self.bar_thresh_max0_2_top,
             'bar_thresh_max0_1_side':self.bar_thresh_max0_1_side,
         }, 
         'noise_filter':{
