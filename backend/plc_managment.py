@@ -29,7 +29,7 @@ class management():
         try:
 
             var = self.client.get_node(path)
-            print(var)
+           
             data_value=var.get_data_value() # get value of node as a DataValue object
             value=var.get_value() # get value of node as a python builtin
             # print('x'*5,value)
@@ -41,7 +41,7 @@ class management():
     def set_value(self,path,value):
         var = self.client.get_node(path)
         if value.isdigit():
-            print('number')
+      
             var = self.client.get_node(path)
             var.set_value(ua.Variant(int(value), ua.VariantType.Int64)) #set node value using explicit data type
             var.set_value(int(value)) # set node value using implicit data type
@@ -50,7 +50,7 @@ class management():
             print('value:',value)
             if value=='False':
                 value_=False
-                print(value_)
+              
             else:
                 value_=True
             value = ua.DataValue(ua.Variant(value_,ua.VariantType.Boolean))

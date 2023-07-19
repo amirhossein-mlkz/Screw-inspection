@@ -8,7 +8,7 @@
     "settings": {
         "1_top": {
             "img_path": "images//defualt.jpg",
-            "noise_filter0": 5,
+            "anoise_filter0": 5,
             "rect_roi0": [
                 [
                     0,
@@ -22,8 +22,19 @@
             "thresh0": 0
         },
         "2_top": {
+            "none": {
+                "noise_filter0": 20,
+                "shape_type": "circel",
+                "thresh0": 0,
+                "thresh_inv0": false
+            }
         },
         "3_top": {
+            "none": {
+                "noise_filter0": 20,
+                "thresh0": 0,
+                "thresh_inv0": false
+            }
         }
     }
 }

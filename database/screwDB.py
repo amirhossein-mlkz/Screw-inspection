@@ -118,6 +118,24 @@ class screwJson():
     def get_thresh(self, page, subpage, idx=0):
         name =  'thresh{}'.format(idx)
         return self.get_value( page, subpage, name, 0)
+
+    def set_thresh_min(self, page, subpage, value, idx=0):
+        name = 'thresh_min{}'.format(idx)
+        self.set_value( page, subpage, name, value)
+
+
+    def get_thresh_min(self, page, subpage, idx=0):
+        name =  'thresh_min{}'.format(idx)
+        return self.get_value( page, subpage, name, 0)
+    
+
+    def set_thresh_max(self, page, subpage, value, idx=0):
+        name = 'thresh_max{}'.format(idx)
+        self.set_value( page, subpage, name, value)
+    
+    def get_thresh_max(self, page, subpage, idx=0):
+        name =  'thresh_max{}'.format(idx)
+        return self.get_value( page, subpage, name, 0)
         
     
     #-----------------------------------------

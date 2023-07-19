@@ -4,7 +4,7 @@ from PySide6.QtGui import QImage as sQImage
 from PySide6.QtGui import QStandardItem as sQStandardItem
 from PySide6.QtGui import QPixmap as sQPixmap
 
-from backend import camera_connection_bad, colors_pallete
+from backend import camera_connection, colors_pallete
 
 
 # number of cameras
@@ -201,7 +201,7 @@ def draw_grid(image, crosshair=True):
 
 def get_available_cameras_list_serial_numbers():
     # camera collector object
-    collector = camera_connection_bad.Collector(serial_number='0', list_devices_mode=True)
+    collector = camera_connection.Collector(serial_number='0', list_devices_mode=True)
     # get serial number of available cameras
     serial_list = collector.serialnumber()
     return serial_list
@@ -237,7 +237,7 @@ def connect_disconnect_camera(ui_obj, db_pbj, serial_number, connect=True, curre
                                                     width=int(camera_params['width']),
                                                     offet_x=int(camera_params['offsetx_value']),
                                                     offset_y=int(camera_params['offsety_value']),
-                                                    manual=False,
+                                                    manual=True,
                                                     list_devices_mode=False)
         # start grabbing                                     
         cam_connection.start_grabbing()

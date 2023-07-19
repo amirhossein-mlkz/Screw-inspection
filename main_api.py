@@ -21,7 +21,7 @@
 ################################
 
 from datetime import datetime
-from this import d
+
 import threading
 from functools import partial
 
@@ -118,10 +118,20 @@ class API:
         else:
             self.db = database_utils.dataBaseUtils(password='@mm@9398787515AmmA')
             #self.db = database_utils.dataBaseUtils(password='root')
-        
+
+
+
+        self.plc_reg_on_off_btns = {
+            
+            'run': self.ui.plc_run_reg_btn,
+            'stop': self.ui.plc_stop_reg_btn,
+            'reject': self.ui.plc_reject_reg_btn,
+        }
+
+
         cameras_info = self.db.load_cam_params(1)
         # print('cameras_info',cameras_info)'
-        print('8'*100)
+   
         # for cam_info in cameras_info:
 
 
@@ -176,7 +186,7 @@ class API:
         
         self.laod_images()
         self.set_images()
-
+        self.retry_plc_connection=0
         self.connect_plc()         #check plc status at startup
         self.timer_check_plc = sQTimer()
         self.timer_check_plc.timeout.connect(self.check_plc_status)
@@ -199,6 +209,8 @@ class API:
         #self.win_fullscreen.closeButton.clicked.connect(self.stop_update_fullscreen_img)
         
         # function to active the UI buttons functionality
+    
+
         self.button_connector()
 
     def button_connector(self):
@@ -206,7 +218,7 @@ class API:
         #--------------------------------------amir---------------------------------------
         
         
-        
+
         
         # login button
         # self.ui.main_login_btn.clicked.connect(partial(lambda: user_login_logout_funcs.run_login_window(ui_obj=self.ui, login_ui_obj=self.login_ui, confirm_ui_obj=self.confirm_ui)))
@@ -277,6 +289,8 @@ class API:
         self.ui.connect_btn('set_img', self.update_main_image )
         self.ui.connect_btn('page', self.update_setting_page_info)     
         self.ui.connect_sliders('thresh',  self.update_threshould)
+        self.ui.connect_sliders('thresh_min',  self.update_threshould_minmax)
+        self.ui.connect_sliders('thresh_max',  self.update_threshould_minmax)
         self.ui.connect_sliders('noise_filter',  self.update_noise_filter)
         self.ui.checkbox_connect('thresh_inv', self.update_thresh_inv )
         self.ui.connect_list_pack('sub_pages', self.update_list_name )
@@ -311,15 +325,24 @@ class API:
         self.ui.connect_plc_btn.clicked.connect(self.connect_plc)
         self.ui.disconnect_plc_btn.clicked.connect(self.disconnect_plc)
 
-        self.ui.check_run_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_run_plc.objectName()))
-        self.ui.check_stop_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_stop_plc.objectName()))
-        self.ui.check_reject_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_reject_plc.objectName()))
-        self.ui.check_spare_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_spare_plc.objectName()))
+        # self.ui.check_run_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_run_plc.objectName()))
+        # self.ui.check_stop_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_stop_plc.objectName()))
+        # self.ui.check_reject_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_reject_plc.objectName()))
+        # self.ui.check_spare_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_spare_plc.objectName()))
+
+
+
 
         self.ui.checkall_plc_btns.clicked.connect(self.check_all_plc_parms)
         self.ui.save_plc_pathes.clicked.connect(self.save_plc_parms)
         self.ui.check_set_value_plc.clicked.connect(lambda: self.check_plc_parms(self.ui.check_set_value_plc.objectName()))
         self.ui.set_value_plc.clicked.connect(self.set_plc_value)
+
+
+        self.ui.start_time_delay_set_value_plc.clicked.connect(lambda: self.set_plc_delay_time(self.ui.spin_delay.value(),type='delay'))
+        self.ui.duation_set_value_plc.clicked.connect(lambda: self.set_plc_delay_time(self.ui.spin_duration.value(),type='duration'))
+
+
         self.load_plc_ip()
         self.load_plc_parms()
 
@@ -334,9 +357,11 @@ class API:
 
         #calibration page
 
-        self.ui.btn_connect_top_cal_page.clicked.connect(lambda:self.show_camera_picture(side='top'))
-        self.ui.btn_connect_side_cal_page.clicked.connect(lambda:self.show_camera_picture(side='side'))
+        self.ui.btn_connect_top_cal_page.clicked.connect(lambda:self.show_camera_picture(direction='top'))
+        self.ui.btn_connect_side_cal_page.clicked.connect(lambda:self.show_camera_picture(direction='side'))
 
+        self.ui.btn_disconnect_top_cal_page.clicked.connect(lambda:self.disconnect_camera_cal_page(direction='top'))
+        self.ui.btn_disconnect_side_cal_page.clicked.connect(lambda:self.disconnect_camera_cal_page(direction='side'))
 
         #camera setting page
 
@@ -349,7 +374,13 @@ class API:
         self.ui.btn_save_top_cam_live_page.clicked.connect(lambda:self.capture_image_live(direction='top'))
         self.ui.btn_save_side_cam_live_page.clicked.connect(lambda:self.capture_image_live(direction='side'))
 
-        
+        for name, btn in self.plc_reg_on_off_btns.items():
+            btn.clicked.connect(partial(self.plc_on_off_reg(name)))
+
+        from PySide6.QtGui import QFont
+        font = QFont()
+        font.setPointSize(17)
+        self.ui.start_capture_live_page.setFont(font)
     # dashboard page
     #------------------------------------------------------------------------------------------------------------------------
     # refresh summary informations on the dashboard page
@@ -476,7 +507,7 @@ class API:
 
 
     def load_camera_params_from_db_to_camera(self,):
-        print('load_camera_params_from_db_to_camera')
+
         for direction in ['top','side']:
             self.cameras[direction].stop_grabbing()
             parm = self.db.load_cam_params(direction)
@@ -493,7 +524,7 @@ class API:
 
     
     def load_camera_params_from_UI_to_camera(self):
-        print('load_camera_params_from_UI_to_camera')
+    
         direction = self.ui.get_current_direction_camera_setting()
         parms = self.ui.get_camera_setting_parms()
         self.cameras[direction].update_parms(parms)
@@ -734,7 +765,7 @@ class API:
                 self.ui.set_label(self.ui.label_status_mode,'')   
                 self.ui.stackedWidget_2.setCurrentIndex(0)
                 # frame_save_btns
-                self.ui.frame_size(self.ui.frame_save_btns,0)
+                self.ui.frame_size_height(self.ui.frame_save_btns,size=0, both_height=True)
                 self.ui.tool_btn_clear()
                 self.ui.enable_bar_btn_tool_page('top',False)   
                 self.ui.enable_bar_btn_tool_page('side',False)  
@@ -772,7 +803,6 @@ class API:
             
     def edit_load_screw(self):
         name = self.ui.comboBox_edit_remove.currentText()
-        print('name',name)
         self.ui.set_deactive_all_pages()
         if name !='':
             self.ui.edit_mode()
@@ -796,6 +826,7 @@ class API:
                 self.ui.set_activate_pages(active_pages,True)
 
             self.update_setting_page_info()
+            self.update_main_image()
             
         
         
@@ -843,6 +874,7 @@ class API:
             direction = self.ui.get_setting_page_idx(direction = True)
             if action == 'add':
                 input_name = self.ui.get_list_pack_input('sub_pages')
+             
                 if input_name not in ['', 'none']:
                     self.screw_jasons[ direction ].add_subpage(page_name, input_name)
                     self.ui.set_list_pack_input('sub_pages', '')
@@ -905,6 +937,20 @@ class API:
         #---------------------
         thresh = self.ui.get_sliders_value('thresh')
         self.screw_jasons[ direction ].set_thresh( page_name, subpage_name, thresh )   
+        self.setting_image_updater()
+
+    def update_threshould_minmax(self):
+        page_name = self.ui.get_setting_page_idx(page_name = True)
+        direction = self.ui.get_setting_page_idx(direction = True)
+        subpage_name = self.ui.get_sub_page_name( page_name )
+        #---------------------
+        # if page_name in ['2_side', '3_side', '4_side','5_side','6_side']:
+        #     page_name , subpage_name = '1_side', None
+        #---------------------
+        thresh_min = self.ui.get_sliders_value('thresh_min')
+        thresh_max = self.ui.get_sliders_value('thresh_max')
+        self.screw_jasons[ direction ].set_thresh_min( page_name, subpage_name, thresh_min )
+        self.screw_jasons[ direction ].set_thresh_max( page_name, subpage_name, thresh_max )   
         self.setting_image_updater()
     
      
@@ -1019,16 +1065,22 @@ class API:
         subpage_name = self.ui.get_sub_page_name( page_name )
         
         path = self.ui.get_line_value('img_path')
-        
+        print('LINE PATH    ', path)
         if cv2.imread(path) is not None:
+            print("update image ", direction, page_name, subpage_name)
             self.screw_jasons[ direction ].set_img_path(path, page_name, subpage_name)
             self.current_image_screw = cv2.imread(path)
+            print('load image from', path)
         else:
             print('Error! : image not exist')
         
 
         if self.tools_live_enable:
             self.set_images()
+
+        #set size image into all circel and rectangle drawer for calibration of drawing roi 
+        for drawer in self.roi_drawings.values():
+            drawer.set_img_size( self.current_image_screw.shape[:2] )
         
 
         #-----------------------------------------------------------------------
@@ -1051,16 +1103,19 @@ class API:
                 self.ui.set_list_pack_items( 'sub_pages', items )
                 subpage_name = self.ui.get_sub_page_name( page_name )
         #-----------loade limits --------------------
+        
 
         parms = self.screw_jasons[ direction ].get_setting( page_name, subpage_name )
         self.ui.set_setting_page_parms(parms)
+
+        #self.update_main_image()
         
         #img_path = self.screw_jasons[ direction ].get_img_path()
         #self.current_image_screw = cv2.imread(img_path)
-        self.update_main_image()
+        #self.update_main_image()
         
-        for drawer in self.roi_drawings.values():
-            drawer.set_img_size( self.current_image_screw.shape[:2] )
+        # for drawer in self.roi_drawings.values():
+        #     drawer.set_img_size( self.current_image_screw.shape[:2] )
         self.load_drawer()
         self.setting_image_updater()
         
@@ -1169,8 +1224,13 @@ class API:
         #     img = np.copy(self.current_image_screw)
         # else:
         #     img = self.current_camera_imgs['top']
+        
 
-        thresh = self.screw_jasons[ direction ].get_thresh(page_name, subpage_name)
+
+        thresh_min = self.screw_jasons[ direction ].get_thresh_min(page_name, subpage_name)
+        thresh_max = self.screw_jasons[ direction ].get_thresh_max(page_name, subpage_name)
+        #############
+
         noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
         rect = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
         inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
@@ -1179,7 +1239,11 @@ class API:
         img = cvTools.preprocess(img)
 
         mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
-        thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
+        
+        thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
+        #thresh_img=cvTools.erode(thresh_img, 3)
+        ######################### 
+        
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
     
         
@@ -1408,7 +1472,12 @@ class API:
         
         img = np.copy(self.current_image_screw)
 
+        ####CHange
         thresh = self.screw_jasons[ direction ].get_thresh(page_name, subpage_name)
+        thresh_min = self.screw_jasons[ direction ].get_thresh_min(page_name, subpage_name)
+        thresh_max = self.screw_jasons[ direction ].get_thresh_max(page_name, subpage_name)
+
+
         noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
         rect = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
         inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
@@ -1416,7 +1485,12 @@ class API:
         img = cvTools.preprocess(img)
 
         mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
+
+        ####Change
         thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
+        thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
+        #########################
+
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
         
         if self.ui.is_drawing_mask_enabel():
@@ -1730,12 +1804,13 @@ class API:
         self.connection_status=self.my_plc.connection()
         if self.connection_status:
             self.load_plc_parms()
-            self.ui.frame_size(self.ui.frame_175, 800)
+            self.ui.frame_size_height(self.ui.frame_175, size = 600, both_height=True)
             
             
             self.ui.show_mesagges(self.ui.plc_warnings,texts.WARNINGS['Connection_succssed'][self.language])
+            self.check_all_plc_parms()
         else:
-            self.ui.frame_size(self.ui.frame_175, 0)
+            self.ui.frame_size_height(self.ui.frame_175, size= 0, both_height=True)
             self.ui.show_mesagges(self.ui.plc_warnings,texts.WARNINGS['Connection_eror'][self.language],color='red')
 
 
@@ -1747,7 +1822,7 @@ class API:
             del self.my_plc
         except:
             pass
-        self.ui.frame_size(self.ui.frame_121, 0)
+        self.ui.frame_size_height(self.ui.frame_175, size=0, both_height=True)
 
 
 
@@ -1757,10 +1832,15 @@ class API:
             connection_status = self.my_plc.connection()
             if connection_status:
                 self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connected'][self.language],color='green')
+                self.retry_plc_connection=0
             else:
-                self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connection_eror'][self.language],color='red')
+                self.retry_plc_connection+=1
+                if self.retry_plc_connection>10:
+                    self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connection_eror'][self.language],color='red')
         except:
-            self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connection_eror'][self.language],color='red')
+            self.retry_plc_connection+=1
+            if self.retry_plc_connection>10:
+                self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connection_eror'][self.language],color='red')
 
         
 
@@ -1775,25 +1855,39 @@ class API:
         return values  
 
     def check_all_plc_parms(self):
-
-        btns=['check_run_plc','check_stop_plc','check_reject_plc','check_spare_plc']
-        values={}
-        for btn in btns:
-            value=self.check_plc_parms(btn)
-
-            values.update({btn:value})
-        return values
-
-
+        # try:
+            btns=['check_run_plc','check_stop_plc','check_reject_plc']
+            # while self.ui.stackedWidget.currentWidget()==self.ui.page_settings:
+                        # time.sleep(5)
+            values={}
+            for btn in btns:
+                # try:
+                    value=self.check_plc_parms(btn)
+                    values.update({btn:value})
+                    name = btn[6:-4]
+                    #self.plc_reg_on_off_style_manager(name, value)
+            # return values
+                # except:
+                #     print('errrorrrrrr')
+            if self.ui.stackedWidget.currentWidget()==self.ui.page_settings:
+                threading.Timer(1,self.check_all_plc_parms).start()
+        # except:
+        #     print('Error check_all_plc_parms')
 
     def check_plc_parms(self,name):
+
         name=name.split('_',1)[1]
+        name = name[:-4]
         path=eval('self.ui.line_{}.text()'.format(name))
-        print('path',path)
-        value=self.my_plc.get_value(path)
-        print('value',value)
+     
+        value=self.my_plc.get_value(int(path))
+       
         label_name=eval('self.ui.label_{}'.format(name))
-        self.ui.set_label(label_name, str(value))
+        # self.ui.set_plc_light(label_name, str(value))
+        self.ui.set_plc_light(label_name,value)
+        self.plc_reg_on_off_style_manager(name, value)
+    
+
 
     def load_plc_ip(self):
         ip=self.db.load_plc_ip()
@@ -1811,7 +1905,7 @@ class API:
         parms=self.db.load_plc_parms()
         combo_list=[]
         for parm in parms:
-            try:
+            # try:
                 
                 try:
                     line=eval('self.ui.line_{}'.format(parm['name']))
@@ -1821,8 +1915,8 @@ class API:
                     line.setValue(int(parm['path']))
                 combo_list.append(parm['name'])
 
-            except:
-                pass
+            # except:
+            #     pass
         self.parms=parms
         # print('/'*30,parms)
         # self.ui.comboBox_plc_addresses.addItems(combo_list)
@@ -1844,11 +1938,45 @@ class API:
         pass
 
     def set_plc_value(self):
-        print('set')
+     
         path=self.ui.line_set_value_plc.text()
         value=self.ui.line_value_set_value_plc.text()
-        self.my_plc.set_value(path, value)
+        if value == 'True' or value == 'true':
+            value = True
+        elif value=='false' or value == 'False':
+            value = False
+        self.my_plc.set_value(int(path), value)
     
+    
+
+    def set_plc_reject(self,value = False):
+
+        path = self.ui.line_reject.text()  #change
+       
+        if value == 'True' or value == 'true':
+            value = True
+        elif value=='false' or value == 'False':
+            value = False
+        try:
+            self.my_plc.set_value(int(path), value)
+            # self.my_plc.set_value(path, True)  # if should true after False uncomment this line
+        except:
+            print('Error in set plc reject')
+
+    def set_plc_delay_time(self,value,type):
+        if type=='delay':
+            path = self.line_delay.text()
+        elif type =='duration':
+            path = self.line_duration.text()
+        else:
+            print('Erorr')
+            return
+        try:
+            self.my_plc.set_value(int(path), value)
+        except:
+            print('Error in set plc delay time in api')
+
+
     #________________________________________________________________________________________________________________________
     #
     #                                                          
@@ -1933,22 +2061,25 @@ class API:
         cam_ids=[]
         
         for direction in ['top','side']:
-            try:
-                cameras_info = self.db.load_cam_params(direction)
-                 
+            # try:
+            cameras_info = self.db.load_cam_params(direction)
+                
 
-                       
-                self.cameras [ cameras_info['direction'] ] = camera_connection.Collector(cameras_info['serial_number'],
-                                                                                         exposure=cameras_info['expo_value'],
-                                                                                         gain=cameras_info['gain_value'],
-                                                                                         trigger=cameras_info['trigger_mode'],
-                                                                                         height=cameras_info['height'],
-                                                                                         width=cameras_info['width'],
-                                                                                         manual=True)
-                cam_ids.append(cameras_info['serial_number'])
-            except:                                                                                                 
-                print('eror in create camera objects')
-                self.cameras [ cameras_info['direction'] ] = None
+                    
+            self.cameras [ cameras_info['direction'] ] = camera_connection.Collector(cameras_info['serial_number'],
+                                                                                        exposure=cameras_info['expo_value'],
+                                                                                        gain=cameras_info['gain_value'],
+                                                                                        trigger=cameras_info['trigger_mode'],
+                                                                                        height=cameras_info['height'],
+                                                                                        width=cameras_info['width'],
+                                                                                        packet_size=cameras_info['packet_size'],
+                                                                                        frame_transmission_delay=cameras_info['transmission_delay'],
+                                                                                        delay_packet=cameras_info['interpacket_delay'],
+                                                                                        manual=True)
+            cam_ids.append(cameras_info['serial_number'])
+            # except:                                                                                                 
+            #     print('eror in create camera objects')
+                # self.cameras [ cameras_info['direction'] ] = None
 
 
             self.ui.set_camera_setting_combobox_ids(cam_ids)
@@ -1956,15 +2087,19 @@ class API:
     def start_detection(self):
 
         self.run_detect=True
+        #load screw image again. becuase maybe some settings chaged
+        self.load_screw_live()
         self.set_images()
         self.ui.start_capture_live_page.setEnabled(False)
         self.ui.stop_capture_live_page.setEnabled(True)
-
+        self.ui.set_mask_main_page_btns_mode(True)
     def stop_detection(self):
 
         self.run_detect=False
         self.ui.start_capture_live_page.setEnabled(True)
         self.ui.stop_capture_live_page.setEnabled(False)
+        self.ui.set_mask_main_page_btns_mode(False)
+
         #self.ui.timer_live.stop()
 
     
@@ -2017,28 +2152,54 @@ class API:
 
 
     # show cameras picture on UI
-    def show_camera_picture(self, side):
-
-        label = eval('self.ui.camera_{}_cal_page'.format(side))
-        status = eval('self.ui.connection_status_{}_cal_page'.format(side))
+    def show_camera_picture(self, direction):
+        eval('self.ui.btn_connect_{}_cal_page'.format(direction)).setEnabled(False)
+        eval('self.ui.btn_disconnect_{}_cal_page'.format(direction)).setEnabled(True)
+        label = eval('self.ui.camera_{}_cal_page'.format(direction))
+        status = eval('self.ui.connection_status_{}_cal_page'.format(direction))
+        error_count =0
         while True:
-            try:
-                ret , img = self.cameras[side].getPictures()
-                if ret:
-                    self.ui.set_image_label(label,img)
-                    
-                else:
-                    status.setText('Eror Connection')
-                    break                
-            except:
-                status.setText('Eror Connection')
-                print('Except show_camera_picture main_api')
-                break
-            # print('asd')
-            cv2.waitKey(10)
+            # try:
+            ret , img = self.cameras[direction].getPictures()
+            if ret:
+                self.ui.set_image_label(label,img)
+                # status.setText('Connection Success')
                 
+                self.set_status_calibration(status=status,message='Connection Success',mode=True)
+                if error_count!=0:
+                    error_count=0
+                
+            else:
+                
+                error_count+=1
+                if error_count>=10:
+                    # status.setText('Eror Connection')
+                    self.set_status_calibration(status=status,message='Eror Connection',mode=False)
 
+                # break                
+            # except:
+            #     status.setText('Eror Connection')
+            #     print('Except show_camera_picture main_api')
+            #     break
+            # print('asd')
+            cv2.waitKey(20)
+                
+    def set_status_calibration(self,status,message,mode):
+        status.setText(message)
+        if mode:
+            status.setStyleSheet("color: #22824d")
+        else:
+            status.setStyleSheet("color: #b8182b")
     
+
+
+
+    def disconnect_camera_cal_page(self,direction):
+        self.cameras[direction].stop_grabbing()
+        self.cameras[direction].set_capturing(False)
+        eval('self.ui.btn_connect_{}_cal_page'.format(direction)).setEnabled(True)
+        eval('self.ui.btn_disconnect_{}_cal_page'.format(direction)).setEnabled(False)
+
 
 
 
@@ -2054,7 +2215,7 @@ class API:
         
         for i in range(10):
             side_ret,side_image = self.cameras['side'].getPictures()  # temp for get side image
-
+            time.sleep(0.002)
             if side_ret:
                 # print('aaaaaaaaaaaa')
                 self.cameras['side'].image=side_image
@@ -2094,19 +2255,19 @@ class API:
                 'top': self.proccessing_live_top
             }
             for direction in ['top', 'side']:
-                try:
-                    self.current_camera_imgs[direction] = self.cameras[direction].image
-                    if self.run_detect:
-                       
-                        #draw_imgs[direction], results[direction] = self.proccessing_live_side(self.current_camera_imgs[direction])
-                        draw_imgs[direction], results[direction] = proccessing_functions[direction](self.current_camera_imgs[direction])
-                        print(direction, draw_imgs[direction].shape)        
+                # try:
+                self.current_camera_imgs[direction] = self.cameras[direction].image
+                if self.run_detect:
+                    
+                    #draw_imgs[direction], results[direction] = self.proccessing_live_side(self.current_camera_imgs[direction])
+                    draw_imgs[direction], results[direction] = proccessing_functions[direction](self.current_camera_imgs[direction])
+                    print(direction, draw_imgs[direction].shape)        
                 
-                except:
-                    print('e'*50)
-                    self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
-                    results[direction] = []
-                    draw_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
+                # except:
+                #     print('e'*50)
+                #     self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
+                #     results[direction] = []
+                #     draw_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
 
 
                 
@@ -2173,3 +2334,24 @@ class API:
             print('ERROR: set trigger - enable_live_view_for_tools', direction)
         self.update_main_image()
         
+
+
+    def plc_on_off_reg(self, name):
+        def func():
+       
+            path=eval('self.ui.line_{}.text()'.format(name))
+            value=self.my_plc.get_value(int(path))
+            self.my_plc.set_value(int(path), not(value))
+            self.plc_reg_on_off_style_manager(name, not(value))
+            
+            
+        return func
+    
+    
+    def plc_reg_on_off_style_manager(self, name, value):
+        if not value:
+                self.plc_reg_on_off_btns[name].setText('On')
+                self.plc_reg_on_off_btns[name].setStyleSheet("background-color: #22824d;color:#ffffff")
+        else:
+            self.plc_reg_on_off_btns[name].setText('Off')
+            self.plc_reg_on_off_btns[name].setStyleSheet("background-color: #b8182b;color:#ffffff")

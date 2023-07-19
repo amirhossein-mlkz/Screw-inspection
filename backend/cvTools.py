@@ -42,16 +42,42 @@ def threshould(img, thresh , mask_roi = None, inv=False):
         _,mask = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY_INV)
     else:
         _,mask = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)
-    kernel = np.ones((3,3))
+    #kernel = np.ones((3,3))
     
     #mask = cv2.erode(mask, kernel, iterations=3)
     #mask = cv2.dilate(mask, kernel, iterations=3)
-    
-    
            
     if mask_roi is not None:
         mask = cv2.bitwise_and( mask, mask , mask=mask_roi)
     return mask
+
+
+def threshould_minmax(img, thresh_min, thresh_max , mask_roi = None):
+    if len(img.shape) == 3:
+        img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    
+    _,mask_min = cv2.threshold(img, thresh_min, 255, cv2.THRESH_BINARY)
+    _,mask_max = cv2.threshold(img, thresh_max, 255, cv2.THRESH_BINARY_INV)
+    kernel = np.ones((3,3))
+    
+    mask = cv2.erode(mask, kernel, iterations=3)
+    mask = cv2.dilate(mask, kernel, iterations=3)
+
+           
+    if mask_roi is not None:
+        mask = cv2.bitwise_and( mask_min, mask_max , mask=mask_roi)
+    else:
+        mask = cv2.bitwise_and( mask_min, mask_max)
+
+
+    return mask
+
+
+def erode(mask, iteration=3):
+    kernel = np.ones((3,3))
+    
+    mask = cv2.erode(mask, kernel, iterations=iteration)
+    mask = cv2.dilate(mask, kernel, iterations=iteration)
 
 
 def threshould_new(img, thresh , mask_roi = None, inv=False):
@@ -389,7 +415,10 @@ def centerise_side(mask, img = None):
     #mask[:,belt_x]= 255
 
     crop_roi = mask[ :, belt_x - 100 : belt_x - 50 ]
+    
     ys, xs = np.nonzero( crop_roi )
+    if len(ys)==0 or len(xs)==0:
+        return mask,img,0
     screw_meadile = int(ys.mean())
 
     h,w = mask.shape[:2]

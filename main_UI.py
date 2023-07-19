@@ -92,6 +92,9 @@ class UI_main_window(QMainWindow, ui):
                 'width':self.width_spinbox,
                 'offsetx_value':self.offsetx_spinbox,
                 'offsety_value':self.offsety_spinbox,
+                'packet_size' : self.packetsize_spinbox,
+                'transmission_delay' : self.transmissiondelay_spinbox,
+                'interpacket_delay' : self.packetdelay_spinbox
             # 'pxvalue_a':
             # 'pxvalue_b':
             # 'pxvalue_c':
@@ -194,8 +197,10 @@ class UI_main_window(QMainWindow, ui):
 
         self.side_camera_setting_btn.click()
         self.side_dashboard_btn.click()
-
-
+        
+        font = QFont()
+        font.setPointSize(17)
+        self.start_capture_live_page.setFont(font)
 
     def load_lang(self):
         # lan=api.load_language()
@@ -246,7 +251,8 @@ class UI_main_window(QMainWindow, ui):
 
 
     def mousePressEvent(self, event):
-        if event.button() == QtCore.Qt.LeftButton:
+        if event.button() == QtCore.Qt.LeftButton and  event.position().y()<30:
+
             self._old_pos = event.pos()
 
     def mouseReleaseEvent(self, event):
@@ -522,7 +528,9 @@ class UI_main_window(QMainWindow, ui):
             # self.sheet_view_down=data_grabber.sheetOverView(h=129,w=1084,nh=12,nw=30)
         else:
             self.showMaximized()
-
+            self.set_image_label()
+            # pixmap = QPixmap(img_path)
+            # self.maxiButton.setPixmap(pixmap)
 
 
     def set_combo_boxes_2(self):
@@ -533,6 +541,9 @@ class UI_main_window(QMainWindow, ui):
         string=['English', 'Persian']
         self.combo_change_language.addItems(string)
         
+
+
+
     def set_camera_setting_combobox_ids(self,ids):
         camera_serials = ids
         self.serial_number_combo.addItems(camera_serials)
@@ -762,7 +773,7 @@ class UI_main_window(QMainWindow, ui):
             self.editmode=True
             self.enable_bar_btn_tool_page('top',enable=True)
             self.enable_bar_btn_tool_page('side',enable=True)
-            self.frame_size(self.frame_save_btns,57)
+            self.frame_size_height(self.frame_save_btns, size=57, both_height=True)
             #self.tool_btn_clear() #useless
             screw=[]
             screw.append(self.comboBox_edit_remove.currentText())  
@@ -800,9 +811,9 @@ class UI_main_window(QMainWindow, ui):
             self.clear_side_btns(current_page=2)
 
             self.stackedWidget.setCurrentWidget(self.page_camera_setting)
-            self.frame_size_width(self.frame_210,100000,width=True,max_width=True)
-            self.frame_size_width(self.frame_209,100000,width=True,max_width=True)
-            self.frame_size(self.camera_setting_tools_page,0)
+            self.frame_size_width(self.frame_210,100000,max_width=True)
+            self.frame_size_width(self.frame_209,100000,max_width=True)
+            self.frame_size_height(self.camerasetting_back_tools_btn_frame,size = 0, both_height=True)
 
 
             self.capture_mode_flag = 'general'
@@ -893,75 +904,74 @@ class UI_main_window(QMainWindow, ui):
             if self.editmode:
 
                 i=self.stackedWidget_2.currentIndex()
-                print(i)
                 self.stackedWidget_2.setCurrentIndex(i-1)
 
         if btnName =='btn_page0_1_top' :
-            #self.tool_btn_clear() #useless
+         
 
             self.stackedWidget_2.setCurrentWidget(self.page_1_top)
-            # self.btn_page0_1_top.setStyleSheet(self.side_btn_stylesheet)
+        
 
 
 
         if btnName =='btn_page0_2_top' :
-            #self.tool_btn_clear() #useless
+          
 
             self.stackedWidget_2.setCurrentWidget(self.page_2_top)
-            # self.btn_page0_2_top.setStyleSheet(self.side_btn_stylesheet)
+          
 
         if btnName =='btn_page0_3_top' :
-            #self.tool_btn_clear() #useless
+     
 
             self.stackedWidget_2.setCurrentWidget(self.page_3_top)
             self.btn_page0_3_top.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_page0_4_top' :
-            #self.tool_btn_clear() #useless
+    
 
             self.stackedWidget_2.setCurrentWidget(self.page_4_top)
             self.btn_page0_4_top.setStyleSheet(self.side_btn_stylesheet)
 
 
         if btnName =='btn_page0_5_top' :
-            #self.tool_btn_clear() #useless
+      
 
             self.stackedWidget_2.setCurrentWidget(self.page_5_top)
             self.btn_page0_5_top.setStyleSheet(self.side_btn_stylesheet)
 
 
         if btnName =='btn_page0_1_side' :
-            #self.tool_btn_clear() #useless
+      
 
             self.stackedWidget_2.setCurrentWidget(self.page_1_side)
             self.btn_page0_1_side.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_page0_2_side' :
-            #self.tool_btn_clear() #useless
+       
 
             self.stackedWidget_2.setCurrentWidget(self.page_2_side)    
             self.btn_page0_2_side.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_page0_3_side' :
-            #self.tool_btn_clear() #useless
+   
 
             self.stackedWidget_2.setCurrentWidget(self.page_3_side)    
             self.btn_page0_3_side.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_page0_4_side' :
-            #self.tool_btn_clear() #useless
+        
 
             self.stackedWidget_2.setCurrentWidget(self.page_4_side)
             self.btn_page0_4_side.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_page0_5_side' :
-            #self.tool_btn_clear() #useless
+       
 
             self.stackedWidget_2.setCurrentWidget(self.page_5_side)
             self.btn_page0_5_side.setStyleSheet(self.side_btn_stylesheet)
 
         if btnName =='btn_page0_6_side' :
-            #self.tool_btn_clear() #useless
+    
             self.stackedWidget_2.setCurrentWidget(self.page_6_side)
             self.btn_page0_6_side.setStyleSheet(self.side_btn_stylesheet)
 
@@ -977,54 +987,55 @@ class UI_main_window(QMainWindow, ui):
             pass
 
         if btnName=='btn_add_region0_2_top':
-            self.frame_size(self.frame_52,1000)
+            self.frame_size_height(self.frame_52,size = 1000, both_height=True)
 
         if btnName=='btn_remove_region0_2_top':
-            self.frame_size(self.frame_52,0)
+            self.frame_size_height(self.frame_52,size = 0, both_height=True)
 
         if btnName=='btn_add_region0_3_top':
-            self.frame_size(self.frame_193,1000)
+            self.frame_size_height(self.frame_193,size = 1000, both_height=True)
 
         if btnName=='btn_remove_region0_3_top':
-            self.frame_size(self.frame_193,0)
+            self.frame_size_height(self.frame_193, size = 0, both_height=True)
 
         if btnName=='btn_add_region0_4_side':
-            self.frame_size(self.frame_141,310)
+            self.frame_size_height(self.frame_141,size = 310, both_height=True)
 
         if btnName=='btn_remove_region0_4_side':
-            self.frame_size(self.frame_141,0)
+            self.frame_size_height(self.frame_141,size = 0, both_height=True)
       
 
         # if btnName=='btn_set_corner0_2_top':
         #     self.frame_size(self.groupBox_12,70)
 
         if btnName=='btn_draw_complete0_2_top':
-            self.frame_size(self.frame_52,0)
+            self.frame_size_height(self.frame_52, size=0, both_height=True)
 
 
         if btnName=='btn_add_area0_4_side':
             # print('asdawdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
-            self.frame_size(self.frame_141,310)
+            self.frame_size_height(self.frame_141, size=310, both_height=True)
 
 
         if btnName=='btn_complete_area_4_side':
-            self.frame_size(self.frame_141,0)
+            self.frame_size_height(self.frame_141, size=0, both_height=True)
 
         if btnName=='btn_add_region0_6_side':
-            self.frame_size(self.frame_143,310)
+            self.frame_size_height(self.frame_143, size=310, both_height=True)
 
         if btnName=='btn_remove_region0_6_side':
-            self.frame_size(self.frame_143,0)
+            self.frame_size_height(self.frame_143, size=0, both_height=True)
 
         if btnName=='btn_complete_area_6_side':
-            self.frame_size(self.frame_143,0)   
+            self.frame_size_height(self.frame_143, size=0, both_height=True)   
 
         if btnName=='ultra_setting_btn':
-            print('ultra',self.frame_10.height())
-            if self.frame_10.height()==0:
-                self.frame_size(self.frame_10,460)   
+            print('ultra',self.frame_22812.height())
+            if self.frame_22812.height()==0:
+                self.frame_size_height(self.frame_22812,size = 350, both_height=True)   
             else:
-                self.frame_size(self.frame_10,0)  
+                self.frame_size_height(self.frame_22812, size = 0, both_height=True) 
+
             self.camera01_btn.click()
         if btnName=='btn_connect_camera0_1_top':
             self.clear_side_btns(current_page=2)
@@ -1032,10 +1043,10 @@ class UI_main_window(QMainWindow, ui):
             self.side_camera_setting_btn.click()
             self.camera01_btn.click()
 
-            self.frame_size_width(self.frame_210,0,width=True,both_width=True)
-            self.frame_size_width(self.frame_209,5000,width=True,max_width=True)
-            self.frame_size(self.camera_setting_tools_page,30)
-            print('we'*50)
+            self.frame_size_width(self.frame_210,0,both_width=True)
+            self.frame_size_width(self.frame_209,5000,max_width=True)
+            self.frame_size_height(self.camerasetting_back_tools_btn_frame, size=30, both_height=True)
+
             self.line_path_top_cam_live_page_2.setText(self.label_screw_name.text())
 
             self.capture_mode_flag = 'edit_page'
@@ -1047,9 +1058,9 @@ class UI_main_window(QMainWindow, ui):
             # self.stackedWidget.setCurrentWidget(self.page_camera_setting)
             self.side_camera_setting_btn.click()
             self.camera02_btn.click()
-            self.frame_size_width(self.frame_209,0,width=True,both_width=True)
-            self.frame_size_width(self.frame_210,100000,width=True,max_width=True)
-            self.frame_size(self.camera_setting_tools_page,30)
+            self.frame_size_width(self.frame_209,0,both_width=True)
+            self.frame_size_width(self.frame_210,100000,max_width=True)
+            self.frame_size_height(self.camerasetting_back_tools_btn_frame, size=30, both_height=True)
 
             self.line_path_top_cam_live_page_2.setText(self.label_screw_name.text())
 
@@ -1077,17 +1088,27 @@ class UI_main_window(QMainWindow, ui):
 
 
 
-    def frame_size(self,f_name,size,both=True):
+    # def frame_size(self,f_name,size,both=True):
 
 
-        height=f_name.height()
+    #     height=f_name.height()
 
-        if height!=size:
-            f_name.setMaximumHeight(size)
-            f_name.setMinimumHeight(size)
-    def frame_size_width(self,f_name,size,width=False,both_width=False,min_width=False,max_width=False):
-        if width:
-            width=f_name.width()
+    #     if height!=size:
+    #         f_name.setMaximumHeight(size)
+    #         f_name.setMinimumHeight(size)
+    
+    def frame_size_height(self,f_name,size,both_height=False,min_height=False,max_height=False):
+            #width=f_name.width()
+            if both_height:
+                f_name.setMaximumHeight(size)
+                f_name.setMinimumHeight(size)        
+            elif min_height:
+                f_name.setMinimumHeight(size)
+            elif max_height:
+                f_name.setMaximumHeight(size)
+
+    def frame_size_width(self,f_name,size,both_width=False,min_width=False,max_width=False):
+            #width=f_name.width()
             if both_width:
                 f_name.setMaximumWidth(size)
                 f_name.setMinimumWidth(size)        
@@ -1290,10 +1311,11 @@ class UI_main_window(QMainWindow, ui):
             except:
                 return None
     def set_combobox_text(self,name,list_data, page_name = None ,idx=0):
-            
+            print('amir'*80,list_data)
             if page_name is None:
                 page_name =self.get_setting_page_idx(page_name=True)
-            
+            if 'none' in list_data:
+                return
             self.combo_boxes['{}'.format(name)]['combo_{}{}_{}'.format(name, idx, page_name)].addItems(list_data)
 
 
@@ -1317,6 +1339,8 @@ class UI_main_window(QMainWindow, ui):
     def set_list_pack_items(self, name, items, page_name=None, idx=0):
         if page_name is None:
                 page_name =self.get_setting_page_idx(page_name=True)
+        if 'none' in items:
+            items.remove('none')
         self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].blockSignals(True)
         self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].clear()
         self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].addItems(items)
@@ -1330,6 +1354,7 @@ class UI_main_window(QMainWindow, ui):
         
     
     def set_list_pack_input(self, name, text, page_name=None, idx=0):
+        print('milad'*100)
         if page_name is None:
                 page_name =self.get_setting_page_idx(page_name=True)
         
@@ -1662,7 +1687,7 @@ class UI_main_window(QMainWindow, ui):
         if change_size:
             obj = self.multi_options[ page_name ][ group_name ]['frame']['obj']
             size_ = self.multi_options[ page_name ][ group_name ]['frame']['size']
-            self.frame_size( obj, size_)
+            self.frame_size_height( obj, size_, both_height=True)
 
 
     def get_multi_options_value(self, name, option_name, page_name=None):
@@ -1742,7 +1767,7 @@ class UI_main_window(QMainWindow, ui):
             if name in ['thresh_inv', 'navel'] :
                 self.set_checkbox_value(name,value,page_name,idx=idx)
                 
-            elif name in ['thresh', 'noise_filter'] :
+            elif name in ['thresh', 'thresh_min', 'thresh_max' 'noise_filter'] :
                 self.set_sliders_value(name, value, page_name, idx=idx)
                 
             elif name in  ['img_path'] :
@@ -1862,17 +1887,18 @@ class UI_main_window(QMainWindow, ui):
 
     def get_plc_parms(self):
 
-        limit_1=self.line_run_plc.text()
-        limit_2=self.line_stop_plc.text()
-        line_down_motor_plc=self.line_reject_plc.text()
-        spare_plc=self.line_spare_plc.text()
+        limit_1=self.line_run.text()
+        limit_2=self.line_stop.text()
+        line_down_motor_plc=self.line_reject.text()
+        spare_plc=self.line_spare.text()
         # line_spare_plc=self.line_spare_plc.text()
         # line_detect_sensor_plc=self.line_detect_sensor_plc.text()
-        delay_plc=str(self.spin_delay_plc.value())
-        duration_plc=str(self.spin_duration_plc.value())
-    
-        return{'run_plc':limit_1,'stop_plc':limit_2,'reject_plc':line_down_motor_plc,\
-            'delay_plc':delay_plc,'duration_plc':duration_plc,'spare_plc':spare_plc}
+        delay_plc=str(self.line_delay.text())
+        duration_plc=str(self.line_duration.text())
+
+
+        return{'run':limit_1,'stop':limit_2,'reject':line_down_motor_plc,\
+            'delay':delay_plc,'duration':duration_plc,'spare':spare_plc}
 
 
 
@@ -1935,6 +1961,10 @@ class UI_main_window(QMainWindow, ui):
         camera_params['offsety_value'] = self.offsety_spinbox.value()
         camera_params['trigger_mode'] = self.trigger_combo.currentText()
         camera_params['serial_number'] = '0' if self.serial_number_combo.currentText()=='No Serial' else self.serial_number_combo.currentText()
+        camera_params['packet_size'] = self.packetsize_spinbox.value()
+        camera_params['interpacket_delay'] = self.packetdelay_spinbox.value()
+        camera_params['transmission_delay'] = self.transmissiondelay_spinbox.value()
+
         return camera_params
 
 
@@ -1948,6 +1978,25 @@ class UI_main_window(QMainWindow, ui):
                 obj.currentTextChanged.connect( func )
             else:
                 obj.textChanged.connect(func)
+
+
+
+    def set_mask_main_page_btns_mode(self,mode=False):
+        # return
+        self.btn_enabel_mask_draw_live_top.setEnabled(mode)
+        self.btn_enabel_mask_draw_live_side.setEnabled(mode)
+
+
+
+    
+    def set_plc_light(self,label_name,mode,size=30):
+        label_name.setText('__')
+        label_name.setMaximumWidth(size)
+        label_name.setMaximumHeight(size)
+        if mode:
+            label_name.setStyleSheet("background-color: #22824d;color:#22824d")
+        else:
+            label_name.setStyleSheet("background-color: #b8182b;color:#b8182b")
 
 
 

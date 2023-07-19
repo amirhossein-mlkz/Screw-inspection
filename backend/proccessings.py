@@ -91,9 +91,9 @@ def preprocessing_side_img( img, json, direction):
     if angle==None:
         return None,None,None
     thresh_img = cvTools.rotate_image(thresh_img,  angle   )
-    # img = cvTools.rotate_image(img,  angle   )
 
     thresh_img, img, _ = cvTools.centerise_side( thresh_img, img )
+
     return img, thresh_img, angle
 
 
@@ -378,15 +378,13 @@ def proccessing_top_measurment( img, mask, jsondb, draw = None):
         noise_filter = jsondb.get_noise_filter( page_name, subpage_name )
         inv_state = jsondb.get_thresh_inv(page_name, subpage_name)
         shape_type = jsondb.get_multi_option( page_name, subpage_name, 'shape_type' )
-        
+        circel_roi = jsondb.get_circels_roi(page_name, subpage_name)
         #--------------------------------------------------------------------------------------
         #specific Operation
         #--------------------------------------------------------------------------------------
-    
+        mask = cvTools.circels2mask(mask.shape, circel_roi)
         thresh_img = cvTools.threshould(img, thresh, mask, inv_state)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
-        cv2.imshow(subpage_name, thresh_img)
-        cv2.waitKey(10)
         cnt = cvTools.extract_bigest_contour(thresh_img)
         
         
@@ -436,14 +434,11 @@ def proccessing_top_measurment( img, mask, jsondb, draw = None):
 
             
             if draw is not None:
-                
-                #draw = cv2.drawContours(draw, [cnt], 0, (0,200,0), thickness=5)
-                if subpage_name == 'a2':
-                    draw = cv2.drawContours(draw, [cnt], 0, (0,0,220), thickness=2)
-                    cv2.imshow('a', draw);cv2.waitKey(10)
-
-                else:
+                if shape_type == 'circel':
                     draw = cv2.drawContours(draw, [cnt], 0, (0,200,0), thickness=5)
+                elif shape_type == 'hexagonal':
+                    draw = cv2.drawContours(draw, [cnt], 0, (200,0,0), thickness=5)
+
 
         else:
             if shape_type == 'circel':

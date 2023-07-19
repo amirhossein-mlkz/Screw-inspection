@@ -108,7 +108,7 @@ class dataBaseUtils():
 
         try:
             record = self.db.search( self.table_cameras , 'id', input_camera_id )[0]
-            print('camera info:', record)
+
             return record
         except:
             return []
@@ -286,17 +286,17 @@ class dataBaseUtils():
     def update_plc_parms(self, plc_parms):
         if sql_mode=='none':
             return True  
-        try:
-            for _,param in enumerate(plc_parms.keys()):
-                # update_record(self,table_name,col_name,value,id,id_value):
-                i=_+1
-                #print('_',i,'   ',param,str(plc_parms[param]))
-                
-                res = self.db.update_record(self.plc, 'path', str(plc_parms[param]), 'name',param)
+        # try:
+        for _,param in enumerate(plc_parms.keys()):
+            # update_record(self,table_name,col_name,value,id,id_value):
+            i=_+1
+            #print('_',i,'   ',param,str(plc_parms[param]))
+            
+            res = self.db.update_record(self.plc, 'path', str(plc_parms[param]), 'name',str(param))
 
-            return res
-        except:
-            return False
+        return res
+        # except:
+        #     return False
 
 
     def load_calibration_parms(self):
@@ -374,7 +374,8 @@ if __name__ == '__main__':
     # db.load_general_setting_params()
     # db.update_history(5,3)
     # db.load_history()
-    db.load_cam_params(2)
+    # db.load_cam_params(2)
+    db.db.update_record('plc_setting', 'path',' asdasd', 'name','run')
     # x=db.load_calibration_parms()
     # print(x)
     # x=db.load_calibration_parms()

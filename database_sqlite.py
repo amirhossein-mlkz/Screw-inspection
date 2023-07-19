@@ -149,4 +149,6 @@ if __name__=='__main__':
 
     # t.get_all_content('PLC_PARMS')
     # t.get_all_content('plc_setting')
-    t.update_record('history','all_screw','50','id','0')
+    # t.update_record('history','all_screw','50','id','0')
+    t.update_record('plc_setting', 'path',' str(plc_parms[param])', 'name','run')
+    

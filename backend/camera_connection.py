@@ -90,17 +90,19 @@ class Collector(sQObject):
                 self.camera = camera
                 break
         try:
-            if self.camera.GetDeviceInfo().GetDeviceClass() == 'BaslerGigE':
-                self.camera.Open()
-                self.camera.GevSCPSPacketSize.SetValue(1500)
-                self.camera.GevSCPD.SetValue(23188)
-                self.camera.GevSCFTD.SetValue(0)
-                self.camera.GevSCBWR.SetValue(10)
-                self.camera.GevSCBWRA.SetValue(3)
-                self.camera.Close()
+            if self.camera!=None:
+                if self.camera.GetDeviceInfo().GetDeviceClass() == 'BaslerGigE':
+                    self.camera.Open()
+                    self.camera.GevSCPSPacketSize.SetValue(self.ps)
+                    self.camera.GevSCPD.SetValue(self.dp)
+                    self.camera.GevSCFTD.SetValue(self.ftd)
+                    self.camera.GevSCBWR.SetValue(10)
+                    self.camera.GevSCBWRA.SetValue(3)
+                    self.camera.Close()
         except:
-            self.camera.Close()
-            print('eror in set bandwisth')
+            if self.camera !=None:
+                self.camera.Close()
+            print('Eror in set bandwisth')
         # assert len(devices) > 0 , 'No Camera is Connected!'
         
     def set_capturing(self,status):
@@ -110,21 +112,14 @@ class Collector(sQObject):
         device_info = self.camera.GetDeviceInfo()
         model=str(device_info.GetModelName())
         model=model[-3:]
-        if model=='PRO':
-            # print(self.camera.DeviceTemperature.GetValue())
-            return self.camera.DeviceTemperature.GetValue()
-        else :
-            # print('temp',self.camera.TemperatureAbs.GetValue())
-            return self.camera.TemperatureAbs.GetValue()
+        return self.camera.TemperatureAbs.GetValue()
 
 
     def start_grabbing(self):
         if self.camera:
             device_info = self.camera.GetDeviceInfo()
             model=str(device_info.GetModelName())
-            print(model)
-            print(self.camera.IsOpen())
-            print(device_info.GetSerialNumber())
+
 
             self.camera.Open()
 
@@ -206,24 +201,18 @@ class Collector(sQObject):
         """
         for i ,  camera in enumerate(self.cameras):
             device_info = camera.GetDeviceInfo()
-            print(
-                "Camera #%d %s @ %s (%s) @ %s" % (
-                i,
-                device_info.GetModelName(),
-                device_info.GetIpAddress(),
-                device_info.GetMacAddress(),
-                device_info.GetSerialNumber(),
-                )
-            
-            )
-            print(device_info)
 
 
     def serialnumber(self):
         serial_list=[]
-        for i ,  camera in enumerate(self.cameras):
-            device_info = camera.GetDeviceInfo()
-            serial_list.append(device_info.GetSerialNumber())
+        try:
+            if self.camera !=None:
+                for i ,  camera in enumerate(self.cameras):
+                    device_info = camera.GetDeviceInfo()
+                    serial_list.append(device_info.GetSerialNumber())
+        except:
+            print('Error in serial number camera connection')
+            pass
         return serial_list         
 
 
@@ -249,7 +238,7 @@ class Collector(sQObject):
                         Flag=False
 
                 else:
-                        #print('erpr')
+                        # print('erpr')
                         img=np.zeros([1200,1920,3],dtype=np.uint8)
                         Flag=False
 
@@ -338,6 +327,26 @@ class Collector(sQObject):
                 except:
                     pass
 
+            elif parm == 'packet_size':
+                try:
+                    self.packet_size = str(value)
+                    self.camera.packetsize_spinbox.SetValue(self.packet_size)
+                except:
+                    pass
+
+            elif parm == 'transmission_delay':
+                try:
+                    self.transmission_delay = str(value)
+                    self.camera.transmissiondelay_spinbox.SetValue(self.transmission_delay)
+                except:
+                    pass
+
+            elif parm == 'interpacket_delay':
+                try:
+                    self.interpacket_delay = str(value)
+                    self.camera.packetdelay_spinbox.SetValue(self.interpacket_delay)
+                except:
+                    pass
 
 
 if __name__ == "__main__":

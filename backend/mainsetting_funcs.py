@@ -46,6 +46,8 @@ def assign_appearance_existing_params_to_ui(ui_obj):
 
     # ui_obj.
 
+    # ui_obj.start_capture_live_page.
+
 
 # get appearance parameters and apply them to UI
 def set_appearance_params_to_ui(ui_obj, appearance_params):

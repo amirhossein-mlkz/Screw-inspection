@@ -1,0 +1,60 @@
+{
+    "active_tools": [
+        "1_top",
+        "2_top"
+    ],
+    "direction": "top",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Aaa\\top\\15_2023-7-18__23-58.bmp",
+    "name": "Aaa",
+    "settings": {
+        "1_top": {
+            "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Aaa\\top\\15_2023-7-18__23-58.bmp",
+            "noise_filter0": 21,
+            "rect_roi0": [
+                [
+                    277,
+                    60
+                ],
+                [
+                    1280,
+                    828
+                ]
+            ],
+            "thresh0": 36,
+            "thresh_max0": 228,
+            "thresh_min0": 94
+        },
+        "2_top": {
+            "6g": {
+                "circels_roi": [
+                    [
+                        [
+                            579,
+                            427
+                        ],
+                        214
+                    ]
+                ],
+                "noise_filter0": 10,
+                "shape_type": "hexagonal",
+                "thresh0": 120,
+                "thresh_inv0": true
+            },
+            "a1": {
+                "circels_roi": [
+                    [
+                        [
+                            643,
+                            477
+                        ],
+                        387
+                    ]
+                ],
+                "noise_filter0": 40,
+                "shape_type": "circel",
+                "thresh0": 105
+            }
+        },
+        "3_top": {}
+    }
+}
