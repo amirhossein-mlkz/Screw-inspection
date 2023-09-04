@@ -4,12 +4,12 @@
     ],
     "direction": "top",
     "img_path": "images//defualt.jpg",
-    "name": "\u0634\u0634\u0633\u0633",
+    "name": "Test1",
     "settings": {
         "0_top": {
-            "angle": -4.999999999999998,
-            "lbelt": 36,
-            "rbelt": 15
+            "angle": -1.0000000000000002,
+            "lbelt": 30,
+            "rbelt": 8
         },
         "1_top": {
             "img_path": "images//defualt.jpg",
@@ -24,7 +24,9 @@
                     0
                 ]
             ],
-            "thresh0": 0
+            "thresh0": 0,
+            "thresh_max0": 255,
+            "thresh_min0": 0
         },
         "2_top": {},
         "3_top": {}

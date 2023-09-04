@@ -100,6 +100,8 @@ Titles = {
                         'en': 'Remove'},
     'Main': {'fa': "اصلی",
                         'en': 'Main'},
+    'Mask': {'fa': "ماسک",
+                        'en': 'Mask'},
     'Measurement': {'fa': "اندازه گیری",
                         'en': 'Measurement'},
     'Defect': {'fa': "عیوب",
@@ -148,7 +150,8 @@ def set_title(self, lang):
      self.groupBox_23.setTitle(Titles['Top Camera'][lang])
      self.groupBox_22.setTitle(Titles['Side Camera'][lang])
      self.label_6.setText(Titles['Current :'][lang])
-     self.btn_page0_1_top.setText(Titles['Main'][lang])
+     self.btn_page0_0_top.setText(Titles['Main'][lang])
+     self.btn_page0_1_top.setText(Titles['Mask'][lang])
      self.btn_page0_2_top.setText(Titles['Measurement'][lang])
      self.btn_page0_3_top.setText(Titles['Defect'][lang])
      self.btn_page0_4_top.setText(Titles['Edge crack'][lang])

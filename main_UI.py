@@ -126,16 +126,16 @@ class UI_main_window(QMainWindow, ui):
                                     'page_settings'
                                     ]
 
-        self.tool_pages_name_dict={'1':'1_top','2':'2_top','3':'3_top','4':'4_top','5':'5_top','6':'1_side','7':'2_side','8':'3_side','9':'4_side','10':'5_side','11':'6_side'}
-        self.pages_dircetion_dict={'1':'top','2':'top','3':'top','4':'top','5':'top','6':'side','7':'side','8':'side','9':'side','10':'side','11':'side'}
+        self.tool_pages_name_dict={'0':'0_top','1':'1_top','2':'2_top','3':'3_top','4':'4_top','5':'5_top','6':'1_side','7':'2_side','8':'3_side','9':'4_side','10':'5_side','11':'6_side'}
+        self.pages_dircetion_dict={'0':'top','1':'top','2':'top','3':'top','4':'top','5':'top','6':'side','7':'side','8':'side','9':'side','10':'side','11':'side'}
         self.roi_name=['x1','y1','x2','y2']
         self.limit_types=['min','max']
 
-        self.combo_exist={'1_top':False,'2_top':True,'3_top':True,'4_top':False,'5_top':True,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':True}
+        self.combo_exist={'0_top':False,'1_top':False,'2_top':True,'3_top':True,'4_top':False,'5_top':True,'1_side':False,'2_side':False,'3_side':False,'4_side':True,'5_side':False,'6_side':True}
 
         
         self.tool_btn_bar_side={'lenght':self.frame_36,'btn_male':self.btn_page0_3_side,'Male_Thread':self.frame_78,'btn_lenght':self.btn_page0_2_side,'Diameter':self.frame_79,'screw_head':self.frame_104,'side_damage':self.frame_112,'side_btn_damage':self.btn_page0_6_side}
-        self.tool_btn_bar_top={'area':self.frame_34,'measurment':self.frame_34,'btn_measurment':self.btn_page0_2_top,'defect_top':self.frame_53,'btn_defect_top':self.btn_page0_3_top,'edge_crack':self.frame_190,'btn_edge_crack':self.btn_page0_4_top,'btn_5_top':self.btn_page0_5_top,'btn_5_top2':self.frame_212}
+        self.tool_btn_bar_top={'0-top':self.frame_239,'0-top-btn':self.btn_page0_0_top,'area':self.frame_34,'measurment':self.frame_34,'btn_measurment':self.btn_page0_2_top,'defect_top':self.frame_53,'btn_defect_top':self.btn_page0_3_top,'edge_crack':self.frame_190,'btn_edge_crack':self.btn_page0_4_top,'btn_5_top':self.btn_page0_5_top,'btn_5_top2':self.frame_212}
 
         self.side_btn_stylesheet="QPushButton:enabled {background-color: rgb(255,255,255);color: black;}QPushButton:disabled{background-color:rgb(50,50,50);color: white;}"
         
@@ -439,6 +439,7 @@ class UI_main_window(QMainWindow, ui):
 
 
         # page tools
+        self.btn_page0_0_top.clicked.connect(self.buttonClick)
         self.btn_page0_1_top.clicked.connect(self.buttonClick)
         self.btn_page0_2_top.clicked.connect(self.buttonClick)
         self.btn_page0_3_top.clicked.connect(self.buttonClick)
@@ -769,7 +770,7 @@ class UI_main_window(QMainWindow, ui):
         if self.editmode==False:
             self.animation_move(self.frame_24,300)
             self.animation_move(self.frame_23,0)
-            self.stackedWidget_2.setCurrentIndex(1)
+            self.stackedWidget_2.setCurrentIndex(0)
             self.set_label(self.label_status_mode,texts.MESSEGES['Edit Mode'][self.language])
             self.editmode=True
             self.enable_bar_btn_tool_page('top',enable=True)
@@ -907,23 +908,17 @@ class UI_main_window(QMainWindow, ui):
                 i=self.stackedWidget_2.currentIndex()
                 self.stackedWidget_2.setCurrentIndex(i-1)
 
+    
+        if btnName =='btn_page0_0_top' :
+            self.stackedWidget_2.setCurrentWidget(self.page_0_top)
+
         if btnName =='btn_page0_1_top' :
-         
-
             self.stackedWidget_2.setCurrentWidget(self.page_1_top)
-        
-
-
 
         if btnName =='btn_page0_2_top' :
-          
-
-            self.stackedWidget_2.setCurrentWidget(self.page_2_top)
-          
+            self.stackedWidget_2.setCurrentWidget(self.page_2_top)  
 
         if btnName =='btn_page0_3_top' :
-     
-
             self.stackedWidget_2.setCurrentWidget(self.page_3_top)
             self.btn_page0_3_top.setStyleSheet(self.side_btn_stylesheet)
 
@@ -1796,7 +1791,7 @@ class UI_main_window(QMainWindow, ui):
             elif name in  ['img_path'] :
                 self.set_line_value(name, value, page_name,idx=idx)
 
-            elif name in ['jump_thresh', 'min_area', 'max_area']:
+            elif name in ['jump_thresh', 'min_area', 'max_area','lbelt','rbelt','angle']:
                 self.set_spins_parms_value(name, value)
                 
             elif 'roi' in name:
@@ -1808,7 +1803,7 @@ class UI_main_window(QMainWindow, ui):
             elif 'shape_type' in name:
                 self.set_multi_options_value( name, value )
 
-
+            
 
             
             
@@ -1942,9 +1937,13 @@ class UI_main_window(QMainWindow, ui):
 
         if top_calibration:
             self.label_top_calibration.setText(str(top_calibration))
+            self.doubleSpinBox_calibration_top.setValue(int(top_calibration))
+
 
         if side_calibration:
             self.label_side_calibration.setText(str(side_calibration))
+            self.doubleSpinBox_calibration_side.setValue(int(side_calibration))
+
 
 
     def get_calibration_parms(self):   

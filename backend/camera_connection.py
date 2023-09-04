@@ -34,7 +34,9 @@ from PySide6.QtCore import Signal
 
 
 
-DEBUG = False
+DEBUG = True
+
+
 
 # import database_utils
 
@@ -252,7 +254,10 @@ class Collector(sQObject):
             else:
 
                 return False, np.zeros([1200,1920,3],dtype=np.uint8)
-            
+
+
+
+        return False, np.zeros([1200,1920,3],dtype=np.uint8)
 
     def software_trig(self):
 
@@ -265,6 +270,10 @@ class Collector(sQObject):
             if self.capturing:
                 cv2.waitKey(100)
                 ret, self.image = self.getPictures()
+
+                if DEBUG:
+                    ret,self.image = True,(np.random.rand(500,500,3)*255).astype('uint8')
+
                 if ret:
                     self.trig_signal.emit()
             else:

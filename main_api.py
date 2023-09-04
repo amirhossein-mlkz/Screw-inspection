@@ -59,6 +59,8 @@ from PySide6.QtCore import QTimer as sQTimer
 
 from history_UI import UI_history_window
 
+DEBUG = True
+
 
 def time_measure(func):
     def wrapper(*args, **kwargs):
@@ -152,6 +154,7 @@ class API:
 
         self.play_pause_status=True
 
+        self.calibration_value={}
         
         #------------------------------------------------------------------------------------------------------------------------
         # main UI widget ids list 
@@ -378,6 +381,13 @@ class API:
         self.ui.btn_disconnect_top_cal_page.clicked.connect(lambda:self.disconnect_camera_cal_page(direction='top'))
         self.ui.btn_disconnect_side_cal_page.clicked.connect(lambda:self.disconnect_camera_cal_page(direction='side'))
 
+
+        self.ui.btn_save_value_top_cal_page.clicked.connect(self.save_calibration_parms_top)
+        self.ui.btn_save_value_side_cal_page.clicked.connect(self.save_calibration_parms_side)
+
+
+
+
         #camera setting page
 
         self.ui.play_camera_setting_btn.clicked.connect(lambda: self.set_prev_flag(True))
@@ -396,6 +406,15 @@ class API:
         font = QFont()
         font.setPointSize(17)
         self.ui.start_capture_live_page.setFont(font)
+
+
+
+        #calibration
+
+        self.load_calibration_parms()
+
+
+
     # dashboard page
     #------------------------------------------------------------------------------------------------------------------------
     # refresh summary informations on the dashboard page
@@ -1158,6 +1177,7 @@ class API:
     def setting_image_updater(self):
         page2finc_dict = {
 
+        '0_top':self.update_image_0_top,
         '1_top':self.update_image_1_top,
         '2_top':self.update_image_2_top,
         '3_top':self.update_image_3_top,
@@ -1231,6 +1251,42 @@ class API:
     #                                                   TOP
     #
     #____________________________________________________________________________________________________________
+    
+    def update_image_0_top(self):
+    
+        page_name = self.ui.get_setting_page_idx(page_name = True)
+        direction = self.ui.get_setting_page_idx(direction = True)
+        subpage_name = self.ui.get_sub_page_name( page_name )
+        img = np.copy(self.current_image_screw)
+
+
+        lbelt = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'lbelt')
+        rbelt = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'rbelt')
+        angle = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'angle')
+
+        img = cvTools.rotate_image(img,angle=angle)
+
+
+
+
+        if self.ui.is_drawing_mask_enabel():
+            img[:,lbelt-1:lbelt+2] = [0,0,255]
+            img[:,rbelt-1:rbelt+2] = [0,255,0]
+            # img = Utils.mask_viewer(img, thresh_img)
+            # h,w = img.shape[:2]
+            # img = cv2.circle(img, (w//2, h//2), 5, (0,255,0) , thickness=-1)
+
+        # img = self.rect_roi_drawing.get_image(img)
+        
+        self.ui.set_image_page_tool_labels(img)
+
+        # if Utils.is_rect( rect ) and np.count_nonzero(thresh_img) > 100:
+        #     self.ui.enable_bar_btn_tool_page( direction, True )
+        # else:
+        #     self.ui.enable_bar_btn_tool_page( direction, False )
+
+
+
     def update_image_1_top(self):
         page_name = self.ui.get_setting_page_idx(page_name = True)
         direction = self.ui.get_setting_page_idx(direction = True)
@@ -1780,9 +1836,13 @@ class API:
             # cv2.imshow('c',img)
             # cv2.waitKey(0)
             result, draw_img = proccessings.tools_dict_side[active_tool]( img, mask_roi, screw_json, draw_img )
+
+            for key,value in result.items():
+                if proccessings.calib_dict_side[active_tool] !=None:
+                    result[key]=proccessings.calib_dict_side[active_tool](value,self.calibration_value['side'])
+
             results.extend(result)
-        # cv2.imshow('c',draw_img)
-        # cv2.waitKey(0)
+
         results.sort( key = lambda x:x['name'])
 
         return draw_img, results
@@ -1804,6 +1864,12 @@ class API:
 
         for active_tool in screw_json.get_active_tools():
             result, draw_img = proccessings.tools_dict_top[active_tool]( img, mask_roi, screw_json, draw_img )
+            
+
+            for key,value in result.items():
+                if proccessings.calib_dict_top[active_tool] !=None:
+                    result[key]=proccessings.calib_dict_top[active_tool](value,self.calibration_value['top'])
+
             results.extend(result)
 
         results.sort( key = lambda x:x['name'])
@@ -2012,19 +2078,15 @@ class API:
         parms=self.db.load_calibration_parms()
 
         self.ui.set_calibration(parms[0],parms[1])
+        self.calibration_value.update({'top':parms[0]})
+        self.calibration_value.update({'side':parms[1]})
+
 
     def save_calibration_parms(self,top=False,side=False):
         if top:
             self.db.save_top_calibration(top)
         if side:
             self.db.save_side_calibration(side)
-
-
-
-
-
-
-
 
         if not self.ui.btn_enabel_mask_draw_live_top.isChecked():
             draw_img_side = self.img_side
@@ -2040,6 +2102,14 @@ class API:
         self.ui.set_image_label(self.ui.label_img_top_live, draw_img_top)
         self.ui.set_image_label(self.ui.label_img_side_live,draw_img_side)
 
+
+
+    def save_calibration_parms_top(self):
+        top = self.db.save_top_calibration(self.ui.doubleSpinBox_calibration_top.value())
+        
+
+    def save_calibration_parms_side(self):
+        side = self.db.save_side_calibration(self.ui.doubleSpinBox_calibration_side.value())
 
 
     def laod_images(self):
@@ -2115,6 +2185,8 @@ class API:
         self.ui.start_capture_live_page.setEnabled(False)
         self.ui.stop_capture_live_page.setEnabled(True)
         self.ui.set_mask_main_page_btns_mode(True)
+
+
     def stop_detection(self):
 
         self.run_detect=False
@@ -2122,10 +2194,6 @@ class API:
         self.ui.stop_capture_live_page.setEnabled(False)
         self.ui.set_mask_main_page_btns_mode(False)
 
-        #self.ui.timer_live.stop()
-
-    
-    
 
     def show_image(self):
         
@@ -2233,15 +2301,19 @@ class API:
         try:
             self.cameras['side'].off_trigger()
         except:
-            print("ERROR:  self.cameras['side'].off_trigger()")
+            if not DEBUG:
+                print("ERROR:  self.cameras['side'].off_trigger()")
         
-        for i in range(10):
-            side_ret,side_image = self.cameras['side'].getPictures()  # temp for get side image
-            time.sleep(0.002)
-            if side_ret:
-                # print('aaaaaaaaaaaa')
-                self.cameras['side'].image=side_image
-                break
+
+        if self.cameras['side']:
+
+            for i in range(10):
+                side_ret,side_image = self.cameras['side'].getPictures()  # temp for get side image
+                time.sleep(0.002)
+                if side_ret:
+                    # print('aaaaaaaaaaaa')
+                    self.cameras['side'].image=side_image
+                    break
 
 
         if self.tools_live_enable:
@@ -2274,19 +2346,20 @@ class API:
                 'top': self.proccessing_live_top}
             
             for direction in ['top', 'side']:
-                # try:
-                self.current_camera_imgs[direction] = self.cameras[direction].image
-                if self.run_detect:
-                    
-                    #draw_imgs[direction], results[direction] = self.proccessing_live_side(self.current_camera_imgs[direction])
-                    draw_imgs[direction], results[direction] = proccessing_functions[direction](self.current_camera_imgs[direction])
-                    #print(direction, draw_imgs[direction].shape)        
+                try:
+                    self.current_camera_imgs[direction] = self.cameras[direction].image
+                    if self.run_detect:
+                        
+                        #draw_imgs[direction], results[direction] = self.proccessing_live_side(self.current_camera_imgs[direction])
+                        draw_imgs[direction], results[direction] = proccessing_functions[direction](self.current_camera_imgs[direction])
+                        #print(direction, draw_imgs[direction].shape)        
                 
-                # except:
-                #     print('e'*50)
-                #     self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
-                #     results[direction] = []
-                #     draw_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
+                except:
+                    if not DEBUG:
+                        print('e'*50)
+                    self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
+                    results[direction] = []
+                    draw_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
 
 
                 

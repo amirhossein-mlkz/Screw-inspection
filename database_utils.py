@@ -321,10 +321,12 @@ class dataBaseUtils():
     def save_top_calibration(self,value):
 
         self.res = self.db.update_record(self.setting_tabel, 'top_calibration', str(value) ,'id','0')
+        return self.res
 
     def save_side_calibration(self,value):
 
         self.res = self.db.update_record(self.setting_tabel, 'side_calibration', str(value) ,'id','0')
+        return self.res
 
 
     def set_language(self,name):

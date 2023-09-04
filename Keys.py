@@ -269,6 +269,14 @@ def object_dict_builder(ui_object):
 
         'parms':{
 
+            '0_top':
+            {
+                'spin_lbelt_0_top':self.spin_lbelt_0_top,
+                'spin_rbelt_0_top':self.spin_rbelt_0_top,
+                'spin_angle_0_top':self.spin_angle_0_top,
+            },
+
+
             '3_top':{
             'spin_min_area_3_top':self.spin_min_area_3_top
             },
@@ -287,6 +295,10 @@ def object_dict_builder(ui_object):
             },
         }
 
+
+
+        
+
     }
 
 
@@ -304,6 +316,7 @@ def object_dict_builder(ui_object):
         },
         'page':
         {
+            'checkbox_page0_0_top': self.checkbox_page0_0_top,
             'checkbox_page0_1_top': self.checkbox_page0_1_top,
             'checkbox_page0_2_top': self.checkbox_page0_2_top,
             'checkbox_page0_3_top': self.checkbox_page0_3_top,
@@ -373,6 +386,7 @@ def object_dict_builder(ui_object):
             
         'page':
             {
+                'btn_page0_0_top': self.btn_page0_0_top,
                 'btn_page0_1_top': self.btn_page0_1_top,
                 'btn_page0_2_top': self.btn_page0_2_top,
                 'btn_page0_3_top': self.btn_page0_3_top,

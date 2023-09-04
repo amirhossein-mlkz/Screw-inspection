@@ -977,6 +977,17 @@ def random_light(img,low=-20,high=20):
 
 
 
+
+def rotate_image(image, angle):
+  image_center = tuple(np.array(image.shape[1::-1]) / 2)
+  rot_mat = cv2.getRotationMatrix2D(image_center, angle, 1.0)
+  result = cv2.warpAffine(image, rot_mat, image.shape[1::-1], flags=cv2.INTER_LINEAR)
+  return result
+
+
+
+
+
 if __name__ == '__main__':
     
     img = cv2.imread('sample images/top\Image__2047-01-06__12-02-12.bmp')

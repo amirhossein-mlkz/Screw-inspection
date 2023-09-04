@@ -647,9 +647,14 @@ def proccessing_top_centerise( img, mask, jsondb, draw=None):
     return results, draw
 
 
+def calibration_generator(power,):
+    def func(value,calibration_num):
+        return pow(calibration_num,power)*value
 
+    return func
 
 tools_dict_top = {
+            '0_top': preprocessing_empty,
             '1_top': preprocessing_empty,
             '2_top': proccessing_top_measurment,
             '3_top': proccessing_top_defect,
@@ -668,3 +673,32 @@ tools_dict_side = {
             '5_side': proccessing_side_head,
             '6_side': preprocessing_side_damage,
         }
+
+
+
+calib_dict_top = {
+            '0_top': None,
+            '1_top': None,
+            '2_top': calibration_generator(1),
+            '3_top': calibration_generator(2),
+            '4_top': calibration_generator(2),
+            '5_top': None,
+        }
+
+
+
+calib_dict_side = {
+            '1_side': None,
+            '2_side': calibration_generator(1),
+            '3_side': calibration_generator(1),
+            '4_side': calibration_generator(1),
+            '5_side': calibration_generator(1),
+            '6_side': calibration_generator(2),
+        }
+
+
+
+
+
+if __name__=='__main__':
+    calibration_generator(3)

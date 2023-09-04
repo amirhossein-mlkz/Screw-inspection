@@ -4,9 +4,15 @@
         "2_top"
     ],
     "direction": "top",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Aaa\\top\\24_2023-7-19__18-31.bmp",
+    "img_path": "D:/myproject/R & D radco/2.jpg",
     "name": "Aaa",
     "settings": {
+        "0_top": {
+            "angle": 0.9000000000000005,
+            "img_path": "D:/myproject/R & D radco/2.jpg",
+            "lbelt": 587,
+            "rbelt": 809
+        },
         "1_top": {
             "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Aaa\\top\\24_2023-7-19__18-31.bmp",
             "noise_filter0": 20,
@@ -21,7 +27,7 @@
                 ]
             ],
             "thresh0": 0,
-            "thresh_max0": 215,
+            "thresh_max0": 255,
             "thresh_min0": 48
         },
         "2_top": {
