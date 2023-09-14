@@ -38,6 +38,8 @@ import Keys
 from history_UI import UI_history_window
 
 
+DEBUG=False
+
 ui, _ = loadUiType("main_window.ui")
 
 
@@ -1170,6 +1172,9 @@ class UI_main_window(QMainWindow, ui):
         label_name.clear()
 
     def set_image_label(self,label_name , img, height_percent=None, width_percent=None):
+        # if DEBUG:
+        #     if label_name.objectName()=='label_img_side_live' or label_name.objectName()=='label_img_top_live':
+        #         img = cv2.imread('sample images/temp_side/2.jpg')
         lbl_w = label_name.width()
         lbl_h = label_name.height()
         if lbl_w<=10 or lbl_h<= 10:
@@ -1199,12 +1204,10 @@ class UI_main_window(QMainWindow, ui):
         #     img = cv2.resize(img, None, fx=scale, fy=scale)
 
         if len(img.shape) == 3:
-            h, w, ch = img.shape
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         else:
-            h,w = img.shape
-            ch = 3
             img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+        h, w, ch = img.shape
         bytes_per_line = ch * w  
         
         

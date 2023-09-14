@@ -28,7 +28,7 @@ import threading
 
 from pypylon import genicam
 
-DEBUG = True
+DEBUG = False
 
 show_eror=False
 

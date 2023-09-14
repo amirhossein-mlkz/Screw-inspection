@@ -273,6 +273,8 @@ class Collector(sQObject):
 
                 if DEBUG:
                     ret,self.image = True,(np.random.rand(500,500,3)*255).astype('uint8')
+                    # ret,self.image = True,cv2.imread('sample images/temp_top/2.jpg')
+                    cv2.waitKey(500)
 
                 if ret:
                     self.trig_signal.emit()

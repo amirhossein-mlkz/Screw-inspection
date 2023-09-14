@@ -1153,7 +1153,7 @@ class API:
         parms = self.screw_jasons[ direction ].get_setting( page_name, subpage_name )
         self.ui.set_setting_page_parms(parms)
 
-        #self.update_main_image()
+        self.update_main_image()
         
         #img_path = self.screw_jasons[ direction ].get_img_path()
         #self.current_image_screw = cv2.imread(img_path)
@@ -1212,7 +1212,7 @@ class API:
     
     def capture_image(self, direction):
         
-        def fuc(direction):
+        def func(direction):
             try:
                 img = self.current_camera_imgs[direction]
             except:
@@ -1234,7 +1234,7 @@ class API:
            
 
 
-        return fuc(direction)
+        return func(direction)
 
     
     def capture_image_live(self, direction):
@@ -1615,6 +1615,7 @@ class API:
         json = self.screw_jasons[ direction ]
         img, thresh_img, _ = proccessings.preprocessing_side_img( img, json, direction  )
         
+        
         if self.ui.is_drawing_mask_enabel():
             img = Utils.mask_viewer(img, thresh_img, color=(50,100,0))
         #--------------------------------------------------------------------------------------
@@ -1837,6 +1838,10 @@ class API:
 
     @time_measure
     def proccessing_live_side(self, img):
+
+        if DEBUG:
+            img = cv2.imread('sample images/temp_side/4.jpg',0)
+
         direction = 'side'
         screw_json = self.screw_jasons[ direction ]  
 
@@ -1852,19 +1857,18 @@ class API:
 
         draw_img = Utils.mask_viewer(draw_img, mask_roi, color=(0,10,150))
         
-
         for active_tool in screw_json.get_active_tools():
+            results_tools, draw_img = proccessings.tools_dict_side[active_tool]( img, mask_roi, screw_json, draw_img )
+            
 
-            # cv2.imshow('b',draw_img)
-            # cv2.imshow('c',img)
-            # cv2.waitKey(0)
-            result, draw_img = proccessings.tools_dict_side[active_tool]( img, mask_roi, screw_json, draw_img )
+            for i in range(len(results_tools)) :
 
-            for key,value in result.items():
-                if proccessings.calib_dict_side[active_tool] !=None:
-                    result[key]=proccessings.calib_dict_side[active_tool](value,self.calibration_value['side'])
-
-            results.extend(result)
+                tools_name =results_tools[i]['name']
+                if tools_name in proccessings.calib_dict_side:
+                    for key,value in results_tools[i].items():
+                        results_tools[i][key]=proccessings.calib_dict_side[tools_name](value,self.calibration_value['side'])
+                        
+            results.extend(results_tools)
 
         results.sort( key = lambda x:x['name'])
 
@@ -1874,6 +1878,10 @@ class API:
 
     @time_measure
     def proccessing_live_top(self, img):
+
+        if DEBUG:
+            img = cv2.imread('sample images/temp_top/2.jpg')
+
         direction = 'top'
 
         screw_json = self.screw_jasons[ direction ]        
@@ -1886,14 +1894,17 @@ class API:
         draw_img = Utils.mask_viewer(draw_img, mask_roi, color=(0,80,150))
 
         for active_tool in screw_json.get_active_tools():
-            result, draw_img = proccessings.tools_dict_top[active_tool]( img, mask_roi, screw_json, draw_img )
+            results_tools, draw_img = proccessings.tools_dict_top[active_tool]( img, mask_roi, screw_json, draw_img )
             
 
-            for key,value in result.items():
-                if proccessings.calib_dict_top[active_tool] !=None:
-                    result[key]=proccessings.calib_dict_top[active_tool](value,self.calibration_value['top'])
+            for i in range(len(results_tools)) :
 
-            results.extend(result)
+                tools_name =results_tools[i]['name']
+                if tools_name in proccessings.calib_dict_top:
+                    for key,value in results_tools[i].items():
+                        results_tools[i][key]=proccessings.calib_dict_top[tools_name](value,self.calibration_value['top'])
+                        
+            results.extend(results_tools)
 
         results.sort( key = lambda x:x['name'])
         ['name','min','max','avg','limit_min','limit_max']

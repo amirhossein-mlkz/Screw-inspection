@@ -95,6 +95,8 @@ def preprocessing_side_img( img, json, direction):
     if angle==None:
         return None,None,None
     thresh_img = cvTools.rotate_image(thresh_img,  angle   )
+    img = cvTools.rotate_image(img,  angle   )
+
 
     thresh_img, img, _ = cvTools.centerise_side( thresh_img, img )
 
@@ -193,7 +195,7 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
                                 'avg': avg_s }
              
             min_s,max_s, avg_s,_  = mathTools.thread_step_distance( male_thread_h )
-            dict_thread_count = {'name' : 'thread male distance',
+            dict_thread_count = {'name' : 'thread male count',
                             'limit_min': limit_thread_count['min'],
                             'limit_max': limit_thread_count['max'],
                             'min': len(male_thread_h),
@@ -677,23 +679,21 @@ tools_dict_side = {
 
 
 calib_dict_top = {
-            '0_top': None,
-            '1_top': None,
-            '2_top': calibration_generator(1),
-            '3_top': calibration_generator(2),
-            '4_top': calibration_generator(2),
-            '5_top': None,
+            'corner': calibration_generator(1),
+            'district': calibration_generator(1),
+            'diameter': calibration_generator(1),
+            'distance': calibration_generator(1),
         }
 
 
 
 calib_dict_side = {
-            '1_side': None,
-            '2_side': calibration_generator(1),
-            '3_side': calibration_generator(1),
-            '4_side': calibration_generator(1),
-            '5_side': calibration_generator(1),
-            '6_side': calibration_generator(2),
+            'body length': calibration_generator(1),
+            'thread male distance': calibration_generator(1),
+            'thread male length': calibration_generator(1),
+            'diameter': calibration_generator(1),
+            'head height': calibration_generator(1),
+            'region area': calibration_generator(2),
         }
 
 
