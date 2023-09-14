@@ -34,7 +34,7 @@ from PySide6.QtCore import Signal
 
 
 
-DEBUG = True
+DEBUG = False
 
 
 

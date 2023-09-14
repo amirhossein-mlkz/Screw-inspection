@@ -51,6 +51,7 @@ class dataBaseUtils():
             #print('asd',record)
             return record
         except:
+            print('Error search_user')
             return []
 
 
@@ -69,6 +70,8 @@ class dataBaseUtils():
             #print('asd',record)
             return record
         except:
+            print('Error search_camera_by_ip')
+
             return []
 
 
@@ -87,6 +90,7 @@ class dataBaseUtils():
             #print('asd',record)
             return record
         except:
+            print('Error search_camera_by_serial')
             return []
     
 
@@ -111,6 +115,8 @@ class dataBaseUtils():
 
             return record
         except:
+            print('Error load_cam_params')
+
             return []
 
     def update_cam_params(self, input_camera_id, input_camera_params):
@@ -129,6 +135,8 @@ class dataBaseUtils():
                 res = self.db.update_record(self.table_cameras, camera_param, str(input_camera_params[camera_param]), self.camera_id, input_camera_id)
             return res
         except:
+            print('Error update_cam_params')
+
             return False
 
 
@@ -142,6 +150,8 @@ class dataBaseUtils():
                 res = self.db.update_record(self.table_general_settings, param, str(input_setting_params[param]), self.general_settings_id, '0')
             return res
         except:
+            print('Error update_general_setting_params')
+
             return False
 
     def load_general_setting_params(self):
@@ -175,6 +185,7 @@ class dataBaseUtils():
             return users
         
         except:
+            print('Error load_users')
 
             return []
 
@@ -202,6 +213,7 @@ class dataBaseUtils():
             return 'True'
         
         except:
+            print('Error add_user')
             return 'Databas Eror'
 
     
@@ -220,6 +232,8 @@ class dataBaseUtils():
             record = self.db.search( self.table_user , 'user_name', input_user_name)[0]
             return record
         except:
+            print('Error search_user_by_user_name')
+
             return []
 
 
@@ -273,6 +287,7 @@ class dataBaseUtils():
             # print('ip',ip)
             return ip['plc_ip']
         except:
+            print('Error load_plc_ip')
             return 'Null'
 
     def save_plc_ip(self,ip):
@@ -286,17 +301,19 @@ class dataBaseUtils():
     def update_plc_parms(self, plc_parms):
         if sql_mode=='none':
             return True  
-        # try:
-        for _,param in enumerate(plc_parms.keys()):
-            # update_record(self,table_name,col_name,value,id,id_value):
-            i=_+1
-            #print('_',i,'   ',param,str(plc_parms[param]))
-            
-            res = self.db.update_record(self.plc, 'path', str(plc_parms[param]), 'name',str(param))
+        try:
+            for _,param in enumerate(plc_parms.keys()):
+                # update_record(self,table_name,col_name,value,id,id_value):
+                i=_+1
+                #print('_',i,'   ',param,str(plc_parms[param]))
+                
+                res = self.db.update_record(self.plc, 'path', str(plc_parms[param]), 'name',str(param))
 
-        return res
-        # except:
-        #     return False
+            return res
+        except:
+            print('Error update_plc_parms')
+
+            return False
 
 
     def load_calibration_parms(self):
@@ -314,6 +331,8 @@ class dataBaseUtils():
           
             return (record['top_calibration'],record['side_calibration'])
         except:
+            print('Error load_calibration_parms')
+
             return []
 
 

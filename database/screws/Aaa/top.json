@@ -18,17 +18,17 @@
             "noise_filter0": 20,
             "rect_roi0": [
                 [
-                    297,
-                    172
+                    390,
+                    189
                 ],
                 [
-                    1060,
-                    847
+                    969,
+                    864
                 ]
             ],
             "thresh0": 0,
-            "thresh_max0": 255,
-            "thresh_min0": 48
+            "thresh_max0": 252,
+            "thresh_min0": 84
         },
         "2_top": {
             "flanch": {

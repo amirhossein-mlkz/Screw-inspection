@@ -88,12 +88,16 @@ class FullScreen_UI(QMainWindow, ui):
     def show_image(self,img):
 
         try:
-            h, w, ch = img.shape
-            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            if len(img.shape)==3:
+                h, w, ch = img.shape
+                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            else:
+                h,w = img.shape
+                ch = 3
+                img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
         except:
-            h,w = img.shape
-            ch = 3
-            img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+            print('Error show_image')
+
         bytes_per_line = ch * w  
         
         

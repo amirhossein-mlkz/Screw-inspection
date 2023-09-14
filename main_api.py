@@ -59,7 +59,11 @@ from PySide6.QtCore import QTimer as sQTimer
 
 from history_UI import UI_history_window
 
-DEBUG = True
+# from backend import cvToolsCython   
+
+
+
+DEBUG = False
 
 
 def time_measure(func):
@@ -309,6 +313,10 @@ class API:
       
         
         self.ui.connect_btn('set_img', self.update_main_image )
+
+        self.ui.line_img_path0_1_side.textChanged.connect(self.update_main_image)
+        self.ui.line_img_path0_1_top.textChanged.connect(self.update_main_image)
+
         self.ui.connect_btn('page', self.update_setting_page_info)     
         self.ui.connect_sliders('thresh',  self.update_threshould)
         self.ui.connect_sliders('thresh_min',  self.update_threshould_minmax)
@@ -586,6 +594,7 @@ class API:
                     try:
                         self.threads[direction].quit()
                     except:
+                        print('Error disconnect_camera_on_ui_change')
                         pass
 
             self.ui.connect_cameras_live_page.setEnabled(True)
@@ -756,6 +765,7 @@ class API:
                 try:
                     self.screw_jasons[direction].read(DEFAULT_SCERW_PATH, direction)
                 except:
+                    print('Error add_new_screw')
                     self.ui.show_warning('load Error 105', 'Error: Couldnot Load defualt parm')
             for key in self.screw_jasons.keys():
                 path = dbUtils.get_screw_path( name )
@@ -798,7 +808,7 @@ class API:
                     self.ui.show_warning('Save Screw','Screw Settings Restored')
                 self.ui.editmode=False
                 self.ui.set_label(self.ui.label_status_mode,'')   
-                self.ui.stackedWidget_2.setCurrentIndex(0)
+                self.ui.set_page_none()
                 # frame_save_btns
                 self.ui.frame_size_height(self.ui.frame_save_btns,size=0, both_height=True)
                 self.ui.tool_btn_clear()
@@ -1197,6 +1207,7 @@ class API:
         try:
             page2finc_dict[page_name]()
         except:
+            print('Error setting_image_updater')
             pass
     
     def capture_image(self, direction):
@@ -1205,7 +1216,7 @@ class API:
             try:
                 img = self.current_camera_imgs[direction]
             except:
-                print('eror')
+                print('Eror capture_image')
                 img=cv2.imread('images/capture_eror.jpg')
             if self.ui.capture_mode_flag == 'edit_page':
                 f_name=self.ui.label_screw_name.text()
@@ -1299,26 +1310,37 @@ class API:
         
 
 
+
+
         thresh_min = self.screw_jasons[ direction ].get_thresh_min(page_name, subpage_name)
         thresh_max = self.screw_jasons[ direction ].get_thresh_max(page_name, subpage_name)
         #############
 
         noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
         rect = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
-        inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
+        # inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
         
 
         img = cvTools.preprocess(img)
 
         mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
         
+        #thresh mode
         thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
-        thresh_img=cvTools.erode(thresh_img, 5)
+        # thresh_img=cvTools.erode(thresh_img, 5)
+        # thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
+        #thresh_img = cvTools.erode(thresh_img, 3)
+
+        #edge mode
+        # thresh_img = cvToolsCython.derivative_threshould(img, 15)
+        # thresh_img = cv2.bitwise_and( thresh_img, thresh_img , mask=mask_roi)
+        # kernel =np.ones((3,3))
+        # thresh_img = cv2.morphologyEx(thresh_img, cv2.MORPH_CLOSE, kernel,iterations =noise_filter)
+
+        # cv2.
         ######################### 
         
-        thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
 
-        #thresh_img = cvTools.erode(thresh_img, 3)
         
         if self.ui.is_drawing_mask_enabel():
             img = Utils.mask_viewer(img, thresh_img)
@@ -1786,6 +1808,7 @@ class API:
                 try:
                     img=cv2.imread(img_path)
                 except:
+                    print('Error load_screw_live')
                     img = np.zeros(shape=(1040,1392),dtype='uint8')
                 self.ui.set_selected_image_live_page(direction,img)
 
@@ -1908,6 +1931,7 @@ class API:
             self.my_plc.disconnect()
             del self.my_plc
         except:
+            print('Error disconnect_plc')
             pass
         self.ui.frame_size_height(self.ui.frame_175, size=0, both_height=True)
 
@@ -1925,6 +1949,7 @@ class API:
                 if self.retry_plc_connection>10:
                     self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connection_eror'][self.language],color='red')
         except:
+            print('Error check_plc_status')
             self.retry_plc_connection+=1
             if self.retry_plc_connection>10:
                 self.ui.set_label(self.ui.plc_status_live_page,texts.WARNINGS['Connection_eror'][self.language],color='red')
@@ -2009,6 +2034,7 @@ class API:
                     line=eval('self.ui.line_{}'.format(parm['name']))
                     line.setText(parm['path'])
                 except:
+                    print('Erro load_plc_parms')
                     line=eval('self.ui.spin_{}'.format(parm['name']))
                     line.setValue(int(parm['path']))
                 combo_list.append(parm['name'])
@@ -2356,7 +2382,7 @@ class API:
                 
                 except:
                     if not DEBUG:
-                        print('e'*50)
+                        print('set_images'*50)
                     self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
                     results[direction] = []
                     draw_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')

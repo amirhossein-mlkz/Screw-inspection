@@ -25,6 +25,7 @@ class plc_modbus():
             except:
                 return False
         except:
+            print('Erro plc connection')
             return False
     
     def disconnect(self):

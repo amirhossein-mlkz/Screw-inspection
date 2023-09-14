@@ -35,7 +35,7 @@ class management():
             # print('x'*5,value)
             return (value,data_value)
         except:
-            print('except')
+            print('Error get_value')
             return "Path Eror"
 
     def set_value(self,path,value):

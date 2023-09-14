@@ -202,6 +202,16 @@ class UI_main_window(QMainWindow, ui):
         font.setPointSize(17)
         self.start_capture_live_page.setFont(font)
 
+
+
+        #set stack widget page none for start
+        self.set_page_none()
+
+
+    def set_page_none(self):
+        
+        self.stackedWidget_2.setCurrentWidget(self.page_none)
+
     def load_lang(self):
         # lan=api.load_language()
         self.set_language(self.language)
@@ -660,6 +670,7 @@ class UI_main_window(QMainWindow, ui):
                     obj = self.lines['size']['{}'.format(side)]['line_{}_cam_{}_resolution'.format(side, parms_key)]
                     obj.setText(parms[parms_key])
                 except:
+                    print('Erro load_sizes')
                     pass      #  line_top_live_min_x
 
     def get_sizes_parms(self):
@@ -745,6 +756,7 @@ class UI_main_window(QMainWindow, ui):
             filepath = QFileDialog.getOpenFileName(self, 'Select a File')
             print(filepath)
             set_label.setText(filepath[0])
+            
 
 
 

@@ -34,6 +34,7 @@ def get_camera_id(camera_name_label):
             return '2'
         # return str(int(camera_name_label[-2:]))
     except:
+        print('Erro get_camera_id')
         return '0'
 
 

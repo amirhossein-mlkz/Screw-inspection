@@ -68,6 +68,7 @@ class API:
                     return False, 0
 
             except:
+                print('Error login')
                 self.eror_login()
         else:
             self.eror_login('Username or Password Empty')

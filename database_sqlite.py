@@ -94,6 +94,7 @@ class dataBase:
             return True
 
         except:
+            print('Error add_record')
             return False
 
 
