@@ -7,7 +7,7 @@ import database_utils
 import cv2
 
 import login_UI
-import confirm_UI
+# import confirm_UI
 from backend import camera_funcs, colors_pallete, confirm_window_messages, mainsetting_funcs\
                     , user_login_logout_funcs, user_management_funcs
 import platform
