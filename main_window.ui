@@ -2336,7 +2336,7 @@ QPushButton:hover {
                              <property name="bottomMargin">
                               <number>1</number>
                              </property>
-                             <item>
+                             <item alignment="Qt::AlignLeft">
                               <widget class="QFrame" name="frame_14">
                                <property name="maximumSize">
                                 <size>
@@ -2417,7 +2417,7 @@ QPushButton:hover {
                                       <property name="bottomMargin">
                                        <number>0</number>
                                       </property>
-                                      <item alignment="Qt::AlignTop">
+                                      <item alignment="Qt::AlignLeft|Qt::AlignTop">
                                        <widget class="QFrame" name="frame_45">
                                         <property name="minimumSize">
                                          <size>
@@ -2538,7 +2538,7 @@ border-color:rgb(213, 213, 213);;
                                         </layout>
                                        </widget>
                                       </item>
-                                      <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
+                                      <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                                        <widget class="QLabel" name="label_img_side_live">
                                         <property name="minimumSize">
                                          <size>
@@ -2556,7 +2556,7 @@ border-color:rgb(213, 213, 213);;
                                          <string/>
                                         </property>
                                         <property name="scaledContents">
-                                         <bool>false</bool>
+                                         <bool>true</bool>
                                         </property>
                                         <property name="margin">
                                          <number>1</number>
@@ -2594,7 +2594,7 @@ border-color:rgb(213, 213, 213);;
                                    <property name="bottomMargin">
                                     <number>0</number>
                                    </property>
-                                   <item alignment="Qt::AlignTop">
+                                   <item alignment="Qt::AlignLeft|Qt::AlignTop">
                                     <widget class="QFrame" name="frame_147">
                                      <property name="minimumSize">
                                       <size>
@@ -2715,12 +2715,24 @@ border-color:rgb(213, 213, 213);;
                                      </layout>
                                     </widget>
                                    </item>
-                                   <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
+                                   <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                                     <widget class="QLabel" name="label_img_top_live">
                                      <property name="minimumSize">
                                       <size>
                                        <width>300</width>
                                        <height>374</height>
+                                      </size>
+                                     </property>
+                                     <property name="maximumSize">
+                                      <size>
+                                       <width>16777215</width>
+                                       <height>16777215</height>
+                                      </size>
+                                     </property>
+                                     <property name="sizeIncrement">
+                                      <size>
+                                       <width>1</width>
+                                       <height>3</height>
                                       </size>
                                      </property>
                                      <property name="frameShape">
@@ -2733,7 +2745,7 @@ border-color:rgb(213, 213, 213);;
                                       <string/>
                                      </property>
                                      <property name="scaledContents">
-                                      <bool>false</bool>
+                                      <bool>true</bool>
                                      </property>
                                      <property name="margin">
                                       <number>1</number>
@@ -2763,7 +2775,7 @@ border-color:rgb(213, 213, 213);;
                                </property>
                                <property name="maximumSize">
                                 <size>
-                                 <width>760</width>
+                                 <width>16777215</width>
                                  <height>16777215</height>
                                 </size>
                                </property>
@@ -2858,7 +2870,7 @@ border-color:rgb(213, 213, 213);;
                                         </layout>
                                        </widget>
                                       </item>
-                                      <item alignment="Qt::AlignLeft">
+                                      <item alignment="Qt::AlignHCenter">
                                        <widget class="QFrame" name="frame_64">
                                         <property name="minimumSize">
                                          <size>
@@ -2877,32 +2889,19 @@ border-color:rgb(213, 213, 213);;
                                           <number>0</number>
                                          </property>
                                          <item>
-                                          <widget class="QLabel" name="label_160">
-                                           <property name="maximumSize">
-                                            <size>
-                                             <width>65</width>
-                                             <height>16777215</height>
-                                            </size>
-                                           </property>
-                                           <property name="text">
-                                            <string>Cameras :</string>
-                                           </property>
-                                          </widget>
-                                         </item>
-                                         <item>
                                           <widget class="QPushButton" name="connect_cameras_live_page">
                                            <property name="enabled">
                                             <bool>false</bool>
                                            </property>
                                            <property name="minimumSize">
                                             <size>
-                                             <width>120</width>
+                                             <width>140</width>
                                              <height>32</height>
                                             </size>
                                            </property>
                                            <property name="maximumSize">
                                             <size>
-                                             <width>120</width>
+                                             <width>140</width>
                                              <height>32</height>
                                             </size>
                                            </property>
@@ -2916,7 +2915,7 @@ border-color:rgb(213, 213, 213);;
 }</string>
                                            </property>
                                            <property name="text">
-                                            <string>  Connect </string>
+                                            <string>  Connect Cameras</string>
                                            </property>
                                            <property name="icon">
                                             <iconset>
@@ -2934,13 +2933,13 @@ border-color:rgb(213, 213, 213);;
                                           <widget class="QPushButton" name="disconnect_cameras_live_page">
                                            <property name="minimumSize">
                                             <size>
-                                             <width>120</width>
+                                             <width>140</width>
                                              <height>32</height>
                                             </size>
                                            </property>
                                            <property name="maximumSize">
                                             <size>
-                                             <width>120</width>
+                                             <width>139</width>
                                              <height>32</height>
                                             </size>
                                            </property>
@@ -2954,7 +2953,7 @@ border-color:rgb(213, 213, 213);;
 }</string>
                                            </property>
                                            <property name="text">
-                                            <string>  Disconnect</string>
+                                            <string>  Disconnect Cameras</string>
                                            </property>
                                            <property name="icon">
                                             <iconset>
@@ -3233,6 +3232,19 @@ border-color:rgb(213, 213, 213);;
                                           <number>0</number>
                                          </property>
                                          <item>
+                                          <spacer name="horizontalSpacer_44">
+                                           <property name="orientation">
+                                            <enum>Qt::Horizontal</enum>
+                                           </property>
+                                           <property name="sizeHint" stdset="0">
+                                            <size>
+                                             <width>40</width>
+                                             <height>20</height>
+                                            </size>
+                                           </property>
+                                          </spacer>
+                                         </item>
+                                         <item>
                                           <widget class="QLabel" name="label_156">
                                            <property name="minimumSize">
                                             <size>
@@ -3365,6 +3377,19 @@ border-color:rgb(213, 213, 213);;
                                             <bool>true</bool>
                                            </property>
                                           </widget>
+                                         </item>
+                                         <item>
+                                          <spacer name="horizontalSpacer_45">
+                                           <property name="orientation">
+                                            <enum>Qt::Horizontal</enum>
+                                           </property>
+                                           <property name="sizeHint" stdset="0">
+                                            <size>
+                                             <width>40</width>
+                                             <height>20</height>
+                                            </size>
+                                           </property>
+                                          </spacer>
                                          </item>
                                         </layout>
                                        </widget>
@@ -6206,7 +6231,7 @@ QPushButton:disabled{
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>6</number>
+                                   <number>1</number>
                                   </property>
                                   <widget class="QWidget" name="page_0_top">
                                    <layout class="QVBoxLayout" name="verticalLayout_145">
@@ -6386,6 +6411,13 @@ border-radius : 5px;</string>
                                         </widget>
                                        </item>
                                        <item>
+                                        <widget class="Line" name="line_48">
+                                         <property name="orientation">
+                                          <enum>Qt::Horizontal</enum>
+                                         </property>
+                                        </widget>
+                                       </item>
+                                       <item>
                                         <widget class="QFrame" name="frame_236">
                                          <property name="frameShape">
                                           <enum>QFrame::StyledPanel</enum>
@@ -6429,6 +6461,13 @@ border-radius : 5px;</string>
                                            </widget>
                                           </item>
                                          </layout>
+                                        </widget>
+                                       </item>
+                                       <item>
+                                        <widget class="Line" name="line_49">
+                                         <property name="orientation">
+                                          <enum>Qt::Horizontal</enum>
+                                         </property>
                                         </widget>
                                        </item>
                                        <item>
@@ -6704,252 +6743,402 @@ border-radius : 5px;</string>
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QFrame" name="frame_40">
+                                              <widget class="QFrame" name="frame_243">
                                                <property name="frameShape">
-                                                <enum>QFrame::Panel</enum>
+                                                <enum>QFrame::StyledPanel</enum>
                                                </property>
                                                <property name="frameShadow">
                                                 <enum>QFrame::Raised</enum>
                                                </property>
-                                               <layout class="QVBoxLayout" name="verticalLayout_32">
-                                                <item alignment="Qt::AlignHCenter">
-                                                 <widget class="QLabel" name="label_5">
-                                                  <property name="maximumSize">
-                                                   <size>
-                                                    <width>16777215</width>
-                                                    <height>50</height>
-                                                   </size>
-                                                  </property>
+                                               <layout class="QHBoxLayout" name="horizontalLayout_211">
+                                                <item>
+                                                 <widget class="QCheckBox" name="check_thresh_algo_1_top">
                                                   <property name="text">
                                                    <string>Threshold</string>
                                                   </property>
                                                  </widget>
                                                 </item>
                                                 <item>
-                                                 <widget class="QSlider" name="bar_thresh0_1_top">
-                                                  <property name="minimumSize">
-                                                   <size>
-                                                    <width>0</width>
-                                                    <height>30</height>
-                                                   </size>
-                                                  </property>
-                                                  <property name="maximum">
-                                                   <number>255</number>
-                                                  </property>
-                                                  <property name="orientation">
-                                                   <enum>Qt::Horizontal</enum>
-                                                  </property>
-                                                 </widget>
-                                                </item>
-                                                <item alignment="Qt::AlignHCenter">
-                                                 <widget class="QSpinBox" name="spinBox">
-                                                  <property name="maximum">
-                                                   <number>255</number>
-                                                  </property>
-                                                 </widget>
-                                                </item>
-                                                <item>
-                                                 <widget class="QCheckBox" name="checkbox_thresh_inv0_1_top">
+                                                 <widget class="QCheckBox" name="check_edge_algo_1_top">
                                                   <property name="text">
-                                                   <string>Negative</string>
+                                                   <string>Edge</string>
                                                   </property>
-                                                 </widget>
-                                                </item>
-                                                <item>
-                                                 <widget class="Line" name="line_46">
-                                                  <property name="orientation">
-                                                   <enum>Qt::Horizontal</enum>
-                                                  </property>
-                                                 </widget>
-                                                </item>
-                                                <item>
-                                                 <widget class="QFrame" name="frame_221">
-                                                  <property name="minimumSize">
-                                                   <size>
-                                                    <width>0</width>
-                                                    <height>113</height>
-                                                   </size>
-                                                  </property>
-                                                  <property name="frameShape">
-                                                   <enum>QFrame::Panel</enum>
-                                                  </property>
-                                                  <property name="frameShadow">
-                                                   <enum>QFrame::Raised</enum>
-                                                  </property>
-                                                  <layout class="QVBoxLayout" name="verticalLayout_140">
-                                                   <item>
-                                                    <widget class="QFrame" name="frame_223">
-                                                     <property name="minimumSize">
-                                                      <size>
-                                                       <width>0</width>
-                                                       <height>50</height>
-                                                      </size>
-                                                     </property>
-                                                     <property name="frameShape">
-                                                      <enum>QFrame::StyledPanel</enum>
-                                                     </property>
-                                                     <property name="frameShadow">
-                                                      <enum>QFrame::Raised</enum>
-                                                     </property>
-                                                     <layout class="QHBoxLayout" name="horizontalLayout_197">
-                                                      <item>
-                                                       <widget class="QLabel" name="label_168">
-                                                        <property name="maximumSize">
-                                                         <size>
-                                                          <width>16777215</width>
-                                                          <height>50</height>
-                                                         </size>
-                                                        </property>
-                                                        <property name="text">
-                                                         <string>Max Threshold</string>
-                                                        </property>
-                                                       </widget>
-                                                      </item>
-                                                      <item>
-                                                       <widget class="QSlider" name="bar_thresh_max0_1_top">
-                                                        <property name="minimumSize">
-                                                         <size>
-                                                          <width>0</width>
-                                                          <height>30</height>
-                                                         </size>
-                                                        </property>
-                                                        <property name="maximum">
-                                                         <number>255</number>
-                                                        </property>
-                                                        <property name="value">
-                                                         <number>255</number>
-                                                        </property>
-                                                        <property name="orientation">
-                                                         <enum>Qt::Horizontal</enum>
-                                                        </property>
-                                                       </widget>
-                                                      </item>
-                                                      <item>
-                                                       <widget class="QSpinBox" name="spinBox_3">
-                                                        <property name="maximum">
-                                                         <number>255</number>
-                                                        </property>
-                                                        <property name="value">
-                                                         <number>255</number>
-                                                        </property>
-                                                       </widget>
-                                                      </item>
-                                                     </layout>
-                                                    </widget>
-                                                   </item>
-                                                   <item>
-                                                    <widget class="QFrame" name="frame_222">
-                                                     <property name="minimumSize">
-                                                      <size>
-                                                       <width>0</width>
-                                                       <height>50</height>
-                                                      </size>
-                                                     </property>
-                                                     <property name="frameShape">
-                                                      <enum>QFrame::StyledPanel</enum>
-                                                     </property>
-                                                     <property name="frameShadow">
-                                                      <enum>QFrame::Raised</enum>
-                                                     </property>
-                                                     <layout class="QHBoxLayout" name="horizontalLayout_194">
-                                                      <item>
-                                                       <widget class="QLabel" name="label_54">
-                                                        <property name="maximumSize">
-                                                         <size>
-                                                          <width>16777215</width>
-                                                          <height>50</height>
-                                                         </size>
-                                                        </property>
-                                                        <property name="text">
-                                                         <string>Min Threshold</string>
-                                                        </property>
-                                                       </widget>
-                                                      </item>
-                                                      <item>
-                                                       <widget class="QSlider" name="bar_thresh_min0_1_top">
-                                                        <property name="minimumSize">
-                                                         <size>
-                                                          <width>0</width>
-                                                          <height>30</height>
-                                                         </size>
-                                                        </property>
-                                                        <property name="maximum">
-                                                         <number>255</number>
-                                                        </property>
-                                                        <property name="orientation">
-                                                         <enum>Qt::Horizontal</enum>
-                                                        </property>
-                                                       </widget>
-                                                      </item>
-                                                      <item>
-                                                       <widget class="QSpinBox" name="spinBox_2">
-                                                        <property name="maximum">
-                                                         <number>255</number>
-                                                        </property>
-                                                       </widget>
-                                                      </item>
-                                                     </layout>
-                                                    </widget>
-                                                   </item>
-                                                  </layout>
                                                  </widget>
                                                 </item>
                                                </layout>
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QFrame" name="frame_50">
-                                               <property name="frameShape">
-                                                <enum>QFrame::Panel</enum>
+                                              <widget class="QStackedWidget" name="stackedWidget_4">
+                                               <property name="currentIndex">
+                                                <number>0</number>
                                                </property>
-                                               <property name="frameShadow">
-                                                <enum>QFrame::Raised</enum>
-                                               </property>
-                                               <layout class="QVBoxLayout" name="verticalLayout_38">
-                                                <item>
-                                                 <widget class="QLabel" name="label_9">
-                                                  <property name="text">
-                                                   <string>Noise filter</string>
-                                                  </property>
-                                                  <property name="alignment">
-                                                   <set>Qt::AlignCenter</set>
-                                                  </property>
-                                                 </widget>
-                                                </item>
-                                                <item>
-                                                 <widget class="QSlider" name="bar_noise_filter0_1_top">
-                                                  <property name="maximum">
-                                                   <number>100</number>
-                                                  </property>
-                                                  <property name="singleStep">
-                                                   <number>1</number>
-                                                  </property>
-                                                  <property name="orientation">
-                                                   <enum>Qt::Horizontal</enum>
-                                                  </property>
-                                                 </widget>
-                                                </item>
-                                                <item alignment="Qt::AlignHCenter">
-                                                 <widget class="QSpinBox" name="noiseAreaSpinBox">
-                                                  <property name="maximum">
-                                                   <number>100</number>
-                                                  </property>
-                                                 </widget>
-                                                </item>
-                                                <item>
-                                                 <spacer name="verticalSpacer_1">
-                                                  <property name="orientation">
-                                                   <enum>Qt::Vertical</enum>
-                                                  </property>
-                                                  <property name="sizeHint" stdset="0">
-                                                   <size>
-                                                    <width>20</width>
-                                                    <height>40</height>
-                                                   </size>
-                                                  </property>
-                                                 </spacer>
-                                                </item>
-                                               </layout>
+                                               <widget class="QWidget" name="page_edge">
+                                                <layout class="QVBoxLayout" name="verticalLayout_147">
+                                                 <item>
+                                                  <widget class="QFrame" name="frame_244">
+                                                   <property name="minimumSize">
+                                                    <size>
+                                                     <width>0</width>
+                                                     <height>178</height>
+                                                    </size>
+                                                   </property>
+                                                   <property name="maximumSize">
+                                                    <size>
+                                                     <width>16777215</width>
+                                                     <height>16777215</height>
+                                                    </size>
+                                                   </property>
+                                                   <property name="frameShape">
+                                                    <enum>QFrame::StyledPanel</enum>
+                                                   </property>
+                                                   <property name="frameShadow">
+                                                    <enum>QFrame::Raised</enum>
+                                                   </property>
+                                                   <layout class="QVBoxLayout" name="verticalLayout_148">
+                                                    <item>
+                                                     <widget class="QLabel" name="label_160">
+                                                      <property name="minimumSize">
+                                                       <size>
+                                                        <width>88</width>
+                                                        <height>0</height>
+                                                       </size>
+                                                      </property>
+                                                      <property name="maximumSize">
+                                                       <size>
+                                                        <width>16777215</width>
+                                                        <height>50</height>
+                                                       </size>
+                                                      </property>
+                                                      <property name="text">
+                                                       <string>Edge Threshold</string>
+                                                      </property>
+                                                     </widget>
+                                                    </item>
+                                                    <item>
+                                                     <widget class="QFrame" name="frame_245">
+                                                      <property name="minimumSize">
+                                                       <size>
+                                                        <width>0</width>
+                                                        <height>27</height>
+                                                       </size>
+                                                      </property>
+                                                      <property name="maximumSize">
+                                                       <size>
+                                                        <width>16777215</width>
+                                                        <height>27</height>
+                                                       </size>
+                                                      </property>
+                                                      <property name="frameShape">
+                                                       <enum>QFrame::StyledPanel</enum>
+                                                      </property>
+                                                      <property name="frameShadow">
+                                                       <enum>QFrame::Raised</enum>
+                                                      </property>
+                                                      <layout class="QHBoxLayout" name="horizontalLayout_212">
+                                                       <property name="topMargin">
+                                                        <number>0</number>
+                                                       </property>
+                                                       <property name="bottomMargin">
+                                                        <number>0</number>
+                                                       </property>
+                                                       <item>
+                                                        <widget class="QCheckBox" name="checkbox_edge_thresh_0_1_top">
+                                                         <property name="text">
+                                                          <string/>
+                                                         </property>
+                                                        </widget>
+                                                       </item>
+                                                       <item>
+                                                        <widget class="QSlider" name="bar_edge_thresh0_1_top">
+                                                         <property name="minimumSize">
+                                                          <size>
+                                                           <width>0</width>
+                                                           <height>30</height>
+                                                          </size>
+                                                         </property>
+                                                         <property name="maximum">
+                                                          <number>255</number>
+                                                         </property>
+                                                         <property name="orientation">
+                                                          <enum>Qt::Horizontal</enum>
+                                                         </property>
+                                                        </widget>
+                                                       </item>
+                                                       <item>
+                                                        <widget class="QSpinBox" name="spinBox_27">
+                                                         <property name="maximum">
+                                                          <number>255</number>
+                                                         </property>
+                                                        </widget>
+                                                       </item>
+                                                      </layout>
+                                                     </widget>
+                                                    </item>
+                                                    <item>
+                                                     <widget class="QFrame" name="frame_242">
+                                                      <property name="frameShape">
+                                                       <enum>QFrame::StyledPanel</enum>
+                                                      </property>
+                                                      <property name="frameShadow">
+                                                       <enum>QFrame::Raised</enum>
+                                                      </property>
+                                                      <layout class="QHBoxLayout" name="horizontalLayout_210">
+                                                       <item>
+                                                        <widget class="QLabel" name="label_5">
+                                                         <property name="minimumSize">
+                                                          <size>
+                                                           <width>100</width>
+                                                           <height>0</height>
+                                                          </size>
+                                                         </property>
+                                                         <property name="text">
+                                                          <string>Belt Edge Margin</string>
+                                                         </property>
+                                                        </widget>
+                                                       </item>
+                                                       <item>
+                                                        <widget class="QSpinBox" name="spin_belt_edge_margin">
+                                                         <property name="maximum">
+                                                          <number>255</number>
+                                                         </property>
+                                                        </widget>
+                                                       </item>
+                                                      </layout>
+                                                     </widget>
+                                                    </item>
+                                                   </layout>
+                                                  </widget>
+                                                 </item>
+                                                </layout>
+                                               </widget>
+                                               <widget class="QWidget" name="page_threshold">
+                                                <layout class="QVBoxLayout" name="verticalLayout_146">
+                                                 <item>
+                                                  <widget class="QFrame" name="frame_40">
+                                                   <property name="maximumSize">
+                                                    <size>
+                                                     <width>16777215</width>
+                                                     <height>263</height>
+                                                    </size>
+                                                   </property>
+                                                   <property name="sizeIncrement">
+                                                    <size>
+                                                     <width>0</width>
+                                                     <height>263</height>
+                                                    </size>
+                                                   </property>
+                                                   <property name="frameShape">
+                                                    <enum>QFrame::Panel</enum>
+                                                   </property>
+                                                   <property name="frameShadow">
+                                                    <enum>QFrame::Raised</enum>
+                                                   </property>
+                                                   <layout class="QVBoxLayout" name="verticalLayout_32">
+                                                    <item>
+                                                     <widget class="QFrame" name="frame_221">
+                                                      <property name="minimumSize">
+                                                       <size>
+                                                        <width>0</width>
+                                                        <height>113</height>
+                                                       </size>
+                                                      </property>
+                                                      <property name="frameShape">
+                                                       <enum>QFrame::Panel</enum>
+                                                      </property>
+                                                      <property name="frameShadow">
+                                                       <enum>QFrame::Raised</enum>
+                                                      </property>
+                                                      <layout class="QVBoxLayout" name="verticalLayout_140">
+                                                       <property name="leftMargin">
+                                                        <number>0</number>
+                                                       </property>
+                                                       <property name="topMargin">
+                                                        <number>0</number>
+                                                       </property>
+                                                       <property name="rightMargin">
+                                                        <number>0</number>
+                                                       </property>
+                                                       <property name="bottomMargin">
+                                                        <number>0</number>
+                                                       </property>
+                                                       <item>
+                                                        <widget class="QFrame" name="frame_223">
+                                                         <property name="minimumSize">
+                                                          <size>
+                                                           <width>0</width>
+                                                           <height>50</height>
+                                                          </size>
+                                                         </property>
+                                                         <property name="frameShape">
+                                                          <enum>QFrame::StyledPanel</enum>
+                                                         </property>
+                                                         <property name="frameShadow">
+                                                          <enum>QFrame::Raised</enum>
+                                                         </property>
+                                                         <layout class="QHBoxLayout" name="horizontalLayout_197">
+                                                          <item>
+                                                           <widget class="QLabel" name="label_168">
+                                                            <property name="maximumSize">
+                                                             <size>
+                                                              <width>16777215</width>
+                                                              <height>50</height>
+                                                             </size>
+                                                            </property>
+                                                            <property name="text">
+                                                             <string>Max Threshold</string>
+                                                            </property>
+                                                           </widget>
+                                                          </item>
+                                                          <item>
+                                                           <widget class="QSlider" name="bar_thresh_max0_1_top">
+                                                            <property name="minimumSize">
+                                                             <size>
+                                                              <width>0</width>
+                                                              <height>30</height>
+                                                             </size>
+                                                            </property>
+                                                            <property name="maximum">
+                                                             <number>255</number>
+                                                            </property>
+                                                            <property name="value">
+                                                             <number>255</number>
+                                                            </property>
+                                                            <property name="orientation">
+                                                             <enum>Qt::Horizontal</enum>
+                                                            </property>
+                                                           </widget>
+                                                          </item>
+                                                          <item>
+                                                           <widget class="QSpinBox" name="spinBox_3">
+                                                            <property name="maximum">
+                                                             <number>255</number>
+                                                            </property>
+                                                            <property name="value">
+                                                             <number>255</number>
+                                                            </property>
+                                                           </widget>
+                                                          </item>
+                                                         </layout>
+                                                        </widget>
+                                                       </item>
+                                                       <item>
+                                                        <widget class="QFrame" name="frame_222">
+                                                         <property name="minimumSize">
+                                                          <size>
+                                                           <width>0</width>
+                                                           <height>50</height>
+                                                          </size>
+                                                         </property>
+                                                         <property name="frameShape">
+                                                          <enum>QFrame::StyledPanel</enum>
+                                                         </property>
+                                                         <property name="frameShadow">
+                                                          <enum>QFrame::Raised</enum>
+                                                         </property>
+                                                         <layout class="QHBoxLayout" name="horizontalLayout_194">
+                                                          <item>
+                                                           <widget class="QLabel" name="label_54">
+                                                            <property name="maximumSize">
+                                                             <size>
+                                                              <width>16777215</width>
+                                                              <height>50</height>
+                                                             </size>
+                                                            </property>
+                                                            <property name="text">
+                                                             <string>Min Threshold</string>
+                                                            </property>
+                                                           </widget>
+                                                          </item>
+                                                          <item>
+                                                           <widget class="QSlider" name="bar_thresh_min0_1_top">
+                                                            <property name="minimumSize">
+                                                             <size>
+                                                              <width>0</width>
+                                                              <height>30</height>
+                                                             </size>
+                                                            </property>
+                                                            <property name="maximum">
+                                                             <number>255</number>
+                                                            </property>
+                                                            <property name="orientation">
+                                                             <enum>Qt::Horizontal</enum>
+                                                            </property>
+                                                           </widget>
+                                                          </item>
+                                                          <item>
+                                                           <widget class="QSpinBox" name="spinBox_2">
+                                                            <property name="maximum">
+                                                             <number>255</number>
+                                                            </property>
+                                                           </widget>
+                                                          </item>
+                                                         </layout>
+                                                        </widget>
+                                                       </item>
+                                                      </layout>
+                                                     </widget>
+                                                    </item>
+                                                    <item>
+                                                     <widget class="QFrame" name="frame_50">
+                                                      <property name="frameShape">
+                                                       <enum>QFrame::Panel</enum>
+                                                      </property>
+                                                      <property name="frameShadow">
+                                                       <enum>QFrame::Raised</enum>
+                                                      </property>
+                                                      <layout class="QVBoxLayout" name="verticalLayout_38">
+                                                       <item>
+                                                        <widget class="QLabel" name="label_9">
+                                                         <property name="text">
+                                                          <string>Noise filter</string>
+                                                         </property>
+                                                         <property name="alignment">
+                                                          <set>Qt::AlignCenter</set>
+                                                         </property>
+                                                        </widget>
+                                                       </item>
+                                                       <item>
+                                                        <widget class="QSlider" name="bar_noise_filter0_1_top">
+                                                         <property name="maximum">
+                                                          <number>100</number>
+                                                         </property>
+                                                         <property name="singleStep">
+                                                          <number>1</number>
+                                                         </property>
+                                                         <property name="orientation">
+                                                          <enum>Qt::Horizontal</enum>
+                                                         </property>
+                                                        </widget>
+                                                       </item>
+                                                       <item alignment="Qt::AlignHCenter">
+                                                        <widget class="QSpinBox" name="noiseAreaSpinBox">
+                                                         <property name="maximum">
+                                                          <number>100</number>
+                                                         </property>
+                                                        </widget>
+                                                       </item>
+                                                       <item>
+                                                        <spacer name="verticalSpacer_1">
+                                                         <property name="orientation">
+                                                          <enum>Qt::Vertical</enum>
+                                                         </property>
+                                                         <property name="sizeHint" stdset="0">
+                                                          <size>
+                                                           <width>20</width>
+                                                           <height>40</height>
+                                                          </size>
+                                                         </property>
+                                                        </spacer>
+                                                       </item>
+                                                      </layout>
+                                                     </widget>
+                                                    </item>
+                                                   </layout>
+                                                  </widget>
+                                                 </item>
+                                                </layout>
+                                               </widget>
                                               </widget>
                                              </item>
                                              <item>
@@ -7216,6 +7405,12 @@ border-radius : 5px;</string>
                                           <enum>QFrame::Raised</enum>
                                          </property>
                                          <layout class="QHBoxLayout" name="horizontalLayout_54">
+                                          <property name="topMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="bottomMargin">
+                                           <number>0</number>
+                                          </property>
                                           <item>
                                            <widget class="QLabel" name="label_11">
                                             <property name="text">
@@ -7262,7 +7457,7 @@ border-radius : 5px;</string>
                                           <property name="bottomMargin">
                                            <number>0</number>
                                           </property>
-                                          <item alignment="Qt::AlignHCenter">
+                                          <item>
                                            <widget class="QLabel" name="label_126">
                                             <property name="maximumSize">
                                              <size>
@@ -7359,6 +7554,12 @@ border-radius : 5px;</string>
                                           <enum>QFrame::Raised</enum>
                                          </property>
                                          <layout class="QHBoxLayout" name="horizontalLayout_201">
+                                          <property name="topMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="bottomMargin">
+                                           <number>0</number>
+                                          </property>
                                           <item>
                                            <widget class="QLabel" name="label_200">
                                             <property name="maximumSize">
@@ -7413,6 +7614,12 @@ border-radius : 5px;</string>
                                           <enum>QFrame::Raised</enum>
                                          </property>
                                          <layout class="QHBoxLayout" name="horizontalLayout_195">
+                                          <property name="topMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="bottomMargin">
+                                           <number>0</number>
+                                          </property>
                                           <item>
                                            <widget class="QLabel" name="label_201">
                                             <property name="maximumSize">
@@ -7575,6 +7782,12 @@ border-radius : 5px;</string>
                                           <string>Select Shape Type</string>
                                          </property>
                                          <layout class="QHBoxLayout" name="horizontalLayout_52">
+                                          <property name="topMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="bottomMargin">
+                                           <number>0</number>
+                                          </property>
                                           <item>
                                            <widget class="QRadioButton" name="check_circle_2_top">
                                             <property name="text">
@@ -7604,11 +7817,17 @@ border-radius : 5px;</string>
                                          <property name="minimumSize">
                                           <size>
                                            <width>0</width>
-                                           <height>200</height>
+                                           <height>168</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>168</height>
                                           </size>
                                          </property>
                                          <property name="currentIndex">
-                                          <number>1</number>
+                                          <number>0</number>
                                          </property>
                                          <widget class="QWidget" name="page_circle">
                                           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -8124,10 +8343,23 @@ border-radius : 5px;</string>
                                          </widget>
                                         </widget>
                                        </item>
+                                       <item>
+                                        <spacer name="verticalSpacer_16">
+                                         <property name="orientation">
+                                          <enum>Qt::Vertical</enum>
+                                         </property>
+                                         <property name="sizeHint" stdset="0">
+                                          <size>
+                                           <width>20</width>
+                                           <height>40</height>
+                                          </size>
+                                         </property>
+                                        </spacer>
+                                       </item>
                                        <item alignment="Qt::AlignHCenter">
                                         <widget class="QPushButton" name="btn_draw_complete0_2_top">
                                          <property name="enabled">
-                                          <bool>false</bool>
+                                          <bool>true</bool>
                                          </property>
                                          <property name="minimumSize">
                                           <size>
@@ -8150,19 +8382,6 @@ QPushButton:disabled{
                                           <string>Complete</string>
                                          </property>
                                         </widget>
-                                       </item>
-                                       <item>
-                                        <spacer name="verticalSpacer_16">
-                                         <property name="orientation">
-                                          <enum>Qt::Vertical</enum>
-                                         </property>
-                                         <property name="sizeHint" stdset="0">
-                                          <size>
-                                           <width>20</width>
-                                           <height>40</height>
-                                          </size>
-                                         </property>
-                                        </spacer>
                                        </item>
                                       </layout>
                                      </widget>
@@ -13590,11 +13809,30 @@ QPushButton:hover {
                                </property>
                                <layout class="QVBoxLayout" name="verticalLayout_40">
                                 <item>
+                                 <spacer name="verticalSpacer_19">
+                                  <property name="orientation">
+                                   <enum>Qt::Vertical</enum>
+                                  </property>
+                                  <property name="sizeHint" stdset="0">
+                                   <size>
+                                    <width>20</width>
+                                    <height>40</height>
+                                   </size>
+                                  </property>
+                                 </spacer>
+                                </item>
+                                <item>
                                  <widget class="QLabel" name="label_image_grab_page">
+                                  <property name="minimumSize">
+                                   <size>
+                                    <width>0</width>
+                                    <height>350</height>
+                                   </size>
+                                  </property>
                                   <property name="maximumSize">
                                    <size>
                                     <width>16777215</width>
-                                    <height>350</height>
+                                    <height>16777215</height>
                                    </size>
                                   </property>
                                   <property name="text">
@@ -13604,6 +13842,19 @@ QPushButton:hover {
                                    <bool>true</bool>
                                   </property>
                                  </widget>
+                                </item>
+                                <item>
+                                 <spacer name="verticalSpacer_15">
+                                  <property name="orientation">
+                                   <enum>Qt::Vertical</enum>
+                                  </property>
+                                  <property name="sizeHint" stdset="0">
+                                   <size>
+                                    <width>20</width>
+                                    <height>40</height>
+                                   </size>
+                                  </property>
+                                 </spacer>
                                 </item>
                                 <item>
                                  <widget class="Line" name="line_8">
@@ -20257,11 +20508,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>542</x>
-     <y>745</y>
+     <y>463</y>
     </hint>
     <hint type="destinationlabel">
-     <x>682</x>
-     <y>721</y>
+     <x>672</x>
+     <y>456</y>
     </hint>
    </hints>
   </connection>
@@ -20288,12 +20539,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>682</x>
-     <y>721</y>
+     <x>672</x>
+     <y>456</y>
     </hint>
     <hint type="destinationlabel">
      <x>542</x>
-     <y>745</y>
+     <y>463</y>
     </hint>
    </hints>
   </connection>
@@ -20314,38 +20565,6 @@ QPushButton:pressed {
    </hints>
   </connection>
   <connection>
-   <sender>spinBox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>bar_thresh0_1_top</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>542</x>
-     <y>499</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>682</x>
-     <y>475</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>bar_thresh0_1_top</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>682</x>
-     <y>475</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>542</x>
-     <y>499</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>bar_thresh0_1_side</sender>
    <signal>valueChanged(int)</signal>
    <receiver>spinBox_4</receiver>
@@ -20353,11 +20572,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>646</x>
-     <y>563</y>
+     <y>550</y>
     </hint>
     <hint type="destinationlabel">
      <x>693</x>
-     <y>557</y>
+     <y>544</y>
     </hint>
    </hints>
   </connection>
@@ -20369,11 +20588,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>693</x>
-     <y>557</y>
+     <y>544</y>
     </hint>
     <hint type="destinationlabel">
      <x>646</x>
-     <y>563</y>
+     <y>550</y>
     </hint>
    </hints>
   </connection>
@@ -20385,11 +20604,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>646</x>
-     <y>784</y>
+     <y>766</y>
     </hint>
     <hint type="destinationlabel">
      <x>693</x>
-     <y>778</y>
+     <y>760</y>
     </hint>
    </hints>
   </connection>
@@ -20401,11 +20620,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>693</x>
-     <y>778</y>
+     <y>760</y>
     </hint>
     <hint type="destinationlabel">
      <x>646</x>
-     <y>784</y>
+     <y>766</y>
     </hint>
    </hints>
   </connection>
@@ -20417,11 +20636,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>636</x>
-     <y>777</y>
+     <y>759</y>
     </hint>
     <hint type="destinationlabel">
      <x>683</x>
-     <y>771</y>
+     <y>753</y>
     </hint>
    </hints>
   </connection>
@@ -20433,11 +20652,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>683</x>
-     <y>771</y>
+     <y>753</y>
     </hint>
     <hint type="destinationlabel">
      <x>636</x>
-     <y>777</y>
+     <y>759</y>
     </hint>
    </hints>
   </connection>
@@ -20449,11 +20668,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>625</x>
-     <y>766</y>
+     <y>748</y>
     </hint>
     <hint type="destinationlabel">
      <x>672</x>
-     <y>760</y>
+     <y>742</y>
     </hint>
    </hints>
   </connection>
@@ -20465,11 +20684,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>672</x>
-     <y>760</y>
+     <y>742</y>
     </hint>
     <hint type="destinationlabel">
      <x>625</x>
-     <y>766</y>
+     <y>748</y>
     </hint>
    </hints>
   </connection>
@@ -20513,11 +20732,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>635</x>
-     <y>776</y>
+     <y>758</y>
     </hint>
     <hint type="destinationlabel">
      <x>682</x>
-     <y>770</y>
+     <y>752</y>
     </hint>
    </hints>
   </connection>
@@ -20529,11 +20748,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>682</x>
-     <y>770</y>
+     <y>752</y>
     </hint>
     <hint type="destinationlabel">
      <x>635</x>
-     <y>776</y>
+     <y>758</y>
     </hint>
    </hints>
   </connection>
@@ -20545,11 +20764,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>635</x>
-     <y>406</y>
+     <y>367</y>
     </hint>
     <hint type="destinationlabel">
      <x>682</x>
-     <y>400</y>
+     <y>361</y>
     </hint>
    </hints>
   </connection>
@@ -20561,11 +20780,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>682</x>
-     <y>400</y>
+     <y>361</y>
     </hint>
     <hint type="destinationlabel">
      <x>635</x>
-     <y>406</y>
+     <y>367</y>
     </hint>
    </hints>
   </connection>
@@ -20577,11 +20796,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>635</x>
-     <y>595</y>
+     <y>520</y>
     </hint>
     <hint type="destinationlabel">
      <x>682</x>
-     <y>589</y>
+     <y>514</y>
     </hint>
    </hints>
   </connection>
@@ -20593,11 +20812,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>682</x>
-     <y>589</y>
+     <y>514</y>
     </hint>
     <hint type="destinationlabel">
      <x>635</x>
-     <y>595</y>
+     <y>520</y>
     </hint>
    </hints>
   </connection>
@@ -20609,11 +20828,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>636</x>
-     <y>530</y>
+     <y>516</y>
     </hint>
     <hint type="destinationlabel">
      <x>683</x>
-     <y>524</y>
+     <y>510</y>
     </hint>
    </hints>
   </connection>
@@ -20625,11 +20844,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>683</x>
-     <y>524</y>
+     <y>510</y>
     </hint>
     <hint type="destinationlabel">
      <x>636</x>
-     <y>530</y>
+     <y>516</y>
     </hint>
    </hints>
   </connection>
@@ -20641,11 +20860,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>636</x>
-     <y>612</y>
+     <y>597</y>
     </hint>
     <hint type="destinationlabel">
      <x>683</x>
-     <y>604</y>
+     <y>589</y>
     </hint>
    </hints>
   </connection>
@@ -20657,11 +20876,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>683</x>
-     <y>604</y>
+     <y>589</y>
     </hint>
     <hint type="destinationlabel">
      <x>636</x>
-     <y>612</y>
+     <y>597</y>
     </hint>
    </hints>
   </connection>
@@ -20801,11 +21020,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>636</x>
-     <y>777</y>
+     <y>759</y>
     </hint>
     <hint type="destinationlabel">
      <x>683</x>
-     <y>771</y>
+     <y>753</y>
     </hint>
    </hints>
   </connection>
@@ -20817,11 +21036,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>683</x>
-     <y>771</y>
+     <y>753</y>
     </hint>
     <hint type="destinationlabel">
      <x>636</x>
-     <y>777</y>
+     <y>759</y>
     </hint>
    </hints>
   </connection>
@@ -20833,11 +21052,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>646</x>
-     <y>563</y>
+     <y>550</y>
     </hint>
     <hint type="destinationlabel">
      <x>636</x>
-     <y>777</y>
+     <y>759</y>
     </hint>
    </hints>
   </connection>
@@ -20849,11 +21068,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>646</x>
-     <y>563</y>
+     <y>550</y>
     </hint>
     <hint type="destinationlabel">
      <x>635</x>
-     <y>776</y>
+     <y>758</y>
     </hint>
    </hints>
   </connection>
@@ -20865,7 +21084,7 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>646</x>
-     <y>563</y>
+     <y>550</y>
     </hint>
     <hint type="destinationlabel">
      <x>364</x>
@@ -20881,11 +21100,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>646</x>
-     <y>563</y>
+     <y>550</y>
     </hint>
     <hint type="destinationlabel">
      <x>625</x>
-     <y>766</y>
+     <y>748</y>
     </hint>
    </hints>
   </connection>
@@ -20897,11 +21116,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>646</x>
-     <y>563</y>
+     <y>550</y>
     </hint>
     <hint type="destinationlabel">
      <x>636</x>
-     <y>777</y>
+     <y>759</y>
     </hint>
    </hints>
   </connection>
@@ -20913,11 +21132,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>636</x>
-     <y>777</y>
+     <y>759</y>
     </hint>
     <hint type="destinationlabel">
      <x>646</x>
-     <y>563</y>
+     <y>550</y>
     </hint>
    </hints>
   </connection>
@@ -20929,11 +21148,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>625</x>
-     <y>766</y>
+     <y>748</y>
     </hint>
     <hint type="destinationlabel">
      <x>646</x>
-     <y>563</y>
+     <y>550</y>
     </hint>
    </hints>
   </connection>
@@ -20949,7 +21168,7 @@ QPushButton:pressed {
     </hint>
     <hint type="destinationlabel">
      <x>646</x>
-     <y>563</y>
+     <y>550</y>
     </hint>
    </hints>
   </connection>
@@ -20961,11 +21180,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>635</x>
-     <y>776</y>
+     <y>758</y>
     </hint>
     <hint type="destinationlabel">
      <x>646</x>
-     <y>563</y>
+     <y>550</y>
     </hint>
    </hints>
   </connection>
@@ -20977,11 +21196,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>636</x>
-     <y>777</y>
+     <y>759</y>
     </hint>
     <hint type="destinationlabel">
      <x>646</x>
-     <y>563</y>
+     <y>550</y>
     </hint>
    </hints>
   </connection>
@@ -21088,12 +21307,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>615</x>
-     <y>641</y>
+     <x>624</x>
+     <y>490</y>
     </hint>
     <hint type="destinationlabel">
-     <x>662</x>
-     <y>635</y>
+     <x>671</x>
+     <y>484</y>
     </hint>
    </hints>
   </connection>
@@ -21104,12 +21323,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>662</x>
-     <y>635</y>
+     <x>671</x>
+     <y>484</y>
     </hint>
     <hint type="destinationlabel">
-     <x>615</x>
-     <y>641</y>
+     <x>624</x>
+     <y>490</y>
     </hint>
    </hints>
   </connection>
@@ -21120,12 +21339,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>590</x>
-     <y>579</y>
+     <x>624</x>
+     <y>431</y>
     </hint>
     <hint type="destinationlabel">
-     <x>634</x>
-     <y>581</y>
+     <x>671</x>
+     <y>425</y>
     </hint>
    </hints>
   </connection>
@@ -21136,12 +21355,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>642</x>
-     <y>584</y>
+     <x>671</x>
+     <y>425</y>
     </hint>
     <hint type="destinationlabel">
-     <x>598</x>
-     <y>586</y>
+     <x>624</x>
+     <y>431</y>
     </hint>
    </hints>
   </connection>
@@ -21153,11 +21372,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>646</x>
-     <y>699</y>
+     <y>682</y>
     </hint>
     <hint type="destinationlabel">
      <x>693</x>
-     <y>693</y>
+     <y>676</y>
     </hint>
    </hints>
   </connection>
@@ -21169,11 +21388,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>693</x>
-     <y>693</y>
+     <y>676</y>
     </hint>
     <hint type="destinationlabel">
      <x>646</x>
-     <y>699</y>
+     <y>682</y>
     </hint>
    </hints>
   </connection>
@@ -21185,11 +21404,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>647</x>
-     <y>626</y>
+     <y>611</y>
     </hint>
     <hint type="destinationlabel">
      <x>694</x>
-     <y>620</y>
+     <y>605</y>
     </hint>
    </hints>
   </connection>
@@ -21201,11 +21420,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>694</x>
-     <y>620</y>
+     <y>605</y>
     </hint>
     <hint type="destinationlabel">
      <x>647</x>
-     <y>626</y>
+     <y>611</y>
     </hint>
    </hints>
   </connection>
@@ -21216,12 +21435,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>622</x>
-     <y>442</y>
+     <x>636</x>
+     <y>412</y>
     </hint>
     <hint type="destinationlabel">
-     <x>650</x>
-     <y>443</y>
+     <x>683</x>
+     <y>406</y>
     </hint>
    </hints>
   </connection>
@@ -21232,12 +21451,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>649</x>
-     <y>448</y>
+     <x>683</x>
+     <y>406</y>
     </hint>
     <hint type="destinationlabel">
-     <x>620</x>
-     <y>453</y>
+     <x>636</x>
+     <y>412</y>
     </hint>
    </hints>
   </connection>
@@ -21248,12 +21467,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>566</x>
-     <y>494</y>
+     <x>636</x>
+     <y>450</y>
     </hint>
     <hint type="destinationlabel">
-     <x>648</x>
-     <y>506</y>
+     <x>683</x>
+     <y>444</y>
     </hint>
    </hints>
   </connection>
@@ -21264,12 +21483,44 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>652</x>
-     <y>505</y>
+     <x>683</x>
+     <y>444</y>
     </hint>
     <hint type="destinationlabel">
-     <x>611</x>
-     <y>505</y>
+     <x>636</x>
+     <y>450</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_edge_thresh0_1_top</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_27</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>512</x>
+     <y>569</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>630</x>
+     <y>563</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_27</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_edge_thresh0_1_top</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>633</x>
+     <y>562</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>592</x>
+     <y>567</y>
     </hint>
    </hints>
   </connection>

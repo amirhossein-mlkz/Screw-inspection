@@ -27,7 +27,7 @@
                 ]
             ],
             "thresh0": 0,
-            "thresh_max0": 252,
+            "thresh_max0": 255,
             "thresh_min0": 84
         },
         "2_top": {
@@ -43,8 +43,9 @@
                 ],
                 "noise_filter0": 70,
                 "shape_type": "circel",
+                "thresh0": 18,
                 "thresh_max0": 255,
-                "thresh_min0": 27
+                "thresh_min0": 70
             },
             "none": {
                 "circels_roi": [

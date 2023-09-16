@@ -65,6 +65,11 @@ MESSEGES = {
 Titles = {
 
      
+    'connect_cameras': {'fa': "اتصال به دوربین",
+                        'en': 'Connect Cameras'},
+    'disconnect_cameras': {'fa': "قطع اتصال دوربین",
+                        'en': 'Disconnect Cameras'},
+
 
     'credit': {'fa': "تهیه شده توسط تیم : Radco-Vision",
                         'en': 'Own : Radco-Vision'},
@@ -73,7 +78,7 @@ Titles = {
     'Side Camera': {'fa': "دوربین کنار",
                         'en': 'Side Camera'},
 
-    'Camera :': {'fa': "دوربین :",
+    'Camera :': {'fa': "دوربین ",
                         'en': 'Camera :'},
     'Select Screw :': {'fa': "انتخاب بیچ :",
                         'en': 'Select Screw :'},
@@ -106,6 +111,15 @@ Titles = {
                         'en': 'Measurement'},
     'Defect': {'fa': "عیوب",
                         'en': 'Defect'},
+
+    'start': {'fa': "شروع",
+                        'en': 'Start'},
+    'stop': {'fa': "توقف",
+                        'en': 'Stop'},
+    'top': {'fa': "بالا ",
+                        'en': 'top :'},
+     'side': {'fa': "کنار",
+                        'en': 'side :'},
     'Edge crack': {'fa': "عیوب لبه",
                         'en': 'Edge crack'},
     'centerality': {'fa': "مرکزیت",
@@ -136,7 +150,6 @@ def set_title(self, lang):
      self.label_20.setText(Titles['Top Camera'][lang])
      self.label_21.setText(Titles['Side Camera'][lang])
      self.label_29.setText(Titles['Select Screw :'][lang])
-     self.label_160.setText(Titles['Camera :'][lang])
      self.groupBox_19.setTitle(Titles['Table Top Camera :'][lang])
      self.groupBox_21.setTitle(Titles['Table Side Camera :'][lang])
      # self.label_54.setText(Titles['Scale'][lang])
@@ -166,6 +179,14 @@ def set_title(self, lang):
      self.label_32.setText(Titles['Pos :'][lang])
      self.label_31.setText(Titles['Color :'][lang])
 
+     self.start_capture_live_page.setText(Titles['start'][lang])
+     self.stop_capture_live_page.setText(Titles['stop'][lang])
+     
+
+     self.label_156.setText(Titles['top'][lang])
+     self.label_158.setText(Titles['side'][lang])
+     self.connect_cameras_live_page.setText(Titles['connect_cameras'][lang])
+     self.disconnect_cameras_live_page.setText(Titles['disconnect_cameras'][lang])
      
 
 

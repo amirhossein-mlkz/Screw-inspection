@@ -22,6 +22,20 @@ def object_dict_builder(ui_object):
     self=ui_object
 
     self.multi_options = {
+
+        '1_top':
+        {
+            'algo':
+            {
+                'options':
+                {
+                    'edge_algo': self.check_edge_algo_1_top,
+                    'thresh_algo': self.check_thresh_algo_1_top
+
+                }
+                
+            }
+        },
         '2_top':
         {
             'shape_type':
@@ -82,7 +96,6 @@ def object_dict_builder(ui_object):
 
     self.sliders={
         'thresh':{
-            'bar_thresh0_1_top':self.bar_thresh0_1_top,
             'bar_thresh0_2_top':self.bar_thresh0_2_top,
             'bar_thresh0_3_top':self.bar_thresh0_3_top,
             'bar_thresh0_4_top':self.bar_thresh0_4_top,
@@ -275,7 +288,10 @@ def object_dict_builder(ui_object):
                 'spin_rbelt_0_top':self.spin_rbelt_0_top,
                 'spin_angle_0_top':self.spin_angle_0_top,
             },
-
+            '1_top':
+            {
+                'spin_belt_edge_margin':self.spin_belt_edge_margin,
+            },
 
             '3_top':{
             'spin_min_area_3_top':self.spin_min_area_3_top
@@ -306,7 +322,6 @@ def object_dict_builder(ui_object):
 
         'thresh_inv':
         {
-            'checkbox_thresh_inv0_1_top': self.checkbox_thresh_inv0_1_top,
             'checkbox_thresh_inv0_2_top': self.checkbox_thresh_inv0_2_top,
             'checkbox_thresh_inv0_3_top': self.checkbox_thresh_inv0_3_top,
             'checkbox_thresh_inv0_4_top': self.checkbox_thresh_inv0_4_top,

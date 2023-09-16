@@ -21,28 +21,29 @@
                     404
                 ]
             ],
-            "thresh0": 149,
+            "thresh0": 120,
             "thresh_inv0": true,
             "thresh_max0": 255,
             "thresh_min0": 56
         },
         "2_side": {
+            "img_path": "D:/myproject/Screw-inspection/sample images/temp_side/2.jpg",
             "limits": {
                 "max": {
-                    "lenght": 0
+                    "lenght": 25
                 },
                 "min": {
-                    "lenght": 0
+                    "lenght": 40
                 }
             },
             "rect_roi0": [
                 [
-                    36,
-                    528
+                    34,
+                    202
                 ],
                 [
-                    1259,
-                    567
+                    1336,
+                    273
                 ]
             ]
         },
@@ -73,6 +74,23 @@
             ]
         },
         "4_side": {},
-        "6_side": {}
+        "6_side": {
+            "a1": {
+                "img_path": "D:/myproject/Screw-inspection/sample images/temp_side/2.jpg",
+                "rect_roi0": [
+                    [
+                        235,
+                        139
+                    ],
+                    [
+                        710,
+                        257
+                    ]
+                ]
+            },
+            "none": {
+                "img_path": "D:/myproject/Screw-inspection/sample images/temp_side/2.jpg"
+            }
+        }
     }
 }

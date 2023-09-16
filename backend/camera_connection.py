@@ -34,7 +34,7 @@ from PySide6.QtCore import Signal
 
 
 
-DEBUG = False
+DEBUG = True
 
 
 
@@ -269,11 +269,11 @@ class Collector(sQObject):
         while True:
             if self.capturing:
                 cv2.waitKey(100)
-                ret, self.image = self.getPictures()
+                # ret, self.image = self.getPictures()
 
                 if DEBUG:
-                    ret,self.image = True,(np.random.rand(500,500,3)*255).astype('uint8')
-                    # ret,self.image = True,cv2.imread('sample images/temp_top/2.jpg')
+                    # ret,self.image = True,(np.random.rand(500,500,3)*255).astype('uint8')
+                    ret,self.image = True,cv2.imread('sample images/temp_top/2.jpg')
                     cv2.waitKey(500)
 
                 if ret:

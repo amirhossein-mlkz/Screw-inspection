@@ -868,6 +868,7 @@ def diameters_measurment(mask, cnt, angles):
 def hexagonal_measument(cnt):
     
     cnt, poly_img = poly_fit_image(cnt)
+    
     rect = cv2.minAreaRect(cnt)
     _,_, angle = rect
     if angle > 45:

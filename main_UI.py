@@ -542,9 +542,6 @@ class UI_main_window(QMainWindow, ui):
             # self.sheet_view_down=data_grabber.sheetOverView(h=129,w=1084,nh=12,nw=30)
         else:
             self.showMaximized()
-            self.set_image_label()
-            # pixmap = QPixmap(img_path)
-            # self.maxiButton.setPixmap(pixmap)
 
 
     def set_combo_boxes_2(self):
@@ -702,7 +699,6 @@ class UI_main_window(QMainWindow, ui):
 
         dic={}
         dic.update({'name':self.label_screw_name.text()})
-        dic.update({'threshold':self.bar_thresh0_1_top.value()})
         dic.update({'x1':self.spin_roi_x1_1_top.value()})
         dic.update({'y1':self.spin_roi_y1_1_top.value()})
         dic.update({'x2':self.spin_roi_x2_1_top.value()})
@@ -1019,7 +1015,7 @@ class UI_main_window(QMainWindow, ui):
         #     self.frame_size(self.groupBox_12,70)
 
         if btnName=='btn_draw_complete0_2_top':
-            self.frame_size_height(self.frame_52, size=0, both_height=True)
+            self.frame_size_height(self.set_live_table, size=0, both_height=True)
 
 
         if btnName=='btn_add_area0_4_side':
@@ -1172,9 +1168,7 @@ class UI_main_window(QMainWindow, ui):
         label_name.clear()
 
     def set_image_label(self,label_name , img, height_percent=None, width_percent=None):
-        # if DEBUG:
-        #     if label_name.objectName()=='label_img_side_live' or label_name.objectName()=='label_img_top_live':
-        #         img = cv2.imread('sample images/temp_side/2.jpg')
+
         lbl_w = label_name.width()
         lbl_h = label_name.height()
         if lbl_w<=10 or lbl_h<= 10:
@@ -1858,7 +1852,7 @@ class UI_main_window(QMainWindow, ui):
                 limit_min=page_value['limit_min']
                 limit_max=page_value['limit_max']
                 for col_id , col_value in enumerate(self.col_parms) :
-                    table_item = QTableWidgetItem(str(page_value[col_value]))
+                    table_item = QTableWidgetItem(str((page_value[col_value])))
                     table_name.setItem(id,col_id,table_item)
                     if col_id==0:
                         table_item.setBackground(QBrush(QColor("#17202A")))

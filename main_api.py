@@ -63,7 +63,7 @@ from history_UI import UI_history_window
 
 
 
-DEBUG = False
+DEBUG = True
 
 
 def time_measure(func):
@@ -1204,11 +1204,11 @@ class API:
         }
         page_name = self.ui.get_setting_page_idx(page_name = True)
 
-        try:
-            page2finc_dict[page_name]()
-        except:
-            print('Error setting_image_updater')
-            pass
+        # try:
+        page2finc_dict[page_name]()
+        # except:
+        #     print('Error main_api setting_image_updater')
+        #     pass
     
     def capture_image(self, direction):
         
@@ -1312,33 +1312,39 @@ class API:
 
 
 
-        thresh_min = self.screw_jasons[ direction ].get_thresh_min(page_name, subpage_name)
-        thresh_max = self.screw_jasons[ direction ].get_thresh_max(page_name, subpage_name)
+        
         #############
 
-        noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
-        rect = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
-        # inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
         
+        # inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
+        algorithm = self.screw_jasons[ direction ].get_multi_option( page_name, subpage_name, 'algo' )
+        rect = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
+        mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
 
         img = cvTools.preprocess(img)
 
-        mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
+        if algorithm  == 'thresh_algo':
+            self.ui.stackedWidget_4.setCurrentIndex(1)
+            
+        elif algorithm  == 'edge_algo':
+            self.ui.stackedWidget_4.setCurrentIndex(0)
         
-        #thresh mode
-        thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
-        # thresh_img=cvTools.erode(thresh_img, 5)
-        # thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
-        #thresh_img = cvTools.erode(thresh_img, 3)
+        if algorithm  == 'thresh_algo':
+            thresh_min = self.screw_jasons[ direction ].get_thresh_min(page_name, subpage_name)
+            thresh_max = self.screw_jasons[ direction ].get_thresh_max(page_name, subpage_name)
+            noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
 
-        #edge mode
-        # thresh_img = cvToolsCython.derivative_threshould(img, 15)
-        # thresh_img = cv2.bitwise_and( thresh_img, thresh_img , mask=mask_roi)
-        # kernel =np.ones((3,3))
-        # thresh_img = cv2.morphologyEx(thresh_img, cv2.MORPH_CLOSE, kernel,iterations =noise_filter)
+            thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
+            thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
+        
+        elif algorithm == 'edge_algo':
+            print('Empty algorithm')
+            
 
-        # cv2.
-        ######################### 
+
+        
+
+        
         
 
         
@@ -1384,28 +1390,29 @@ class API:
             thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
             thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
             cnt = cvTools.extract_bigest_contour(thresh_img)
-            #--------------------------------------------------------------------------------------
-            info = {}
-            if shape_type == 'circel':
+            if len(cnt) !=0:
+                #--------------------------------------------------------------------------------------
+                info = {}
+                if shape_type == 'circel':
 
-                diameters = cvTools.circel_measument(cnt)
-                info = {'min_diameter' : diameters.min(), 'max_diameter': diameters.max()}
-                self.ui.stackedWidget_3.setCurrentIndex(0)
-            
-            elif shape_type == 'hexagonal':
+                    diameters = cvTools.circel_measument(cnt)
+                    info = {'min_diameter' : diameters.min(), 'max_diameter': diameters.max()}
+                    self.ui.stackedWidget_3.setCurrentIndex(0)
+                
+                elif shape_type == 'hexagonal':
 
-                c2c , e2e = cvTools.hexagonal_measument(cnt)
-                info = { 'min_district': e2e.min(),
-                        'max_district': e2e.max(), 
-                        'min_corner' : c2c.min(),
-                        'max_corner' : c2c.max(),  }
-                self.ui.stackedWidget_3.setCurrentIndex(1)
+                    c2c , e2e = cvTools.hexagonal_measument(cnt)
+                    info = { 'min_district': e2e.min(),
+                            'max_district': e2e.max(), 
+                            'min_corner' : c2c.min(),
+                            'max_corner' : c2c.max(),  }
+                    self.ui.stackedWidget_3.setCurrentIndex(1)
 
-            elif shape_type == 'rect':
+                elif shape_type == 'rect':
 
 
-                self.ui.stackedWidget_3.setCurrentIndex(1)
-            self.ui.set_stetting_page_label_info(info)
+                    self.ui.stackedWidget_3.setCurrentIndex(1)
+                self.ui.set_stetting_page_label_info(info)
             #--------------------------------------------------------------------------------------
             if self.ui.is_drawing_mask_enabel():
                 img = Utils.mask_viewer(img, thresh_img)
@@ -1615,24 +1622,24 @@ class API:
         json = self.screw_jasons[ direction ]
         img, thresh_img, _ = proccessings.preprocessing_side_img( img, json, direction  )
         
-        
         if self.ui.is_drawing_mask_enabel():
             img = Utils.mask_viewer(img, thresh_img, color=(50,100,0))
+        result,img = proccessings.proccessing_body_lenght(img,thresh_img,json,draw=img)
         #--------------------------------------------------------------------------------------
         #specific Operation
         #--------------------------------------------------------------------------------------
-        rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
-        if Utils.is_rect(rect_roi_2):
-            left_pts, right_pts = cvTools.find_vertical_edges(thresh_img, rect_roi_2)
-            if len(left_pts) > 0 and len(right_pts) > 0:
-                img = cvTools.draw_vertical_point( img , [left_pts, right_pts], color=(0,0,255), thicknes=5 )
-                #--------------------------------------------------------------------------------------
-                #specific Operation
-                #--------------------------------------------------------------------------------------
-                min_dist, max_dist, avg_dist, _ = mathTools.horizontal_distance( left_pts, right_pts )
-
-                info = {'min_lenght' : min_dist, 'max_lenght': max_dist, 'avg_lenght': avg_dist}                
-                self.ui.set_stetting_page_label_info(info)
+        # rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
+        # if Utils.is_rect(rect_roi_2):
+        #     left_pts, right_pts = cvTools.find_vertical_edges(thresh_img, rect_roi_2)
+        #     if len(left_pts) > 0 and len(right_pts) > 0:
+        #         img = cvTools.draw_vertical_point( img , [left_pts, right_pts], color=(0,0,255), thicknes=5 )
+        #         #--------------------------------------------------------------------------------------
+        #         #specific Operation
+        #         #--------------------------------------------------------------------------------------
+        #         min_dist, max_dist, avg_dist, _ = mathTools.horizontal_distance( left_pts, right_pts )
+        result=result[0]    
+        info = {'min_lenght' : result['min'], 'max_lenght': result['max'], 'avg_lenght': result['avg']}  
+        self.ui.set_stetting_page_label_info(info)
                 
         img = self.rect_roi_drawing.get_image(img)
         self.ui.set_image_page_tool_labels(img)
@@ -1652,24 +1659,28 @@ class API:
 
         if self.ui.is_drawing_mask_enabel():
             img = Utils.mask_viewer(img, thresh_img, color=(200,200,0))
+
+        result,img = proccessings.proccessing_thread_male(img,thresh_img,json,draw=img)
+        
         #--------------------------------------------------------------------------------------
         #specific Operation
         #--------------------------------------------------------------------------------------
-        rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
-        jump_thresh = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'jump_thresh')
-        if Utils.is_rect(rect_roi_2):
-            male_thread_h, male_thread_l = cvTools.find_screw_thread_top( thresh_img, rect_roi_2,  min_diff=jump_thresh)
+        # rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
+        # jump_thresh = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'jump_thresh')
+        # if Utils.is_rect(rect_roi_2):
+        #     male_thread_h, male_thread_l = cvTools.find_screw_thread_top( thresh_img, rect_roi_2,  min_diff=jump_thresh)
             
-            min_d,max_d, avg_d,_ = mathTools.vertical_distance( male_thread_h, male_thread_l )
-            _,_,avg_l,_  = mathTools.thread_lenght( male_thread_h )
+        #     min_d,max_d, avg_d,_ = mathTools.vertical_distance( male_thread_h, male_thread_l )
+        #     _,_,avg_l,_  = mathTools.thread_lenght( male_thread_h )
 
-            info = {'thread_lenght': avg_l,  'count_thread':len(male_thread_h) , 'step_distance':avg_d}
-            self.ui.set_stetting_page_label_info(info)
+        #     info = {'thread_lenght': avg_l,  'count_thread':len(male_thread_h) , 'step_distance':avg_d}
+        #     self.ui.set_stetting_page_label_info(info)
             
-            img = cvTools.draw_points(img, male_thread_h, (0,50,150), 5)
-            img = cvTools.draw_points(img, male_thread_l, (200,0,200), 5)
+        #     img = cvTools.draw_points(img, male_thread_h, (0,50,150), 5)
+        #     img = cvTools.draw_points(img, male_thread_l, (200,0,200), 5)
         
-
+        info = {'thread_lenght': result[1]['avg'],  'count_thread': result[2]['avg'] , 'step_distance':result[0]['avg']}
+        self.ui.set_stetting_page_label_info(info)
         img = self.rect_roi_drawing.get_image(img)
         self.ui.set_image_page_tool_labels(img)
         
@@ -1689,21 +1700,28 @@ class API:
         if self.ui.is_drawing_mask_enabel():
             img = Utils.mask_viewer(img, thresh_img, color=(100,30,0))
 
-                
-        if subpage_name!='none':
-            #--------------------------------------------------------------------------------------
-            #specific Operation
-            #--------------------------------------------------------------------------------------
-            rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
-            if Utils.is_rect(rect_roi_2):
-                left_pts, right_pts = cvTools.find_horizental_edges( thresh_img, rect_roi_2)
-                if len(left_pts) > 0 and len(right_pts) > 0:
-                    img = cvTools.draw_horizental_point( img, [left_pts, right_pts], (0,0,255), thicknes=5 )
+        
+        results,img = proccessings.proccessing_side_diameters(img,thresh_img,json,draw=img)
 
-                    min_dist, max_dist, avg_dist, _ = mathTools.vertical_distance( left_pts, right_pts )
-                    #print(min_dist, max_dist, avg_dist)
-                    info = {'min_diameter' : min_dist, 'max_diameter': max_dist, 'avg_diameter': avg_dist}                
-                    self.ui.set_stetting_page_label_info(info)       
+
+        # if subpage_name!='none':
+        #     #--------------------------------------------------------------------------------------
+        #     #specific Operation
+        #     #--------------------------------------------------------------------------------------
+        #     rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
+        #     if Utils.is_rect(rect_roi_2):
+        #         left_pts, right_pts = cvTools.find_horizental_edges( thresh_img, rect_roi_2)
+        #         if len(left_pts) > 0 and len(right_pts) > 0:
+        #             img = cvTools.draw_horizental_point( img, [left_pts, right_pts], (0,0,255), thicknes=5 )
+
+        #             min_dist, max_dist, avg_dist, _ = mathTools.vertical_distance( left_pts, right_pts )
+        #             #print(min_dist, max_dist, avg_dist)
+        #             info = {'min_diameter' : min_dist, 'max_diameter': max_dist, 'avg_diameter': avg_dist}                
+        #             self.ui.set_stetting_page_label_info(info)       
+        for result in results:
+            if subpage_name in result['name']:
+                info = {'min_diameter' : result['min'], 'max_diameter': result['max'], 'avg_diameter': result['avg']}                
+        self.ui.set_stetting_page_label_info(info)    
 
         img = self.rect_roi_drawing.get_image(img)
         self.ui.set_image_page_tool_labels(img)
@@ -1723,27 +1741,30 @@ class API:
 
         if self.ui.is_drawing_mask_enabel():
             img = Utils.mask_viewer(img, thresh_img, color=(50,30,200))
+        
+        results,img = proccessings.proccessing_side_head(img,thresh_img,json,draw=img)
 
         
         #--------------------------------------------------------------------------------------
         #specific Operation
         #--------------------------------------------------------------------------------------
-        rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name, )
-        jump_thresh = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'jump_thresh')
-        edge_direction = self.screw_jasons[ direction ].get_multi_option( page_name, subpage_name, 'edge_direction' )
-        from_belt = self.screw_jasons[ direction ].get_checkbox( page_name, subpage_name, 'from_belt')
-        print('belt', from_belt)
-        print(edge_direction)
+        # rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name, )
+        # jump_thresh = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'jump_thresh')
+        # edge_direction = self.screw_jasons[ direction ].get_multi_option( page_name, subpage_name, 'edge_direction' )
+        # from_belt = self.screw_jasons[ direction ].get_checkbox( page_name, subpage_name, 'from_belt')
+        # print('belt', from_belt)
+        # print(edge_direction)
 
-        if Utils.is_rect(rect_roi_2):
-            left_pts, right_pts = cvTools.find_head_vertival_pts(thresh_img, rect_roi_2, jump_thresh, 0.25, side=edge_direction , from_belt=from_belt)
-            if len(left_pts) > 0 and len(right_pts) > 0:
-                img = cvTools.draw_vertical_point( img, [left_pts, right_pts], (50,255,0), thicknes=5 )
-                img[ rect_roi_2[0][1]:rect_roi_2[1][1], left_pts[0,0] ] =  (50,255,0) #draw full line
-                min_dist, max_dist, avg_dist, _ = mathTools.horizontal_distance( left_pts, right_pts )
+        # if Utils.is_rect(rect_roi_2):
+        #     left_pts, right_pts = cvTools.find_head_vertival_pts(thresh_img, rect_roi_2, jump_thresh, 0.25, side=edge_direction , from_belt=from_belt)
+        #     if len(left_pts) > 0 and len(right_pts) > 0:
+        #         img = cvTools.draw_vertical_point( img, [left_pts, right_pts], (50,255,0), thicknes=5 )
+        #         img[ rect_roi_2[0][1]:rect_roi_2[1][1], left_pts[0,0] ] =  (50,255,0) #draw full line
+        #         min_dist, max_dist, avg_dist, _ = mathTools.horizontal_distance( left_pts, right_pts )
 
-                info = {'min_head_height' : min_dist, 'max_head_height': max_dist, 'avg_head_height': avg_dist}                
-                self.ui.set_stetting_page_label_info(info)           
+        result = results[0]
+        info = {'min_head_height' : result['min'], 'max_head_height': result['max'], 'avg_head_height': result['avg']}                
+        self.ui.set_stetting_page_label_info(info)           
         
 
         img = self.rect_roi_drawing.get_image(img)
@@ -1766,20 +1787,29 @@ class API:
         if self.ui.is_drawing_mask_enabel():
             img = Utils.mask_viewer(img, thresh_img, color=(100,200,50))
 
-        if subpage_name!='none':
-            #--------------------------------------------------------------------------------------
-            #specific Operation
-            #--------------------------------------------------------------------------------------
-            rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name, )
-            if Utils.is_rect(rect_roi_2):
-                area = cvTools.get_bigest_area( thresh_img, rect_roi_2 )
-                info = {'area': area}
-                self.ui.set_stetting_page_label_info(info)
-                
-                rect_roi_2_mask = cvTools.rects2mask( img.shape[:2], [rect_roi_2] )
-                select_mask = cv2.bitwise_and(rect_roi_2_mask, thresh_img)
-                img = Utils.mask_viewer(img, select_mask, color=(0,10,250))
+        results,img = proccessings.preprocessing_side_damage(img,thresh_img,json,draw=img)
+        
 
+        # if subpage_name!='none':
+        #     #--------------------------------------------------------------------------------------
+        #     #specific Operation
+        #     #--------------------------------------------------------------------------------------
+        #     rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name, )
+        #     if Utils.is_rect(rect_roi_2):
+        #         area = cvTools.get_bigest_area( thresh_img, rect_roi_2 )
+        #         info = {'area': area}
+        #         self.ui.set_stetting_page_label_info(info)
+                
+        #         rect_roi_2_mask = cvTools.rects2mask( img.shape[:2], [rect_roi_2] )
+        #         select_mask = cv2.bitwise_and(rect_roi_2_mask, thresh_img)
+        #         img = Utils.mask_viewer(img, select_mask, color=(0,10,250))
+
+        for result in results:
+            if subpage_name in result['name']:
+                info = {'area': result['avg']}
+                self.ui.set_stetting_page_label_info(info)
+                break
+        
         img = self.rect_roi_drawing.get_image(img)
         self.ui.set_image_page_tool_labels(img)
 
@@ -1839,8 +1869,6 @@ class API:
     @time_measure
     def proccessing_live_side(self, img):
 
-        if DEBUG:
-            img = cv2.imread('sample images/temp_side/4.jpg',0)
 
         direction = 'side'
         screw_json = self.screw_jasons[ direction ]  
@@ -1866,7 +1894,8 @@ class API:
                 tools_name =results_tools[i]['name']
                 if tools_name in proccessings.calib_dict_side:
                     for key,value in results_tools[i].items():
-                        results_tools[i][key]=proccessings.calib_dict_side[tools_name](value,self.calibration_value['side'])
+                        if key != 'name':
+                            results_tools[i][key]=round(proccessings.calib_dict_side[tools_name](value,self.calibration_value['side']),2)
                         
             results.extend(results_tools)
 
@@ -1879,8 +1908,7 @@ class API:
     @time_measure
     def proccessing_live_top(self, img):
 
-        if DEBUG:
-            img = cv2.imread('sample images/temp_top/2.jpg')
+
 
         direction = 'top'
 
@@ -2218,7 +2246,9 @@ class API:
         self.run_detect=True
         #load screw image again. becuase maybe some settings chaged
         self.load_screw_live()
+        self.load_calibration_parms()   # load calibration parms
         self.set_images()
+        
         self.ui.start_capture_live_page.setEnabled(False)
         self.ui.stop_capture_live_page.setEnabled(True)
         self.ui.set_mask_main_page_btns_mode(True)
@@ -2331,7 +2361,6 @@ class API:
 
 
     def set_images(self):
-        #print('set_images')
         if not self.ui.camera_connect_flag:
             return
         # for direction in self.cameras.keys():
@@ -2384,16 +2413,24 @@ class API:
             
             for direction in ['top', 'side']:
                 try:
-                    self.current_camera_imgs[direction] = self.cameras[direction].image
+                    if not DEBUG:
+                        self.current_camera_imgs[direction] = self.cameras[direction].image
+                    else:
+                        if direction == 'top':
+
+                                self.current_camera_imgs[direction] = cv2.imread('sample images/temp_top/{}.bmp'.format(np.random.randint(5,8)))
+
+                        else:
+                            self.current_camera_imgs[direction] = cv2.imread('sample images/temp_side/{}.jpg'.format(np.random.randint(1,4)))
+
                     if self.run_detect:
-                        
                         #draw_imgs[direction], results[direction] = self.proccessing_live_side(self.current_camera_imgs[direction])
                         draw_imgs[direction], results[direction] = proccessing_functions[direction](self.current_camera_imgs[direction])
                         #print(direction, draw_imgs[direction].shape)        
                 
                 except:
-                    if not DEBUG:
-                        print('set_images'*50)
+                   
+                    print('set_images'*50)
                     self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
                     results[direction] = []
                     draw_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
@@ -2413,7 +2450,6 @@ class API:
             if self.check_rejection(results):
                 print('reject')
                 #reject    
-
                 self.start_reject()
 
 
