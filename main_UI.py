@@ -33,7 +33,7 @@ from PySide6.QtGui import QPixmap as sQPixmap   # should change
 
 import texts
 from backend import Utils
-import Keys
+import Keys,defualts
 
 from history_UI import UI_history_window
 
@@ -71,6 +71,8 @@ class UI_main_window(QMainWindow, ui):
         #   Define and set UI_KEYS
 
         Keys.object_dict_builder(self)
+
+        defualts.create_defult_screw(self)
 
 
         self.side_buttons = [self.side_camera_setting_btn, self.side_tool_setting_btn\
@@ -208,6 +210,21 @@ class UI_main_window(QMainWindow, ui):
 
         #set stack widget page none for start
         self.set_page_none()
+
+
+
+
+
+    def load_single_page_defult_parms(self,page_name):
+
+        for name in  self.defaults[page_name].keys():
+            obj , value = self.defaults[page_name][name]
+            print('n',name)
+            if name in ['spin', 'bar']:
+                obj.setValue(value)
+            if 'check' in name :
+                obj.setChecked(value)
+
 
 
     def set_page_none(self):
@@ -1442,9 +1459,11 @@ class UI_main_window(QMainWindow, ui):
 
     def connect_sliders(self,name,func):
         # self.connect_slider_ui()
+        def arg_passer():
+            func(name)
 
         for obj_name in self.sliders[name]:
-            self.sliders[name][obj_name].valueChanged.connect(func)
+            self.sliders[name][obj_name].valueChanged.connect(arg_passer)
 
     #///////////////////////////////////////////////////////////////////////////// 
     #ROI utils -----------------------------------------------------------------------------------

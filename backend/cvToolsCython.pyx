@@ -85,73 +85,29 @@ def derivative_threshould(numpy.ndarray[DTYPE_int32, ndim=2] img, int thresh):
 
 
 
-@cython.boundscheck(False) # turn off bounds-checking for entire function
-@cython.wraparound(False)  # turn off negative index wrapping for entire function
-def derivative_threshould_old(numpy.ndarray[DTYPE_int32, ndim=2] img, int thresh):
-
-    cdef int i=0,j=0
-    cdef int diff=0
-    cdef int diff1=0, diff2 = 0
-    cdef int h = img.shape[0]
-    cdef int w = img.shape[1]
-    cdef numpy.ndarray[DTYPE_uint8, ndim=2] res = numpy.zeros((h,w), dtype = numpy.uint8)
-    #res = numpy.zeros((arr_shape - window,), dtype = numpy.int32 )
-
-    for i in range(0,w-1):
-        for j in range(0,h-1):
-            diff1 = img[j,i] - img[j+1, i]
-            diff2 = img[j,i+1] - img[j+1, i+1]
-            if diff1 < 0:
-                diff1*=-1
-            if diff2<0:
-                diff2*=-1
-            diff = diff2 + diff1
-            if diff > thresh:
-                res[j,i] = 255
-
-    
-    for j in range(0,h-1):
-        for i in range(0,w-1):
-            diff1 = img[j,i] - img[j, i+1]
-            diff2 = img[j+1,i] - img[j+1, i+1]
-            if diff1 < 0:
-                diff1*=-1
-            if diff2<0:
-                diff2*=-1
-            diff = diff2 + diff1
-            if diff > thresh:
-                res[j,i] = 255
-    return res
-
 
 
 
 
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function
-@cython.wraparound(False)  # turn off negative index wrapping for entire function
+@cython.wraparound(False) # turn off negative index wrapping for entire function
 def find_belt_edge_neighbor_point(numpy.ndarray[DTYPE_uint8, ndim=2] img,
-                     numpy.ndarray[DTYPE_int32, ndim=1] belt_xs,
-                    int margin,
-                    int kernel_w,
-                    int kernel_h,
-                    int thresh):
-    
+                                    int belt_x,
+                                    numpy.ndarray[DTYPE_int32, ndim=2] roi,
+                                    int margin,
+                                    int kernel_w,
+                                    int kernel_h,
+                                    int thresh):
     cdef int i=0,j=0
-    cdef int pts_count = belt_xs.shape[0]
     cdef int x_left=0, x_right=0, x=0, y=0
     cdef int left_point_founded_flag = 0
     cdef int right_point_founded_flag = 0
     cdef int count_neighbors = 0
-
-    
-
-    
     #cdef numpy.ndarray[DTYPE_uint8, ndim=2] res = numpy.zeros((2,2,2), dtype = numpy.uint8)
     cdef numpy.ndarray[DTYPE_int32, ndim=3] res_pts = numpy.zeros((2,2,2), dtype=numpy.int32)
-
-    for y in range(0, pts_count):
-        x = belt_xs[y]
+    for y in range(roi[0,1], roi[1,1]):
+        x = belt_x
         x_left = x - margin
         x_right = x + margin
         #-------------found left point of screw near to belt
@@ -166,7 +122,6 @@ def find_belt_edge_neighbor_point(numpy.ndarray[DTYPE_uint8, ndim=2] img,
                     res_pts[0, 0, 0] = x_left
                     res_pts[0, 0, 1] = y
                     left_point_founded_flag = 1
-
         #-------------found right point of screw near to belt
         if right_point_founded_flag == 0:
             if img[y,x_right] == 255:
@@ -179,16 +134,13 @@ def find_belt_edge_neighbor_point(numpy.ndarray[DTYPE_uint8, ndim=2] img,
                     res_pts[0, 1, 0] = x_right
                     res_pts[0, 1, 1] = y
                     right_point_founded_flag = 1
-
-
         if right_point_founded_flag==1 and left_point_founded_flag == 1:
             break
-    
     left_point_founded_flag = 0
     right_point_founded_flag = 0
     y = 0
-    for y in range(pts_count-1,0, -1):
-        x = belt_xs[y]
+    for y in range(roi[1,1], roi[0,1], -1):
+        x = belt_x
         x_left = x - margin
         x_right = x + margin
         #-------------found left point of screw near to belt
@@ -205,7 +157,6 @@ def find_belt_edge_neighbor_point(numpy.ndarray[DTYPE_uint8, ndim=2] img,
                     res_pts[1, 0, 0] = x_left
                     res_pts[1, 0, 1] = y
                     left_point_founded_flag = 1
-
         # #-------------found right point of screw near to belt
         if right_point_founded_flag == 0:
             if img[y,x_right] == 255:
@@ -218,12 +169,11 @@ def find_belt_edge_neighbor_point(numpy.ndarray[DTYPE_uint8, ndim=2] img,
                     res_pts[1, 1, 0] = x_right
                     res_pts[1, 1, 1] = y
                     right_point_founded_flag = 1
-
-
         if right_point_founded_flag==1 and left_point_founded_flag == 1:
             break
-
     return res_pts
+
+
 
 
 @cython.boundscheck(False) # turn off bounds-checking for entire function

@@ -1,6 +1,6 @@
 from ast import Not
 from cv2 import cvtColor
-from backend import mathTools, cvTools, Utils
+from backend import mathTools, cvTools, Utils,cvToolsCython
 import cv2
 import numpy as np
 
@@ -36,22 +36,129 @@ def get_general_masks(img, json, page_name, main_roi_mask=None):
     return res
 
 
-def preprocessing_top_img( img, json, direction):
-    thresh = json.get_thresh('1_{}'.format( direction ), None )
-    thresh_min = json.get_thresh_min('1_{}'.format( direction ), None )
-    thresh_max = json.get_thresh_max('1_{}'.format( direction ), None )
-    noise_filter = json.get_noise_filter( '1_{}'.format( direction ), None  )
-    rect_roi_main = json.get_rect_roi( '1_{}'.format( direction ), None )
-    inv_state = json.get_thresh_inv('1_{}'.format( direction ), None )
+def preprocessing_1_top_img( img, json,draw = None, centerise=True):
+    page_name = '1_top'
+    subpage_name = None
+    algo_name = json.get_multi_option( page_name, subpage_name, 'algo' )
+    rect_roi_main = json.get_rect_roi( '1_top', None )
+    mask_roi = cvTools.rects2mask(img.shape[:2], [rect_roi_main])
+    
+    if algo_name == 'thresh_algo':
+        thresh_min = json.get_thresh_min(page_name, subpage_name)
+        thresh_max = json.get_thresh_max(page_name, subpage_name)
+        noise_filter = json.get_noise_filter( page_name, subpage_name )
+
+        thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
+        thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
+            
+
+
+
+
+    elif algo_name == 'edge_algo':
+
+        edge_thresh = json.get_numerical_parm(page_name, subpage_name, 'edge_thresh')
+        belt_margin = json.get_numerical_parm(page_name, subpage_name, 'belt_edge_margin')
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        thresh_img = cvToolsCython.derivative_threshould(gray.astype(np.int32), edge_thresh)
+        thresh_img = cv2.bitwise_and(thresh_img, thresh_img, mask= mask_roi)
+        
+        if belt_margin >0:
+            l_belt = json.get_numerical_parm('0_top', None, 'lbelt')
+            r_belt = json.get_numerical_parm('0_top', None, 'rbelt')
+
+            pts_l = cvToolsCython.find_belt_edge_neighbor_point(thresh_img , l_belt ,np.array(rect_roi_main,dtype='int32'),belt_margin,kernel_w=5,kernel_h=5,thresh=7 )
+            pts_r = cvToolsCython.find_belt_edge_neighbor_point(thresh_img , r_belt ,np.array(rect_roi_main,dtype='int32'),belt_margin,kernel_w=5,kernel_h=5,thresh=7 )
+            
+
+            thresh_img=cvToolsCython.remove_belt_edge_line(thresh_img,pts_l)
+            thresh_img=cvToolsCython.remove_belt_edge_line(thresh_img,pts_r)
+        
+
+    d_parm1 = json.get_numerical_parm(page_name, subpage_name, 'd_parm1')
+    e_parm2 = json.get_numerical_parm(page_name, subpage_name, 'e_parm2')
+    d_parm3 = json.get_numerical_parm(page_name, subpage_name, 'd_parm3')
+    e_parm4 = json.get_numerical_parm(page_name, subpage_name, 'e_parm4')
+
+
+    thresh_img = cv2.dilate(thresh_img , np.ones((3,3)),iterations = d_parm1)
+    thresh_img = cv2.erode(thresh_img , np.ones((3,3)),iterations = e_parm2)
+    thresh_img = cv2.dilate(thresh_img , np.ones((3,3)),iterations = d_parm3)
+    thresh_img = cv2.erode(thresh_img , np.ones((3,3)),iterations = e_parm4)
+
+
+
+    #--------------------------------------------------------------------------------------
+    #correct rotation
+    #--------------------------------------------------------------------------------------
+    if centerise:
+        if draw is not None:
+            _, draw, div_pt = cvTools.centerise_top(thresh_img, draw )
+
+        thresh_img, img, div_pt = cvTools.centerise_top(thresh_img, img )
+
+        if belt_margin >0:
+        
+            pts_l[:,:,0] =  pts_l[:,:,0] + div_pt[0]
+            pts_l[:,:,1] =  pts_l[:,:,1] + div_pt[1]
+            pts_r[:,:,0] =  pts_r[:,:,0] + div_pt[0]
+            pts_r[:,:,1] =  pts_r[:,:,1] + div_pt[1]
+
+    thresh_img = cvTools.mask_bigest_contour(thresh_img)
+    if draw is not None:
+  
+        if algo_name == 'thresh_algo':
+            draw = Utils.mask_viewer(draw, thresh_img)
+        else:
+            draw = Utils.mask_viewer(draw, thresh_img)
+            if belt_margin >0:
+                for i in range(2):
+                    for j in range(2):
+                        cv2.circle(draw, tuple(pts_l[i,j]), 5, color=(0,255,0), thickness=-1)
+                        cv2.circle(draw, tuple(pts_r[i,j]), 5, color=(0,255,0), thickness=-1)
+
+
+
+
+
+
+    return img, thresh_img, draw
+
+#___________________________________________________________________________________________________________________________
+#___________________________________________________________________________________________________________________________
+#___________________________________________________________________________________________________________________________
+#
+#
     
 
-    img = cvTools.preprocess(img)
 
-    mask_roi = cvTools.rects2mask(img.shape[:2], [rect_roi_main])
-    #thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
-    thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
-    thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
-    thresh_img=cvTools.erode(thresh_img, 5)
+
+def preprocessing_0_top_img( img, json, draw=None):
+    page_name = '0_top'
+    subpage_name = None
+
+    lbelt = json.get_numerical_parm(page_name, subpage_name, 'lbelt')
+    rbelt = json.get_numerical_parm(page_name, subpage_name, 'rbelt')
+    angle = json.get_numerical_parm(page_name, subpage_name, 'angle')
+
+
+    img = cvTools.rotate_image(img,angle=angle)
+    
+
+    
+    if draw is not None:
+        draw = cvTools.rotate_image(draw,angle=angle)
+        draw[:,lbelt-1:lbelt+2] = [0,0,255]
+        draw[:,rbelt-1:rbelt+2] = [0,255,0]
+       
+
+    else:
+        draw = np.copy( img )
+
+    return img ,draw
+
+
+
     #--------------------------------------------------------------------------------------
     #correct rotation
     #--------------------------------------------------------------------------------------
@@ -60,16 +167,6 @@ def preprocessing_top_img( img, json, direction):
 
 
     return img, thresh_img, div_pt
-
-#___________________________________________________________________________________________________________________________
-#___________________________________________________________________________________________________________________________
-#___________________________________________________________________________________________________________________________
-#
-#
-#
-#
-#
-#
 #
 #___________________________________________________________________________________________________________________________
 #___________________________________________________________________________________________________________________________
@@ -77,10 +174,10 @@ def preprocessing_top_img( img, json, direction):
 
 
 def preprocessing_side_img( img, json, direction):
-    thresh = json.get_thresh('1_{}'.format( direction ), None )
-    noise_filter = json.get_noise_filter( '1_{}'.format( direction ), None  )
-    rect_roi_main = json.get_rect_roi( '1_{}'.format( direction ), None )
-    inv_state = json.get_thresh_inv('1_{}'.format( direction ), None )
+    thresh = json.get_thresh('1_side', None )
+    noise_filter = json.get_noise_filter('1_side', None  )
+    rect_roi_main = json.get_rect_roi( '1_side', None )
+    inv_state = json.get_thresh_inv('1_side', None )
     
     img = cvTools.preprocess(img)
 
@@ -380,11 +477,11 @@ def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
     page_name = '2_top'
     results = []
     for subpage_name in jsondb.get_subpages(page_name):
-        thresh = jsondb.get_thresh(page_name, subpage_name)
+        # thresh = jsondb.get_thresh(page_name, subpage_name)
         thresh_min = jsondb.get_thresh_min(page_name, subpage_name)
         thresh_max = jsondb.get_thresh_max(page_name, subpage_name)
         noise_filter = jsondb.get_noise_filter( page_name, subpage_name )
-        inv_state = jsondb.get_thresh_inv(page_name, subpage_name)
+        # inv_state = jsondb.get_thresh_inv(page_name, subpage_name)
         shape_type = jsondb.get_multi_option( page_name, subpage_name, 'shape_type' )
         circel_roi = jsondb.get_circels_roi(page_name, subpage_name)
         #--------------------------------------------------------------------------------------
@@ -395,6 +492,9 @@ def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
         thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
         cnt = cvTools.extract_bigest_contour(thresh_img)
+
+        if draw is not None:
+           draw = Utils.mask_viewer(draw, thresh_img)
         
         
         if len(cnt)>0:
@@ -493,7 +593,7 @@ def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
                 print('rect')
 
 
-
+    
     if draw is None:
         draw = np.copy(img)
     return results, draw

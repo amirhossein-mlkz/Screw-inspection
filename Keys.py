@@ -77,8 +77,8 @@ def object_dict_builder(ui_object):
             'edge_direction':
             {
                 'options':{
-                    'top': self.btn_top_5_side,
-                    'bottom': self.btn_bottom_5_side,
+                    'top': self.check_top_5_side,
+                    'bottom': self.check_bottom_5_side,
                 },
                 'frame':
                 {
@@ -96,7 +96,6 @@ def object_dict_builder(ui_object):
 
     self.sliders={
         'thresh':{
-            'bar_thresh0_2_top':self.bar_thresh0_2_top,
             'bar_thresh0_3_top':self.bar_thresh0_3_top,
             'bar_thresh0_4_top':self.bar_thresh0_4_top,
             'bar_thresh0_5_top':self.bar_thresh0_5_top,
@@ -120,6 +119,12 @@ def object_dict_builder(ui_object):
             'bar_thresh_max0_2_top':self.bar_thresh_max0_2_top,
             'bar_thresh_max0_1_side':self.bar_thresh_max0_1_side,
         }, 
+
+        'edge_thresh':
+        {
+            'bar_edge_thresh0_1_top':self.bar_edge_thresh0_1_top
+        },
+
         'noise_filter':{
             'bar_noise_filter0_1_top':self.bar_noise_filter0_1_top,
             'bar_noise_filter0_2_top':self.bar_noise_filter0_2_top,
@@ -290,7 +295,11 @@ def object_dict_builder(ui_object):
             },
             '1_top':
             {
-                'spin_belt_edge_margin':self.spin_belt_edge_margin,
+                'spin_belt_edge_margin_1_top':self.spin_belt_edge_margin,
+                'spin_d_parm1_1_top':self.spin_d_parm1_1_top,
+                'spin_e_parm2_1_top':self.spin_e_parm2_1_top,
+                'spin_d_parm3_1_top':self.spin_d_parm3_1_top,
+                'spin_e_parm4_1_top':self.spin_e_parm4_1_top,
             },
 
             '3_top':{
@@ -322,7 +331,7 @@ def object_dict_builder(ui_object):
 
         'thresh_inv':
         {
-            'checkbox_thresh_inv0_2_top': self.checkbox_thresh_inv0_2_top,
+
             'checkbox_thresh_inv0_3_top': self.checkbox_thresh_inv0_3_top,
             'checkbox_thresh_inv0_4_top': self.checkbox_thresh_inv0_4_top,
             'checkbox_thresh_inv0_5_top': self.checkbox_thresh_inv0_5_top,

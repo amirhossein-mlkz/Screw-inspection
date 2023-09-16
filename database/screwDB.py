@@ -21,6 +21,8 @@ class screwJson():
             }
         }
 
+        #self.set_img_path(IMG_PATH_DEF)
+
         
         #self.set_img_path('images/test1_0_12.png')
         
@@ -47,18 +49,10 @@ class screwJson():
         return self.data.get('name', '') 
     
     #-----------------------------------------
-    def set_img_path(self,path, page=None, subpage = None):
+    def set_img_path(self,path):
         self.img = cv2.imread(path)
         self.data['img_path'] = path
-        if page is not None:
-            self.check_and_build_page( page )
-            if subpage is not None:
-                self.check_and_build_subpage(page, subpage)
-                self.data[self.setting_key][page][subpage]['img_path'] = path
-            else:
-                self.data[self.setting_key][page]['img_path'] = path
-            
-    
+
     def get_img_path(self):
         return self.data.get('img_path', IMG_PATH_DEF)
     #-----------------------------------------
@@ -126,6 +120,10 @@ class screwJson():
 
     def get_thresh_min(self, page, subpage, idx=0):
         name =  'thresh_min{}'.format(idx)
+        return self.get_value( page, subpage, name, 0)
+    
+    def get_edge_thresh(self, page, subpage, idx=0):
+        name =  'edge_thresh{}'.format(idx)
         return self.get_value( page, subpage, name, 0)
     
 
