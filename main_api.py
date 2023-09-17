@@ -41,6 +41,7 @@ from backend.mouse import Mouse
 from backend import camera_connection #2 as camera_connection
 from backend.threadRunner import threadRunner
 from backend import cvToolsCython
+from database import defualtScrew
 
 from full_screen_UI import FullScreen_UI
 import texts
@@ -197,11 +198,7 @@ class API:
         self.laod_images()
         self.set_images()
 
-        print('d'*200)
-        # self.plc_checker_thread = threadRunner(self.check_all_plc_parms)
-        # self.plc_checker_thread.start_thread()
-        # self.plc_checker_thread = threadRunner(self.test_th) 
-        # self.plc_checker_thread.run_thread()
+
         self.retry_plc_connection=0
         self.plc_value={}
         self.connect_plc()         #check plc status at startup
@@ -223,21 +220,11 @@ class API:
 
         #fullscreen
         self.eror_img = cv2.imread('images/capture_eror.jpg')
-        
-        #self.timer_update_fullscreen = sQTimer()
-        #self.timer_update_fullscreen.timeout.connect(self.update_fullscreen_img)
-        #self.win_fullscreen.closeButton.clicked.connect(self.stop_update_fullscreen_img)
-        
-        # function to active the UI buttons functionality
     
 
         self.button_connector()
+        print('*Success*'*20)
 
-        ###################################################################################
-    def test_th(self,):
-        while True:
-            time.sleep(1)
-            print('hooooorrrraaaaaaaa')
 
     def button_connector(self):
         
@@ -398,11 +385,11 @@ class API:
 
 
 
+
         #camera setting page
 
         self.ui.play_camera_setting_btn.clicked.connect(lambda: self.set_prev_flag(True))
         self.ui.pause_camera_setting_btn.clicked.connect(lambda: self.set_prev_flag(False))
-        print('**'*100)
 
         #save image
 
@@ -497,9 +484,6 @@ class API:
     def camera_trig_side(self,img):
         img = cv2.cvtColor( img, cv2.COLOR_GRAY2BGR)
         self.ui.set_image_label(self.ui.label_img_side_live, img)
-        print('----------------')
-        print('ff', img)
-        print('----------------')
         #cv2.imshow('img',img)
         
         #cv2.waitKey(100)
@@ -560,8 +544,6 @@ class API:
             self.cameras[direction].start_grabbing()
             if self.cameras!= None:
                 try:
-                    pass
-                    print('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
                     self.cameras[direction].on_trigger()
                 except:
                     print('eror in set trigger in api')
@@ -761,15 +743,10 @@ class API:
         if len(name)>=3:
             flag = dbUtils.add_screw(name)
             self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
+            self.ui.comboBox_edit_remove.setCurrentText(name)
+
             self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
-            
-            for direction in self.screw_jasons.keys(): #['top', 'side']
-                pass
-                # try:
-                #     self.screw_jasons[direction].read(DEFAULT_SCERW_PATH, direction)
-                # except:
-                #     print('Error add_new_screw')
-                #     self.ui.show_warning('load Error 105', 'Error: Couldnot Load defualt parm')
+
             for key in self.screw_jasons.keys():
                 path = dbUtils.get_screw_path( name )
                 self.screw_jasons[key].set_name(name)
@@ -778,11 +755,12 @@ class API:
                 self.current_image_screw[key] = cv2.imread(self.screw_jasons[key].get_img_path())
                 for drawer in self.roi_drawings.values():
                     drawer[key].set_img_size( self.current_image_screw[key].shape[:2] )
+                
+                defualtScrew.set_default_all_page(self.screw_jasons[key])
 
             
             self.ui.set_deactive_all_pages()
             self.ui.edit_mode()
-            self.add_defult_parms()
 
             self.update_setting_page_info()
             #self.update_main_image()
@@ -809,10 +787,7 @@ class API:
         else:
             self.ui.show_warning('Name Error', 'Screw Name Should be more than 3 character')
 
-    
-    def add_defult_parms (self):
-        for page_name in self.ui.defaults.keys():
-            self.ui.load_single_page_defult_parms(page_name)
+
 
 
 
@@ -866,7 +841,7 @@ class API:
             self.ui.show_warning('Save Screw','First Edit Mode')
             
     def remove_screw(self):
-        name=self.ui.label_screw_name.text()
+        name=self.ui.comboBox_edit_remove.currentText()
         if name!='-':
             flag = self.ui.show_question('Delete Screw', 'Are you Sure to delete {}?'.format(name))
             if flag:
@@ -878,11 +853,12 @@ class API:
     def edit_load_screw(self):
         name = self.ui.comboBox_edit_remove.currentText()
         self.ui.set_deactive_all_pages()
+
         if name !='':
             self.ui.edit_mode()
-            path = dbUtils.get_screw_path(name)
             self.screw_jasons = {'top': screwDB.screwJson() , 'side': screwDB.screwJson() }
             
+            path = dbUtils.get_screw_path(name)
             for direction in self.screw_jasons.keys():
                 self.screw_jasons[direction].read(path, direction)
                 
@@ -899,8 +875,15 @@ class API:
                 print('active_pages',active_pages)
                 self.ui.set_activate_pages(active_pages,True)
 
+                #----------------------------------------------------
+                img_path = self.screw_jasons[direction].get_img_path()
+                self.current_image_screw[direction] = cv2.imread(img_path)
+                
+                for drawer in self.roi_drawings.values():
+                    drawer[direction].set_img_size( self.current_image_screw[direction].shape[:2] )
+
             self.update_setting_page_info()
-            self.update_main_image()
+            #self.update_main_image()
             
         
         
@@ -912,19 +895,25 @@ class API:
         mouse_pt = self.mouse.get_relative_position()
         mouse_real_pt=self.mouse.get_position()
         
+        drawing_available = False
         if page_name in ['1_top', '1_side', '2_side', '3_side', '4_side', '5_side', '6_side']:
             self.mouse_roi_shape_type = 'rect'
             self.mouse_roi_max_count = 1     
+            drawing_available = True
 
         elif page_name in ['3_top']:
             self.mouse_roi_shape_type = 'circel'
             self.mouse_roi_max_count = 2 
+            drawing_available = True
 
         elif page_name in ['4_top', '5_top', '2_top']:
             self.mouse_roi_shape_type = 'circel'
             self.mouse_roi_max_count = 1
+            drawing_available = True
+
+        if drawing_available:
         
-        self.update_roi_mouse(mouse_status, mouse_button , mouse_pt, self.mouse_roi_shape_type , self.mouse_roi_max_count)
+            self.update_roi_mouse(mouse_status, mouse_button , mouse_pt, self.mouse_roi_shape_type , self.mouse_roi_max_count)
 
         #-------------------------------------------------------------------------
         direction = self.ui.get_setting_page_idx(direction = True)
@@ -959,7 +948,9 @@ class API:
                     self.ui.set_list_pack_items( 'sub_pages', items )
                     self.ui.set_selected_list_pack_item('sub_pages', input_name)
 
-                    self.ui.load_single_page_defult_parms(page_name)
+                    defualtScrew.set_default_single_page(self.screw_jasons[direction], page_name, subpage_name=input_name )
+                    parms = self.screw_jasons[ direction ].get_setting( page_name, subpage=input_name )
+                    self.ui.set_setting_page_parms(parms)
                 else:
                     print('Input valid name')
                     
@@ -970,8 +961,16 @@ class API:
                 self.screw_jasons[ direction ].remove_subpage(page_name, input_name)
                 items = self.screw_jasons[ direction].get_subpages(page_name)
                 self.ui.set_list_pack_items( 'sub_pages', items )
+
+            elif action =='select':
+                pass
+                #subpage_name = self.ui.get_sub_page_name( page_name )
+                #parms = self.screw_jasons[ direction ].get_setting( page_name, subpage=subpage_name )
+                #self.ui.set_setting_page_parms(parms)
+
             
-            self.update_setting_page_info()    
+            #self.update_setting_page_info()  
+            self.refresh_page()  
 
         return func
     
@@ -1005,7 +1004,7 @@ class API:
         return func
         
     
-    def update_slider(self, feature_name):
+    def update_slider(self, feature_name, direction, page_name):
         page_name = self.ui.get_setting_page_idx(page_name = True)
         direction = self.ui.get_setting_page_idx(direction = True)
         subpage_name = self.ui.get_sub_page_name( page_name )
@@ -1036,33 +1035,6 @@ class API:
 
         self.setting_image_updater()
 
-    def update_threshould_minmax(self):
-        page_name = self.ui.get_setting_page_idx(page_name = True)
-        direction = self.ui.get_setting_page_idx(direction = True)
-        subpage_name = self.ui.get_sub_page_name( page_name )
-        #---------------------
-        # if page_name in ['2_side', '3_side', '4_side','5_side','6_side']:
-        #     page_name , subpage_name = '1_side', None
-        #---------------------
-        thresh_min = self.ui.get_sliders_value('thresh_min')
-        thresh_max = self.ui.get_sliders_value('thresh_max')
-        self.screw_jasons[ direction ].set_thresh_min( page_name, subpage_name, thresh_min )
-        self.screw_jasons[ direction ].set_thresh_max( page_name, subpage_name, thresh_tmax )   
-        self.setting_image_updater()
-
-
-    
-     
-
-    def update_noise_filter(self):
-        page_name = self.ui.get_setting_page_idx(page_name = True)
-        direction = self.ui.get_setting_page_idx(direction = True)
-        subpage_name = self.ui.get_sub_page_name( page_name )
-        
-        noise_filter = self.ui.get_sliders_value('noise_filter')
-        self.screw_jasons[ direction ].set_noise_filter( page_name, subpage_name, noise_filter )  
-        
-        self.setting_image_updater()
     
     
     
@@ -1086,7 +1058,7 @@ class API:
             page_name = self.ui.get_setting_page_idx(page_name = True)
             direction = self.ui.get_setting_page_idx(direction = True)
             subpage_name = self.ui.get_sub_page_name( page_name )
-            
+
             state = self.ui.get_checkbox_value(name)        
             self.screw_jasons[ direction ].set_checkbox( page_name, subpage_name, name,  state )
             self.setting_image_updater()
@@ -1095,16 +1067,15 @@ class API:
 
     
     def update_muit_options(self, group_name, option_name):
-        def func():
-            page_name = self.ui.get_setting_page_idx(page_name = True)
-            direction = self.ui.get_setting_page_idx(direction = True)
-            subpage_name = self.ui.get_sub_page_name( page_name )
+        page_name = self.ui.get_setting_page_idx(page_name = True)
+        direction = self.ui.get_setting_page_idx(direction = True)
+        subpage_name = self.ui.get_sub_page_name( page_name )
 
-            self.ui.set_multi_options_value(group_name, option_name)
-            self.screw_jasons[ direction ].set_multi_option( page_name, subpage_name, group_name,  option_name )
+        self.ui.set_multi_options_value(group_name, option_name)
+        self.screw_jasons[ direction ].set_multi_option( page_name, subpage_name, group_name,  option_name )
             
-            self.setting_image_updater()
-        return func
+        self.setting_image_updater()
+        
 
 
 
@@ -1162,7 +1133,6 @@ class API:
         direction = self.ui.get_setting_page_idx(direction = True)
         
         path = self.ui.get_line_value('img_path')
-        print('LINE PATH    ', path)
         if cv2.imread(path) is not None:
             self.screw_jasons[ direction ].set_img_path(path)
             self.current_image_screw[direction] = cv2.imread(path)
@@ -1195,16 +1165,25 @@ class API:
         #-----------loade subpages name list --------------------
         if subpage_name is not None:
             items = self.screw_jasons[ direction].get_subpages(page_name)
-            if len(items) > self.ui.get_selected_list_pack_count('sub_pages'):
-                self.ui.set_list_pack_items( 'sub_pages', items )
-                subpage_name = self.ui.get_sub_page_name( page_name )
+            # if len(items) > self.ui.get_selected_list_pack_count('sub_pages'):
+            self.ui.set_list_pack_items( 'sub_pages', items )
+            subpage_name = self.ui.get_sub_page_name( page_name )
         #-----------loade limits --------------------
-        
+        self.refresh_page()
+
+
+    def refresh_page(self,):
+        page_name = self.ui.get_setting_page_idx(page_name = True)
+        direction = self.ui.get_setting_page_idx(direction = True)
+        subpage_name = self.ui.get_sub_page_name( page_name )
 
         parms = self.screw_jasons[ direction ].get_setting( page_name, subpage_name )
+        if isinstance(parms,list):
+            print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+            assert False, f"parms should be dictionary, maybe you didn't define subpage 'none' for {page_name} in defaultScrew.py"
         self.ui.set_setting_page_parms(parms)
 
-        self.update_main_image()
+        #self.update_main_image()
         
 
         self.load_drawer()
@@ -1573,36 +1552,19 @@ class API:
         
         img = np.copy(self.current_image_screw['side'])
 
-        ####CHange
-        thresh = self.screw_jasons[ direction ].get_thresh(page_name, subpage_name)
-        #thresh_min = self.screw_jasons[ direction ].get_thresh_min(page_name, subpage_name)
-        #thresh_max = self.screw_jasons[ direction ].get_thresh_max(page_name, subpage_name)
-
-
-        noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
         rect = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
-        inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
-        
         img = cvTools.preprocess(img)
-
-        mask_roi = cvTools.rects2mask(img.shape[:2], [rect])
-
-        ####Change
-        thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
-        #thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
-        #########################
-
-        thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
-        
-        if self.ui.is_drawing_mask_enabel():
-            img = Utils.mask_viewer(img, thresh_img)
-        img = self.roi_drawings['rect'][direction].get_image(img)
+        img, thresh_img, angle = proccessings.preprocessing_side_img(img, self.screw_jasons[direction])
         
         if Utils.is_rect( rect ) and np.count_nonzero(thresh_img) > 100:
             self.ui.enable_bar_btn_tool_page( direction, True )
         else:
             self.ui.enable_bar_btn_tool_page( direction, False )
-        
+
+
+        if self.ui.is_drawing_mask_enabel():
+            img = Utils.mask_viewer(img, thresh_img)
+        img = self.roi_drawings['rect'][direction].get_image(img)
         self.ui.set_image_page_tool_labels(img)
     
     
@@ -1615,27 +1577,16 @@ class API:
         img = np.copy(self.current_image_screw['side'])
         
         json = self.screw_jasons[ direction ]
-        img, thresh_img, _ = proccessings.preprocessing_side_img( img, json, direction  )
-        
-        if self.ui.is_drawing_mask_enabel():
-            img = Utils.mask_viewer(img, thresh_img, color=(50,100,0))
+        img, thresh_img, _ = proccessings.preprocessing_side_img( img, json  )
+                    
         result,img = proccessings.proccessing_body_lenght(img,thresh_img,json,draw=img)
-        #--------------------------------------------------------------------------------------
-        #specific Operation
-        #--------------------------------------------------------------------------------------
-        # rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
-        # if Utils.is_rect(rect_roi_2):
-        #     left_pts, right_pts = cvTools.find_vertical_edges(thresh_img, rect_roi_2)
-        #     if len(left_pts) > 0 and len(right_pts) > 0:
-        #         img = cvTools.draw_vertical_point( img , [left_pts, right_pts], color=(0,0,255), thicknes=5 )
-        #         #--------------------------------------------------------------------------------------
-        #         #specific Operation
-        #         #--------------------------------------------------------------------------------------
-        #         min_dist, max_dist, avg_dist, _ = mathTools.horizontal_distance( left_pts, right_pts )
+
         result=result[0]    
         info = {'min_lenght' : result['min'], 'max_lenght': result['max'], 'avg_lenght': result['avg']}  
         self.ui.set_stetting_page_label_info(info)
-                
+        
+        if self.ui.is_drawing_mask_enabel():
+            img = Utils.mask_viewer(img, thresh_img, color=(50,100,0))
         img = self.roi_drawings['rect'][direction].get_image(img)
         self.ui.set_image_page_tool_labels(img)
         
@@ -1650,32 +1601,17 @@ class API:
         img = np.copy(self.current_image_screw['side'])
 
         json = self.screw_jasons[ direction ]
-        img, thresh_img, _ = proccessings.preprocessing_side_img( img, json, direction  )
+        img, thresh_img, _ = proccessings.preprocessing_side_img( img, json  )
 
-        if self.ui.is_drawing_mask_enabel():
-            img = Utils.mask_viewer(img, thresh_img, color=(200,200,0))
 
         result,img = proccessings.proccessing_thread_male(img,thresh_img,json,draw=img)
         
-        #--------------------------------------------------------------------------------------
-        #specific Operation
-        #--------------------------------------------------------------------------------------
-        # rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
-        # jump_thresh = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'jump_thresh')
-        # if Utils.is_rect(rect_roi_2):
-        #     male_thread_h, male_thread_l = cvTools.find_screw_thread_top( thresh_img, rect_roi_2,  min_diff=jump_thresh)
-            
-        #     min_d,max_d, avg_d,_ = mathTools.vertical_distance( male_thread_h, male_thread_l )
-        #     _,_,avg_l,_  = mathTools.thread_lenght( male_thread_h )
-
-        #     info = {'thread_lenght': avg_l,  'count_thread':len(male_thread_h) , 'step_distance':avg_d}
-        #     self.ui.set_stetting_page_label_info(info)
-            
-        #     img = cvTools.draw_points(img, male_thread_h, (0,50,150), 5)
-        #     img = cvTools.draw_points(img, male_thread_l, (200,0,200), 5)
-        
         info = {'thread_lenght': result[1]['avg'],  'count_thread': result[2]['avg'] , 'step_distance':result[0]['avg']}
         self.ui.set_stetting_page_label_info(info)
+        
+        
+        if self.ui.is_drawing_mask_enabel():
+            img = Utils.mask_viewer(img, thresh_img, color=(200,200,0))
         img = self.roi_drawings['rect'][direction].get_image(img)
         self.ui.set_image_page_tool_labels(img)
         
@@ -1690,34 +1626,17 @@ class API:
         img = np.copy(self.current_image_screw['side'])
 
         json = self.screw_jasons[ direction ]
-        img, thresh_img, _ = proccessings.preprocessing_side_img( img, json, direction  )
-        
-        if self.ui.is_drawing_mask_enabel():
-            img = Utils.mask_viewer(img, thresh_img, color=(100,30,0))
-
-        
+        img, thresh_img, _ = proccessings.preprocessing_side_img( img, json  )
+    
         results,img = proccessings.proccessing_side_diameters(img,thresh_img,json,draw=img)
 
-
-        # if subpage_name!='none':
-        #     #--------------------------------------------------------------------------------------
-        #     #specific Operation
-        #     #--------------------------------------------------------------------------------------
-        #     rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
-        #     if Utils.is_rect(rect_roi_2):
-        #         left_pts, right_pts = cvTools.find_horizental_edges( thresh_img, rect_roi_2)
-        #         if len(left_pts) > 0 and len(right_pts) > 0:
-        #             img = cvTools.draw_horizental_point( img, [left_pts, right_pts], (0,0,255), thicknes=5 )
-
-        #             min_dist, max_dist, avg_dist, _ = mathTools.vertical_distance( left_pts, right_pts )
-        #             #print(min_dist, max_dist, avg_dist)
-        #             info = {'min_diameter' : min_dist, 'max_diameter': max_dist, 'avg_diameter': avg_dist}                
-        #             self.ui.set_stetting_page_label_info(info)       
         for result in results:
             if subpage_name in result['name']:
                 info = {'min_diameter' : result['min'], 'max_diameter': result['max'], 'avg_diameter': result['avg']}                
-        self.ui.set_stetting_page_label_info(info)    
+        self.ui.set_stetting_page_label_info(info)  
 
+        if self.ui.is_drawing_mask_enabel():
+            img = Utils.mask_viewer(img, thresh_img, color=(100,30,0))  
         img = self.roi_drawings['rect'][direction].get_image(img)
         self.ui.set_image_page_tool_labels(img)
 
@@ -1732,36 +1651,17 @@ class API:
         img = np.copy(self.current_image_screw['side'])
 
         json = self.screw_jasons[ direction ]
-        img, thresh_img, _ = proccessings.preprocessing_side_img( img, json, direction  )
-
-        if self.ui.is_drawing_mask_enabel():
-            img = Utils.mask_viewer(img, thresh_img, color=(50,30,200))
+        img, thresh_img, _ = proccessings.preprocessing_side_img( img, json  )
         
         results,img = proccessings.proccessing_side_head(img,thresh_img,json,draw=img)
 
-        
-        #--------------------------------------------------------------------------------------
-        #specific Operation
-        #--------------------------------------------------------------------------------------
-        # rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name, )
-        # jump_thresh = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'jump_thresh')
-        # edge_direction = self.screw_jasons[ direction ].get_multi_option( page_name, subpage_name, 'edge_direction' )
-        # from_belt = self.screw_jasons[ direction ].get_checkbox( page_name, subpage_name, 'from_belt')
-        # print('belt', from_belt)
-        # print(edge_direction)
-
-        # if Utils.is_rect(rect_roi_2):
-        #     left_pts, right_pts = cvTools.find_head_vertival_pts(thresh_img, rect_roi_2, jump_thresh, 0.25, side=edge_direction , from_belt=from_belt)
-        #     if len(left_pts) > 0 and len(right_pts) > 0:
-        #         img = cvTools.draw_vertical_point( img, [left_pts, right_pts], (50,255,0), thicknes=5 )
-        #         img[ rect_roi_2[0][1]:rect_roi_2[1][1], left_pts[0,0] ] =  (50,255,0) #draw full line
-        #         min_dist, max_dist, avg_dist, _ = mathTools.horizontal_distance( left_pts, right_pts )
-
+   
         result = results[0]
         info = {'min_head_height' : result['min'], 'max_head_height': result['max'], 'avg_head_height': result['avg']}                
-        self.ui.set_stetting_page_label_info(info)           
-        
+        self.ui.set_stetting_page_label_info(info)       
 
+        if self.ui.is_drawing_mask_enabel():
+            img = Utils.mask_viewer(img, thresh_img, color=(50,30,200))    
         img = self.roi_drawings['rect'][direction].get_image(img)
         self.ui.set_image_page_tool_labels(img)
 
@@ -1777,27 +1677,10 @@ class API:
 
 
         json = self.screw_jasons[ direction ]
-        img, thresh_img, _ = proccessings.preprocessing_side_img( img, json, direction  )
-        
-        if self.ui.is_drawing_mask_enabel():
-            img = Utils.mask_viewer(img, thresh_img, color=(100,200,50))
+        img, thresh_img, _ = proccessings.preprocessing_side_img( img, json  )
 
         results,img = proccessings.preprocessing_side_damage(img,thresh_img,json,draw=img)
         
-
-        # if subpage_name!='none':
-        #     #--------------------------------------------------------------------------------------
-        #     #specific Operation
-        #     #--------------------------------------------------------------------------------------
-        #     rect_roi_2 = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name, )
-        #     if Utils.is_rect(rect_roi_2):
-        #         area = cvTools.get_bigest_area( thresh_img, rect_roi_2 )
-        #         info = {'area': area}
-        #         self.ui.set_stetting_page_label_info(info)
-                
-        #         rect_roi_2_mask = cvTools.rects2mask( img.shape[:2], [rect_roi_2] )
-        #         select_mask = cv2.bitwise_and(rect_roi_2_mask, thresh_img)
-        #         img = Utils.mask_viewer(img, select_mask, color=(0,10,250))
 
         for result in results:
             if subpage_name in result['name']:
@@ -1805,6 +1688,8 @@ class API:
                 self.ui.set_stetting_page_label_info(info)
                 break
         
+        if self.ui.is_drawing_mask_enabel():
+            img = Utils.mask_viewer(img, thresh_img, color=(100,200,50))
         img = self.roi_drawings['rect'][direction].get_image(img)
         self.ui.set_image_page_tool_labels(img)
 
@@ -1868,7 +1753,7 @@ class API:
         direction = 'side'
         screw_json = self.screw_jasons[ direction ]  
 
-        img, mask_roi,_ = proccessings.preprocessing_side_img( img, screw_json, direction )
+        img, mask_roi,_ = proccessings.preprocessing_side_img( img, screw_json )
 
         if img  is None:
             print('ERROR: proccessing_live_side() img is None')
@@ -2091,7 +1976,7 @@ class API:
 
     def save_plc_parms(self):
         plc_parms=self.ui.get_plc_parms()
-        print('plc_parms',plc_parms)
+        # print('plc_parms',plc_parms)
         self.db.update_plc_parms(plc_parms)
         pass
 
@@ -2107,7 +1992,6 @@ class API:
     
     
     def start_reject(self):
-        print('starttttttt')
         delay = self.ui.spin_delay.value()/1000
         threading.Timer(delay,self.set_plc_reject,args=(True,True)).start()
 
@@ -2425,7 +2309,7 @@ class API:
                 
                 except:
                    
-                    print('set_images'*50)
+                    print('set_images ERROR'*50)
                     self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
                     results[direction] = []
                     draw_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
@@ -2492,8 +2376,6 @@ class API:
             else:
                 self.update_main_image()
                 for direction in self.cameras.keys():
-                    pass
-                    print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
                     self.cameras[direction].on_trigger()
         except:
             print('ERROR: set trigger - enable_live_view_for_tools', direction)

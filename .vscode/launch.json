@@ -8,7 +8,7 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "D:/myproject/Screw-inspection/main_UI.py",
+            "program": "main_UI.py",
             "console": "integratedTerminal",
             "justMyCode": true
         }

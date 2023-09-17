@@ -185,28 +185,32 @@ def remove_belt_edge_line(numpy.ndarray[DTYPE_uint8, ndim=2] img,
     cdef int w = img.shape[1]
     cdef float slope=0, intercept=0
 
-    slope = float(pts[0,0, 1] - pts[0,1,1] ) / float(pts[0, 0, 0] - pts[0, 1, 0] )
-    intercept = pts[0, 0,1] - slope * pts[0,0,0]
+
     cdef numpy.ndarray[DTYPE_int32, ndim=1]  xs1 = numpy.arange( pts[0, 0, 0], pts[0, 1, 0] , dtype=numpy.int32)
     cdef numpy.ndarray[DTYPE_int32, ndim=1]  ys1 = numpy.zeros_like(xs1, dtype=numpy.int32)
-    ys1 = (xs1 * slope + intercept).astype(numpy.int32)
-    cdef int n1 = ys1.shape[0]
-    for i in range(n1):
-       for j in range(0,int(ys1[i])-1):
-            img[j, xs1[i]] = 0
+    cdef int n1 = 0
+    if float(pts[0, 0, 0] - pts[0, 1, 0] ) != 0:
+        slope = float(pts[0,0, 1] - pts[0,1,1] ) / float(pts[0, 0, 0] - pts[0, 1, 0] )
+        intercept = pts[0, 0,1] - slope * pts[0,0,0]
+        ys1 = (xs1 * slope + intercept).astype(numpy.int32)
+        n1 = ys1.shape[0]
+        for i in range(n1):
+            for j in range(0,int(ys1[i])-1):
+                img[j, xs1[i]] = 0
 
-
-
-    slope = float(pts[1, 0, 1] - pts[1, 1,1] ) / float(pts[1, 0, 0] - pts[1, 1, 0] )
-    intercept = pts[1, 0,1] - slope * pts[1, 0,0]
+    
     cdef numpy.ndarray[DTYPE_int32, ndim=1]  xs2 = numpy.arange( pts[1, 0, 0], pts[1, 1, 0] , dtype=numpy.int32)
     cdef numpy.ndarray[DTYPE_int32, ndim=1]  ys2 = numpy.zeros_like(xs2, dtype=numpy.int32)
-    ys2 = (xs2 * slope + intercept).astype(numpy.int32)
-    cdef int n2 = ys2.shape[0]
-    for i in range(n2):
-       for j in range(int(ys2[i]), h):
+    cdef int n2 = 0
+    if float(pts[1, 0, 0] - pts[1, 1, 0] ) != 0:
+        slope = float(pts[1, 0, 1] - pts[1, 1,1] ) / float(pts[1, 0, 0] - pts[1, 1, 0] )
+        intercept = pts[1, 0, 1] - slope * pts[1, 0, 0]
         
-            img[j, xs2[i]] = 0
+        ys2 = (xs2 * slope + intercept).astype(numpy.int32)
+        n2 = ys2.shape[0]
+        for i in range(n2):
+            for j in range(int(ys2[i]), h):
+                img[j, xs2[i]] = 0
     
     return img
 

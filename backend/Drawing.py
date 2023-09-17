@@ -459,7 +459,7 @@ class drawCircel(drawShape):
         res = np.copy(img)
         for shape in shapes:
             center, radius = shape
-            res = cv2.circle( img, center, radius, line_color, thickness=line_thickness)
+            res = cv2.circle( img, tuple(center), radius, line_color, thickness=line_thickness)
         return res
     
         #______________________________________________________________________________________________________
@@ -632,7 +632,7 @@ class drawRect(drawShape):
         res = np.copy(img)
         for shape in shapes:
             pt1, pt2 = shape
-            res = cv2.rectangle( img, pt1, pt2, line_color, thickness=line_thickness)
+            res = cv2.rectangle( img, tuple(pt1), tuple(pt2), line_color, thickness=line_thickness)
             
             #draw corner
             for i in range(2):

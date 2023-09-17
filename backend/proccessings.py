@@ -97,12 +97,12 @@ def preprocessing_1_top_img( img, json,draw = None, centerise=True):
 
         thresh_img, img, div_pt = cvTools.centerise_top(thresh_img, img )
 
-        if belt_margin >0:
-        
-            pts_l[:,:,0] =  pts_l[:,:,0] + div_pt[0]
-            pts_l[:,:,1] =  pts_l[:,:,1] + div_pt[1]
-            pts_r[:,:,0] =  pts_r[:,:,0] + div_pt[0]
-            pts_r[:,:,1] =  pts_r[:,:,1] + div_pt[1]
+        if algo_name == 'edge':
+            if belt_margin >0:            
+                pts_l[:,:,0] =  pts_l[:,:,0] + div_pt[0]
+                pts_l[:,:,1] =  pts_l[:,:,1] + div_pt[1]
+                pts_r[:,:,0] =  pts_r[:,:,0] + div_pt[0]
+                pts_r[:,:,1] =  pts_r[:,:,1] + div_pt[1]
 
     thresh_img = cvTools.mask_bigest_contour(thresh_img)
     if draw is not None:
@@ -173,7 +173,7 @@ def preprocessing_0_top_img( img, json, draw=None):
 #___________________________________________________________________________________________________________________________
 
 
-def preprocessing_side_img( img, json, direction):
+def preprocessing_side_img( img, json):
     thresh = json.get_thresh('1_side', None )
     noise_filter = json.get_noise_filter('1_side', None  )
     rect_roi_main = json.get_rect_roi( '1_side', None )
@@ -190,7 +190,7 @@ def preprocessing_side_img( img, json, direction):
     mask_unbelt, _ = cvTools.remove_belt( thresh_img,rect_roi_main, thresh=0.7 )
     angle, _ = cvTools.correct_rotation_angle(mask_unbelt)
     if angle==None:
-        return None,None,None
+        return img,thresh_img,None
     thresh_img = cvTools.rotate_image(thresh_img,  angle   )
     img = cvTools.rotate_image(img,  angle   )
 
@@ -538,7 +538,7 @@ def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
 
 
             elif shape_type == 'rect':
-                print('rect')
+                print('shape_type rect Proccessing')
 
 
             
@@ -590,7 +590,7 @@ def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
 
 
             elif shape_type == 'rect':
-                print('rect')
+                print('shape_type rect Proccessing')
 
 
     

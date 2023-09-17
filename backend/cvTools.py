@@ -771,7 +771,10 @@ def get_bigest_area(mask, rect_roi):
     cnts = list(cnts)
     cnts.sort( key = lambda x:cv2.contourArea(x) , reverse=True)
 
-    cnt_area = cv2.contourArea( cnts[0] ) / 10
+    if len(cnts):
+        cnt_area = cv2.contourArea( cnts[0] ) / 10
+    else:
+        cnt_area = 0
     # crop_area = abs((rect_roi[0][0] - rect_roi[1][0]) * (rect_roi[0][1] - rect_roi[1][1]))
     # res = cnt_area / crop_area
     # res = np.round(res, 3)
@@ -849,9 +852,10 @@ def diameters_measurment(mask, cnt, angles):
 
         cv2.line(line_mask, pt1, pt2, 255,1)
         line_mask = cv2.bitwise_and( line_mask, line_mask, mask=mask)
-        cnts,_ = cv2.findContours(line_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)       
-        _,r = cv2.minEnclosingCircle(cnts[0])
-        corners_dist.append(int(r))
+        cnts,_ = cv2.findContours(line_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)  
+        if len(cnts):     
+            _,r = cv2.minEnclosingCircle(cnts[0])
+            corners_dist.append(int(r))
 
         #corners_dist.append(np.count_nonzero(line_mask))
 

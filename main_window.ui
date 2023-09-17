@@ -710,7 +710,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -760,7 +759,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -810,7 +808,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -860,7 +857,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -910,7 +906,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -960,7 +955,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1010,7 +1004,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1100,7 +1093,6 @@ Button */
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -1902,7 +1894,6 @@ QPushButton:hover {
                       <font>
                        <family>Segoe UI</family>
                        <pointsize>10</pointsize>
-                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                        <stylestrategy>PreferDefault</stylestrategy>
@@ -3865,7 +3856,6 @@ color:rgb(255,255,255);
                                    <font>
                                     <family>Segoe UI</family>
                                     <pointsize>-1</pointsize>
-                                    <weight>50</weight>
                                     <italic>false</italic>
                                     <bold>false</bold>
                                    </font>
@@ -6231,7 +6221,7 @@ QPushButton:disabled{
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>1</number>
+                                   <number>0</number>
                                   </property>
                                   <widget class="QWidget" name="page_0_top">
                                    <layout class="QVBoxLayout" name="verticalLayout_145">
@@ -6402,6 +6392,9 @@ border-radius : 5px;</string>
                                             <property name="maximum">
                                              <number>20000</number>
                                             </property>
+                                            <property name="singleStep">
+                                             <number>50</number>
+                                            </property>
                                             <property name="value">
                                              <number>10</number>
                                             </property>
@@ -6454,6 +6447,9 @@ border-radius : 5px;</string>
                                            <widget class="QSpinBox" name="spin_rbelt_0_top">
                                             <property name="maximum">
                                              <number>2000</number>
+                                            </property>
+                                            <property name="singleStep">
+                                             <number>50</number>
                                             </property>
                                             <property name="value">
                                              <number>10</number>
@@ -14496,7 +14492,6 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -14537,7 +14532,6 @@ border-color:Transparent</string>
                                   </property>
                                   <property name="font">
                                    <font>
-                                    <weight>75</weight>
                                     <bold>true</bold>
                                    </font>
                                   </property>
@@ -14768,7 +14762,6 @@ QPushButton:pressed {
                                           <font>
                                            <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -14796,7 +14789,6 @@ QPushButton:pressed {
                                           <font>
                                            <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -14824,7 +14816,6 @@ QPushButton:pressed {
                                           <font>
                                            <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -14852,7 +14843,6 @@ QPushButton:pressed {
                                           <font>
                                            <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -14943,7 +14933,6 @@ QPushButton:pressed {
                                           <font>
                                            <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -14971,7 +14960,6 @@ QPushButton:pressed {
                                           <font>
                                            <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -15101,7 +15089,6 @@ QPushButton:pressed {
                                           <font>
                                            <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -15228,7 +15215,6 @@ QPushButton:pressed {
                                           <font>
                                            <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -15287,7 +15273,6 @@ QPushButton:pressed {
                                           <font>
                                            <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -15315,7 +15300,6 @@ QPushButton:pressed {
                                           <font>
                                            <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -15343,7 +15327,6 @@ QPushButton:pressed {
                                           <font>
                                            <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -15393,7 +15376,6 @@ QPushButton:pressed {
                                           <font>
                                            <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -15421,7 +15403,6 @@ QPushButton:pressed {
                                           <font>
                                            <family>Segoe UI</family>
                                            <pointsize>10</pointsize>
-                                           <weight>50</weight>
                                            <italic>false</italic>
                                            <bold>false</bold>
                                           </font>
@@ -15778,7 +15759,6 @@ background-color: rgb(153, 193, 241);</string>
                                <property name="font">
                                 <font>
                                  <pointsize>10</pointsize>
-                                 <weight>75</weight>
                                  <bold>true</bold>
                                 </font>
                                </property>
@@ -17659,7 +17639,7 @@ QPushButton:pressed {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>67</width>
+                                  <width>92</width>
                                   <height>67</height>
                                  </rect>
                                 </property>
@@ -18188,7 +18168,6 @@ border: 1px solid #CDCDCE;
                                   <property name="font">
                                    <font>
                                     <pointsize>8</pointsize>
-                                    <weight>50</weight>
                                     <bold>false</bold>
                                    </font>
                                   </property>
@@ -18976,7 +18955,6 @@ QPushButton:pressed {
                                            <property name="font">
                                             <font>
                                              <pointsize>10</pointsize>
-                                             <weight>75</weight>
                                              <bold>true</bold>
                                             </font>
                                            </property>
@@ -20439,7 +20417,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -20476,7 +20453,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>
@@ -20516,7 +20492,6 @@ QPushButton:pressed {
                                <font>
                                 <family>Segoe UI</family>
                                 <pointsize>10</pointsize>
-                                <weight>50</weight>
                                 <italic>false</italic>
                                 <bold>false</bold>
                                </font>

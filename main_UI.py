@@ -33,7 +33,7 @@ from PySide6.QtGui import QPixmap as sQPixmap   # should change
 
 import texts
 from backend import Utils
-import Keys,defualts
+import Keys
 
 from history_UI import UI_history_window
 
@@ -72,7 +72,6 @@ class UI_main_window(QMainWindow, ui):
 
         Keys.object_dict_builder(self)
 
-        defualts.create_defult_screw(self)
 
 
         self.side_buttons = [self.side_camera_setting_btn, self.side_tool_setting_btn\
@@ -219,10 +218,12 @@ class UI_main_window(QMainWindow, ui):
 
         for name in  self.defaults[page_name].keys():
             obj , value = self.defaults[page_name][name]
-            print('n',name)
-            if name in ['spin', 'bar']:
+            print('obj_name default',name)
+            if 'spin' in name:
                 obj.setValue(value)
-            if 'check' in name :
+            elif 'bar' in name:
+                obj.setValue(value)
+            elif 'check' in name :
                 obj.setChecked(value)
 
 
@@ -825,6 +826,7 @@ class UI_main_window(QMainWindow, ui):
         # self.remove_screw_btn.setEnabled(value)
         
         self.btn_page0_1_top.setEnabled(not(value))
+        self.btn_page0_0_top.setEnabled(not(value))
         self.btn_page0_1_side.setEnabled(not(value))
         
 
@@ -1355,7 +1357,6 @@ class UI_main_window(QMainWindow, ui):
             except:
                 return None
     def set_combobox_text(self,name,list_data, page_name = None ,idx=0):
-            print('amir'*80,list_data)
             if page_name is None:
                 page_name =self.get_setting_page_idx(page_name=True)
             if 'none' in list_data:
@@ -1398,13 +1399,13 @@ class UI_main_window(QMainWindow, ui):
         
     
     def set_list_pack_input(self, name, text, page_name=None, idx=0):
-        print('milad'*100)
         if page_name is None:
                 page_name =self.get_setting_page_idx(page_name=True)
         
         return self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['input'].setText(text)
     
     
+
     
     def connect_list_pack(self, name, func, idx=0):
         
@@ -1420,6 +1421,8 @@ class UI_main_window(QMainWindow, ui):
                 self.list_packs['lp_{}{}_{}'.format( name, idx, page_name )]['combo'].currentTextChanged.connect(func('select'))
             except:
                 pass
+
+
     
     
     #info labels ----------------------------------------------------------------            
@@ -1457,13 +1460,16 @@ class UI_main_window(QMainWindow, ui):
             obj.setValue(value)
 
 
+    
+
     def connect_sliders(self,name,func):
         # self.connect_slider_ui()
-        def arg_passer():
-            func(name)
+        
 
         for obj_name in self.sliders[name]:
-            self.sliders[name][obj_name].valueChanged.connect(arg_passer)
+            direction = self.__get_object_direction__(obj_name)
+            page_name = self.__get_object_page_name__(obj_name)
+            self.sliders[name][obj_name].valueChanged.connect(self.arg_passer(func, args=(name, direction, page_name)))
 
     #///////////////////////////////////////////////////////////////////////////// 
     #ROI utils -----------------------------------------------------------------------------------
@@ -1746,11 +1752,10 @@ class UI_main_window(QMainWindow, ui):
 
 
     def connect_multi_options(self, func ):
-        
         for page_name in self.multi_options.keys():
             for option_name in self.multi_options[ page_name ].keys():
                 for name, obj in self.multi_options[ page_name ][ option_name ]['options'].items():
-                    obj.clicked.connect( func(option_name, name) )
+                    obj.clicked.connect( self.arg_passer(func, args =(option_name, name, ) ))
 
 
 
@@ -1810,16 +1815,17 @@ class UI_main_window(QMainWindow, ui):
 
         for name, value in parms.items():
             name, idx = self.deasmble_name_and_idx( name )
-            if name in ['thresh_inv', 'navel'] :
+            if name in ['thresh_inv', 'navel','from_belt'] :
                 self.set_checkbox_value(name,value,page_name,idx=idx)
                 
-            elif name in ['thresh', 'thresh_min', 'thresh_max' 'noise_filter'] :
+            elif name in ['thresh', 'thresh_min', 'thresh_max', 'noise_filter', 'edge_thresh'] :
                 self.set_sliders_value(name, value, page_name, idx=idx)
                 
             elif name in  ['img_path'] :
                 self.set_line_value(name, value, page_name,idx=idx)
 
-            elif name in ['jump_thresh', 'min_area', 'max_area','lbelt','rbelt','angle']:
+            elif name in ['jump_thresh', 'min_area', 'max_area','lbelt',
+                          'rbelt','angle','d_parm','e_parm','belt_edge_margin',]:
                 self.set_spins_parms_value(name, value)
                 
             elif 'roi' in name:
@@ -1828,8 +1834,12 @@ class UI_main_window(QMainWindow, ui):
             elif 'limit' in name:
                 self.set_limit_value(value, page_name)
 
-            elif 'shape_type' in name:
+            elif name in ['shape_type', 'algo', 'edge_direction']:
                 self.set_multi_options_value( name, value )
+            
+            else:
+                print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2')
+                assert False, f"Ui.set_setting_page_parms no assignment for '{name}'"
 
             
 
@@ -2049,6 +2059,25 @@ class UI_main_window(QMainWindow, ui):
             label_name.setStyleSheet("background-color: #b8182b;color:#b8182b")
 
 
+    def __get_object_direction__(self, obj_name):
+        if 'top' in obj_name:
+            return 'top'
+
+        if 'side' in obj_name:
+            return 'side'
+    
+
+    def __get_object_page_name__(sef, obj_name):
+        if sef.__get_object_direction__(obj_name) == 'side':
+            return obj_name[-6:]
+        else:
+            return obj_name[-5:]
+    # def __get_page_name__(self,)
+
+    def arg_passer(self, func, args):
+        def __event_func__():
+            func(*args)
+        return __event_func__
 
 
 if __name__ == "__main__":
