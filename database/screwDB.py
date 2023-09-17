@@ -185,12 +185,12 @@ class screwJson():
         return self.get_value( page, subpage, name, [[],[]])
 
     #-----------------------------------------
-    def set_circels_roi(self, page, subpage, shapes):
-        name = 'circels_roi'
+    def set_circels_roi(self, page, subpage, shapes, idx=0):
+        name = 'circels_roi{}'.format(idx)
         self.set_value( page, subpage, name, shapes)
 
-    def get_circels_roi(self, page, subpage):
-        name = 'circels_roi'
+    def get_circels_roi(self, page, subpage, idx=0):
+        name = 'circels_roi{}'.format(idx)
         return self.get_value( page, subpage, name, [])
     
     #-----------------------------------------
@@ -257,9 +257,11 @@ class screwJson():
     #-----------------------------------------
     
     def set_multi_option(self, page_name, subpage_name, group_name,  option_name):
+        #group_name = group_name + 'option'
         self.set_value( page_name, subpage_name, group_name, option_name)
 
     def get_multi_option(self, page_name, subpage_name, group_name):
+        #group_name = group_name + 'option'
         return self.get_value( page_name, subpage_name, group_name, None )
 
 
