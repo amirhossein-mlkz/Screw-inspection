@@ -1,0 +1,134 @@
+{
+    "direction": "top",
+    "img_path": "images/defualt.jpg",
+    "name": "T12",
+    "settings": {
+        "0_top": {
+            "angle": 0,
+            "lbelt": 100,
+            "rbelt": 500
+        },
+        "1_side": {
+            "noise_filter0": 0,
+            "rect_roi0": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    100,
+                    100
+                ]
+            ],
+            "thresh0": 0,
+            "thresh_inv0": true
+        },
+        "1_top": {
+            "algo": "thresh_algo",
+            "belt_edge_margin": 0,
+            "d_parm1": 0,
+            "d_parm3": 0,
+            "e_parm2": 0,
+            "e_parm4": 0,
+            "edge_thresh": 5,
+            "noise_filter0": 0,
+            "rect_roi0": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    100,
+                    100
+                ]
+            ],
+            "thresh_max0": 255,
+            "thresh_min0": 0
+        },
+        "2_side": {
+            "rect_roi0": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    100,
+                    100
+                ]
+            ]
+        },
+        "2_top": {
+            "none": {
+                "circels_roi0": [
+                    [
+                        [
+                            100,
+                            100
+                        ],
+                        50
+                    ]
+                ],
+                "noise_filter0": 30,
+                "shape_type": "circel",
+                "thresh_max0": 250,
+                "thresh_min0": 20
+            }
+        },
+        "3_side": {
+            "jump_thresh": 5,
+            "rect_roi0": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    100,
+                    100
+                ]
+            ]
+        },
+        "4_side": {
+            "none": {
+                "rect_roi0": [
+                    [
+                        0,
+                        0
+                    ],
+                    [
+                        100,
+                        100
+                    ]
+                ]
+            }
+        },
+        "5_side": {
+            "edge_direction": "top",
+            "from_belt": true,
+            "jump_thresh": 10,
+            "rect_roi0": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    100,
+                    100
+                ]
+            ]
+        },
+        "6_side": {
+            "none": {
+                "rect_roi0": [
+                    [
+                        0,
+                        0
+                    ],
+                    [
+                        100,
+                        100
+                    ]
+                ]
+            }
+        }
+    }
+}
