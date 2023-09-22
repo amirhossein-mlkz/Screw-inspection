@@ -679,7 +679,7 @@ class UI_main_window(QMainWindow, ui):
 
     def load_sizes(self,parms,side):
 
-        print('parms',parms)
+
 
         for parms_key in parms.keys():
             if (parms_key=='x') or (parms_key=='y'):
@@ -1474,52 +1474,95 @@ class UI_main_window(QMainWindow, ui):
     #///////////////////////////////////////////////////////////////////////////// 
     #ROI utils -----------------------------------------------------------------------------------
 
-    def set_roi_value(self,data, page_name = None):
+    def set_roi_value(self,roi_type,data, page_name = None):
 
         if page_name is None:
             page_name =self.get_setting_page_idx(page_name=True)
         
         # print('page_name:set',page_name,self.spins['roi'][0]['spin_roi_{}_{}'.format(0,page_name)])
 
-        for roi_name in self.roi_name:
-            
-            try:
-                obj = self.spins['roi'][roi_name]['spin_roi_{}_{}'.format(roi_name,page_name)]
+        
+        
+        for fname,fvalue in data.items():
+            if roi_type == 'rect_roi':
+                roi_name = fname
+
+
+            elif roi_type == 'circle_roi':
+                roi_name = fname[0]
+
+
+            key = 'spin_roi_{}_{}'.format(fname,page_name)
+            if key in self.spins[roi_type][roi_name]:
+                obj = self.spins[roi_type][roi_name][key]
                 obj.blockSignals(True)
-                obj.setValue(data[roi_name])
+                obj.setValue(fvalue)
                 obj.blockSignals(False)
-            except:
-                pass
+
+
 
     def get_roi_value(self, page_name = None):
 
         if page_name is None:
             page_name =self.get_setting_page_idx(page_name=True)
         dict_values={}
-        for roi_name in self.roi_name:
+
             
-            try:
-                value=self.spins['roi'][roi_name]['spin_roi_{}_{}'.format(roi_name,page_name)].value() 
-                dict_values.update({roi_name:value})
-            except:
-                pass
+
+
+        for roi_type in ['rect_roi', 'circle_roi']:
+                
+                if roi_type =='rect_roi' :
+                    for roi_name in self.spins[roi_type]:
+                            key = 'spin_roi_{}_{}'.format(roi_name,page_name)
+                            if key in self.spins[roi_type][roi_name]:
+                                value=self.spins[roi_type][roi_name]['spin_roi_{}_{}'.format(roi_name,page_name)].value() 
+                                dict_values.update({roi_name:value})
+                elif roi_type =='circle_roi':
+                    for roi_name in self.spins[roi_type]:
+                        items = self.spins[roi_type][roi_name].items()
         
+                        for name,obj in items:
+                            i = name.find('_roi_'+roi_name)
+                            j = name.find('_',i+5) 
+                            name=name[i+5:j]  
+                            key = 'spin_roi_{}_{}'.format(name,page_name)
+                            if key in self.spins[roi_type][roi_name]:     
+                                value=self.spins[roi_type][roi_name]['spin_roi_{}_{}'.format(name,page_name)].value() 
+                                dict_values.update({name:value})
+                                
         return dict_values
                 
 
     def roi_connect(self,func):
-        for page_name in self.tool_pages_name_dict.values():
+        # for page_name in self.tool_pages_name_dict.values():
 
-            for roi_name in self.roi_name:
+        #     for roi_name in self.roi_name:
+
+                
             
-                try:
+        #         try:
                     
-                    obj = self.spins['roi'][roi_name]['spin_roi_{}_{}'.format(roi_name,page_name)]
-                    obj.valueChanged.connect(func('{}'.format(roi_name)))
+        #             obj = self.spins['roi'][roi_name]['spin_roi_{}_{}'.format(roi_name,page_name)]
+        #             obj.valueChanged.connect(func('{}'.format(roi_name)))
 
-                except:
-                    pass
+        #         except:
+        #             print('roi_connect'*20)
+        #             pass
             
+
+        for roi_type in ['rect_roi', 'circle_roi']:
+                for roi_name in self.spins[roi_type].keys():
+                    items = self.spins[roi_type][roi_name].items()
+                    for name,obj in items:
+                        i = name.find('_roi_'+roi_name)
+                        j = name.find('_',i+5) 
+                        name=name[i+5:j]
+                        obj.valueChanged.connect(func('{}'.format(name)))
+
+
+
+
     
     #///////////////////////////////////////////////////////////////////////////// 
     #Limit Utils ---------------------------------------------
@@ -1814,6 +1857,7 @@ class UI_main_window(QMainWindow, ui):
             page_name =self.get_setting_page_idx(page_name=True)
 
         for name, value in parms.items():
+
             name, idx = self.deasmble_name_and_idx( name )
             if name in ['thresh_inv', 'navel','from_belt'] :
                 self.set_checkbox_value(name,value,page_name,idx=idx)
@@ -1828,8 +1872,14 @@ class UI_main_window(QMainWindow, ui):
                           'rbelt','angle','d_parm','e_parm','belt_edge_margin',]:
                 self.set_spins_parms_value(name, value)
                 
-            elif 'roi' in name:
-                self.set_roi_value(Utils.rect_list2dict(value), page_name)
+            
+            elif 'circels_roi' in name:
+                self.set_roi_value('circle_roi', Utils.circles_list2dict(value), page_name)
+            
+            
+            elif 'rect_roi' in name:
+                self.set_roi_value('rect_roi', Utils.rect_list2dict(value), page_name)
+                
             
             elif 'limit' in name:
                 self.set_limit_value(value, page_name)

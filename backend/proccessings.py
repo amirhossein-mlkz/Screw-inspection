@@ -173,7 +173,7 @@ def preprocessing_0_top_img( img, json, draw=None):
 #___________________________________________________________________________________________________________________________
 
 
-def preprocessing_side_img( img, json):
+def preprocessing_side_img( img, json, rotation=True, centerise=True):
     thresh = json.get_thresh('1_side', None )
     noise_filter = json.get_noise_filter('1_side', None  )
     rect_roi_main = json.get_rect_roi( '1_side', None )
@@ -187,15 +187,19 @@ def preprocessing_side_img( img, json):
     #--------------------------------------------------------------------------------------
     #correct rotation
     #--------------------------------------------------------------------------------------
-    mask_unbelt, _ = cvTools.remove_belt( thresh_img,rect_roi_main, thresh=0.7 )
-    angle, _ = cvTools.correct_rotation_angle(mask_unbelt)
-    if angle==None:
-        return img,thresh_img,None
-    thresh_img = cvTools.rotate_image(thresh_img,  angle   )
-    img = cvTools.rotate_image(img,  angle   )
+    angle = None
 
+    if rotation:    
+        mask_unbelt, _ = cvTools.remove_belt( thresh_img,rect_roi_main, thresh=0.7 )
+        angle, _ = cvTools.correct_rotation_angle(mask_unbelt)
+        if angle==None:
+            return img,thresh_img,None
 
-    thresh_img, img, _ = cvTools.centerise_side( thresh_img, img )
+        thresh_img = cvTools.rotate_image(thresh_img,  angle   )
+        img = cvTools.rotate_image(img,  angle   )
+
+    if centerise:
+        thresh_img, img, _ = cvTools.centerise_side( thresh_img, img )
 
     return img, thresh_img, angle
 
@@ -604,7 +608,7 @@ def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
 
 
 
-def proccessing_top_defect( img, mask, jsondb, draw=None):
+def proccessing_top_defect( img, mask_roi_main, jsondb, draw=None):
     page_name = '3_top'
     results = []
     for subpage_name in jsondb.get_subpages(page_name):        
@@ -616,8 +620,10 @@ def proccessing_top_defect( img, mask, jsondb, draw=None):
         inv_state = jsondb.get_thresh_inv(page_name, subpage_name)
         circels_roi = jsondb.get_circels_roi(page_name, subpage_name)
         min_area_lake = jsondb.get_numerical_parm(page_name, subpage_name, 'min_area')
-        
-        thresh_img = cvTools.threshould(img, thresh, mask, inv_state)
+        thresh_min = jsondb.get_thresh_min(page_name, subpage_name)
+        thresh_max = jsondb.get_thresh_max(page_name, subpage_name)
+ 
+        thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi_main)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
         mask_roi = cvTools.donate2mask(thresh_img.shape, circels_roi, 255)
         thresh_img = cv2.bitwise_and(thresh_img, mask_roi)
@@ -657,23 +663,33 @@ def proccessing_top_defect( img, mask, jsondb, draw=None):
 
 
 
-def proccessing_top_edge_crack( img, mask, jsondb, draw=None):
+def proccessing_top_edge_crack( img, mask_roi_main, jsondb, draw=None):
     page_name = '4_top'
     subpage_name = None
     results = []
     #--------------------------------------------------------------------------------------
     #specific Operation
     #--------------------------------------------------------------------------------------
-    thresh = jsondb.get_thresh(page_name, subpage_name)
+
+
     noise_filter = jsondb.get_noise_filter( page_name, subpage_name )
     inv_state = jsondb.get_thresh_inv(page_name, subpage_name)
     circel_roi = jsondb.get_circels_roi(page_name, subpage_name)
     min_area_crack = jsondb.get_numerical_parm(page_name, subpage_name, 'min_area')
-    
-    mask_roi = cvTools.circels2mask(mask.shape, circel_roi)
-    thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
+
+    thresh_min = jsondb.get_thresh_min(page_name, subpage_name)
+    thresh_max = jsondb.get_thresh_max(page_name, subpage_name)
+
+
+    mask_roi = cvTools.circels2mask(mask_roi_main.shape, circel_roi)
+    mask_roi=cv2.bitwise_and(mask_roi,mask_roi_main)
+    thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
+
     thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
     cracks, cracks_area = cvTools.find_edge_crack(thresh_img, min_area_crack, 10 )
+
+
+    
     res_dict = {}
     #------------------------------------------------------------------------------------
     if len(cracks) > 0:

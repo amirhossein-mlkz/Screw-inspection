@@ -96,8 +96,6 @@ def object_dict_builder(ui_object):
 
     self.sliders={
         'thresh':{
-            'bar_thresh0_3_top':self.bar_thresh0_3_top,
-            'bar_thresh0_4_top':self.bar_thresh0_4_top,
             'bar_thresh0_5_top':self.bar_thresh0_5_top,
             'bar_thresh0_1_side': self.bar_thresh0_1_side,
             'bar_thresh0_2_side': self.bar_thresh0_2_side,
@@ -110,6 +108,8 @@ def object_dict_builder(ui_object):
 
             'bar_thresh_min0_1_top':self.bar_thresh_min0_1_top,
             'bar_thresh_min0_2_top':self.bar_thresh_min0_2_top,
+            'bar_thresh_min0_3_top':self.bar_thresh_min0_3_top,
+            'bar_thresh_min0_4_top':self.bar_thresh_min0_4_top,
             'bar_thresh_min0_1_side':self.bar_thresh_min0_1_side,
 
         }, 
@@ -117,6 +117,8 @@ def object_dict_builder(ui_object):
         {
             'bar_thresh_max0_1_top':self.bar_thresh_max0_1_top,
             'bar_thresh_max0_2_top':self.bar_thresh_max0_2_top,
+            'bar_thresh_max0_3_top':self.bar_thresh_max0_3_top,
+            'bar_thresh_max0_4_top':self.bar_thresh_max0_4_top,
             'bar_thresh_max0_1_side':self.bar_thresh_max0_1_side,
         }, 
 
@@ -136,7 +138,7 @@ def object_dict_builder(ui_object):
         
     }
     self.spins={
-        'roi':
+        'rect_roi':
             {
                 'x1':
                 {
@@ -184,16 +186,19 @@ def object_dict_builder(ui_object):
         'circle_roi':{
 
             'x':{
+                'spin_roi_x1_2_top' : self.spin_roi_x1_2_top,
                 'spin_roi_x1_3_top' : self.spin_roi_x1_3_top,
                 'spin_roi_x2_3_top' : self.spin_roi_x2_3_top
             },
 
             'y':{
+                'spin_roi_y1_2_top' : self.spin_roi_y1_2_top,
                 'spin_roi_y1_3_top' : self.spin_roi_y1_3_top,
                 'spin_roi_y2_3_top' : self.spin_roi_y2_3_top
             },
 
             'r':{
+                'spin_roi_r1_2_top' : self.spin_roi_r1_2_top,
                 'spin_roi_r1_3_top' : self.spin_roi_r1_3_top,
                 'spin_roi_r2_3_top' : self.spin_roi_r2_3_top
             }
@@ -332,7 +337,6 @@ def object_dict_builder(ui_object):
         'thresh_inv':
         {
 
-            'checkbox_thresh_inv0_3_top': self.checkbox_thresh_inv0_3_top,
             'checkbox_thresh_inv0_4_top': self.checkbox_thresh_inv0_4_top,
             'checkbox_thresh_inv0_5_top': self.checkbox_thresh_inv0_5_top,
             'checkbox_thresh_inv0_1_side': self.checkbox_thresh_inv0_1_side,

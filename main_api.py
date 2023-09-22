@@ -884,8 +884,25 @@ class API:
 
             self.update_setting_page_info()
             #self.update_main_image()
-            
-        
+    
+    def setup_drawing_setting(self,page_name,):        
+
+        self.drawing_available = False
+        if page_name in ['1_top', '1_side', '2_side', '3_side', '4_side', '5_side', '6_side']:
+            self.mouse_roi_shape_type = 'rect'
+            self.mouse_roi_max_count = 1     
+            self.drawing_available = True
+
+        elif page_name in ['3_top']:
+            self.mouse_roi_shape_type = 'circel'
+            self.mouse_roi_max_count = 2 
+            self.drawing_available = True
+
+        elif page_name in ['4_top', '5_top', '2_top']:
+            self.mouse_roi_shape_type = 'circel'
+            self.mouse_roi_max_count = 1
+            self.drawing_available = True
+
         
     def image_setting_mouse_event(self,wname):
         # self.ui.
@@ -895,23 +912,9 @@ class API:
         mouse_pt = self.mouse.get_relative_position()
         mouse_real_pt=self.mouse.get_position()
         
-        drawing_available = False
-        if page_name in ['1_top', '1_side', '2_side', '3_side', '4_side', '5_side', '6_side']:
-            self.mouse_roi_shape_type = 'rect'
-            self.mouse_roi_max_count = 1     
-            drawing_available = True
 
-        elif page_name in ['3_top']:
-            self.mouse_roi_shape_type = 'circel'
-            self.mouse_roi_max_count = 2 
-            drawing_available = True
 
-        elif page_name in ['4_top', '5_top', '2_top']:
-            self.mouse_roi_shape_type = 'circel'
-            self.mouse_roi_max_count = 1
-            drawing_available = True
-
-        if drawing_available:
+        if self.drawing_available:
         
             self.update_roi_mouse(mouse_status, mouse_button , mouse_pt, self.mouse_roi_shape_type , self.mouse_roi_max_count)
 
@@ -1086,16 +1089,40 @@ class API:
             subpage_name = self.ui.get_sub_page_name( page_name )
             
             data = self.ui.get_roi_value()
-            rect = self.screw_jasons[ direction ].get_rect_roi(page_name, subpage_name)
-            
-            rect_dict = Utils.rect_list2dict(rect)
-            rect_dict[name] = data[name]
-            rect = Utils.rect_dict2list(rect_dict)
 
-            #print(self.rect_roi_drawing.shapes)
-            self.roi_drawings['rect'][direction].update_shape(shape_idx=0,  shape=rect)            
-            self.screw_jasons[direction].set_rect_roi( page_name, subpage_name, pt1=rect[0], pt2=rect[1])
+
+            if self.mouse_roi_shape_type=='rect':
+
+                rect = self.screw_jasons[ direction ].get_rect_roi(page_name, subpage_name)
+                
+                rect_dict = Utils.rect_list2dict(rect)
+                rect_dict[name] = data[name]
+                rect = Utils.rect_dict2list(rect_dict)
+
+                #print(self.rect_roi_drawing.shapes)
+                self.roi_drawings['rect'][direction].update_shape(shape_idx=0,  shape=rect)            
+                self.screw_jasons[direction].set_rect_roi( page_name, subpage_name, pt1=rect[0], pt2=rect[1])
             
+
+            if self.mouse_roi_shape_type=='circel':
+
+                circles = self.screw_jasons[direction].get_circels_roi(page_name,subpage_name)
+                idx=0
+                if 'x' in name:
+                    idx = int(name[1:])-1
+                    circles[idx][0][0] = data[name]
+                elif 'y' in name:
+                    idx = int(name[1:])-1
+                    circles[idx][0][1] = data[name]
+                elif 'r' in name:
+                    idx = int(name[1:])-1
+                    circles[idx][1] = data[name]               
+
+                self.roi_drawings['circel'][direction].update_shapes(circles)            
+                self.screw_jasons[direction].set_circels_roi( page_name, subpage_name,circles)
+                 
+
+
             self.setting_image_updater()
         return func
 
@@ -1114,10 +1141,24 @@ class API:
                 rect = shapes[0]
                 rect_dict = Utils.rect_list2dict(rect)
                 self.screw_jasons[direction].set_rect_roi( page_name, subpage_name, pt1=rect[0], pt2=rect[1] )
-                self.ui.set_roi_value(rect_dict)
+                self.ui.set_roi_value('rect_roi', rect_dict)
             
             if shape_type == 'circel':
                 self.screw_jasons[direction].set_circels_roi( page_name, subpage_name, shapes=shapes[:max_count] )
+                circles = self.screw_jasons[direction].get_circels_roi(page_name, subpage_name)
+                for i,circle in enumerate(circles):
+                    circle_dict = {}
+                    [x,y], r = circle
+
+                    circle_dict[ f'x{i+1}'] = x
+                    circle_dict[ f'y{i+1}'] = y
+                    circle_dict[ f'r{i+1}'] = r
+
+                    self.ui.set_roi_value('circle_roi', circle_dict)
+
+
+
+
         
         else:
             if shape_type == 'rect':
@@ -1169,6 +1210,7 @@ class API:
             self.ui.set_list_pack_items( 'sub_pages', items )
             subpage_name = self.ui.get_sub_page_name( page_name )
         #-----------loade limits --------------------
+        self.setup_drawing_setting(page_name)
         self.refresh_page()
 
 
@@ -1405,46 +1447,33 @@ class API:
 
         img = np.copy(self.current_image_screw['top'])
 
-        img,draw = proccessings.preprocessing_0_top_img(img,self.screw_jasons[ direction ],img.copy())
-        img , mask_roi, draw = proccessings.preprocessing_1_top_img(img,self.screw_jasons[ direction ],draw)
+        
+        json = self.screw_jasons[ direction ]
+
+        
+        img,_ = proccessings.preprocessing_0_top_img(img,json,None)
+        img , mask_roi, draw = proccessings.preprocessing_1_top_img(img,json, )
+        results, draw = proccessings.proccessing_top_defect(img, mask_roi, json, img.copy())
 
 
-        if subpage_name!='none':
-            #--------------------------------------------------------------------------------------
-            #specific Operation
-            #--------------------------------------------------------------------------------------
-            thresh = self.screw_jasons[ direction ].get_thresh(page_name, subpage_name)
-            noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
-            inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
-            circels_roi = self.screw_jasons[ direction ].get_circels_roi(page_name, subpage_name)
-            min_area_lake = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'min_area')
-            
-            thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
-            thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
-            mask_roi = cvTools.donate2mask(thresh_img.shape, circels_roi, 255)
-            thresh_img = cv2.bitwise_and(thresh_img, mask_roi)
-            
-            lakes_cnt, lakes_ares  = cvTools.filter_area(thresh_img, min_area_lake)
-            thresh_img = cvTools.polys2mask(thresh_img.shape, lakes_cnt, defualt=0)
+        info={}
+        for result in results:
+            if subpage_name in result['name']:
+                info = {'min_area': result['min'], 'max_area':result['max']}
 
-            #------------------------------------------------------------------------------------
-            if len(lakes_ares) > 0:
-                info = {'min_area': lakes_ares.min(), 'max_area':lakes_ares.max()}
-            else:
-                info = {'min_area': 0, 'max_area':0}
-            self.ui.set_stetting_page_label_info(info)
-            #------------------------------------------------------------------------------------
-            
-            if self.ui.is_drawing_mask_enabel():
-                img = Utils.mask_viewer(img, thresh_img, color=(0,0,100))
-                img = self.roi_drawings['circel'][direction].get_image(img)
-                h,w = img.shape[:2]
-                img = cv2.circle(img, (w//2, h//2), 5, (0,255,0) , thickness=-1)
-                
 
-       
-        self.ui.set_image_page_tool_labels(img)
+        self.ui.set_stetting_page_label_info(info)
 
+        if self.ui.is_drawing_mask_enabel():
+            h,w = draw.shape[:2]
+            draw = cv2.circle(draw, (w//2, h//2), 5, (255,0,0) , thickness=-1)
+            draw = self.roi_drawings['circel'][direction].get_image(draw)
+            self.ui.set_image_page_tool_labels(draw)
+        else:
+            self.ui.set_image_page_tool_labels(img)
+
+
+        
 
 
 
@@ -1554,7 +1583,7 @@ class API:
 
         rect = self.screw_jasons[ direction ].get_rect_roi( page_name, subpage_name)
         img = cvTools.preprocess(img)
-        img, thresh_img, angle = proccessings.preprocessing_side_img(img, self.screw_jasons[direction])
+        img, thresh_img, angle = proccessings.preprocessing_side_img(img, self.screw_jasons[direction], rotation=False, centerise=False)
         
         if Utils.is_rect( rect ) and np.count_nonzero(thresh_img) > 100:
             self.ui.enable_bar_btn_tool_page( direction, True )

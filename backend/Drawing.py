@@ -367,7 +367,7 @@ class drawCircel(drawShape):
         points_count = 2
         self.centerize = centerize
         drawShape.__init__(self, points_count, color_map=color_map, thikness_map = thikness_map)   
-    
+
 
     #______________________________________________________________________________________________________
     #exp:
@@ -403,7 +403,7 @@ class drawCircel(drawShape):
         arc_x, arc_y = points[1]
         radius = ((arc_x-cx)**2 + (arc_y-cy)**2)**0.5
         radius = int(radius)
-        return (cx,cy), radius
+        return [[cx,cy], radius]
     
     
     #______________________________________________________________________________________________________
@@ -517,6 +517,8 @@ class drawCircel(drawShape):
         
         
 
+    def update_shapes(self,shapes):
+        self.shapes = shapes
 
 
 

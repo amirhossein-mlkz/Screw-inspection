@@ -28,10 +28,15 @@ def mask_viewer(img,mask, color=(40,127,255)):
 
 
 
-
-
-
-
+def circles_list2dict(circles):
+    circles_dict = {}
+    for i,cicle in enumerate(circles):
+        [x,y], r = cicle
+        circles_dict[f'x{i+1}'] = x
+        circles_dict[f'y{i+1}'] = y
+        circles_dict[f'r{i+1}'] = r
+    
+    return circles_dict
 
 def rect_list2dict(rect):
     rect_dict = {}

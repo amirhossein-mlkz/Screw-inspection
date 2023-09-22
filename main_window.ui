@@ -6230,8 +6230,14 @@ QPushButton:disabled{
                                     <height>0</height>
                                    </size>
                                   </property>
+                                  <property name="maximumSize">
+                                   <size>
+                                    <width>16777215</width>
+                                    <height>16777194</height>
+                                   </size>
+                                  </property>
                                   <property name="currentIndex">
-                                   <number>1</number>
+                                   <number>4</number>
                                   </property>
                                   <widget class="QWidget" name="page_0_top">
                                    <layout class="QVBoxLayout" name="verticalLayout_145">
@@ -7631,11 +7637,101 @@ border-radius : 5px;</string>
                                           <property name="bottomMargin">
                                            <number>0</number>
                                           </property>
+                                         </layout>
+                                        </widget>
+                                       </item>
+                                       <item>
+                                        <widget class="QFrame" name="frame_150">
+                                         <property name="frameShape">
+                                          <enum>QFrame::StyledPanel</enum>
+                                         </property>
+                                         <property name="frameShadow">
+                                          <enum>QFrame::Raised</enum>
+                                         </property>
+                                         <layout class="QVBoxLayout" name="verticalLayout_106">
                                           <item>
-                                           <widget class="QLabel" name="label_11">
-                                            <property name="text">
-                                             <string>Drawing ..........</string>
+                                           <widget class="QFrame" name="frame_151">
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>0</width>
+                                              <height>29</height>
+                                             </size>
                                             </property>
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>16777215</width>
+                                              <height>12</height>
+                                             </size>
+                                            </property>
+                                            <property name="frameShape">
+                                             <enum>QFrame::Panel</enum>
+                                            </property>
+                                            <property name="frameShadow">
+                                             <enum>QFrame::Raised</enum>
+                                            </property>
+                                            <layout class="QHBoxLayout" name="horizontalLayout_167">
+                                             <property name="topMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="bottomMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <item>
+                                              <widget class="QLabel" name="label_217">
+                                               <property name="text">
+                                                <string>X :</string>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QSpinBox" name="spin_roi_x1_2_top">
+                                               <property name="maximum">
+                                                <number>10000</number>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QLabel" name="label_218">
+                                               <property name="text">
+                                                <string>Y :</string>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QSpinBox" name="spin_roi_y1_2_top">
+                                               <property name="maximum">
+                                                <number>10000</number>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QLabel" name="label_219">
+                                               <property name="text">
+                                                <string>Radius :</string>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <widget class="QSpinBox" name="spin_roi_r1_2_top">
+                                               <property name="maximum">
+                                                <number>1000</number>
+                                               </property>
+                                              </widget>
+                                             </item>
+                                             <item>
+                                              <spacer name="horizontalSpacer_46">
+                                               <property name="orientation">
+                                                <enum>Qt::Horizontal</enum>
+                                               </property>
+                                               <property name="sizeHint" stdset="0">
+                                                <size>
+                                                 <width>40</width>
+                                                 <height>20</height>
+                                                </size>
+                                               </property>
+                                              </spacer>
+                                             </item>
+                                            </layout>
                                            </widget>
                                           </item>
                                          </layout>
@@ -7927,6 +8023,9 @@ border-radius : 5px;</string>
                                          </property>
                                          <widget class="QWidget" name="page_circle">
                                           <layout class="QVBoxLayout" name="verticalLayout_41">
+                                           <property name="topMargin">
+                                            <number>9</number>
+                                           </property>
                                            <item>
                                             <widget class="QFrame" name="frame_162">
                                              <property name="minimumSize">
@@ -8485,8 +8584,14 @@ QPushButton:disabled{
                                    </layout>
                                   </widget>
                                   <widget class="QWidget" name="page_3_top">
+                                   <property name="maximumSize">
+                                    <size>
+                                     <width>16777215</width>
+                                     <height>566</height>
+                                    </size>
+                                   </property>
                                    <layout class="QVBoxLayout" name="verticalLayout_111">
-                                    <item>
+                                    <item alignment="Qt::AlignTop">
                                      <widget class="QFrame" name="frame_166">
                                       <property name="maximumSize">
                                        <size>
@@ -8544,7 +8649,7 @@ QPushButton:disabled{
                                       </layout>
                                      </widget>
                                     </item>
-                                    <item>
+                                    <item alignment="Qt::AlignTop">
                                      <widget class="QFrame" name="frame_55">
                                       <property name="minimumSize">
                                        <size>
@@ -8674,13 +8779,13 @@ QPushButton:disabled{
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
-                                        <height>472</height>
+                                        <height>455</height>
                                        </size>
                                       </property>
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
-                                        <height>604</height>
+                                        <height>455</height>
                                        </size>
                                       </property>
                                       <property name="frameShape">
@@ -8690,18 +8795,27 @@ QPushButton:disabled{
                                        <enum>QFrame::Raised</enum>
                                       </property>
                                       <layout class="QVBoxLayout" name="verticalLayout_130">
+                                       <property name="spacing">
+                                        <number>11</number>
+                                       </property>
+                                       <property name="topMargin">
+                                        <number>0</number>
+                                       </property>
+                                       <property name="bottomMargin">
+                                        <number>0</number>
+                                       </property>
                                        <item>
                                         <widget class="QGroupBox" name="groupBox_8">
                                          <property name="minimumSize">
                                           <size>
                                            <width>0</width>
-                                           <height>80</height>
+                                           <height>55</height>
                                           </size>
                                          </property>
                                          <property name="maximumSize">
                                           <size>
                                            <width>16777215</width>
-                                           <height>80</height>
+                                           <height>55</height>
                                           </size>
                                          </property>
                                          <property name="title">
@@ -8716,7 +8830,13 @@ QPushButton:disabled{
                                             <property name="minimumSize">
                                              <size>
                                               <width>0</width>
-                                              <height>40</height>
+                                              <height>29</height>
+                                             </size>
+                                            </property>
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>16777215</width>
+                                              <height>12</height>
                                              </size>
                                             </property>
                                             <property name="frameShape">
@@ -8726,6 +8846,12 @@ QPushButton:disabled{
                                              <enum>QFrame::Raised</enum>
                                             </property>
                                             <layout class="QHBoxLayout" name="horizontalLayout_81">
+                                             <property name="topMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="bottomMargin">
+                                              <number>0</number>
+                                             </property>
                                              <item>
                                               <widget class="QLabel" name="label_139">
                                                <property name="text">
@@ -8734,7 +8860,11 @@ QPushButton:disabled{
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QSpinBox" name="spin_roi_x1_3_top"/>
+                                              <widget class="QSpinBox" name="spin_roi_x1_3_top">
+                                               <property name="maximum">
+                                                <number>10000</number>
+                                               </property>
+                                              </widget>
                                              </item>
                                              <item>
                                               <widget class="QLabel" name="label_148">
@@ -8744,7 +8874,11 @@ QPushButton:disabled{
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QSpinBox" name="spin_roi_y1_3_top"/>
+                                              <widget class="QSpinBox" name="spin_roi_y1_3_top">
+                                               <property name="maximum">
+                                                <number>10000</number>
+                                               </property>
+                                              </widget>
                                              </item>
                                              <item>
                                               <widget class="QLabel" name="label_149">
@@ -8754,7 +8888,11 @@ QPushButton:disabled{
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QSpinBox" name="spin_roi_r1_3_top"/>
+                                              <widget class="QSpinBox" name="spin_roi_r1_3_top">
+                                               <property name="maximum">
+                                                <number>1000</number>
+                                               </property>
+                                              </widget>
                                              </item>
                                              <item>
                                               <spacer name="horizontalSpacer_12">
@@ -8780,13 +8918,13 @@ QPushButton:disabled{
                                          <property name="minimumSize">
                                           <size>
                                            <width>0</width>
-                                           <height>80</height>
+                                           <height>55</height>
                                           </size>
                                          </property>
                                          <property name="maximumSize">
                                           <size>
                                            <width>16777215</width>
-                                           <height>80</height>
+                                           <height>55</height>
                                           </size>
                                          </property>
                                          <property name="title">
@@ -8805,6 +8943,12 @@ QPushButton:disabled{
                                              <enum>QFrame::Raised</enum>
                                             </property>
                                             <layout class="QHBoxLayout" name="horizontalLayout_82">
+                                             <property name="topMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="bottomMargin">
+                                              <number>0</number>
+                                             </property>
                                              <item>
                                               <widget class="QLabel" name="label_151">
                                                <property name="text">
@@ -8813,7 +8957,11 @@ QPushButton:disabled{
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QSpinBox" name="spin_roi_x2_3_top"/>
+                                              <widget class="QSpinBox" name="spin_roi_x2_3_top">
+                                               <property name="maximum">
+                                                <number>10000</number>
+                                               </property>
+                                              </widget>
                                              </item>
                                              <item>
                                               <widget class="QLabel" name="label_152">
@@ -8823,7 +8971,11 @@ QPushButton:disabled{
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QSpinBox" name="spin_roi_y2_3_top"/>
+                                              <widget class="QSpinBox" name="spin_roi_y2_3_top">
+                                               <property name="maximum">
+                                                <number>10000</number>
+                                               </property>
+                                              </widget>
                                              </item>
                                              <item>
                                               <widget class="QLabel" name="label_153">
@@ -8833,7 +8985,11 @@ QPushButton:disabled{
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QSpinBox" name="spin_roi_r2_3_top"/>
+                                              <widget class="QSpinBox" name="spin_roi_r2_3_top">
+                                               <property name="maximum">
+                                                <number>1000</number>
+                                               </property>
+                                              </widget>
                                              </item>
                                              <item>
                                               <spacer name="horizontalSpacer_27">
@@ -8862,17 +9018,17 @@ QPushButton:disabled{
                                          <property name="minimumSize">
                                           <size>
                                            <width>0</width>
-                                           <height>66</height>
+                                           <height>25</height>
                                           </size>
                                          </property>
                                          <property name="maximumSize">
                                           <size>
                                            <width>16777215</width>
-                                           <height>67</height>
+                                           <height>25</height>
                                           </size>
                                          </property>
                                          <property name="frameShape">
-                                          <enum>QFrame::Panel</enum>
+                                          <enum>QFrame::NoFrame</enum>
                                          </property>
                                          <property name="frameShadow">
                                           <enum>QFrame::Raised</enum>
@@ -8890,29 +9046,22 @@ QPushButton:disabled{
                                           <property name="bottomMargin">
                                            <number>0</number>
                                           </property>
-                                          <item alignment="Qt::AlignHCenter">
-                                           <widget class="QLabel" name="label_138">
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>16777215</width>
-                                              <height>50</height>
-                                             </size>
-                                            </property>
-                                            <property name="text">
-                                             <string>Threshold</string>
-                                            </property>
-                                           </widget>
-                                          </item>
                                           <item>
                                            <widget class="QFrame" name="frame_170">
                                             <property name="minimumSize">
                                              <size>
                                               <width>0</width>
-                                              <height>43</height>
+                                              <height>25</height>
+                                             </size>
+                                            </property>
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>16777215</width>
+                                              <height>25</height>
                                              </size>
                                             </property>
                                             <property name="frameShape">
-                                             <enum>QFrame::StyledPanel</enum>
+                                             <enum>QFrame::NoFrame</enum>
                                             </property>
                                             <property name="frameShadow">
                                              <enum>QFrame::Raised</enum>
@@ -8928,26 +9077,20 @@ QPushButton:disabled{
                                               <number>0</number>
                                              </property>
                                              <item>
-                                              <widget class="QCheckBox" name="checkbox_thresh_inv0_3_top">
-                                               <property name="minimumSize">
-                                                <size>
-                                                 <width>96</width>
-                                                 <height>4</height>
-                                                </size>
-                                               </property>
+                                              <widget class="QLabel" name="label_138">
                                                <property name="maximumSize">
                                                 <size>
-                                                 <width>87</width>
-                                                 <height>16777215</height>
+                                                 <width>16777215</width>
+                                                 <height>50</height>
                                                 </size>
                                                </property>
                                                <property name="text">
-                                                <string>Negative</string>
+                                                <string>Max Threshold</string>
                                                </property>
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QSlider" name="bar_thresh0_3_top">
+                                              <widget class="QSlider" name="bar_thresh_max0_3_top">
                                                <property name="minimumSize">
                                                 <size>
                                                  <width>0</width>
@@ -8979,6 +9122,78 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
+                                        <widget class="QFrame" name="frame_251">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>0</width>
+                                           <height>25</height>
+                                          </size>
+                                         </property>
+                                         <property name="maximumSize">
+                                          <size>
+                                           <width>16777215</width>
+                                           <height>25</height>
+                                          </size>
+                                         </property>
+                                         <property name="frameShape">
+                                          <enum>QFrame::StyledPanel</enum>
+                                         </property>
+                                         <property name="frameShadow">
+                                          <enum>QFrame::Raised</enum>
+                                         </property>
+                                         <layout class="QHBoxLayout" name="horizontalLayout_217">
+                                          <property name="leftMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="topMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="bottomMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <item>
+                                           <widget class="QLabel" name="label_216">
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>16777215</width>
+                                              <height>50</height>
+                                             </size>
+                                            </property>
+                                            <property name="text">
+                                             <string>Min Threshold</string>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QSlider" name="bar_thresh_min0_3_top">
+                                            <property name="minimumSize">
+                                             <size>
+                                              <width>0</width>
+                                              <height>30</height>
+                                             </size>
+                                            </property>
+                                            <property name="maximum">
+                                             <number>255</number>
+                                            </property>
+                                            <property name="orientation">
+                                             <enum>Qt::Horizontal</enum>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QSpinBox" name="spinBox_12">
+                                            <property name="enabled">
+                                             <bool>true</bool>
+                                            </property>
+                                            <property name="maximum">
+                                             <number>255</number>
+                                            </property>
+                                           </widget>
+                                          </item>
+                                         </layout>
+                                        </widget>
+                                       </item>
+                                       <item>
                                         <widget class="QFrame" name="frame_167">
                                          <property name="enabled">
                                           <bool>true</bool>
@@ -8986,7 +9201,7 @@ QPushButton:disabled{
                                          <property name="maximumSize">
                                           <size>
                                            <width>16777215</width>
-                                           <height>65</height>
+                                           <height>40</height>
                                           </size>
                                          </property>
                                          <property name="frameShape">
@@ -8996,19 +9211,12 @@ QPushButton:disabled{
                                           <enum>QFrame::Raised</enum>
                                          </property>
                                          <layout class="QVBoxLayout" name="verticalLayout_108">
-                                          <item>
-                                           <widget class="QLabel" name="label_137">
-                                            <property name="enabled">
-                                             <bool>true</bool>
-                                            </property>
-                                            <property name="text">
-                                             <string>Noise filter</string>
-                                            </property>
-                                            <property name="alignment">
-                                             <set>Qt::AlignCenter</set>
-                                            </property>
-                                           </widget>
-                                          </item>
+                                          <property name="topMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="bottomMargin">
+                                           <number>0</number>
+                                          </property>
                                           <item>
                                            <widget class="QFrame" name="frame_168">
                                             <property name="minimumSize">
@@ -9036,6 +9244,19 @@ QPushButton:disabled{
                                              <property name="bottomMargin">
                                               <number>0</number>
                                              </property>
+                                             <item>
+                                              <widget class="QLabel" name="label_137">
+                                               <property name="enabled">
+                                                <bool>true</bool>
+                                               </property>
+                                               <property name="text">
+                                                <string>Noise filter</string>
+                                               </property>
+                                               <property name="alignment">
+                                                <set>Qt::AlignCenter</set>
+                                               </property>
+                                              </widget>
+                                             </item>
                                              <item>
                                               <widget class="QSlider" name="bar_noise_filter0_3_top">
                                                <property name="minimumSize">
@@ -9127,10 +9348,16 @@ QPushButton:disabled{
                                        </item>
                                        <item>
                                         <widget class="QGroupBox" name="groupBox_18">
+                                         <property name="minimumSize">
+                                          <size>
+                                           <width>0</width>
+                                           <height>55</height>
+                                          </size>
+                                         </property>
                                          <property name="maximumSize">
                                           <size>
                                            <width>16777215</width>
-                                           <height>82</height>
+                                           <height>55</height>
                                           </size>
                                          </property>
                                          <property name="title">
@@ -9140,6 +9367,12 @@ QPushButton:disabled{
                                           <bool>true</bool>
                                          </property>
                                          <layout class="QHBoxLayout" name="horizontalLayout_105">
+                                          <property name="topMargin">
+                                           <number>0</number>
+                                          </property>
+                                          <property name="bottomMargin">
+                                           <number>0</number>
+                                          </property>
                                           <item>
                                            <widget class="QFrame" name="frame_17">
                                             <property name="frameShape">
@@ -9190,8 +9423,34 @@ QPushButton:disabled{
                                          </layout>
                                         </widget>
                                        </item>
+                                       <item>
+                                        <spacer name="verticalSpacer_22">
+                                         <property name="orientation">
+                                          <enum>Qt::Vertical</enum>
+                                         </property>
+                                         <property name="sizeHint" stdset="0">
+                                          <size>
+                                           <width>20</width>
+                                           <height>40</height>
+                                          </size>
+                                         </property>
+                                        </spacer>
+                                       </item>
                                       </layout>
                                      </widget>
+                                    </item>
+                                    <item>
+                                     <spacer name="verticalSpacer_21">
+                                      <property name="orientation">
+                                       <enum>Qt::Vertical</enum>
+                                      </property>
+                                      <property name="sizeHint" stdset="0">
+                                       <size>
+                                        <width>20</width>
+                                        <height>40</height>
+                                       </size>
+                                      </property>
+                                     </spacer>
                                     </item>
                                    </layout>
                                   </widget>
@@ -9219,69 +9478,35 @@ QPushButton:disabled{
                                         <number>0</number>
                                        </property>
                                        <item>
-                                        <widget class="QFrame" name="frame_195">
-                                         <property name="enabled">
-                                          <bool>true</bool>
-                                         </property>
-                                         <property name="minimumSize">
-                                          <size>
-                                           <width>0</width>
-                                           <height>66</height>
-                                          </size>
-                                         </property>
-                                         <property name="maximumSize">
-                                          <size>
-                                           <width>16777215</width>
-                                           <height>67</height>
-                                          </size>
-                                         </property>
+                                        <widget class="QFrame" name="frame_252">
                                          <property name="frameShape">
-                                          <enum>QFrame::Panel</enum>
+                                          <enum>QFrame::StyledPanel</enum>
                                          </property>
                                          <property name="frameShadow">
                                           <enum>QFrame::Raised</enum>
                                          </property>
-                                         <layout class="QVBoxLayout" name="verticalLayout_127">
-                                          <property name="leftMargin">
-                                           <number>0</number>
-                                          </property>
-                                          <property name="topMargin">
-                                           <number>0</number>
-                                          </property>
-                                          <property name="rightMargin">
-                                           <number>0</number>
-                                          </property>
-                                          <property name="bottomMargin">
-                                           <number>0</number>
-                                          </property>
-                                          <item alignment="Qt::AlignHCenter">
-                                           <widget class="QLabel" name="label_170">
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>16777215</width>
-                                              <height>50</height>
-                                             </size>
-                                            </property>
-                                            <property name="text">
-                                             <string>Threshold</string>
-                                            </property>
-                                           </widget>
-                                          </item>
+                                         <layout class="QVBoxLayout" name="verticalLayout_150">
                                           <item>
-                                           <widget class="QFrame" name="frame_197">
+                                           <widget class="QFrame" name="frame_253">
                                             <property name="minimumSize">
                                              <size>
                                               <width>0</width>
-                                              <height>43</height>
+                                              <height>25</height>
+                                             </size>
+                                            </property>
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>16777215</width>
+                                              <height>25</height>
                                              </size>
                                             </property>
                                             <property name="frameShape">
-                                             <enum>QFrame::StyledPanel</enum>
+                                             <enum>QFrame::NoFrame</enum>
                                             </property>
                                             <property name="frameShadow">
                                              <enum>QFrame::Raised</enum>
                                             </property>
-                                            <layout class="QHBoxLayout" name="horizontalLayout_186">
+                                            <layout class="QHBoxLayout" name="horizontalLayout_218">
                                              <property name="leftMargin">
                                               <number>0</number>
                                              </property>
@@ -9292,26 +9517,20 @@ QPushButton:disabled{
                                               <number>0</number>
                                              </property>
                                              <item>
-                                              <widget class="QCheckBox" name="checkbox_thresh_inv0_4_top">
-                                               <property name="minimumSize">
-                                                <size>
-                                                 <width>96</width>
-                                                 <height>4</height>
-                                                </size>
-                                               </property>
+                                              <widget class="QLabel" name="label_220">
                                                <property name="maximumSize">
                                                 <size>
-                                                 <width>87</width>
-                                                 <height>16777215</height>
+                                                 <width>16777215</width>
+                                                 <height>50</height>
                                                 </size>
                                                </property>
                                                <property name="text">
-                                                <string>Negative</string>
+                                                <string>Max Threshold</string>
                                                </property>
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QSlider" name="bar_thresh0_4_top">
+                                              <widget class="QSlider" name="bar_thresh_max0_4_top">
                                                <property name="minimumSize">
                                                 <size>
                                                  <width>0</width>
@@ -9327,13 +9546,103 @@ QPushButton:disabled{
                                               </widget>
                                              </item>
                                              <item>
-                                              <widget class="QSpinBox" name="spinBox_17">
+                                              <widget class="QSpinBox" name="spinBox_28">
                                                <property name="enabled">
                                                 <bool>true</bool>
                                                </property>
                                                <property name="maximum">
                                                 <number>255</number>
                                                </property>
+                                              </widget>
+                                             </item>
+                                            </layout>
+                                           </widget>
+                                          </item>
+                                          <item>
+                                           <widget class="QFrame" name="frame_254">
+                                            <property name="frameShape">
+                                             <enum>QFrame::StyledPanel</enum>
+                                            </property>
+                                            <property name="frameShadow">
+                                             <enum>QFrame::Raised</enum>
+                                            </property>
+                                            <layout class="QVBoxLayout" name="verticalLayout_151">
+                                             <property name="leftMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <property name="rightMargin">
+                                              <number>0</number>
+                                             </property>
+                                             <item>
+                                              <widget class="QFrame" name="frame_255">
+                                               <property name="minimumSize">
+                                                <size>
+                                                 <width>0</width>
+                                                 <height>25</height>
+                                                </size>
+                                               </property>
+                                               <property name="maximumSize">
+                                                <size>
+                                                 <width>16777215</width>
+                                                 <height>25</height>
+                                                </size>
+                                               </property>
+                                               <property name="frameShape">
+                                                <enum>QFrame::NoFrame</enum>
+                                               </property>
+                                               <property name="frameShadow">
+                                                <enum>QFrame::Raised</enum>
+                                               </property>
+                                               <layout class="QHBoxLayout" name="horizontalLayout_219">
+                                                <property name="leftMargin">
+                                                 <number>0</number>
+                                                </property>
+                                                <property name="topMargin">
+                                                 <number>0</number>
+                                                </property>
+                                                <property name="bottomMargin">
+                                                 <number>0</number>
+                                                </property>
+                                                <item>
+                                                 <widget class="QLabel" name="label_221">
+                                                  <property name="maximumSize">
+                                                   <size>
+                                                    <width>16777215</width>
+                                                    <height>50</height>
+                                                   </size>
+                                                  </property>
+                                                  <property name="text">
+                                                   <string>Min Threshold</string>
+                                                  </property>
+                                                 </widget>
+                                                </item>
+                                                <item>
+                                                 <widget class="QSlider" name="bar_thresh_min0_4_top">
+                                                  <property name="minimumSize">
+                                                   <size>
+                                                    <width>0</width>
+                                                    <height>30</height>
+                                                   </size>
+                                                  </property>
+                                                  <property name="maximum">
+                                                   <number>255</number>
+                                                  </property>
+                                                  <property name="orientation">
+                                                   <enum>Qt::Horizontal</enum>
+                                                  </property>
+                                                 </widget>
+                                                </item>
+                                                <item>
+                                                 <widget class="QSpinBox" name="spinBox_29">
+                                                  <property name="enabled">
+                                                   <bool>true</bool>
+                                                  </property>
+                                                  <property name="maximum">
+                                                   <number>255</number>
+                                                  </property>
+                                                 </widget>
+                                                </item>
+                                               </layout>
                                               </widget>
                                              </item>
                                             </layout>
@@ -17689,7 +17998,7 @@ QPushButton:pressed {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>92</width>
+                                  <width>67</width>
                                   <height>67</height>
                                  </rect>
                                 </property>
@@ -20607,8 +20916,8 @@ QPushButton:pressed {
      <y>463</y>
     </hint>
     <hint type="destinationlabel">
-     <x>672</x>
-     <y>456</y>
+     <x>663</x>
+     <y>444</y>
     </hint>
    </hints>
   </connection>
@@ -20635,8 +20944,8 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>672</x>
-     <y>456</y>
+     <x>663</x>
+     <y>444</y>
     </hint>
     <hint type="destinationlabel">
      <x>542</x>
@@ -20667,12 +20976,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
-     <y>550</y>
+     <x>582</x>
+     <y>207</y>
     </hint>
     <hint type="destinationlabel">
-     <x>693</x>
-     <y>544</y>
+     <x>629</x>
+     <y>201</y>
     </hint>
    </hints>
   </connection>
@@ -20683,12 +20992,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>693</x>
-     <y>544</y>
+     <x>629</x>
+     <y>201</y>
     </hint>
     <hint type="destinationlabel">
-     <x>646</x>
-     <y>550</y>
+     <x>582</x>
+     <y>207</y>
     </hint>
    </hints>
   </connection>
@@ -20699,12 +21008,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
-     <y>766</y>
+     <x>582</x>
+     <y>196</y>
     </hint>
     <hint type="destinationlabel">
-     <x>693</x>
-     <y>760</y>
+     <x>629</x>
+     <y>188</y>
     </hint>
    </hints>
   </connection>
@@ -20715,12 +21024,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>693</x>
-     <y>760</y>
+     <x>629</x>
+     <y>188</y>
     </hint>
     <hint type="destinationlabel">
-     <x>646</x>
-     <y>766</y>
+     <x>582</x>
+     <y>196</y>
     </hint>
    </hints>
   </connection>
@@ -20731,12 +21040,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>636</x>
-     <y>759</y>
+     <x>363</x>
+     <y>223</y>
     </hint>
     <hint type="destinationlabel">
-     <x>683</x>
-     <y>753</y>
+     <x>401</x>
+     <y>217</y>
     </hint>
    </hints>
   </connection>
@@ -20747,12 +21056,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>683</x>
-     <y>753</y>
+     <x>401</x>
+     <y>217</y>
     </hint>
     <hint type="destinationlabel">
-     <x>636</x>
-     <y>759</y>
+     <x>363</x>
+     <y>223</y>
     </hint>
    </hints>
   </connection>
@@ -20763,12 +21072,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>625</x>
-     <y>748</y>
+     <x>374</x>
+     <y>218</y>
     </hint>
     <hint type="destinationlabel">
-     <x>672</x>
-     <y>742</y>
+     <x>390</x>
+     <y>212</y>
     </hint>
    </hints>
   </connection>
@@ -20779,12 +21088,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>672</x>
-     <y>742</y>
+     <x>390</x>
+     <y>212</y>
     </hint>
     <hint type="destinationlabel">
-     <x>625</x>
-     <y>748</y>
+     <x>374</x>
+     <y>218</y>
     </hint>
    </hints>
   </connection>
@@ -20796,11 +21105,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>364</x>
-     <y>579</y>
+     <y>219</y>
     </hint>
     <hint type="destinationlabel">
-     <x>673</x>
-     <y>573</y>
+     <x>400</x>
+     <y>213</y>
     </hint>
    </hints>
   </connection>
@@ -20811,12 +21120,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>673</x>
-     <y>573</y>
+     <x>400</x>
+     <y>213</y>
     </hint>
     <hint type="destinationlabel">
      <x>364</x>
-     <y>579</y>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -20827,12 +21136,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>635</x>
-     <y>758</y>
+     <x>364</x>
+     <y>224</y>
     </hint>
     <hint type="destinationlabel">
-     <x>682</x>
-     <y>752</y>
+     <x>400</x>
+     <y>218</y>
     </hint>
    </hints>
   </connection>
@@ -20843,12 +21152,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>682</x>
-     <y>752</y>
+     <x>400</x>
+     <y>218</y>
     </hint>
     <hint type="destinationlabel">
-     <x>635</x>
-     <y>758</y>
+     <x>364</x>
+     <y>224</y>
     </hint>
    </hints>
   </connection>
@@ -20860,11 +21169,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>635</x>
-     <y>520</y>
+     <y>501</y>
     </hint>
     <hint type="destinationlabel">
      <x>682</x>
-     <y>514</y>
+     <y>495</y>
     </hint>
    </hints>
   </connection>
@@ -20876,43 +21185,43 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>682</x>
-     <y>514</y>
+     <y>495</y>
     </hint>
     <hint type="destinationlabel">
      <x>635</x>
-     <y>520</y>
+     <y>501</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>bar_thresh0_3_top</sender>
+   <sender>bar_thresh_max0_3_top</sender>
    <signal>valueChanged(int)</signal>
    <receiver>spinBox_5</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>636</x>
-     <y>516</y>
+     <x>634</x>
+     <y>417</y>
     </hint>
     <hint type="destinationlabel">
-     <x>683</x>
-     <y>510</y>
+     <x>685</x>
+     <y>408</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>spinBox_5</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>bar_thresh0_3_top</receiver>
+   <receiver>bar_thresh_max0_3_top</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>683</x>
-     <y>510</y>
+     <x>685</x>
+     <y>408</y>
     </hint>
     <hint type="destinationlabel">
-     <x>636</x>
-     <y>516</y>
+     <x>634</x>
+     <y>417</y>
     </hint>
    </hints>
   </connection>
@@ -20924,11 +21233,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>636</x>
-     <y>597</y>
+     <y>491</y>
     </hint>
     <hint type="destinationlabel">
      <x>683</x>
-     <y>589</y>
+     <y>485</y>
     </hint>
    </hints>
   </connection>
@@ -20940,11 +21249,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>683</x>
-     <y>589</y>
+     <y>485</y>
     </hint>
     <hint type="destinationlabel">
      <x>636</x>
-     <y>597</y>
+     <y>491</y>
     </hint>
    </hints>
   </connection>
@@ -20955,12 +21264,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>285</x>
-     <y>745</y>
+     <x>95</x>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
-     <x>332</x>
-     <y>739</y>
+     <x>95</x>
+     <y>108</y>
     </hint>
    </hints>
   </connection>
@@ -20971,12 +21280,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>332</x>
-     <y>739</y>
+     <x>95</x>
+     <y>108</y>
     </hint>
     <hint type="destinationlabel">
-     <x>285</x>
-     <y>745</y>
+     <x>95</x>
+     <y>114</y>
     </hint>
    </hints>
   </connection>
@@ -20987,12 +21296,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>536</x>
-     <y>744</y>
+     <x>107</x>
+     <y>95</y>
     </hint>
     <hint type="destinationlabel">
-     <x>583</x>
-     <y>738</y>
+     <x>111</x>
+     <y>87</y>
     </hint>
    </hints>
   </connection>
@@ -21003,12 +21312,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>583</x>
-     <y>738</y>
+     <x>111</x>
+     <y>87</y>
     </hint>
     <hint type="destinationlabel">
-     <x>536</x>
-     <y>744</y>
+     <x>107</x>
+     <y>95</y>
     </hint>
    </hints>
   </connection>
@@ -21019,12 +21328,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>825</x>
-     <y>745</y>
+     <x>134</x>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
-     <x>872</x>
-     <y>739</y>
+     <x>134</x>
+     <y>108</y>
     </hint>
    </hints>
   </connection>
@@ -21035,12 +21344,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>872</x>
-     <y>739</y>
+     <x>134</x>
+     <y>108</y>
     </hint>
     <hint type="destinationlabel">
-     <x>825</x>
-     <y>745</y>
+     <x>134</x>
+     <y>114</y>
     </hint>
    </hints>
   </connection>
@@ -21051,12 +21360,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1075</x>
-     <y>744</y>
+     <x>146</x>
+     <y>95</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1122</x>
-     <y>738</y>
+     <x>150</x>
+     <y>87</y>
     </hint>
    </hints>
   </connection>
@@ -21067,12 +21376,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1122</x>
-     <y>738</y>
+     <x>150</x>
+     <y>87</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1075</x>
-     <y>744</y>
+     <x>146</x>
+     <y>95</y>
     </hint>
    </hints>
   </connection>
@@ -21083,12 +21392,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>636</x>
-     <y>759</y>
+     <x>363</x>
+     <y>223</y>
     </hint>
     <hint type="destinationlabel">
-     <x>683</x>
-     <y>753</y>
+     <x>401</x>
+     <y>217</y>
     </hint>
    </hints>
   </connection>
@@ -21099,12 +21408,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>683</x>
-     <y>753</y>
+     <x>401</x>
+     <y>217</y>
     </hint>
     <hint type="destinationlabel">
-     <x>636</x>
-     <y>759</y>
+     <x>363</x>
+     <y>223</y>
     </hint>
    </hints>
   </connection>
@@ -21115,12 +21424,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
-     <y>550</y>
+     <x>582</x>
+     <y>207</y>
     </hint>
     <hint type="destinationlabel">
-     <x>636</x>
-     <y>759</y>
+     <x>363</x>
+     <y>223</y>
     </hint>
    </hints>
   </connection>
@@ -21131,12 +21440,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
-     <y>550</y>
+     <x>582</x>
+     <y>207</y>
     </hint>
     <hint type="destinationlabel">
-     <x>635</x>
-     <y>758</y>
+     <x>364</x>
+     <y>224</y>
     </hint>
    </hints>
   </connection>
@@ -21147,12 +21456,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
-     <y>550</y>
+     <x>582</x>
+     <y>207</y>
     </hint>
     <hint type="destinationlabel">
      <x>364</x>
-     <y>579</y>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -21163,12 +21472,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
-     <y>550</y>
+     <x>582</x>
+     <y>207</y>
     </hint>
     <hint type="destinationlabel">
-     <x>625</x>
-     <y>748</y>
+     <x>374</x>
+     <y>218</y>
     </hint>
    </hints>
   </connection>
@@ -21179,12 +21488,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
-     <y>550</y>
+     <x>582</x>
+     <y>207</y>
     </hint>
     <hint type="destinationlabel">
-     <x>636</x>
-     <y>759</y>
+     <x>363</x>
+     <y>223</y>
     </hint>
    </hints>
   </connection>
@@ -21195,12 +21504,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>636</x>
-     <y>759</y>
+     <x>363</x>
+     <y>223</y>
     </hint>
     <hint type="destinationlabel">
-     <x>646</x>
-     <y>550</y>
+     <x>582</x>
+     <y>207</y>
     </hint>
    </hints>
   </connection>
@@ -21211,12 +21520,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>625</x>
-     <y>748</y>
+     <x>374</x>
+     <y>218</y>
     </hint>
     <hint type="destinationlabel">
-     <x>646</x>
-     <y>550</y>
+     <x>582</x>
+     <y>207</y>
     </hint>
    </hints>
   </connection>
@@ -21228,11 +21537,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>364</x>
-     <y>579</y>
+     <y>219</y>
     </hint>
     <hint type="destinationlabel">
-     <x>646</x>
-     <y>550</y>
+     <x>582</x>
+     <y>207</y>
     </hint>
    </hints>
   </connection>
@@ -21243,12 +21552,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>635</x>
-     <y>758</y>
+     <x>364</x>
+     <y>224</y>
     </hint>
     <hint type="destinationlabel">
-     <x>646</x>
-     <y>550</y>
+     <x>582</x>
+     <y>207</y>
     </hint>
    </hints>
   </connection>
@@ -21259,44 +21568,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>636</x>
-     <y>759</y>
+     <x>363</x>
+     <y>223</y>
     </hint>
     <hint type="destinationlabel">
-     <x>646</x>
-     <y>550</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>bar_thresh0_4_top</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBox_17</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>456</x>
-     <y>196</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>673</x>
-     <y>190</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBox_17</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>bar_thresh0_4_top</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>673</x>
-     <y>190</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>196</y>
+     <x>582</x>
+     <y>207</y>
     </hint>
    </hints>
   </connection>
@@ -21308,11 +21585,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>363</x>
-     <y>270</y>
+     <y>300</y>
     </hint>
     <hint type="destinationlabel">
      <x>692</x>
-     <y>264</y>
+     <y>294</y>
     </hint>
    </hints>
   </connection>
@@ -21324,11 +21601,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>692</x>
-     <y>264</y>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
      <x>363</x>
-     <y>270</y>
+     <y>300</y>
     </hint>
    </hints>
   </connection>
@@ -21339,12 +21616,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>439</x>
-     <y>229</y>
+     <x>382</x>
+     <y>206</y>
     </hint>
     <hint type="destinationlabel">
-     <x>655</x>
-     <y>223</y>
+     <x>401</x>
+     <y>200</y>
     </hint>
    </hints>
   </connection>
@@ -21356,11 +21633,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>372</x>
-     <y>303</y>
+     <y>188</y>
     </hint>
     <hint type="destinationlabel">
-     <x>665</x>
-     <y>297</y>
+     <x>401</x>
+     <y>180</y>
     </hint>
    </hints>
   </connection>
@@ -21371,12 +21648,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>624</x>
-     <y>490</y>
+     <x>615</x>
+     <y>396</y>
     </hint>
     <hint type="destinationlabel">
-     <x>671</x>
-     <y>484</y>
+     <x>662</x>
+     <y>386</y>
     </hint>
    </hints>
   </connection>
@@ -21387,12 +21664,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>671</x>
-     <y>484</y>
+     <x>662</x>
+     <y>386</y>
     </hint>
     <hint type="destinationlabel">
-     <x>624</x>
-     <y>490</y>
+     <x>615</x>
+     <y>396</y>
     </hint>
    </hints>
   </connection>
@@ -21403,12 +21680,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>624</x>
-     <y>431</y>
+     <x>615</x>
+     <y>369</y>
     </hint>
     <hint type="destinationlabel">
-     <x>671</x>
-     <y>425</y>
+     <x>662</x>
+     <y>359</y>
     </hint>
    </hints>
   </connection>
@@ -21419,12 +21696,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>671</x>
-     <y>425</y>
+     <x>662</x>
+     <y>359</y>
     </hint>
     <hint type="destinationlabel">
-     <x>624</x>
-     <y>431</y>
+     <x>615</x>
+     <y>369</y>
     </hint>
    </hints>
   </connection>
@@ -21435,12 +21712,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
-     <y>682</y>
+     <x>582</x>
+     <y>202</y>
     </hint>
     <hint type="destinationlabel">
-     <x>693</x>
-     <y>676</y>
+     <x>629</x>
+     <y>196</y>
     </hint>
    </hints>
   </connection>
@@ -21451,12 +21728,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>693</x>
-     <y>676</y>
+     <x>629</x>
+     <y>196</y>
     </hint>
     <hint type="destinationlabel">
-     <x>646</x>
-     <y>682</y>
+     <x>582</x>
+     <y>202</y>
     </hint>
    </hints>
   </connection>
@@ -21467,12 +21744,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>647</x>
-     <y>611</y>
+     <x>583</x>
+     <y>188</y>
     </hint>
     <hint type="destinationlabel">
-     <x>694</x>
-     <y>605</y>
+     <x>630</x>
+     <y>182</y>
     </hint>
    </hints>
   </connection>
@@ -21483,12 +21760,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>694</x>
-     <y>605</y>
+     <x>630</x>
+     <y>182</y>
     </hint>
     <hint type="destinationlabel">
-     <x>647</x>
-     <y>611</y>
+     <x>583</x>
+     <y>188</y>
     </hint>
    </hints>
   </connection>
@@ -21500,11 +21777,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>636</x>
-     <y>412</y>
+     <y>393</y>
     </hint>
     <hint type="destinationlabel">
      <x>683</x>
-     <y>406</y>
+     <y>387</y>
     </hint>
    </hints>
   </connection>
@@ -21516,11 +21793,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>683</x>
-     <y>406</y>
+     <y>387</y>
     </hint>
     <hint type="destinationlabel">
      <x>636</x>
-     <y>412</y>
+     <y>393</y>
     </hint>
    </hints>
   </connection>
@@ -21532,11 +21809,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>636</x>
-     <y>450</y>
+     <y>431</y>
     </hint>
     <hint type="destinationlabel">
      <x>683</x>
-     <y>444</y>
+     <y>425</y>
     </hint>
    </hints>
   </connection>
@@ -21548,11 +21825,11 @@ QPushButton:pressed {
    <hints>
     <hint type="sourcelabel">
      <x>683</x>
-     <y>444</y>
+     <y>425</y>
     </hint>
     <hint type="destinationlabel">
      <x>636</x>
-     <y>450</y>
+     <y>431</y>
     </hint>
    </hints>
   </connection>
@@ -21563,12 +21840,12 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>512</x>
-     <y>569</y>
+     <x>392</x>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel">
-     <x>630</x>
-     <y>563</y>
+     <x>423</x>
+     <y>417</y>
     </hint>
    </hints>
   </connection>
@@ -21579,12 +21856,108 @@ QPushButton:pressed {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>633</x>
-     <y>562</y>
+     <x>423</x>
+     <y>417</y>
     </hint>
     <hint type="destinationlabel">
-     <x>592</x>
-     <y>567</y>
+     <x>392</x>
+     <y>426</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh_min0_3_top</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_12</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>562</x>
+     <y>437</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>655</x>
+     <y>440</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_12</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh_min0_3_top</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>651</x>
+     <y>435</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>623</x>
+     <y>439</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_28</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh_max0_4_top</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>658</x>
+     <y>161</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>614</x>
+     <y>163</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh_max0_4_top</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_28</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>618</x>
+     <y>154</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>653</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox_29</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>bar_thresh_min0_4_top</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>655</x>
+     <y>201</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>612</x>
+     <y>194</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bar_thresh_min0_4_top</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox_29</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>617</x>
+     <y>208</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>658</x>
+     <y>209</y>
     </hint>
    </hints>
   </connection>

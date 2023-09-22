@@ -855,7 +855,7 @@ def diameters_measurment(mask, cnt, angles):
         cnts,_ = cv2.findContours(line_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)  
         if len(cnts):     
             _,r = cv2.minEnclosingCircle(cnts[0])
-            corners_dist.append(int(r))
+            corners_dist.append(int(r*2))
 
         #corners_dist.append(np.count_nonzero(line_mask))
 

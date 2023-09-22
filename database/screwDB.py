@@ -191,8 +191,11 @@ class screwJson():
 
     def get_circels_roi(self, page, subpage, idx=0):
         name = 'circels_roi{}'.format(idx)
-        return self.get_value( page, subpage, name, [])
+        circles = self.get_value( page, subpage, name, [])
+        circles.sort(key= lambda x : x[1] )
+        return circles
     
+
     #-----------------------------------------
     def set_limits(self, page, subpage,  data):
         name = 'limits'
