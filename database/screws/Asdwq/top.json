@@ -1,7 +1,7 @@
 {
     "active_tools": [],
     "direction": "top",
-    "img_path": "D:/myproject/Screw-inspection/mask.jpg",
+    "img_path": "D:/myproject/Screw-inspection/sample images/top/Image__2047-01-06__11-51-59.bmp",
     "name": "Asdwq",
     "settings": {
         "0_top": {
@@ -35,16 +35,16 @@
             "noise_filter0": 0,
             "rect_roi0": [
                 [
-                    113,
-                    75
+                    319,
+                    49
                 ],
                 [
-                    516,
-                    486
+                    1251,
+                    1001
                 ]
             ],
-            "thresh_max0": 255,
-            "thresh_min0": 0
+            "thresh_max0": 214,
+            "thresh_min0": 84
         },
         "2_side": {
             "rect_roi0": [
@@ -125,6 +125,12 @@
                     ]
                 ]
             }
+        },
+        "4_top": {
+            "circels_roi0": [],
+            "noise_filter0": 0,
+            "thresh_max0": 255,
+            "thresh_min0": 0
         },
         "5_side": {
             "edge_direction": "top",

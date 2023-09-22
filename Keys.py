@@ -58,9 +58,7 @@ def object_dict_builder(ui_object):
             'shape_type':
             {
                 'options':{
-                    'circel': self.check_circle_4_top,
-                    'rect': self.check_rect_4_top,
-                    'hexagonal': self.check_hexagonal_4_top,
+
                 },
                 'frame':
                 {
@@ -337,7 +335,7 @@ def object_dict_builder(ui_object):
         'thresh_inv':
         {
 
-            'checkbox_thresh_inv0_4_top': self.checkbox_thresh_inv0_4_top,
+
             'checkbox_thresh_inv0_5_top': self.checkbox_thresh_inv0_5_top,
             'checkbox_thresh_inv0_1_side': self.checkbox_thresh_inv0_1_side,
 

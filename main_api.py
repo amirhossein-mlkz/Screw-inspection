@@ -1485,39 +1485,30 @@ class API:
         img = np.copy(self.current_image_screw['top'])        
 
         json = self.screw_jasons[ direction ]
-        img, mask_roi, _ = proccessings.preprocessing_top_img( img, json, direction  )
-        
-        #--------------------------------------------------------------------------------------
-        #specific Operation
-        #--------------------------------------------------------------------------------------
-        thresh = self.screw_jasons[ direction ].get_thresh(page_name, subpage_name)
-        noise_filter = self.screw_jasons[ direction ].get_noise_filter( page_name, subpage_name )
-        inv_state = self.screw_jasons[ direction ].get_thresh_inv(page_name, subpage_name)
-        circel_roi = self.screw_jasons[ direction ].get_circels_roi(page_name, subpage_name)
-        min_area_crack = self.screw_jasons[ direction ].get_numerical_parm(page_name, subpage_name, 'min_area')
-        
-        mask_roi = cvTools.circels2mask(mask_roi.shape, circel_roi)
-        thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
-        thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
-        cracks, cracks_area = cvTools.find_edge_crack(thresh_img, min_area_crack, 10 )
-        
-        #------------------------------------------------------------------------------------
-        if len(cracks) > 0:
-            info = {'min_area': cracks_area.min(), 'max_area':cracks_area.max()}
-        else:
-            info = {'min_area': 0, 'max_area':0}
+
+
+
+        img,_ = proccessings.preprocessing_0_top_img(img,json,None)
+        img , mask_roi, draw = proccessings.preprocessing_1_top_img(img,json, )
+        results, draw = proccessings.proccessing_top_edge_crack(img, mask_roi, json, img.copy())
+       
+        info={}
+        result =results[0]
+        info = {'min_area': result['min'], 'max_area':result['max']}
         self.ui.set_stetting_page_label_info(info)
         #------------------------------------------------------------------------------------
-        
-        if self.ui.is_drawing_mask_enabel():
-            img = Utils.mask_viewer(img, thresh_img, color=(100,0,0))
-            h,w = img.shape[:2]
-            img = cv2.circle(img, (w//2, h//2), 5, (0,255,0) , thickness=-1)
-            img = cv2.drawContours(img, cracks, -1, (0,0,255), thickness=-1)
-            img = self.roi_drawings['circel'][direction].get_image(img)
 
-        
-        self.ui.set_image_page_tool_labels(img)
+        if self.ui.is_drawing_mask_enabel():
+
+            h,w = draw.shape[:2]
+            draw = cv2.circle(draw, (w//2, h//2), 5, (0,255,0) , thickness=-1)
+            draw = self.roi_drawings['circel'][direction].get_image(draw)
+            self.ui.set_image_page_tool_labels(draw)
+            
+
+
+        else:
+            self.ui.set_image_page_tool_labels(img)
 
 
     
@@ -1821,8 +1812,14 @@ class API:
 
         direction = 'top'
 
-        screw_json = self.screw_jasons[ direction ]        
-        img, mask_roi, _ = proccessings.preprocessing_top_img( img, screw_json, direction  )
+        screw_json = self.screw_jasons[ direction ]   
+
+        img,draw = proccessings.preprocessing_0_top_img(img,screw_json,img.copy())
+        img , mask_roi, draw = proccessings.preprocessing_1_top_img(img, screw_json,draw)
+
+
+
+        # img, mask_roi, _ = proccessings.preprocessing_top_img( img, screw_json, direction  )
         draw_img = np.copy(img)
         #draw_img = cv2.cvtColor(draw_img, cv2.COLOR_GRAY2BGR)
         results = []
