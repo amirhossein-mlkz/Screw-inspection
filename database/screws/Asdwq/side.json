@@ -1,7 +1,11 @@
 {
-    "active_tools": [],
+    "active_tools": [
+        "1_side",
+        "2_side",
+        "3_side"
+    ],
     "direction": "side",
-    "img_path": "images/defualt.jpg",
+    "img_path": "D:/myproject/Screw-inspection/sample images/temp_side/2.jpg",
     "name": "Asdwq",
     "settings": {
         "0_top": {
@@ -13,15 +17,15 @@
             "noise_filter0": 0,
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    40,
+                    74
                 ],
                 [
-                    100,
-                    100
+                    1344,
+                    405
                 ]
             ],
-            "thresh0": 0,
+            "thresh0": 58,
             "thresh_inv0": true
         },
         "1_top": {
@@ -50,11 +54,11 @@
             "rect_roi0": [
                 [
                     0,
-                    0
+                    198
                 ],
                 [
-                    100,
-                    100
+                    1388,
+                    281
                 ]
             ]
         },
@@ -77,14 +81,29 @@
         },
         "3_side": {
             "jump_thresh": 5,
+            "limits": {
+                "max": {
+                    "navel": 80,
+                    "thread_count": 0,
+                    "thread_distance": 0,
+                    "thread_lenght": 0
+                },
+                "min": {
+                    "navel": 20,
+                    "thread_count": 0,
+                    "thread_distance": 0,
+                    "thread_lenght": 0
+                }
+            },
+            "navel": true,
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    69,
+                    157
                 ],
                 [
-                    100,
-                    100
+                    563,
+                    222
                 ]
             ]
         },

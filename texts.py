@@ -126,7 +126,7 @@ Titles = {
                         'en': 'centerality'},
     'Lenght': {'fa': "طول",
                         'en': 'Lenght'},
-    'Male Thread ': {'fa': "طول بدنه",
+    'Male Thread ': {'fa': "رزوه",
                         'en': 'Male Thread '},
     'Diameter': {'fa': "قطر",
                         'en': 'Diameter'},

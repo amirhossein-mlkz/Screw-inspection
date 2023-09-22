@@ -24,6 +24,7 @@ from datetime import datetime
 
 import threading
 from functools import partial
+from typing import Optional
 
 
 import numpy as np
@@ -410,6 +411,8 @@ class API:
 
         self.load_calibration_parms()
 
+        self.p_is_during = {'top':False,'side':False}
+        self.p_finished = {'top':False,'side':False}
 
 
     # dashboard page
@@ -1221,7 +1224,7 @@ class API:
 
         parms = self.screw_jasons[ direction ].get_setting( page_name, subpage_name )
         if isinstance(parms,list):
-            print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+            print('@'*20)
             assert False, f"parms should be dictionary, maybe you didn't define subpage 'none' for {page_name} in defaultScrew.py"
         self.ui.set_setting_page_parms(parms)
 
@@ -1766,84 +1769,50 @@ class API:
 
 
 
-    @time_measure
+    #@time_measure
     def proccessing_live_side(self, img):
-
-
-        direction = 'side'
-        screw_json = self.screw_jasons[ direction ]  
-
-        img, mask_roi,_ = proccessings.preprocessing_side_img( img, screw_json )
-
-        if img  is None:
-            print('ERROR: proccessing_live_side() img is None')
-            black_img = np.zeros(shape=(1040,1392),dtype='uint8')
-            return (black_img,[])
-        #img = Utils.mask_viewer(img, thresh_img, color=(0,100,0))
-        draw_img = np.copy(img)
-        results = []
-
-        draw_img = Utils.mask_viewer(draw_img, mask_roi, color=(0,10,150))
         
-        for active_tool in screw_json.get_active_tools():
-            results_tools, draw_img = proccessings.tools_dict_side[active_tool]( img, mask_roi, screw_json, draw_img )
-            
+       if not self.p_is_during['side']:
+            self.p_is_during['side'] = True
+            screw_json = self.screw_jasons[ 'side' ]   
 
-            for i in range(len(results_tools)) :
+            self.worker_p_side  = processingSideWorker(screw_json, img, self.calibration_value['side'])
+            self.thread_p_side = sQThread()
 
-                tools_name =results_tools[i]['name']
-                if tools_name in proccessings.calib_dict_side:
-                    for key,value in results_tools[i].items():
-                        if key != 'name':
-                            results_tools[i][key]=round(proccessings.calib_dict_side[tools_name](value,self.calibration_value['side']),2)
-                        
-            results.extend(results_tools)
-
-        results.sort( key = lambda x:x['name'])
-
-        return draw_img, results
+            self.worker_p_side.moveToThread(self.thread_p_side)
+            self.thread_p_side.started.connect(self.worker_p_side.run)
+            self.worker_p_side.complete.connect(self.complete_proccessing)
+            self.worker_p_side.finished.connect(self.thread_p_side.quit)
+            self.worker_p_side.finished.connect(self.worker_p_side.deleteLater)
+            self.thread_p_side.finished.connect(self.thread_p_side.deleteLater)
 
 
+            self.thread_p_side.start()
 
-    @time_measure
+
+
+
+
+    #@time_measure
     def proccessing_live_top(self, img):
 
+        if not self.p_is_during['top']:
+            self.p_is_during['top'] = True
+            screw_json = self.screw_jasons[ 'top' ]
+
+            self.worker_p_top  = processingTopWorker(screw_json, img, self.calibration_value['top'])
+            self.thread_p_top = sQThread()
+
+            self.worker_p_top.moveToThread(self.thread_p_top)
+            self.thread_p_top.started.connect(self.worker_p_top.run)
+            self.worker_p_top.complete.connect(self.complete_proccessing)
+            self.worker_p_top.finished.connect(self.thread_p_top.quit)
+            self.worker_p_top.finished.connect(self.worker_p_top.deleteLater)
+            self.thread_p_top.finished.connect(self.thread_p_top.deleteLater)
 
 
-        direction = 'top'
-
-        screw_json = self.screw_jasons[ direction ]   
-
-        img,draw = proccessings.preprocessing_0_top_img(img,screw_json,img.copy())
-        img , mask_roi, draw = proccessings.preprocessing_1_top_img(img, screw_json,draw)
-
-
-
-        # img, mask_roi, _ = proccessings.preprocessing_top_img( img, screw_json, direction  )
-        draw_img = np.copy(img)
-        #draw_img = cv2.cvtColor(draw_img, cv2.COLOR_GRAY2BGR)
-        results = []
-
-
-        draw_img = Utils.mask_viewer(draw_img, mask_roi, color=(0,80,150))
-
-        for active_tool in screw_json.get_active_tools():
-            results_tools, draw_img = proccessings.tools_dict_top[active_tool]( img, mask_roi, screw_json, draw_img )
-            
-
-            for i in range(len(results_tools)) :
-
-                tools_name =results_tools[i]['name']
-                if tools_name in proccessings.calib_dict_top:
-                    for key,value in results_tools[i].items():
-                        results_tools[i][key]=proccessings.calib_dict_top[tools_name](value,self.calibration_value['top'])
-                        
-            results.extend(results_tools)
-
-        results.sort( key = lambda x:x['name'])
-        ['name','min','max','avg','limit_min','limit_max']
-        # results={'name':12,'min':12,'max':12,'avg':13,'limit_min':14,'limit_max':15}
-        return draw_img , results
+            self.thread_p_top.start()
+        
 
 
     # PLC ////////////////////////////////////////////////////////////////////
@@ -2166,6 +2135,15 @@ class API:
         self.ui.stop_capture_live_page.setEnabled(False)
         self.ui.set_mask_main_page_btns_mode(False)
 
+        for direction in ['top', 'side']:
+            self.p_finished[direction] = False
+            self.p_is_during[direction] = False
+        
+        # try:
+        #     self.worker_p_side.deleteLater()
+        # except:
+        #     pass
+
 
     def show_image(self):
         
@@ -2317,45 +2295,32 @@ class API:
                 'top': self.proccessing_live_top}
             
             for direction in ['top', 'side']:
-                try:
+                #try:
                     if not DEBUG:
                         self.current_camera_imgs[direction] = self.cameras[direction].image
                     else:
                         if direction == 'top':
 
-                                self.current_camera_imgs[direction] = cv2.imread('sample images/temp_top/{}.bmp'.format(np.random.randint(5,8)))
+                                self.current_camera_imgs[direction] = cv2.imread('sample images/temp_top/{}.bmp'.format(np.random.randint(5,8)),0)
 
                         else:
-                            self.current_camera_imgs[direction] = cv2.imread('sample images/temp_side/{}.jpg'.format(np.random.randint(1,4)))
+                            self.current_camera_imgs[direction] = cv2.imread('sample images/temp_side/{}.jpg'.format(np.random.randint(1,4)),0)
 
                     if self.run_detect:
                         #draw_imgs[direction], results[direction] = self.proccessing_live_side(self.current_camera_imgs[direction])
-                        draw_imgs[direction], results[direction] = proccessing_functions[direction](self.current_camera_imgs[direction])
+                        proccessing_functions[direction](self.current_camera_imgs[direction])
                         #print(direction, draw_imgs[direction].shape)        
                 
-                except:
+                # except:
                    
-                    print('set_images ERROR'*50)
-                    self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
-                    results[direction] = []
-                    draw_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
+                #     print('set_images ERROR'*50)
+                #     self.current_camera_imgs[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
+                #     results[direction] = []
+                #     draw_imgs[direction] = np.zeros(shape=(1920,1200,3),dtype='uint8')
 
 
                 
-                if not self.ui.btn_enabel_mask_draw_live[direction].isChecked():
-                    draw_imgs[direction] = self.current_camera_imgs[direction]
-
-                draw_imgs[direction] = cv2.rotate( draw_imgs[direction], cv2.ROTATE_90_COUNTERCLOCKWISE )
-
-
-                self.ui.set_live_table( self.ui.table_live_page[direction], results[direction] )
-                self.ui.set_image_label( self.ui.label_img_live[direction], draw_imgs[direction] )
-
-
-            if self.check_rejection(results):
-                print('reject')
-                #reject    
-                self.start_reject()
+                
 
 
         elif self.ui.stackedWidget.currentWidget()==self.ui.page_camera_setting:
@@ -2438,4 +2403,120 @@ class API:
                 
                 if feature['max'] > feature['limit_max']: 
                     return True
-        return False
+            return False
+
+
+    def complete_proccessing(self, direction):
+
+        self.p_finished[direction] = True
+
+        both_results = {}
+        if self.p_finished['top'] and self.p_finished['side']:
+        
+            worker = {
+                'top': self.worker_p_top,
+                'side': self.worker_p_side
+            }
+
+            for direction in ['top', 'side']:
+                draw_img = worker[direction].draw_img
+
+                if not self.ui.btn_enabel_mask_draw_live[direction].isChecked():
+                    draw_img = self.current_camera_imgs[direction]
+                    draw_img = cv2.rotate( draw_img, cv2.ROTATE_90_COUNTERCLOCKWISE )
+
+
+                self.ui.set_live_table( self.ui.table_live_page[direction], worker[direction].results )
+                self.ui.set_image_label( self.ui.label_img_live[direction], draw_img )
+
+                both_results[direction] = worker[direction].results
+
+            if self.check_rejection( both_results):
+                print('reject')
+                self.start_reject()
+            
+            self.p_finished['top'] = False
+            self.p_finished['side'] = False
+            self.p_is_during['top'] = False
+            self.p_is_during['side'] = False
+
+
+
+from PySide6.QtCore import Signal, QThread, QObject
+class processingTopWorker(QObject):
+    finished = Signal()
+    complete = Signal(str)
+
+    def __init__(self,screw_json, img, calib_value) -> None:
+        super(processingTopWorker, self).__init__()
+        self.screw_json = screw_json
+        self.img = img
+        self.calib_value = calib_value
+        self.draw_img = img.copy()
+        self.results = []
+
+
+    @time_measure
+    def run(self, ):
+        self.img, self.draw_img = proccessings.preprocessing_0_top_img(self.img, self.screw_json, self.draw_img)
+        self.img , mask_roi, self.draw_img = proccessings.preprocessing_1_top_img(self.img, self.screw_json, self.draw_img, centerise=False)
+
+        for active_tool in self.screw_json.get_active_tools():
+            results_tools, self.draw_img = proccessings.tools_dict_top[active_tool]( self.img, mask_roi, self.screw_json, self.draw_img )
+
+            for i in range(len(results_tools)) :
+
+                tools_name =results_tools[i]['name']
+                if tools_name in proccessings.calib_dict_top:
+                    for key,value in results_tools[i].items():
+                        results_tools[i][key]=proccessings.calib_dict_top[tools_name](value,self.calib_value)
+                        
+            self.results.extend(results_tools)
+
+        self.results.sort( key = lambda x:x['name'])
+
+        self.complete.emit('top')
+        self.finished.emit()
+
+
+
+
+class processingSideWorker(QObject):
+    finished = Signal()
+    complete = Signal(str)
+
+    def __init__(self,screw_json, img, calib_value) -> None:
+        super(processingSideWorker, self).__init__()
+        self.screw_json = screw_json
+        self.img = img
+        self.calib_value = calib_value
+        self.draw_img = img.copy()
+        self.results = []
+
+
+    @time_measure
+    def run(self,):
+
+        self.img, mask_roi,_ = proccessings.preprocessing_side_img( self.img, self.screw_json )
+
+        self.draw_img = self.img.copy()
+        self.draw_img = Utils.mask_viewer(self.draw_img, mask_roi, color=(0,10,150))
+        
+        for active_tool in self.screw_json.get_active_tools():
+            results_tools, self.draw_img = proccessings.tools_dict_side[active_tool]( self.img, mask_roi, self.screw_json, self.draw_img  )
+            
+
+            for i in range(len(results_tools)) :
+
+                tools_name =results_tools[i]['name']
+                if tools_name in proccessings.calib_dict_side:
+                    for key,value in results_tools[i].items():
+                        if key != 'name':
+                            results_tools[i][key]=round(proccessings.calib_dict_side[tools_name](value,self.calib_value),2)
+                        
+            self.results.extend(results_tools)
+
+        self.results.sort( key = lambda x:x['name'])
+
+        self.complete.emit('side')
+        self.finished.emit()

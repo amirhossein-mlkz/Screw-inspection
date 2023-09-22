@@ -1,13 +1,17 @@
 {
-    "active_tools": [],
+    "active_tools": [
+        "0_top",
+        "1_top",
+        "2_top"
+    ],
     "direction": "top",
-    "img_path": "D:/myproject/Screw-inspection/sample images/top/Image__2047-01-06__11-51-59.bmp",
+    "img_path": "D:/myproject/Screw-inspection/sample images/temp_top/4.jpg",
     "name": "Asdwq",
     "settings": {
         "0_top": {
             "angle": 0,
-            "lbelt": 100,
-            "rbelt": 500
+            "lbelt": 650,
+            "rbelt": 1050
         },
         "1_side": {
             "noise_filter0": 0,
@@ -43,8 +47,8 @@
                     1001
                 ]
             ],
-            "thresh_max0": 214,
-            "thresh_min0": 84
+            "thresh_max0": 226,
+            "thresh_min0": 11
         },
         "2_side": {
             "rect_roi0": [
@@ -59,14 +63,29 @@
             ]
         },
         "2_top": {
+            "aaa": {
+                "circels_roi0": [
+                    [
+                        [
+                            688,
+                            514
+                        ],
+                        297
+                    ]
+                ],
+                "noise_filter0": 30,
+                "shape_type": "circel",
+                "thresh_max0": 250,
+                "thresh_min0": 20
+            },
             "none": {
                 "circels_roi0": [
                     [
                         [
-                            100,
-                            100
+                            688,
+                            511
                         ],
-                        50
+                        306
                     ]
                 ],
                 "noise_filter0": 30,
@@ -89,21 +108,43 @@
             ]
         },
         "3_top": {
+            "asdw": {
+                "circels_roi0": [
+                    [
+                        [
+                            696,
+                            546
+                        ],
+                        339
+                    ],
+                    [
+                        [
+                            670,
+                            517
+                        ],
+                        162
+                    ]
+                ],
+                "min_area": 10,
+                "noise_filter0": 30,
+                "thresh_max0": 250,
+                "thresh_min0": 20
+            },
             "none": {
                 "circels_roi0": [
                     [
                         [
-                            359,
-                            295
+                            699,
+                            517
                         ],
-                        247
+                        342
                     ],
                     [
                         [
-                            361,
-                            287
+                            710,
+                            520
                         ],
-                        126
+                        157
                     ]
                 ],
                 "min_area": 10,

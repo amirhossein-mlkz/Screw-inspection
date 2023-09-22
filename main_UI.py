@@ -2025,12 +2025,12 @@ class UI_main_window(QMainWindow, ui):
 
         if top_calibration:
             self.label_top_calibration.setText(str(top_calibration))
-            self.doubleSpinBox_calibration_top.setValue(int(top_calibration))
+            self.doubleSpinBox_calibration_top.setValue(top_calibration)
 
 
         if side_calibration:
             self.label_side_calibration.setText(str(side_calibration))
-            self.doubleSpinBox_calibration_side.setValue(int(side_calibration))
+            self.doubleSpinBox_calibration_side.setValue(side_calibration)
 
 
 

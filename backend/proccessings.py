@@ -3,7 +3,7 @@ from cv2 import cvtColor
 from backend import mathTools, cvTools, Utils,cvToolsCython
 import cv2
 import numpy as np
-
+import time
 
 def set_dict(name, value_min, value_avg , value_max, limits):
     res_dict = {'name': name,
@@ -37,6 +37,7 @@ def get_general_masks(img, json, page_name, main_roi_mask=None):
 
 
 def preprocessing_1_top_img( img, json,draw = None, centerise=True):
+    tt1 = time.time()
     page_name = '1_top'
     subpage_name = None
     algo_name = json.get_multi_option( page_name, subpage_name, 'algo' )
@@ -44,13 +45,20 @@ def preprocessing_1_top_img( img, json,draw = None, centerise=True):
     mask_roi = cvTools.rects2mask(img.shape[:2], [rect_roi_main])
     
     if algo_name == 'thresh_algo':
+        t1 = time.time()
         thresh_min = json.get_thresh_min(page_name, subpage_name)
         thresh_max = json.get_thresh_max(page_name, subpage_name)
         noise_filter = json.get_noise_filter( page_name, subpage_name )
+        t3 = time.time()
 
         thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
+        t4 = time.time()-t3
+
+        thresh_img = cv2.morphologyEx(thresh_img, cv2.MORPH_OPEN,
+                           (2,2), iterations=1)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
-            
+        t2=time.time()-t1
+        print('thresh_algo',t2 , 'threshould_minmax',t4)
 
 
 
@@ -80,13 +88,14 @@ def preprocessing_1_top_img( img, json,draw = None, centerise=True):
     d_parm3 = json.get_numerical_parm(page_name, subpage_name, 'd_parm3')
     e_parm4 = json.get_numerical_parm(page_name, subpage_name, 'e_parm4')
 
-
+    t1 = time.time()
     thresh_img = cv2.dilate(thresh_img , np.ones((3,3)),iterations = d_parm1)
     thresh_img = cv2.erode(thresh_img , np.ones((3,3)),iterations = e_parm2)
     thresh_img = cv2.dilate(thresh_img , np.ones((3,3)),iterations = d_parm3)
     thresh_img = cv2.erode(thresh_img , np.ones((3,3)),iterations = e_parm4)
-
-
+    t2=time.time()-t1
+    print('dialteeeeee',t2)
+    
 
     #--------------------------------------------------------------------------------------
     #correct rotation
@@ -118,8 +127,8 @@ def preprocessing_1_top_img( img, json,draw = None, centerise=True):
                         cv2.circle(draw, tuple(pts_r[i,j]), 5, color=(0,255,0), thickness=-1)
 
 
-
-
+    t2 = time.time()-tt1
+    print('preprocessing_1_top_img',t2)
 
 
     return img, thresh_img, draw
@@ -261,21 +270,46 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
     subpage_name = None
     rect_roi_2 = jsondb.get_rect_roi( page_name, subpage_name)
     jump_thresh = jsondb.get_numerical_parm(page_name, subpage_name, 'jump_thresh')
-
+    navel  = jsondb.get_checkbox(page_name,subpage_name,'navel')
     limit_thread_lenght = jsondb.get_limit('thread_lenght', page_name, subpage_name)
     limit_thread_distance = jsondb.get_limit('thread_distance', page_name, subpage_name)
+    limit_navel = jsondb.get_limit('navel', page_name, subpage_name)
     limit_thread_count = jsondb.get_limit('thread_count', page_name, subpage_name)
 
     result = []
     dict_lenght = set_dict('thread_lenght', -2, -2, -2, limit_thread_lenght )
     dict_thread_distance = set_dict('thread_distance', -2, -2, -2, limit_thread_distance )
     dict_thread_count = set_dict('thread_count', -2, -2, -2, limit_thread_count )
+    dict_navel = set_dict('navel lenght', -2, -2, -2, limit_navel )
 
     if Utils.is_rect(rect_roi_2):
 
         male_thread_l, male_thread_h = cvTools.find_screw_thread_top( mask, rect_roi_2,  min_diff=jump_thresh)
 
         if len(male_thread_h) > 2:
+            if navel and '2_side' in jsondb.get_active_tools() :
+                rect_roi_2 = jsondb.get_rect_roi( '2_side', None)
+                left_pts, _ = cvTools.find_vertical_edges(mask, rect_roi_2)
+                threads = np.vstack((male_thread_l,male_thread_h))
+                first_thread_x = np.min(threads[:,0])
+                thread_mean_y = int( threads[:,1].mean())
+                left_xs = left_pts[:,0]
+
+                navel_length = np.abs(left_xs-first_thread_x)
+                dict_navel = {'name' : 'navel lenght',
+                                'limit_min': limit_navel['min'],
+                                'limit_max': limit_navel['max'],
+                                'min' : np.min(navel_length),
+                                'max' : np.max(navel_length),
+                                'avg' : np.round( np.average(navel_length),2)
+                              }
+                
+                if draw is not None:
+                    cv2.line(draw, (first_thread_x, thread_mean_y),
+                                    (int(left_xs.mean()), thread_mean_y),
+                                    color=(200,0,0),
+                                    thickness=2)
+
 
             _,_,lenght_male_avg,_  = mathTools.thread_lenght( male_thread_h )
             dict_lenght = {'name' : 'thread male length',
@@ -312,11 +346,13 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
             dict_lenght = set_dict('thread_lenght', -1, -1, -1, limit_thread_lenght )
             dict_thread_distance = set_dict('thread_distance', -1, -1, -1, limit_thread_distance )
             dict_thread_count = set_dict('thread_count', -1, -1, -1, limit_thread_count )
-    
+            if navel:
+                dict_navel = set_dict('navel lenght', -1, -1, -1, limit_navel )
     
     result.append( dict_thread_distance )
     result.append( dict_lenght )
     result.append( dict_thread_count )
+    result.append( dict_navel )
 
     if draw is None:
         draw = np.copy(img)

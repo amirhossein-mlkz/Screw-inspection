@@ -203,6 +203,9 @@ def filter_noise_area(mask, noise_filter=0):
     h,w = mask.shape[:2]
     area = h * w
     noise_area = area / 5 * (noise_filter/100) #Optioanl Formula
+
+    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN,(2,2), iterations=1)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE,(2,2), iterations=1)
     cnts,_ = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
     cnts = list(cnts)
     res_cnts = list( filter(lambda x: cv2.contourArea(x)>noise_area , cnts) )

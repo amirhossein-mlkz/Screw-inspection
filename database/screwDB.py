@@ -147,6 +147,8 @@ class screwJson():
         name = 'thresh_inv{}'.format(idx)
         return self.get_value( page, subpage, name, False)
 
+
+
     #-----------------------------------------
     def set_checkbox(self, page, subpage, name, value):
         self.set_value( page, subpage, name, value)
