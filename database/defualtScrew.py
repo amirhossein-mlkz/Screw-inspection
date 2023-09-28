@@ -20,13 +20,13 @@ DEFAULTS_PAGE = {
                 "e_parm4": 0,
                 "edge_thresh": 5,
                 'belt_edge_margin':0,
-                'noise_filter0': 0,
+                'noise_filter0': 5,
             },
 
             '2_top':
             {
                 "circels_roi": [ [ [100,100], 50 ]],
-                "noise_filter0": 30,
+                "noise_filter0": 5,
                 "shape_type": "circel",
                 "thresh_max0": 250,
                 "thresh_min0": 20
@@ -37,13 +37,25 @@ DEFAULTS_PAGE = {
             '3_top':
             {
                 "circels_roi": [ [ [100,100], 50 ],[[100,100],30]],
-                "noise_filter0": 30,
+                "noise_filter0": 5,
                 "min_area": 10,
                 "thresh_max0": 250,
                 "thresh_min0": 20
 
             },
-
+            '4_top':
+            {
+                "noise_filter0": 5,
+                "thresh_max0": 250,
+                "thresh_min0": 20
+            },
+            '5_top':
+            {
+                "sub_pages": ["Head","Flanch"],
+                # "thresh_max0": 250,
+                # "thresh_min0": 20,
+                # "noise_filter0": 5,
+            },
 
     #---------------------------------------------------
             '1_side':
@@ -101,10 +113,16 @@ def set_default_single_page( json:screwJson, page_name:str, subpage_name):
         
         elif 'circels_roi' in featur_name:
             json.set_circels_roi(page_name, subpage_name, value)
-        
+
+        elif 'sub_pages' in featur_name:
+            print(value)
+            for sub_page in value:
+                json.add_subpage(page_name,sub_page)
+
         else:
             json.set_value(page_name, subpage_name, featur_name, value)
-            
+
+    
         
 
 

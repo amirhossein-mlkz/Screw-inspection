@@ -1,12 +1,8 @@
 {
-    "active_tools": [
-        "1_side",
-        "2_side",
-        "3_side"
-    ],
+    "active_tools": [],
     "direction": "side",
-    "img_path": "D:/myproject/Screw-inspection/sample images/temp_side/2.jpg",
-    "name": "Asdwq",
+    "img_path": "images/defualt.jpg",
+    "name": "A12",
     "settings": {
         "0_top": {
             "angle": 0,
@@ -17,15 +13,15 @@
             "noise_filter0": 0,
             "rect_roi0": [
                 [
-                    40,
-                    74
+                    0,
+                    0
                 ],
                 [
-                    1344,
-                    405
+                    100,
+                    100
                 ]
             ],
-            "thresh0": 58,
+            "thresh0": 0,
             "thresh_inv0": true
         },
         "1_top": {
@@ -36,7 +32,7 @@
             "e_parm2": 0,
             "e_parm4": 0,
             "edge_thresh": 5,
-            "noise_filter0": 0,
+            "noise_filter0": 5,
             "rect_roi0": [
                 [
                     0,
@@ -54,11 +50,11 @@
             "rect_roi0": [
                 [
                     0,
-                    198
+                    0
                 ],
                 [
-                    1388,
-                    281
+                    100,
+                    100
                 ]
             ]
         },
@@ -73,7 +69,7 @@
                         50
                     ]
                 ],
-                "noise_filter0": 30,
+                "noise_filter0": 5,
                 "shape_type": "circel",
                 "thresh_max0": 250,
                 "thresh_min0": 20
@@ -81,29 +77,14 @@
         },
         "3_side": {
             "jump_thresh": 5,
-            "limits": {
-                "max": {
-                    "navel": 80,
-                    "thread_count": 0,
-                    "thread_distance": 0,
-                    "thread_lenght": 0
-                },
-                "min": {
-                    "navel": 20,
-                    "thread_count": 0,
-                    "thread_distance": 0,
-                    "thread_lenght": 0
-                }
-            },
-            "navel": true,
             "rect_roi0": [
                 [
-                    69,
-                    157
+                    0,
+                    0
                 ],
                 [
-                    563,
-                    222
+                    100,
+                    100
                 ]
             ]
         },
@@ -126,7 +107,7 @@
                     ]
                 ],
                 "min_area": 10,
-                "noise_filter0": 30,
+                "noise_filter0": 5,
                 "thresh_max0": 250,
                 "thresh_min0": 20
             }
@@ -145,6 +126,13 @@
                 ]
             }
         },
+        "4_top": {
+            "none": {
+                "noise_filter0": 5,
+                "thresh_max0": 250,
+                "thresh_min0": 20
+            }
+        },
         "5_side": {
             "edge_direction": "top",
             "from_belt": true,
@@ -159,6 +147,10 @@
                     100
                 ]
             ]
+        },
+        "5_top": {
+            "Flanch": {},
+            "Head": {}
         },
         "6_side": {
             "none": {

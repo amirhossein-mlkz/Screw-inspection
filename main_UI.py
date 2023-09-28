@@ -281,24 +281,25 @@ class UI_main_window(QMainWindow, ui):
 
 
     def mousePressEvent(self, event):
-        if event.button() == QtCore.Qt.LeftButton and  event.position().y()<30:
-
-            self._old_pos = event.pos()
-
-    def mouseReleaseEvent(self, event):
-        if event.button() == QtCore.Qt.LeftButton:
-            self._old_pos = None
+        if event.button() == Qt.LeftButton:
+            self.offset = QPoint(event.position().x(),event.position().y())
+        else:
+            super().mousePressEvent(event)
 
     def mouseMoveEvent(self, event):
-        if not self._old_pos:
-            return
-        delta = event.pos() - self._old_pos
-        self.move(self.pos() + delta)
+        if self.offset is not None and event.buttons() == Qt.LeftButton:
+
+            self.move(self.pos() + QPoint(event.scenePosition().x(),event.scenePosition().y()) - self.offset)
+        else:
+            super().mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        self.offset = None
+        super().mouseReleaseEvent(event)
 
 
 
     def leftmenu(self):
-
 
         width=self.leftMenuBg.width()
 

@@ -880,8 +880,11 @@ class API:
 
                 #----------------------------------------------------
                 img_path = self.screw_jasons[direction].get_img_path()
+                print(img_path)
+                self.ui.set_line_value('img_path', img_path)
                 self.current_image_screw[direction] = cv2.imread(img_path)
                 
+                #self.ui.set
                 for drawer in self.roi_drawings.values():
                     drawer[direction].set_img_size( self.current_image_screw[direction].shape[:2] )
 
@@ -1524,42 +1527,30 @@ class API:
         img = np.copy(self.current_image_screw['top'])
 
         json = self.screw_jasons[ direction ]
-        img, mask_roi, _ = proccessings.preprocessing_top_img( img, json, direction  )
-        
+
+        img,_ = proccessings.preprocessing_0_top_img(img,json,None)
+        img , mask_roi, draw = proccessings.preprocessing_1_top_img(img,json, )
+        results, draw = proccessings.proccessing_top_centerise(img, mask_roi, json, img.copy())
+       
         if subpage_name!='none':
             #---------1-----------------------------------------------------------------------------
             #specific Operation
-            #--------------------------------------------------------------------------------------
-            sub_thresh_imgs = proccessings.get_general_masks(img, self.screw_jasons[ direction ], page_name )
-            thresh_img = sub_thresh_imgs[subpage_name]
-            
-            
-            cnts = []
-            centers = []
-            dist = -1
-            #------------------------------------------------------------------------------------
-            if len(self.screw_jasons[ direction ].get_subpages(page_name)) == 2:
-                masks = list(sub_thresh_imgs.values())
-                cnts, centers, dist = cvTools.centerise_measurment(masks)
-            
-            info = {'distance_centers': dist}    
+            #---------------------------------------------------------------------------------------        
+            info = {'distance_centers': results[0]['avg']}    
             self.ui.set_stetting_page_label_info(info)
             #------------------------------------------------------------------------------------
             
             if self.ui.is_drawing_mask_enabel():
 
-                img = Utils.mask_viewer(img, thresh_img, color=(0,0,100))
+                img = Utils.mask_viewer(img, mask_roi, color=(0,0,100))
                 h,w = img.shape[:2]
                 img = cv2.circle(img, (w//2, h//2), 5, (0,255,0) , thickness=-1)
+                draw = self.roi_drawings['circel'][direction].get_image(draw)
 
-                if len(cnts)>0:
-                    img = cv2.drawContours(img, cnts, -1, (0,0,255), thickness=3)
-                    for center in centers:
-                        img = cv2.circle(img, center, 3, (0,0,255) , thickness=-1)
+                self.ui.set_image_page_tool_labels(draw)
 
-                img = self.roi_drawings['circel'][direction].get_image(img)
-
-        self.ui.set_image_page_tool_labels(img)
+            else:
+                self.ui.set_image_page_tool_labels(img)
     #____________________________________________________________________________________________________________
     #                                           
     #

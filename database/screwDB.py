@@ -21,6 +21,7 @@ class screwJson():
             }
         }
 
+        self.data['active_tools'] = []
         #self.set_img_path(IMG_PATH_DEF)
 
         

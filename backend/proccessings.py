@@ -20,13 +20,17 @@ def get_general_masks(img, json, page_name, main_roi_mask=None):
     res = {}
     for subpage_name in json.get_subpages(page_name):
 
-        thresh = json.get_thresh(page_name, subpage_name)
+        thresh_min = json.get_thresh_min(page_name, subpage_name)
+        thresh_max = json.get_thresh_max(page_name, subpage_name)
         noise_filter = json.get_noise_filter( page_name, subpage_name )
-        inv_state = json.get_thresh_inv(page_name, subpage_name)
         circels_roi = json.get_circels_roi(page_name, subpage_name)
     
         mask_roi = cvTools.circels2mask(img.shape[:2], circels_roi)
-        thresh_img = cvTools.threshould(img, thresh, mask_roi, inv_state)
+        
+
+        thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
+
+
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
         
         if main_roi_mask is not None:
@@ -764,8 +768,14 @@ def proccessing_top_centerise( img, mask, jsondb, draw=None):
     #specific Operation
     #--------------------------------------------------------------------------------------
     sub_thresh_imgs = get_general_masks(img, jsondb, page_name )
+
+    
+
+
     limit = jsondb.get_limit('distance', page_name, subpage_name)
             
+
+
 
     res_dict = {}
     centers = []
@@ -795,6 +805,10 @@ def proccessing_top_centerise( img, mask, jsondb, draw=None):
 
     results.append(res_dict)
     if draw is not None:
+        colors =[(255,0,0),(0,255,0)]
+        for i , mask in enumerate(sub_thresh_imgs.values()):
+            draw = Utils.mask_viewer(draw, mask,color=colors[i])
+
         for center in centers:
             draw = cv2.circle(draw, center, 3, (0,0,255) , thickness=-1)
 

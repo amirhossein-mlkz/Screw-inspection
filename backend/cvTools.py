@@ -881,10 +881,10 @@ def hexagonal_measument(cnt):
     if angle > 45:
         angle = angle - 90
 
-    
-    poly_img = rotate_image(poly_img, angle)
-    diameters1 = diameters_measurment(poly_img, cnt, range(30,180,60))
-    diameters2 = diameters_measurment(poly_img, cnt, range(0,180,60))
+    angle = int(angle)
+    #poly_img = rotate_image(poly_img, angle)
+    diameters1 = diameters_measurment(poly_img, cnt, range(30-angle,180-angle,60))
+    diameters2 = diameters_measurment(poly_img, cnt, range(0-angle,180-angle,60))
 
     if diameters1.mean() < diameters2.mean():
         corner_distance = diameters2
