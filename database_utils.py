@@ -32,6 +32,7 @@ class dataBaseUtils():
         self.size='size'
         self.plc='plc_setting'
         self.history='history'
+        self.sensor_detection='sensor_detection'
 
     #________________________________________________________________
     #
@@ -389,14 +390,53 @@ class dataBaseUtils():
         res = self.db.update_record(self.history, 'defect', defect, 'id','0')
 
 
+
+
+
+    def load_senser_detection(self):
+
+
+        if sql_mode=='none':
+            record={'x1': 0,'x2': 0,'y1': 0,'y2': 0,'area': 0,'thresh_min': 0,'thresh_max': 0,}
+            return record
+
+        # if sql_mode=='sqlite':
+        #     record = self.db.search( self.setting_tabel , 'id', '0' )
+        # # print(record)
+        #     return record['language']
+
+        record = self.db.search( self.sensor_detection , 'id', '0' )
+      
+        return record[0]
+
+
+    def set_senser_detection(self,values):
+        if sql_mode=='none':
+            return True
+        for _,param in enumerate(values.keys()):
+            res = self.db.update_record(self.sensor_detection, param, str(values[param]), 'id','0')
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     db = dataBaseUtils(user_name='root',password='password')
+    v= db.load_senser_detection()
+    print(v)
+    v = {'x1': 4, 'y1': 1, 'x2':1, 'y2':1, 'area':1, 'thresh_min': 1, 'thresh_max': 1, 'id': 0}
+    db.set_senser_detection(v)
+    v= db.load_senser_detection()
+    print(v)
     # db.load_cam_params(0)
     # db.load_general_setting_params()
     # db.update_history(5,3)
     # db.load_history()
     # db.load_cam_params(2)
-    db.db.update_record('plc_setting', 'path',' asdasd', 'name','run')
+    # db.db.update_record('plc_setting', 'path',' asdasd', 'name','run')
     # x=db.load_calibration_parms()
     # print(x)
     # x=db.load_calibration_parms()

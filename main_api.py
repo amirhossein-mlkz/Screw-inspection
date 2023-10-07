@@ -190,11 +190,18 @@ class API:
         
         self.current_image_screw = {}
         self.rotate_correction = False
+
+        #sensor_detection_page
+        self.rect_roi_drawing_sensor_detection_page = Drawing.drawRect()
+
+
+
         #-------------------------------------------------------------------------------------------------------------------
         self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
         self.load_live_page_infoes()
 
         self.mouse.connect_all(self.ui.label_image_grab_page, self.image_setting_mouse_event)
+        self.mouse.connect_all(self.ui.camera_detection_mode_picture, self.image_setting_mouse_event_sensor_detection_page)
         
         self.laod_images()
         self.set_images()
@@ -225,6 +232,12 @@ class API:
 
         self.button_connector()
         print('*Success*'*20)
+
+
+        #sensor detection page
+        self.load_detection_parms()
+        self.set_detection_parms()
+
 
 
     def button_connector(self):
@@ -414,6 +427,12 @@ class API:
         self.p_is_during = {'top':False,'side':False}
         self.p_finished = {'top':False,'side':False}
 
+        #senor detection page
+        self.ui.camera_get_picture_detection_mode.clicked.connect(self.get_picture_detection_page)
+        self.ui.thresh_min_detection_page.valueChanged.connect(self.get_picture_detection_page)
+        self.ui.thresh_max_detection_page.valueChanged.connect(self.get_picture_detection_page)
+        self.ui.btn_save_sensor_detection_page.clicked.connect(self.save_detection_parms)
+        
 
     # dashboard page
     #------------------------------------------------------------------------------------------------------------------------
@@ -501,15 +520,22 @@ class API:
             for direction in self.cameras.keys():
                 if self.cameras[direction]:
                     self.cameras[direction].start_grabbing()
-                    if direction == 'top':
-                        self.threads[direction] = sQThread()
-                        self.cameras[direction].moveToThread(self.threads[direction])
-                        self.threads[direction].started.connect(self.cameras[direction].get_picture_while)
-                        self.cameras[direction].finished.connect(self.threads[direction].quit)
-                        self.cameras[direction].finished.connect(self.cameras[direction].deleteLater)
-                        self.threads[direction].finished.connect(self.threads[direction].deleteLater)
-                        self.cameras[direction].trig_signal.connect(self.set_images)
-                        self.threads[direction].start()
+                    if self.image_trigger_mode:
+                        if self.direction_sensor_mode != direction:
+                            continue
+                    else:
+                        if direction!='top':
+                            continue
+                    
+                    
+                    self.threads[direction] = sQThread()
+                    self.cameras[direction].moveToThread(self.threads[direction])
+                    self.threads[direction].started.connect(self.cameras[direction].get_picture_while)
+                    self.cameras[direction].finished.connect(self.threads[direction].quit)
+                    self.cameras[direction].finished.connect(self.cameras[direction].deleteLater)
+                    self.threads[direction].finished.connect(self.threads[direction].deleteLater)
+                    self.cameras[direction].trig_signal.connect(self.set_images)
+                    self.threads[direction].start()
             self.ui.camera_connect_flag=True
             self.ui.disconnect_cameras_live_page.setEnabled(True)
             self.ui.connect_cameras_live_page.setEnabled(False)
@@ -545,11 +571,21 @@ class API:
             self.cameras[direction].update_parms(parm)
             
             self.cameras[direction].start_grabbing()
-            if self.cameras!= None:
-                try:
-                    self.cameras[direction].on_trigger()
-                except:
-                    print('eror in set trigger in api')
+
+            if not self.image_trigger_mode:
+                if self.cameras!= None:
+                    try:
+                        self.cameras[direction].on_trigger()
+                    except:
+                        print('eror in set trigger in api')
+            else:
+                 if self.cameras!= None:
+                    try:
+                        self.cameras[direction].off_trigger()
+                    except:
+                        print('eror in set trigger in api')
+
+
 
 
     
@@ -933,7 +969,17 @@ class API:
         self.ui.set_color_value_image_tool_page(color,img)
 
         
+    def image_setting_mouse_event_sensor_detection_page(self,wname):
 
+        mouse_status = self.mouse.get_status()
+        mouse_button = self.mouse.get_button()
+        mouse_pt = self.mouse.get_relative_position()
+        mouse_real_pt=self.mouse.get_position()
+        
+        self.rect_roi_drawing_sensor_detection_page.max_shape_count = 1
+        self.rect_roi_drawing_sensor_detection_page.qtmouse_checker( mouse_status, mouse_button, mouse_pt )
+
+        self.get_picture_detection_page()
     #____________________________________________________________________________________________________________
     #                                           
     #
@@ -2235,6 +2281,7 @@ class API:
 
 
     def set_images(self):
+        #correct set image
         if not self.ui.camera_connect_flag:
             return
         # for direction in self.cameras.keys():
@@ -2430,6 +2477,84 @@ class API:
             self.p_finished['side'] = False
             self.p_is_during['top'] = False
             self.p_is_during['side'] = False
+
+
+    def get_picture_detection_page(self):
+        
+
+        direction,thresh_min,thresh_max,area_thresh=self.ui.ret_selected_camera_sensor_detect_page()
+        img = self.current_camera_imgs[direction].copy()
+
+        self.rect_roi_drawing_sensor_detection_page.set_img_size( img.shape[:2] )
+        shapes = self.rect_roi_drawing_sensor_detection_page.shapes
+
+        if len(shapes)>0:
+            flag, area, res = proccessings.preprocessing_sensor_detection(
+                img,
+                thresh_min=thresh_min,
+                thresh_max=thresh_max,
+                area_thresh=area_thresh,
+                rect_roi=shapes[0],
+                draw=True
+            )
+            print('flag',flag,'a',area)
+            self.ui.selected_area.setText(str(area))
+        else:
+            res = img.copy()
+        res = self.rect_roi_drawing_sensor_detection_page.get_image(res)
+        self.ui.set_image_label(self.ui.camera_detection_mode_picture,res)
+
+
+
+    def load_detection_parms(self):
+
+        parms = self.db.load_senser_detection()
+
+        rect_roi = [[parms['x1'],parms['y1']],[parms['x2'],parms['y2']]]
+
+        self.sensor_detection_values={'rect_roi':rect_roi,
+                                      'thresh_min':parms['thresh_min'],
+                                      'thresh_max':parms['thresh_max'],
+                                      'area_thresh':parms['area']}
+        
+        self.direction_sensor_mode = parms['direction']
+        self.image_trigger_mode = int(parms['sensor'])
+
+
+    def set_detection_parms(self):
+
+        self.ui.thresh_min_detection_page.setValue(int(self.sensor_detection_values['thresh_min']))
+        self.ui.thresh_max_detection_page.setValue(int(self.sensor_detection_values['thresh_max']))
+        self.ui.spin_area_detection_page.setValue(int(self.sensor_detection_values['area_thresh']))
+        self.rect_roi_drawing_sensor_detection_page.shapes = [self.sensor_detection_values['rect_roi']]
+        self.ui.set_trigger_mode(self.image_trigger_mode)
+        self.ui.set_camera_sensor_detection_page(self.direction_sensor_mode)
+
+
+    def save_detection_parms (self):
+
+        if len(self.rect_roi_drawing_sensor_detection_page.shapes)>0:
+
+            [x1,y1],[x2,y2] = self.rect_roi_drawing_sensor_detection_page.shapes[0]
+            area = self.ui.spin_area_detection_page.value()
+            thresh_min = self.ui.thresh_min_detection_page.value()
+            thresh_max = self.ui.thresh_max_detection_page.value()
+            image_trigger_mode = self.ui.ret_sensor_mode()
+            direction = self.ui.ret_direction_sensor_detect()
+
+            values = {'x1':x1,
+                    'y1':y1,
+                    'x2':x2,
+                    'y2':y2,
+                    'area':area,
+                    'thresh_min':thresh_min,
+                    'thresh_max':thresh_max,
+                    'sensor':image_trigger_mode,
+                    'direction':direction,
+                    }
+
+            self.db.set_senser_detection(values=values)
+
 
 
 
