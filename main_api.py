@@ -102,6 +102,8 @@ class API:
         
         self.current_camera_imgs = {}
         self.sides=['side','top']
+        #self.image_trigger_mode = False
+        
         #------------------------------------------------------------------------------------------------------------------------
         # UIs of the app
         # main settings UI
@@ -145,7 +147,8 @@ class API:
    
         # for cam_info in cameras_info:
 
-
+        self.load_detection_parms()
+        #self.set_detection_parms()
         self.cameras = {}
         self.connect_camera()
         self.available_camera_serials = camera_funcs.get_available_cameras_list_serial_numbers()
@@ -231,12 +234,12 @@ class API:
     
 
         self.button_connector()
+        self.set_detection_parms()
         print('*Success*'*20)
 
 
         #sensor detection page
-        self.load_detection_parms()
-        self.set_detection_parms()
+        
 
 
 
@@ -1265,6 +1268,9 @@ class API:
         self.setup_drawing_setting(page_name)
         self.refresh_page()
 
+        #-------------------------------------------
+        
+
 
     def refresh_page(self,):
         page_name = self.ui.get_setting_page_idx(page_name = True)
@@ -2289,10 +2295,26 @@ class API:
         #determine other camera that we should grab its image manuly
         # in hordware trigger mode other camera is 'side' always
         other_camera = 'side'
+        trigger_camera = 'top'
         if self.image_trigger_mode:
+            
             if self.direction_sensor_mode == 'side':
                 other_camera = 'top'
+                trigger_camera = 'side'
+
+            self.current_camera_imgs[trigger_camera] = self.cameras[trigger_camera].image.copy()
+            trig,_,_ = proccessings.preprocessing_sensor_detection(self.current_camera_imgs[trigger_camera],
+                                                                    **self.sensor_detection_values
+                                                                    )
+            print('trig image status', trig)
+            if not trig:
+                return
+                    
+        else:
+            self.current_camera_imgs[trigger_camera] = self.cameras[trigger_camera].image.copy()
         
+
+
         try:
             self.cameras[other_camera].off_trigger()
         except:
@@ -2302,24 +2324,34 @@ class API:
 
         if self.cameras[other_camera]:
 
-            for i in range(10):
-                side_ret,side_image = self.cameras[other_camera].getPictures()  # temp for get side image
+            for _ in range(10):
+                side_ret,image = self.cameras[other_camera].getPictures()  # temp for get side image
                 time.sleep(0.001)
+                if DEBUG:
+                    if other_camera == 'side':
+                        self.current_camera_imgs[other_camera] = cv2.imread('sample images/temp_side/{}.jpg'.format(np.random.randint(1,4)),0)
+                        break
+                    else:
+                        self.current_camera_imgs[other_camera] = cv2.imread('sample images/temp_top/{}.jpg'.format(np.random.randint(1,4)),0)
+                        break
                 if side_ret:
-                    self.cameras[other_camera].image=side_image
+                    self.cameras[other_camera].image = image
+                    self.current_camera_imgs[other_camera] = image.copy()
                     break
+            else:
+                return
 
 
         if self.tools_live_enable:
             direction = self.ui.get_setting_page_idx(direction = True)
-            try:
-                self.current_image_screw[direction] = self.cameras[direction].image
-                    #self.current_camera_imgs[direction] = self.cameras[direction].image
+            # try:
+            #     self.current_image_screw[direction] = self.cameras[direction].image.copy()
+            #         #self.current_camera_imgs[direction] = self.cameras[direction].image
 
                 
-            except:
-                self.current_image_screw[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
-                self.current_image_screw[direction] = np.random.randint(0,255,1920*1200).reshape((1920,1200)).astype(np.uint8)
+            # except:
+            #     self.current_image_screw[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
+            #     self.current_image_screw[direction] = np.random.randint(0,255,1920*1200).reshape((1920,1200)).astype(np.uint8)
                 
 
 
@@ -2340,17 +2372,7 @@ class API:
                 'top': self.proccessing_live_top}
             
             for direction in ['top', 'side']:
-                #try:
-                    if not DEBUG:
-                        self.current_camera_imgs[direction] = self.cameras[direction].image
-                    else:
-                        if direction == 'top':
-
-                                self.current_camera_imgs[direction] = cv2.imread('sample images/temp_top/{}.bmp'.format(np.random.randint(5,8)),0)
-
-                        else:
-                            self.current_camera_imgs[direction] = cv2.imread('sample images/temp_side/{}.jpg'.format(np.random.randint(1,4)),0)
-
+                #try:   
                     if self.run_detect:
                         #draw_imgs[direction], results[direction] = self.proccessing_live_side(self.current_camera_imgs[direction])
                         proccessing_functions[direction](self.current_camera_imgs[direction])
@@ -2569,6 +2591,7 @@ class API:
                     }
 
             self.db.set_senser_detection(values=values)
+            self.load_detection_parms()
 
 
 
