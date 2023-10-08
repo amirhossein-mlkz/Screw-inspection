@@ -102,6 +102,7 @@ class API:
         
         self.current_camera_imgs = {}
         self.sides=['side','top']
+        self.during_set_image = False
         #self.image_trigger_mode = False
         
         #------------------------------------------------------------------------------------------------------------------------
@@ -143,10 +144,9 @@ class API:
 
 
         cameras_info = self.db.load_cam_params(1)
-        # print('cameras_info',cameras_info)'
-   
-        # for cam_info in cameras_info:
 
+        #sensor_detection_page
+        self.rect_roi_drawing_sensor_detection_page = Drawing.drawRect()
         self.load_detection_parms()
         #self.set_detection_parms()
         self.cameras = {}
@@ -194,8 +194,7 @@ class API:
         self.current_image_screw = {}
         self.rotate_correction = False
 
-        #sensor_detection_page
-        self.rect_roi_drawing_sensor_detection_page = Drawing.drawRect()
+        
 
 
 
@@ -206,7 +205,6 @@ class API:
         self.mouse.connect_all(self.ui.label_image_grab_page, self.image_setting_mouse_event)
         self.mouse.connect_all(self.ui.camera_detection_mode_picture, self.image_setting_mouse_event_sensor_detection_page)
         
-        self.laod_images()
         self.set_images()
 
 
@@ -313,7 +311,7 @@ class API:
         #page_setting
 
         
-
+        self.ui.side_detection_mode_btn.clicked.connect(self.refresh_sensor_image_page)
         #Page 1_top----------------------------------------------------------
       
         
@@ -1782,11 +1780,11 @@ class API:
             for direction in self.screw_jasons.keys():
                 self.screw_jasons[direction].read(path, direction)
                 img_path = self.screw_jasons[direction].get_img_path()
-                try:
-                    img=cv2.imread(img_path)
-                except:
+                img=cv2.imread(img_path)
+                if img is None:
                     print('Error load_screw_live')
                     img = np.zeros(shape=(1040,1392),dtype='uint8')
+                
                 self.ui.set_selected_image_live_page(direction,img)
 
 
@@ -2094,16 +2092,6 @@ class API:
         side = self.db.save_side_calibration(self.ui.doubleSpinBox_calibration_side.value())
 
 
-    def laod_images(self):
-
-        self.top_images=[]
-        self.side_images=[]
-
-        for i in range(1,5):
-
-            self.top_images.append(cv2.imread('sample images/temp_top/{}.jpg'.format(i)))
-            self.side_images.append(cv2.imread('sample images/temp_side/{}.jpg'.format(i)))
-        
 
     
 
@@ -2161,6 +2149,7 @@ class API:
     def start_detection(self):
 
         self.run_detect=True
+        self.during_set_image = False
         #load screw image again. becuase maybe some settings chaged
         self.load_screw_live()
         self.load_calibration_parms()   # load calibration parms
@@ -2291,9 +2280,12 @@ class API:
         if not self.ui.camera_connect_flag:
             return
         
+        if not self.during_set_image:
+            self.during_set_image = True
         
         #determine other camera that we should grab its image manuly
         # in hordware trigger mode other camera is 'side' always
+        #-----------------------------------------------------------------------------
         other_camera = 'side'
         trigger_camera = 'top'
         if self.image_trigger_mode:
@@ -2303,18 +2295,20 @@ class API:
                 trigger_camera = 'side'
 
             self.current_camera_imgs[trigger_camera] = self.cameras[trigger_camera].image.copy()
+            #t = time.time()
             trig,_,_ = proccessings.preprocessing_sensor_detection(self.current_camera_imgs[trigger_camera],
                                                                     **self.sensor_detection_values
                                                                     )
+            #t = time.time() - t
             print('trig image status', trig)
             if not trig:
+                self.during_set_image = False
                 return
                     
         else:
             self.current_camera_imgs[trigger_camera] = self.cameras[trigger_camera].image.copy()
         
-
-
+        #-----------------------------------------------------------------------------
         try:
             self.cameras[other_camera].off_trigger()
         except:
@@ -2339,7 +2333,9 @@ class API:
                     self.current_camera_imgs[other_camera] = image.copy()
                     break
             else:
+                self.during_set_image = False
                 return
+        #-----------------------------------------------------------------------------
 
 
         if self.tools_live_enable:
@@ -2406,7 +2402,7 @@ class API:
                 if self.win_fullscreen.isVisible():
                     self.update_fullscreen_img()
                 
-        
+        self.during_set_image = False
 #------------------------------------------------------------------------------------------------------------------------
 # NEW----------------------------------------------------------------
 
@@ -2521,7 +2517,7 @@ class API:
 
         direction,thresh_min,thresh_max,area_thresh=self.ui.ret_selected_camera_sensor_detect_page()
         img = self.current_camera_imgs[direction].copy()
-
+       
         self.rect_roi_drawing_sensor_detection_page.set_img_size( img.shape[:2] )
         shapes = self.rect_roi_drawing_sensor_detection_page.shapes
 
@@ -2545,9 +2541,13 @@ class API:
 
     def load_detection_parms(self):
 
+        self.rect_roi_drawing_sensor_detection_page = Drawing.drawRect()
+
         parms = self.db.load_senser_detection()
 
         rect_roi = [[parms['x1'],parms['y1']],[parms['x2'],parms['y2']]]
+
+        self.rect_roi_drawing_sensor_detection_page.shapes = [rect_roi]
 
         self.sensor_detection_values={'rect_roi':rect_roi,
                                       'thresh_min':parms['thresh_min'],
@@ -2593,7 +2593,10 @@ class API:
             self.db.set_senser_detection(values=values)
             self.load_detection_parms()
 
-
+    def refresh_sensor_image_page(self,):
+        self.load_detection_parms()
+        self.set_detection_parms()
+        self.get_picture_detection_page()
 
 
 from PySide6.QtCore import Signal, QThread, QObject

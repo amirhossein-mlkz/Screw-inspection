@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1168</width>
-    <height>852</height>
+    <height>934</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -2337,7 +2337,7 @@ QPushButton:hover {
                          <enum>QFrame::Panel</enum>
                         </property>
                         <property name="currentIndex">
-                         <number>6</number>
+                         <number>2</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -15132,9 +15132,9 @@ QPushButton:pressed {
                                    <property name="geometry">
                                     <rect>
                                      <x>0</x>
-                                     <y>-184</y>
-                                     <width>246</width>
-                                     <height>491</height>
+                                     <y>0</y>
+                                     <width>251</width>
+                                     <height>509</height>
                                     </rect>
                                    </property>
                                    <layout class="QVBoxLayout" name="verticalLayout_142">
@@ -16358,8 +16358,8 @@ background-color: rgb(153, 193, 241);</string>
                                     <widget class="QLabel" name="camera_setting_picture_top">
                                      <property name="minimumSize">
                                       <size>
-                                       <width>0</width>
-                                       <height>0</height>
+                                       <width>500</width>
+                                       <height>500</height>
                                       </size>
                                      </property>
                                      <property name="frameShape">
@@ -16559,8 +16559,8 @@ QPushButton:pressed {
                                     <widget class="QLabel" name="camera_setting_picture_side">
                                      <property name="minimumSize">
                                       <size>
-                                       <width>0</width>
-                                       <height>0</height>
+                                       <width>500</width>
+                                       <height>500</height>
                                       </size>
                                      </property>
                                      <property name="frameShape">
@@ -18137,7 +18137,7 @@ QPushButton:pressed {
                                   <x>0</x>
                                   <y>0</y>
                                   <width>276</width>
-                                  <height>756</height>
+                                  <height>834</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">
@@ -20820,7 +20820,7 @@ QPushButton:pressed {
                               <widget class="QGroupBox" name="groupBox_29">
                                <property name="minimumSize">
                                 <size>
-                                 <width>170</width>
+                                 <width>185</width>
                                  <height>0</height>
                                 </size>
                                </property>
@@ -20838,7 +20838,7 @@ QPushButton:pressed {
                                 <item>
                                  <widget class="QRadioButton" name="checkbox_page_detection_trigger">
                                   <property name="text">
-                                   <string>Trigger</string>
+                                   <string>Software</string>
                                   </property>
                                   <property name="checked">
                                    <bool>true</bool>
