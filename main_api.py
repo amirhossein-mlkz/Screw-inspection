@@ -572,14 +572,14 @@ class API:
             
             self.cameras[direction].start_grabbing()
 
-            if not self.image_trigger_mode:
-                if self.cameras!= None:
+            if self.cameras!= None:
+                if not self.image_trigger_mode:
                     try:
                         self.cameras[direction].on_trigger()
                     except:
                         print('eror in set trigger in api')
-            else:
-                 if self.cameras!= None:
+
+                else:
                     try:
                         self.cameras[direction].off_trigger()
                     except:
@@ -2284,22 +2284,29 @@ class API:
         #correct set image
         if not self.ui.camera_connect_flag:
             return
-        # for direction in self.cameras.keys():
+        
+        
+        #determine other camera that we should grab its image manuly
+        # in hordware trigger mode other camera is 'side' always
+        other_camera = 'side'
+        if self.image_trigger_mode:
+            if self.direction_sensor_mode == 'side':
+                other_camera = 'top'
+        
         try:
-            self.cameras['side'].off_trigger()
+            self.cameras[other_camera].off_trigger()
         except:
             if not DEBUG:
-                print("ERROR:  self.cameras['side'].off_trigger()")
+                print(f"ERROR:  self.cameras[{other_camera}].off_trigger()")
         
 
-        if self.cameras['side']:
+        if self.cameras[other_camera]:
 
             for i in range(10):
-                side_ret,side_image = self.cameras['side'].getPictures()  # temp for get side image
-                time.sleep(0.002)
+                side_ret,side_image = self.cameras[other_camera].getPictures()  # temp for get side image
+                time.sleep(0.001)
                 if side_ret:
-                    # print('aaaaaaaaaaaa')
-                    self.cameras['side'].image=side_image
+                    self.cameras[other_camera].image=side_image
                     break
 
 
@@ -2400,12 +2407,20 @@ class API:
         try:
             if self.tools_live_enable:
                 for direction in self.cameras.keys():
-                    self.cameras[direction].off_trigger()
+                    try:
+                        self.cameras[direction].off_trigger()
+                    except:
+                        print('ERROR: enable_live_view_for_tools off trigger error')
+
             
             else:
-                self.update_main_image()
-                for direction in self.cameras.keys():
-                    self.cameras[direction].on_trigger()
+                if not self.image_trigger_mode:
+                    self.update_main_image()
+                    for direction in self.cameras.keys():
+                        try:
+                            self.cameras[direction].on_trigger()
+                        except:
+                            print('ERROR: enable_live_view_for_tools on trigger error')
         except:
             print('ERROR: set trigger - enable_live_view_for_tools', direction)
         self.update_main_image()
