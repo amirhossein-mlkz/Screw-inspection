@@ -1,13 +1,13 @@
 {
     "active_tools": [],
     "direction": "top",
-    "img_path": "D:/myproject/Screw-inspection/mask.jpg",
-    "name": "A12",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Yp1\\top\\0_2023-10-1__17-54.bmp",
+    "name": "Yp1",
     "settings": {
         "0_top": {
             "angle": 0,
-            "lbelt": 100,
-            "rbelt": 500
+            "lbelt": 1010,
+            "rbelt": 680
         },
         "1_side": {
             "noise_filter0": 0,
@@ -25,26 +25,26 @@
             "thresh_inv0": true
         },
         "1_top": {
-            "algo": "thresh_algo",
-            "belt_edge_margin": 0,
+            "algo": "edge_algo",
+            "belt_edge_margin": 20,
             "d_parm1": 0,
             "d_parm3": 0,
             "e_parm2": 0,
             "e_parm4": 0,
-            "edge_thresh": 5,
-            "noise_filter0": 5,
+            "edge_thresh": 13,
+            "noise_filter0": 0,
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    408,
+                    247
                 ],
                 [
-                    100,
-                    100
+                    1224,
+                    930
                 ]
             ],
-            "thresh_max0": 255,
-            "thresh_min0": 0
+            "thresh_max0": 239,
+            "thresh_min0": 36
         },
         "2_side": {
             "rect_roi0": [
