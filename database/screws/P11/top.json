@@ -1,0 +1,172 @@
+{
+    "active_tools": [
+        "1_top",
+        "2_top"
+    ],
+    "direction": "top",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P11\\top\\36_2023-10-31__19-24.bmp",
+    "name": "P11",
+    "settings": {
+        "0_top": {
+            "angle": 0.4999999999999998,
+            "lbelt": 537,
+            "rbelt": 823
+        },
+        "1_side": {
+            "noise_filter0": 0,
+            "rect_roi0": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    100,
+                    100
+                ]
+            ],
+            "thresh0": 0,
+            "thresh_inv0": true
+        },
+        "1_top": {
+            "algo": "edge_algo",
+            "belt_edge_margin": 15,
+            "d_parm1": 1,
+            "d_parm3": 2,
+            "e_parm2": 1,
+            "e_parm4": 0,
+            "edge_thresh": 21,
+            "noise_filter0": 46,
+            "rect_roi0": [
+                [
+                    268,
+                    28
+                ],
+                [
+                    1047,
+                    784
+                ]
+            ],
+            "thresh_max0": 193,
+            "thresh_min0": 42
+        },
+        "2_side": {
+            "rect_roi0": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    100,
+                    100
+                ]
+            ]
+        },
+        "2_top": {
+            "fl": {
+                "circels_roi0": [
+                    [
+                        [
+                            638,
+                            492
+                        ],
+                        409
+                    ]
+                ],
+                "limits": {
+                    "max": {
+                        "corner": 0,
+                        "diameter": 495,
+                        "district": 0
+                    },
+                    "min": {
+                        "corner": 0,
+                        "diameter": 465,
+                        "district": 0
+                    }
+                },
+                "noise_filter0": 12,
+                "shape_type": "circel",
+                "thresh_max0": 255,
+                "thresh_min0": 0
+            }
+        },
+        "3_side": {
+            "jump_thresh": 5,
+            "rect_roi0": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    100,
+                    100
+                ]
+            ]
+        },
+        "3_top": {
+            "deft": {
+                "circels_roi0": [
+                    [
+                        [
+                            638,
+                            476
+                        ],
+                        318
+                    ],
+                    [
+                        [
+                            629,
+                            480
+                        ],
+                        194
+                    ]
+                ],
+                "min_area": 90,
+                "noise_filter0": 5,
+                "thresh_max0": 27,
+                "thresh_min0": 0
+            }
+        },
+        "4_side": {},
+        "4_top": {
+            "none": {
+                "noise_filter0": 5,
+                "thresh_max0": 250,
+                "thresh_min0": 20
+            }
+        },
+        "5_side": {
+            "edge_direction": "top",
+            "from_belt": true,
+            "jump_thresh": 10,
+            "rect_roi0": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    100,
+                    100
+                ]
+            ]
+        },
+        "5_top": {
+            "Flanch": {},
+            "Head": {}
+        },
+        "6_side": {
+            "none": {
+                "rect_roi0": [
+                    [
+                        0,
+                        0
+                    ],
+                    [
+                        100,
+                        100
+                    ]
+                ]
+            }
+        }
+    }
+}

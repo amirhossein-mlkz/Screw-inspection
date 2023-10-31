@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1168</width>
-    <height>934</height>
+    <width>1200</width>
+    <height>847</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -2337,7 +2337,7 @@ QPushButton:hover {
                          <enum>QFrame::Panel</enum>
                         </property>
                         <property name="currentIndex">
-                         <number>2</number>
+                         <number>6</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -6287,7 +6287,7 @@ QPushButton:disabled{
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>0</number>
+                                   <number>12</number>
                                   </property>
                                   <widget class="QWidget" name="page_0_top">
                                    <layout class="QVBoxLayout" name="verticalLayout_145">
@@ -7643,7 +7643,7 @@ border-radius : 5px;</string>
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
-                                        <height>500</height>
+                                        <height>0</height>
                                        </size>
                                       </property>
                                       <property name="frameShape">
@@ -8737,7 +8737,7 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QPushButton" name="btn_remove_region0_3_top_2">
+                                        <widget class="QPushButton" name="btn_edit_region0_3_top">
                                          <property name="maximumSize">
                                           <size>
                                            <width>26</width>
@@ -8822,13 +8822,13 @@ QPushButton:disabled{
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
-                                        <height>455</height>
+                                        <height>0</height>
                                        </size>
                                       </property>
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
-                                        <height>455</height>
+                                        <height>0</height>
                                        </size>
                                       </property>
                                       <property name="frameShape">
@@ -12202,7 +12202,7 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QCheckBox" name="checkbox_navel_3_side">
+                                        <widget class="QCheckBox" name="checkbox_navel_lenght_3_side">
                                          <property name="text">
                                           <string>Nafi</string>
                                          </property>
@@ -12231,7 +12231,7 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QLabel" name="label_navel_3_side">
+                                        <widget class="QLabel" name="label_navel_lenght_3_side">
                                          <property name="text">
                                           <string>-</string>
                                          </property>
@@ -12245,7 +12245,7 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_min_navel_3_side">
+                                        <widget class="QSpinBox" name="spin_min_navel_lenght_3_side">
                                          <property name="maximumSize">
                                           <size>
                                            <width>50</width>
@@ -12268,7 +12268,7 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_max_navel_3_side">
+                                        <widget class="QSpinBox" name="spin_max_navel_lenght_3_side">
                                          <property name="maximumSize">
                                           <size>
                                            <width>50</width>
@@ -12554,7 +12554,7 @@ QPushButton:disabled{
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
-                                        <height>300</height>
+                                        <height>0</height>
                                        </size>
                                       </property>
                                       <property name="frameShape">
@@ -13785,13 +13785,13 @@ QPushButton:disabled{
                                       <property name="minimumSize">
                                        <size>
                                         <width>0</width>
-                                        <height>200</height>
+                                        <height>0</height>
                                        </size>
                                       </property>
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
-                                        <height>200</height>
+                                        <height>0</height>
                                        </size>
                                       </property>
                                       <property name="frameShape">
@@ -15133,8 +15133,8 @@ QPushButton:pressed {
                                     <rect>
                                      <x>0</x>
                                      <y>0</y>
-                                     <width>251</width>
-                                     <height>509</height>
+                                     <width>246</width>
+                                     <height>491</height>
                                     </rect>
                                    </property>
                                    <layout class="QVBoxLayout" name="verticalLayout_142">
@@ -17048,6 +17048,9 @@ QPushButton:pressed {
                                        <height>16777215</height>
                                       </size>
                                      </property>
+                                     <property name="decimals">
+                                      <number>5</number>
+                                     </property>
                                     </widget>
                                    </item>
                                    <item>
@@ -17688,6 +17691,9 @@ QPushButton:pressed {
                                        <height>16777215</height>
                                       </size>
                                      </property>
+                                     <property name="decimals">
+                                      <number>5</number>
+                                     </property>
                                     </widget>
                                    </item>
                                    <item>
@@ -18137,7 +18143,7 @@ QPushButton:pressed {
                                   <x>0</x>
                                   <y>0</y>
                                   <width>276</width>
-                                  <height>834</height>
+                                  <height>751</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">
@@ -21040,8 +21046,20 @@ QPushButton:pressed {
                                    </item>
                                    <item>
                                     <widget class="QSpinBox" name="spin_area_detection_page">
+                                     <property name="minimumSize">
+                                      <size>
+                                       <width>80</width>
+                                       <height>0</height>
+                                      </size>
+                                     </property>
+                                     <property name="maximumSize">
+                                      <size>
+                                       <width>80</width>
+                                       <height>16777215</height>
+                                      </size>
+                                     </property>
                                      <property name="maximum">
-                                      <number>10000</number>
+                                      <number>100000</number>
                                      </property>
                                     </widget>
                                    </item>
@@ -21227,7 +21245,12 @@ QPushButton:pressed {
                                 <cursorShape>PointingHandCursor</cursorShape>
                                </property>
                                <property name="styleSheet">
-                                <string notr="true">background-color: rgb(0, 0, 0);</string>
+                                <string notr="true">QPushButton{
+	background-color: rgb(0, 0, 0);
+}
+QPushButton:pressed {
+	background-color: rgb(85, 170, 0);
+}</string>
                                </property>
                                <property name="text">
                                 <string/>

@@ -66,8 +66,8 @@ from history_UI import UI_history_window
 
 
 
-DEBUG = True
-
+DEBUG = False
+DEBUG_PROCCESSING_THREAD = False
 
 def time_measure(func):
     def wrapper(*args, **kwargs):
@@ -148,6 +148,7 @@ class API:
         #sensor_detection_page
         self.rect_roi_drawing_sensor_detection_page = Drawing.drawRect()
         self.load_detection_parms()
+        self.trig_done =False
         #self.set_detection_parms()
         self.cameras = {}
         self.connect_camera()
@@ -232,7 +233,11 @@ class API:
     
 
         self.button_connector()
+        
         self.set_detection_parms()
+
+        
+
         print('*Success*'*20)
 
 
@@ -1670,7 +1675,12 @@ class API:
 
         result,img = proccessings.proccessing_thread_male(img,thresh_img,json,draw=img)
         
-        info = {'thread_lenght': result[1]['avg'],  'count_thread': result[2]['avg'] , 'step_distance':result[0]['avg']}
+        info = {'thread_lenght': result[1]['avg'],
+                'count_thread': result[2]['avg'] , 
+                'step_distance':result[0]['avg']
+                }
+        if len(result) == 4:
+            info['navel_lenght'] = result[3]['avg']
         self.ui.set_stetting_page_label_info(info)
         
         
@@ -1819,7 +1829,6 @@ class API:
 
             self.worker_p_side  = processingSideWorker(screw_json, img, self.calibration_value['side'])
             self.thread_p_side = sQThread()
-
             self.worker_p_side.moveToThread(self.thread_p_side)
             self.thread_p_side.started.connect(self.worker_p_side.run)
             self.worker_p_side.complete.connect(self.complete_proccessing)
@@ -1827,9 +1836,11 @@ class API:
             self.worker_p_side.finished.connect(self.worker_p_side.deleteLater)
             self.thread_p_side.finished.connect(self.thread_p_side.deleteLater)
 
-
-            self.thread_p_side.start()
-
+            if not DEBUG_PROCCESSING_THREAD:
+                self.thread_p_side.start()
+            else:
+                self.worker_p_side.run()
+                print('on DEBUG_PROCCESSING_THREAD')
 
 
 
@@ -1851,8 +1862,11 @@ class API:
             self.worker_p_top.finished.connect(self.worker_p_top.deleteLater)
             self.thread_p_top.finished.connect(self.thread_p_top.deleteLater)
 
-
-            self.thread_p_top.start()
+            if not DEBUG_PROCCESSING_THREAD:
+                self.thread_p_top.start()
+            else:
+                self.worker_p_top.run()
+                print('on DEBUG_PROCCESSING_THREAD')
         
 
 
@@ -2288,24 +2302,37 @@ class API:
         #-----------------------------------------------------------------------------
         other_camera = 'side'
         trigger_camera = 'top'
-        if self.image_trigger_mode:
-            
-            if self.direction_sensor_mode == 'side':
+
+        if self.direction_sensor_mode == 'side':
                 other_camera = 'top'
                 trigger_camera = 'side'
 
+        if (self.image_trigger_mode and 
+            not self.ui.stackedWidget.currentWidget() in [self.ui.page_detection_mode, self.ui.page_camera_setting]) :
+            
+            
+
             self.current_camera_imgs[trigger_camera] = self.cameras[trigger_camera].image.copy()
             #t = time.time()
+           
+            
             trig,_,_ = proccessings.preprocessing_sensor_detection(self.current_camera_imgs[trigger_camera],
                                                                     **self.sensor_detection_values
                                                                     )
             #t = time.time() - t
-            print('trig image status', trig)
+            # print('trig image status', trig)
             if not trig:
+                self.trig_done = False
+
+            if not trig or self.trig_done:
                 self.during_set_image = False
                 return
+
+            self.trig_done = True
                     
         else:
+            # self.current_camera_imgs[trigger_camera] = self.cameras[trigger_camera].image.copy()
+            # self.cameras[trigger_camera].getPictures()
             self.current_camera_imgs[trigger_camera] = self.cameras[trigger_camera].image.copy()
         
         #-----------------------------------------------------------------------------
@@ -2320,7 +2347,7 @@ class API:
 
             for _ in range(10):
                 side_ret,image = self.cameras[other_camera].getPictures()  # temp for get side image
-                time.sleep(0.001)
+                # time.sleep(0.001)
                 if DEBUG:
                     if other_camera == 'side':
                         self.current_camera_imgs[other_camera] = cv2.imread('sample images/temp_side/{}.jpg'.format(np.random.randint(1,4)),0)
@@ -2402,7 +2429,17 @@ class API:
                 if self.win_fullscreen.isVisible():
                     self.update_fullscreen_img()
                 
+
+
+        elif self.ui.stackedWidget.currentWidget()==self.ui.page_detection_mode:
+
+
+            self.get_picture_detection_page()
+
+
+
         self.during_set_image = False
+
 #------------------------------------------------------------------------------------------------------------------------
 # NEW----------------------------------------------------------------
 
@@ -2530,7 +2567,7 @@ class API:
                 rect_roi=shapes[0],
                 draw=True
             )
-            print('flag',flag,'a',area)
+            #print('flag',flag,'a',area) #print trig
             self.ui.selected_area.setText(str(area))
         else:
             res = img.copy()
@@ -2624,9 +2661,12 @@ class processingTopWorker(QObject):
             for i in range(len(results_tools)) :
 
                 tools_name =results_tools[i]['name']
+                if ' ' in tools_name:
+                    tools_name =tools_name.split(' ')[1]
                 if tools_name in proccessings.calib_dict_top:
                     for key,value in results_tools[i].items():
-                        results_tools[i][key]=proccessings.calib_dict_top[tools_name](value,self.calib_value)
+                        if key!='name' :
+                            results_tools[i][key]=round(proccessings.calib_dict_top[tools_name](value,self.calib_value), 2)
                         
             self.results.extend(results_tools)
 
@@ -2653,24 +2693,24 @@ class processingSideWorker(QObject):
 
     @time_measure
     def run(self,):
-
         self.img, mask_roi,_ = proccessings.preprocessing_side_img( self.img, self.screw_json )
 
         self.draw_img = self.img.copy()
         self.draw_img = Utils.mask_viewer(self.draw_img, mask_roi, color=(0,10,150))
-        
+    
         for active_tool in self.screw_json.get_active_tools():
             results_tools, self.draw_img = proccessings.tools_dict_side[active_tool]( self.img, mask_roi, self.screw_json, self.draw_img  )
-            
 
             for i in range(len(results_tools)) :
 
                 tools_name =results_tools[i]['name']
+                if ' ' in tools_name:
+                    tools_name =tools_name.split(' ')[1]
+
                 if tools_name in proccessings.calib_dict_side:
                     for key,value in results_tools[i].items():
                         if key != 'name':
                             results_tools[i][key]=round(proccessings.calib_dict_side[tools_name](value,self.calib_value),2)
-                        
             self.results.extend(results_tools)
 
         self.results.sort( key = lambda x:x['name'])

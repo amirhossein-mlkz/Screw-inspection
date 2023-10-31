@@ -19,6 +19,8 @@ def set_dict(name, value_min, value_avg , value_max, limits):
 def get_general_masks(img, json, page_name, main_roi_mask=None):
     res = {}
     for subpage_name in json.get_subpages(page_name):
+        if subpage_name == 'none':
+            continue 
 
         thresh_min = json.get_thresh_min(page_name, subpage_name)
         thresh_max = json.get_thresh_max(page_name, subpage_name)
@@ -42,9 +44,8 @@ def get_general_masks(img, json, page_name, main_roi_mask=None):
 
 
 def preprocessing_sensor_detection(img , thresh_min,thresh_max,area_thresh,rect_roi,draw = None):
-    img = img.copy()
     
-    roi = img[rect_roi[0][1]:rect_roi[1][1],\
+    roi = img[rect_roi[0][1]:rect_roi[1][1],
               rect_roi[0][0]:rect_roi[1][0]]
     if not len(roi):
         return False,-1, img
@@ -99,7 +100,11 @@ def preprocessing_1_top_img( img, json,draw = None, centerise=True):
 
         edge_thresh = json.get_numerical_parm(page_name, subpage_name, 'edge_thresh')
         belt_margin = json.get_numerical_parm(page_name, subpage_name, 'belt_edge_margin')
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        gray = None
+        if len(img.shape) == 3:
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        else:
+            gray = img.copy()
         thresh_img = cvToolsCython.derivative_threshould(gray.astype(np.int32), edge_thresh)
         thresh_img = cv2.bitwise_and(thresh_img, thresh_img, mask= mask_roi)
         
@@ -302,16 +307,16 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
     subpage_name = None
     rect_roi_2 = jsondb.get_rect_roi( page_name, subpage_name)
     jump_thresh = jsondb.get_numerical_parm(page_name, subpage_name, 'jump_thresh')
-    navel  = jsondb.get_checkbox(page_name,subpage_name,'navel')
+    navel  = jsondb.get_checkbox(page_name,subpage_name,'navel_lenght')
     limit_thread_lenght = jsondb.get_limit('thread_lenght', page_name, subpage_name)
     limit_thread_distance = jsondb.get_limit('thread_distance', page_name, subpage_name)
-    limit_navel = jsondb.get_limit('navel', page_name, subpage_name)
+    limit_navel = jsondb.get_limit('navel_lenght', page_name, subpage_name)
     limit_thread_count = jsondb.get_limit('thread_count', page_name, subpage_name)
 
     result = []
-    dict_lenght = set_dict('thread_lenght', -2, -2, -2, limit_thread_lenght )
-    dict_thread_distance = set_dict('thread_distance', -2, -2, -2, limit_thread_distance )
-    dict_thread_count = set_dict('thread_count', -2, -2, -2, limit_thread_count )
+    dict_lenght = set_dict('thread lenght', -2, -2, -2, limit_thread_lenght )
+    dict_thread_distance = set_dict('thread distance', -2, -2, -2, limit_thread_distance )
+    dict_thread_count = set_dict('thread count', -2, -2, -2, limit_thread_count )
     dict_navel = set_dict('navel lenght', -2, -2, -2, limit_navel )
 
     if Utils.is_rect(rect_roi_2):
@@ -375,9 +380,9 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
                 draw = cvTools.draw_points(draw, male_thread_l, (200,50,0), 5)
 
         else:
-            dict_lenght = set_dict('thread_lenght', -1, -1, -1, limit_thread_lenght )
-            dict_thread_distance = set_dict('thread_distance', -1, -1, -1, limit_thread_distance )
-            dict_thread_count = set_dict('thread_count', -1, -1, -1, limit_thread_count )
+            dict_lenght = set_dict('thread lenght', -1, -1, -1, limit_thread_lenght )
+            dict_thread_distance = set_dict('thread distance', -1, -1, -1, limit_thread_distance )
+            dict_thread_count = set_dict('thread count', -1, -1, -1, limit_thread_count )
             if navel:
                 dict_navel = set_dict('navel lenght', -1, -1, -1, limit_navel )
     
@@ -399,6 +404,8 @@ def proccessing_side_diameters( img, mask, jsondb, draw=None):
     results = []
 
     for subpage_name in jsondb.get_subpages(page_name):
+        if subpage_name == 'none':
+            continue 
 
         rect_roi_2 = jsondb.get_rect_roi( page_name, subpage_name)
         limits = jsondb.get_limit('body_diameter', page_name, subpage_name)
@@ -492,6 +499,8 @@ def preprocessing_side_damage( img, mask, jsondb, draw = None):
     page_name = '6_side'
     results = []
     for subpage_name in jsondb.get_subpages(page_name):
+        if subpage_name == 'none':
+            continue 
         rect_roi_2 = jsondb.get_rect_roi( page_name, subpage_name, )
         limits = jsondb.get_limit('damage', page_name, subpage_name)   
 
@@ -549,6 +558,8 @@ def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
     page_name = '2_top'
     results = []
     for subpage_name in jsondb.get_subpages(page_name):
+        if subpage_name == 'none':
+            continue 
         # thresh = jsondb.get_thresh(page_name, subpage_name)
         thresh_min = jsondb.get_thresh_min(page_name, subpage_name)
         thresh_max = jsondb.get_thresh_max(page_name, subpage_name)
@@ -679,7 +690,9 @@ def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
 def proccessing_top_defect( img, mask_roi_main, jsondb, draw=None):
     page_name = '3_top'
     results = []
-    for subpage_name in jsondb.get_subpages(page_name):        
+    for subpage_name in jsondb.get_subpages(page_name):    
+        if subpage_name == 'none':
+            continue    
         #--------------------------------------------------------------------------------------
         #specific Operation
         #--------------------------------------------------------------------------------------

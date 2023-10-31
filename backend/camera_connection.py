@@ -34,7 +34,7 @@ from PySide6.QtCore import Signal
 
 
 
-DEBUG = True
+DEBUG = False
 
 
 
@@ -220,7 +220,7 @@ class Collector(sQObject):
 
 
     def getPictures(self, time_out = 50):
-        
+        self.image = np.zeros([1200,1920],dtype=np.uint8)
         if self.camera:
             Flag=False
             try:
@@ -241,14 +241,14 @@ class Collector(sQObject):
 
                 else:
                         # print('erpr')
-                        img=np.zeros([1200,1920,3],dtype=np.uint8)
+                        img=np.zeros([1200,1920],dtype=np.uint8)
                         Flag=False
 
             except:
 
                 img=np.zeros([1200,1920,3],dtype=np.uint8)
                 Flag=False
-            # self.image = img
+            self.image = img
             if Flag:
                 return True, img
             else:
@@ -267,10 +267,13 @@ class Collector(sQObject):
     def get_picture_while(self):
 
         while True:
+            ret = False
             if self.capturing:
-                cv2.waitKey(100)
-                # ret, self.image = self.getPictures()
-
+                # cv2.waitKey(150)
+                # print('imilad')
+                time.sleep(0.005)
+                ret, self.image = self.getPictures()
+                # print('picture captured')
                 if DEBUG:
                     # ret,self.image = True,(np.random.rand(500,500,3)*255).astype('uint8')
                     i = np.random.choice([1,5])
@@ -284,6 +287,7 @@ class Collector(sQObject):
 
                 if ret:
                     self.trig_signal.emit()
+                    time.sleep(0.15)
             else:
                 break
         self.finished.emit()

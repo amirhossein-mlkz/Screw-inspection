@@ -215,6 +215,9 @@ class UI_main_window(QMainWindow, ui):
         # defult selected camera detection
         self.selected_camera = 'side'
 
+        self.showMaximized()
+        self.offset = None
+
 
     def load_single_page_defult_parms(self,page_name):
 
@@ -501,6 +504,7 @@ class UI_main_window(QMainWindow, ui):
         
 
         self.btn_add_region0_2_top.clicked.connect(self.buttonClick)
+        self.btn_edit_region0_2_top.clicked.connect(self.buttonClick)
         self.btn_remove_region0_2_top.clicked.connect(self.buttonClick)
 
         # self.btn_set_corner0_2_top.clicked.connect(self.buttonClick)
@@ -509,6 +513,7 @@ class UI_main_window(QMainWindow, ui):
         # page 3_top
 
         self.btn_add_region0_3_top.clicked.connect(self.buttonClick)
+        self.btn_edit_region0_3_top.clicked.connect(self.buttonClick)
         self.btn_remove_region0_3_top.clicked.connect(self.buttonClick)
 
 
@@ -1024,10 +1029,14 @@ class UI_main_window(QMainWindow, ui):
         if btnName=='btn_add_region0_2_top':
             self.frame_size_height(self.frame_52,size = 1000, both_height=True)
 
+        if btnName=='btn_edit_region0_2_top':
+            self.frame_size_height(self.frame_52,size = 1000, both_height=True)
         if btnName=='btn_remove_region0_2_top':
             self.frame_size_height(self.frame_52,size = 0, both_height=True)
 
         if btnName=='btn_add_region0_3_top':
+            self.frame_size_height(self.frame_193,size = 1000, both_height=True)
+        if btnName=='btn_edit_region0_3_top':
             self.frame_size_height(self.frame_193,size = 1000, both_height=True)
 
         if btnName=='btn_remove_region0_3_top':
@@ -1869,7 +1878,7 @@ class UI_main_window(QMainWindow, ui):
         for name, value in parms.items():
 
             name, idx = self.deasmble_name_and_idx( name )
-            if name in ['thresh_inv', 'navel','from_belt'] :
+            if name in ['thresh_inv', 'navel_lenght','from_belt'] :
                 self.set_checkbox_value(name,value,page_name,idx=idx)
                 
             elif name in ['thresh', 'thresh_min', 'thresh_max', 'noise_filter', 'edge_thresh'] :
@@ -1941,6 +1950,7 @@ class UI_main_window(QMainWindow, ui):
                 limit_min=page_value['limit_min']
                 limit_max=page_value['limit_max']
                 for col_id , col_value in enumerate(self.col_parms) :
+        
                     table_item = QTableWidgetItem(str((page_value[col_value])))
                     table_name.setItem(id,col_id,table_item)
                     if col_id==0:

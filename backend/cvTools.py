@@ -56,7 +56,13 @@ def threshould_minmax(img, thresh_min, thresh_max , mask_roi = None):
     if len(img.shape) == 3:
         img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     
-    _,mask_min = cv2.threshold(img, thresh_min, 255, cv2.THRESH_BINARY)
+    mask_min=0
+    if thresh_min==0:
+        #thresh_min=-1
+        mask_min = np.zeros_like(img)
+        mask_min[img>=0] = 255
+    else:
+        _,mask_min = cv2.threshold(img, thresh_min, 255, cv2.THRESH_BINARY)
     _,mask_max = cv2.threshold(img, thresh_max, 255, cv2.THRESH_BINARY_INV)
            
     if mask_roi is not None:
@@ -847,17 +853,27 @@ def poly_fit_image(cnt, border=50, draw=True ):
 def diameters_measurment(mask, cnt, angles):
     M = cv2.moments(cnt)
     center = int(M['m10']/M['m00']) , int(M['m01']/M['m00'])
-    r=1000
+    R=1000
     corners_dist = []
     for angle in angles:
         line_mask = np.zeros_like(mask)
-        pt1, pt2 = mathTools.angle2line(angle, center,  r*1.5)
+        pt1, pt2 = mathTools.angle2line(angle, center,  R*1.5)
 
         cv2.line(line_mask, pt1, pt2, 255,1)
         line_mask = cv2.bitwise_and( line_mask, line_mask, mask=mask)
         cnts,_ = cv2.findContours(line_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)  
-        if len(cnts):     
-            _,r = cv2.minEnclosingCircle(cnts[0])
+        rs = list(map(lambda x:cv2.minEnclosingCircle(x)[1], cnts))
+            # cnts = list(cnts)
+            # cnts.sort(key=lambda x:cv2.contourArea(x))
+        if len(cnts):
+            r = sum(rs)
+            # _,r = cv2.minEnclosingCircle(cnts[0])
+            # print(angle, center, R*1.5, pt1, pt2, r)    
+            # cv2.imshow('1', line_mask)
+            # cv2.imshow('mask', mask)
+            # cv2.imshow('12', line_mask)
+            # cv2.waitKey(0)
+        
             corners_dist.append(int(r*2))
 
         #corners_dist.append(np.count_nonzero(line_mask))
