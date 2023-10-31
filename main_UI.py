@@ -76,7 +76,8 @@ class UI_main_window(QMainWindow, ui):
 
         self.side_buttons = [self.side_camera_setting_btn, self.side_tool_setting_btn\
                             ,self.side_users_setting_btn,self.side_general_setting_btn\
-                                , self.side_dashboard_btn,self.side_calibration_setting_btn]
+                                , self.side_dashboard_btn,self.side_calibration_setting_btn,
+                                self.side_detection_mode_btn]
 
         # camera variable parameters ids in the camera-settings section of the UI 
         self.camera_params = [self.gain_spinbox, self.expo_spinbox, self.width_spinbox\
@@ -211,7 +212,8 @@ class UI_main_window(QMainWindow, ui):
         self.set_page_none()
 
 
-
+        # defult selected camera detection
+        self.selected_camera = 'side'
 
 
     def load_single_page_defult_parms(self,page_name):
@@ -448,6 +450,7 @@ class UI_main_window(QMainWindow, ui):
         self.side_camera_setting_btn.clicked.connect(self.buttonClick)
         self.side_dashboard_btn.clicked.connect(self.buttonClick)
         self.side_calibration_setting_btn.clicked.connect(self.buttonClick)
+        self.side_detection_mode_btn.clicked.connect(self.buttonClick)
 
         self.side_tool_setting_btn.clicked.connect(self.buttonClick)
         self.side_general_setting_btn.clicked.connect(self.buttonClick)
@@ -780,10 +783,11 @@ class UI_main_window(QMainWindow, ui):
     def clear_side_btns(self,current_page):
 
         self.white_side_images_path=['images/setting_main_window/dashboard_orange.png','images/setting_main_window/tools_setting_orange.png',\
-            'images/setting_main_window/camera_setting_orange.png','images/setting_main_window/calibration_setting_orange.png','images/setting_main_window/users_setting_orange.png','images/setting_main_window/general_setting_orange.png']
+            'images/setting_main_window/camera_setting_orange.png','images/setting_main_window/calibration_setting_orange.png','images/setting_main_window/users_setting_orange.png','images/setting_main_window/general_setting_orange.png'\
+                ,'images/setting_main_window/sensor_setting_orange.png']
 
         self.side_buttons = [ self.side_dashboard_btn, self.side_tool_setting_btn,self.side_camera_setting_btn\
-                    ,self.side_calibration_setting_btn,self.side_users_setting_btn,self.side_general_setting_btn,]
+                    ,self.side_calibration_setting_btn,self.side_users_setting_btn,self.side_general_setting_btn,self.side_detection_mode_btn]
 
         for i in range(len(self.side_buttons)):
 
@@ -883,6 +887,11 @@ class UI_main_window(QMainWindow, ui):
             self.clear_side_btns(current_page=3)
 
             self.stackedWidget.setCurrentWidget(self.page_calibration)
+
+        if btnName =='side_detection_mode_btn' :
+            self.clear_side_btns(current_page=6)
+
+            self.stackedWidget.setCurrentWidget(self.page_detection_mode)
 
 
 
@@ -2129,6 +2138,64 @@ class UI_main_window(QMainWindow, ui):
         def __event_func__():
             func(*args)
         return __event_func__
+
+
+
+    def ret_selected_camera_sensor_detect_page(self):
+
+        if self.checkbox_page_detection_mode_top.isChecked():
+            self.selected_camera = 'top'
+        elif self.checkbox_page_detection_mode_side.isChecked():
+            self.selected_camera = 'side'
+        thresh_min = self.thresh_min_detection_page.value()
+        thresh_max = self.thresh_max_detection_page.value()
+        area = self.spin_area_detection_page.value()
+
+        return self.selected_camera,thresh_min,thresh_max,area
+
+
+
+    def ret_sensor_mode(self):
+
+        if self.checkbox_page_detection_sensor.isChecked():
+            trigger_mode = 0
+        elif self.checkbox_page_detection_trigger.isChecked():
+            trigger_mode = 1
+
+        return trigger_mode
+
+
+    def ret_direction_sensor_detect(self):
+
+        if self.checkbox_page_detection_mode_top.isChecked():
+            direction = 'top'
+        elif self.checkbox_page_detection_mode_side.isChecked():
+            direction = 'side'
+
+        return direction
+
+
+
+    def set_trigger_mode(self,mode):
+        
+        if mode:
+            self.checkbox_page_detection_sensor.setChecked(False)
+            self.checkbox_page_detection_trigger.setChecked(True)
+        else:
+            self.checkbox_page_detection_trigger.setChecked(False)
+            self.checkbox_page_detection_sensor.setChecked(True)
+    
+    def set_camera_sensor_detection_page(self,direction):
+        
+        if direction =='top':
+            self.checkbox_page_detection_mode_side.setChecked(False)
+            self.checkbox_page_detection_mode_top.setChecked(True)
+        else:
+            self.checkbox_page_detection_mode_top.setChecked(False)
+            self.checkbox_page_detection_mode_side.setChecked(True)
+
+
+
 
 
 if __name__ == "__main__":

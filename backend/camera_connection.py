@@ -273,7 +273,13 @@ class Collector(sQObject):
 
                 if DEBUG:
                     # ret,self.image = True,(np.random.rand(500,500,3)*255).astype('uint8')
-                    ret,self.image = True,cv2.imread('sample images/temp_top/2.jpg')
+                    i = np.random.choice([1,5])
+                    #print(i)
+                    if i == 1:
+                        ret,self.image = True,cv2.imread(f'sample images/temp_top/1.jpg',0)
+                    elif i==5:
+                        ret,self.image = True,cv2.imread(f'sample images/temp_top/5.bmp',0)
+
                     cv2.waitKey(500)
 
                 if ret:

@@ -40,6 +40,34 @@ def get_general_masks(img, json, page_name, main_roi_mask=None):
     return res
 
 
+
+def preprocessing_sensor_detection(img , thresh_min,thresh_max,area_thresh,rect_roi,draw = None):
+    img = img.copy()
+    
+    roi = img[rect_roi[0][1]:rect_roi[1][1],\
+              rect_roi[0][0]:rect_roi[1][0]]
+    if not len(roi):
+        return False,-1, img
+
+
+    thresh_img = cvTools.threshould_minmax(roi, thresh_min, thresh_max)
+
+    area = np.count_nonzero(thresh_img)
+
+    if draw is not None:
+        draw = Utils.mask_viewer(roi.copy(), thresh_img)
+        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        img[rect_roi[0][1]:rect_roi[1][1],\
+              rect_roi[0][0]:rect_roi[1][0]] = draw
+    
+    cross_flag = False
+    if area > area_thresh:
+        cross_flag = True
+
+    return cross_flag, area, img
+
+
+
 def preprocessing_1_top_img( img, json,draw = None, centerise=True):
     tt1 = time.time()
     page_name = '1_top'

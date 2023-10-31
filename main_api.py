@@ -102,6 +102,9 @@ class API:
         
         self.current_camera_imgs = {}
         self.sides=['side','top']
+        self.during_set_image = False
+        #self.image_trigger_mode = False
+        
         #------------------------------------------------------------------------------------------------------------------------
         # UIs of the app
         # main settings UI
@@ -141,11 +144,11 @@ class API:
 
 
         cameras_info = self.db.load_cam_params(1)
-        # print('cameras_info',cameras_info)'
-   
-        # for cam_info in cameras_info:
 
-
+        #sensor_detection_page
+        self.rect_roi_drawing_sensor_detection_page = Drawing.drawRect()
+        self.load_detection_parms()
+        #self.set_detection_parms()
         self.cameras = {}
         self.connect_camera()
         self.available_camera_serials = camera_funcs.get_available_cameras_list_serial_numbers()
@@ -190,13 +193,18 @@ class API:
         
         self.current_image_screw = {}
         self.rotate_correction = False
+
+        
+
+
+
         #-------------------------------------------------------------------------------------------------------------------
         self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
         self.load_live_page_infoes()
 
         self.mouse.connect_all(self.ui.label_image_grab_page, self.image_setting_mouse_event)
+        self.mouse.connect_all(self.ui.camera_detection_mode_picture, self.image_setting_mouse_event_sensor_detection_page)
         
-        self.laod_images()
         self.set_images()
 
 
@@ -224,7 +232,13 @@ class API:
     
 
         self.button_connector()
+        self.set_detection_parms()
         print('*Success*'*20)
+
+
+        #sensor detection page
+        
+
 
 
     def button_connector(self):
@@ -297,7 +311,7 @@ class API:
         #page_setting
 
         
-
+        self.ui.side_detection_mode_btn.clicked.connect(self.refresh_sensor_image_page)
         #Page 1_top----------------------------------------------------------
       
         
@@ -414,6 +428,12 @@ class API:
         self.p_is_during = {'top':False,'side':False}
         self.p_finished = {'top':False,'side':False}
 
+        #senor detection page
+        self.ui.camera_get_picture_detection_mode.clicked.connect(self.get_picture_detection_page)
+        self.ui.thresh_min_detection_page.valueChanged.connect(self.get_picture_detection_page)
+        self.ui.thresh_max_detection_page.valueChanged.connect(self.get_picture_detection_page)
+        self.ui.btn_save_sensor_detection_page.clicked.connect(self.save_detection_parms)
+        
 
     # dashboard page
     #------------------------------------------------------------------------------------------------------------------------
@@ -501,15 +521,22 @@ class API:
             for direction in self.cameras.keys():
                 if self.cameras[direction]:
                     self.cameras[direction].start_grabbing()
-                    if direction == 'top':
-                        self.threads[direction] = sQThread()
-                        self.cameras[direction].moveToThread(self.threads[direction])
-                        self.threads[direction].started.connect(self.cameras[direction].get_picture_while)
-                        self.cameras[direction].finished.connect(self.threads[direction].quit)
-                        self.cameras[direction].finished.connect(self.cameras[direction].deleteLater)
-                        self.threads[direction].finished.connect(self.threads[direction].deleteLater)
-                        self.cameras[direction].trig_signal.connect(self.set_images)
-                        self.threads[direction].start()
+                    if self.image_trigger_mode:
+                        if self.direction_sensor_mode != direction:
+                            continue
+                    else:
+                        if direction!='top':
+                            continue
+                    
+                    
+                    self.threads[direction] = sQThread()
+                    self.cameras[direction].moveToThread(self.threads[direction])
+                    self.threads[direction].started.connect(self.cameras[direction].get_picture_while)
+                    self.cameras[direction].finished.connect(self.threads[direction].quit)
+                    self.cameras[direction].finished.connect(self.cameras[direction].deleteLater)
+                    self.threads[direction].finished.connect(self.threads[direction].deleteLater)
+                    self.cameras[direction].trig_signal.connect(self.set_images)
+                    self.threads[direction].start()
             self.ui.camera_connect_flag=True
             self.ui.disconnect_cameras_live_page.setEnabled(True)
             self.ui.connect_cameras_live_page.setEnabled(False)
@@ -545,11 +572,21 @@ class API:
             self.cameras[direction].update_parms(parm)
             
             self.cameras[direction].start_grabbing()
+
             if self.cameras!= None:
-                try:
-                    self.cameras[direction].on_trigger()
-                except:
-                    print('eror in set trigger in api')
+                if not self.image_trigger_mode:
+                    try:
+                        self.cameras[direction].on_trigger()
+                    except:
+                        print('eror in set trigger in api')
+
+                else:
+                    try:
+                        self.cameras[direction].off_trigger()
+                    except:
+                        print('eror in set trigger in api')
+
+
 
 
     
@@ -933,7 +970,17 @@ class API:
         self.ui.set_color_value_image_tool_page(color,img)
 
         
+    def image_setting_mouse_event_sensor_detection_page(self,wname):
 
+        mouse_status = self.mouse.get_status()
+        mouse_button = self.mouse.get_button()
+        mouse_pt = self.mouse.get_relative_position()
+        mouse_real_pt=self.mouse.get_position()
+        
+        self.rect_roi_drawing_sensor_detection_page.max_shape_count = 1
+        self.rect_roi_drawing_sensor_detection_page.qtmouse_checker( mouse_status, mouse_button, mouse_pt )
+
+        self.get_picture_detection_page()
     #____________________________________________________________________________________________________________
     #                                           
     #
@@ -1218,6 +1265,9 @@ class API:
         #-----------loade limits --------------------
         self.setup_drawing_setting(page_name)
         self.refresh_page()
+
+        #-------------------------------------------
+        
 
 
     def refresh_page(self,):
@@ -1730,11 +1780,11 @@ class API:
             for direction in self.screw_jasons.keys():
                 self.screw_jasons[direction].read(path, direction)
                 img_path = self.screw_jasons[direction].get_img_path()
-                try:
-                    img=cv2.imread(img_path)
-                except:
+                img=cv2.imread(img_path)
+                if img is None:
                     print('Error load_screw_live')
                     img = np.zeros(shape=(1040,1392),dtype='uint8')
+                
                 self.ui.set_selected_image_live_page(direction,img)
 
 
@@ -2042,16 +2092,6 @@ class API:
         side = self.db.save_side_calibration(self.ui.doubleSpinBox_calibration_side.value())
 
 
-    def laod_images(self):
-
-        self.top_images=[]
-        self.side_images=[]
-
-        for i in range(1,5):
-
-            self.top_images.append(cv2.imread('sample images/temp_top/{}.jpg'.format(i)))
-            self.side_images.append(cv2.imread('sample images/temp_side/{}.jpg'.format(i)))
-        
 
     
 
@@ -2109,6 +2149,7 @@ class API:
     def start_detection(self):
 
         self.run_detect=True
+        self.during_set_image = False
         #load screw image again. becuase maybe some settings chaged
         self.load_screw_live()
         self.load_calibration_parms()   # load calibration parms
@@ -2235,37 +2276,78 @@ class API:
 
 
     def set_images(self):
+        #correct set image
         if not self.ui.camera_connect_flag:
             return
-        # for direction in self.cameras.keys():
+        
+        if not self.during_set_image:
+            self.during_set_image = True
+        
+        #determine other camera that we should grab its image manuly
+        # in hordware trigger mode other camera is 'side' always
+        #-----------------------------------------------------------------------------
+        other_camera = 'side'
+        trigger_camera = 'top'
+        if self.image_trigger_mode:
+            
+            if self.direction_sensor_mode == 'side':
+                other_camera = 'top'
+                trigger_camera = 'side'
+
+            self.current_camera_imgs[trigger_camera] = self.cameras[trigger_camera].image.copy()
+            #t = time.time()
+            trig,_,_ = proccessings.preprocessing_sensor_detection(self.current_camera_imgs[trigger_camera],
+                                                                    **self.sensor_detection_values
+                                                                    )
+            #t = time.time() - t
+            print('trig image status', trig)
+            if not trig:
+                self.during_set_image = False
+                return
+                    
+        else:
+            self.current_camera_imgs[trigger_camera] = self.cameras[trigger_camera].image.copy()
+        
+        #-----------------------------------------------------------------------------
         try:
-            self.cameras['side'].off_trigger()
+            self.cameras[other_camera].off_trigger()
         except:
             if not DEBUG:
-                print("ERROR:  self.cameras['side'].off_trigger()")
+                print(f"ERROR:  self.cameras[{other_camera}].off_trigger()")
         
 
-        if self.cameras['side']:
+        if self.cameras[other_camera]:
 
-            for i in range(10):
-                side_ret,side_image = self.cameras['side'].getPictures()  # temp for get side image
-                time.sleep(0.002)
+            for _ in range(10):
+                side_ret,image = self.cameras[other_camera].getPictures()  # temp for get side image
+                time.sleep(0.001)
+                if DEBUG:
+                    if other_camera == 'side':
+                        self.current_camera_imgs[other_camera] = cv2.imread('sample images/temp_side/{}.jpg'.format(np.random.randint(1,4)),0)
+                        break
+                    else:
+                        self.current_camera_imgs[other_camera] = cv2.imread('sample images/temp_top/{}.jpg'.format(np.random.randint(1,4)),0)
+                        break
                 if side_ret:
-                    # print('aaaaaaaaaaaa')
-                    self.cameras['side'].image=side_image
+                    self.cameras[other_camera].image = image
+                    self.current_camera_imgs[other_camera] = image.copy()
                     break
+            else:
+                self.during_set_image = False
+                return
+        #-----------------------------------------------------------------------------
 
 
         if self.tools_live_enable:
             direction = self.ui.get_setting_page_idx(direction = True)
-            try:
-                self.current_image_screw[direction] = self.cameras[direction].image
-                    #self.current_camera_imgs[direction] = self.cameras[direction].image
+            # try:
+            #     self.current_image_screw[direction] = self.cameras[direction].image.copy()
+            #         #self.current_camera_imgs[direction] = self.cameras[direction].image
 
                 
-            except:
-                self.current_image_screw[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
-                self.current_image_screw[direction] = np.random.randint(0,255,1920*1200).reshape((1920,1200)).astype(np.uint8)
+            # except:
+            #     self.current_image_screw[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
+            #     self.current_image_screw[direction] = np.random.randint(0,255,1920*1200).reshape((1920,1200)).astype(np.uint8)
                 
 
 
@@ -2286,17 +2368,7 @@ class API:
                 'top': self.proccessing_live_top}
             
             for direction in ['top', 'side']:
-                #try:
-                    if not DEBUG:
-                        self.current_camera_imgs[direction] = self.cameras[direction].image
-                    else:
-                        if direction == 'top':
-
-                                self.current_camera_imgs[direction] = cv2.imread('sample images/temp_top/{}.bmp'.format(np.random.randint(5,8)),0)
-
-                        else:
-                            self.current_camera_imgs[direction] = cv2.imread('sample images/temp_side/{}.jpg'.format(np.random.randint(1,4)),0)
-
+                #try:   
                     if self.run_detect:
                         #draw_imgs[direction], results[direction] = self.proccessing_live_side(self.current_camera_imgs[direction])
                         proccessing_functions[direction](self.current_camera_imgs[direction])
@@ -2330,7 +2402,7 @@ class API:
                 if self.win_fullscreen.isVisible():
                     self.update_fullscreen_img()
                 
-        
+        self.during_set_image = False
 #------------------------------------------------------------------------------------------------------------------------
 # NEW----------------------------------------------------------------
 
@@ -2353,12 +2425,20 @@ class API:
         try:
             if self.tools_live_enable:
                 for direction in self.cameras.keys():
-                    self.cameras[direction].off_trigger()
+                    try:
+                        self.cameras[direction].off_trigger()
+                    except:
+                        print('ERROR: enable_live_view_for_tools off trigger error')
+
             
             else:
-                self.update_main_image()
-                for direction in self.cameras.keys():
-                    self.cameras[direction].on_trigger()
+                if not self.image_trigger_mode:
+                    self.update_main_image()
+                    for direction in self.cameras.keys():
+                        try:
+                            self.cameras[direction].on_trigger()
+                        except:
+                            print('ERROR: enable_live_view_for_tools on trigger error')
         except:
             print('ERROR: set trigger - enable_live_view_for_tools', direction)
         self.update_main_image()
@@ -2431,6 +2511,92 @@ class API:
             self.p_is_during['top'] = False
             self.p_is_during['side'] = False
 
+
+    def get_picture_detection_page(self):
+        
+
+        direction,thresh_min,thresh_max,area_thresh=self.ui.ret_selected_camera_sensor_detect_page()
+        img = self.current_camera_imgs[direction].copy()
+       
+        self.rect_roi_drawing_sensor_detection_page.set_img_size( img.shape[:2] )
+        shapes = self.rect_roi_drawing_sensor_detection_page.shapes
+
+        if len(shapes)>0:
+            flag, area, res = proccessings.preprocessing_sensor_detection(
+                img,
+                thresh_min=thresh_min,
+                thresh_max=thresh_max,
+                area_thresh=area_thresh,
+                rect_roi=shapes[0],
+                draw=True
+            )
+            print('flag',flag,'a',area)
+            self.ui.selected_area.setText(str(area))
+        else:
+            res = img.copy()
+        res = self.rect_roi_drawing_sensor_detection_page.get_image(res)
+        self.ui.set_image_label(self.ui.camera_detection_mode_picture,res)
+
+
+
+    def load_detection_parms(self):
+
+        self.rect_roi_drawing_sensor_detection_page = Drawing.drawRect()
+
+        parms = self.db.load_senser_detection()
+
+        rect_roi = [[parms['x1'],parms['y1']],[parms['x2'],parms['y2']]]
+
+        self.rect_roi_drawing_sensor_detection_page.shapes = [rect_roi]
+
+        self.sensor_detection_values={'rect_roi':rect_roi,
+                                      'thresh_min':parms['thresh_min'],
+                                      'thresh_max':parms['thresh_max'],
+                                      'area_thresh':parms['area']}
+        
+        self.direction_sensor_mode = parms['direction']
+        self.image_trigger_mode = int(parms['sensor'])
+
+
+    def set_detection_parms(self):
+
+        self.ui.thresh_min_detection_page.setValue(int(self.sensor_detection_values['thresh_min']))
+        self.ui.thresh_max_detection_page.setValue(int(self.sensor_detection_values['thresh_max']))
+        self.ui.spin_area_detection_page.setValue(int(self.sensor_detection_values['area_thresh']))
+        self.rect_roi_drawing_sensor_detection_page.shapes = [self.sensor_detection_values['rect_roi']]
+        self.ui.set_trigger_mode(self.image_trigger_mode)
+        self.ui.set_camera_sensor_detection_page(self.direction_sensor_mode)
+
+
+    def save_detection_parms (self):
+
+        if len(self.rect_roi_drawing_sensor_detection_page.shapes)>0:
+
+            [x1,y1],[x2,y2] = self.rect_roi_drawing_sensor_detection_page.shapes[0]
+            area = self.ui.spin_area_detection_page.value()
+            thresh_min = self.ui.thresh_min_detection_page.value()
+            thresh_max = self.ui.thresh_max_detection_page.value()
+            image_trigger_mode = self.ui.ret_sensor_mode()
+            direction = self.ui.ret_direction_sensor_detect()
+
+            values = {'x1':x1,
+                    'y1':y1,
+                    'x2':x2,
+                    'y2':y2,
+                    'area':area,
+                    'thresh_min':thresh_min,
+                    'thresh_max':thresh_max,
+                    'sensor':image_trigger_mode,
+                    'direction':direction,
+                    }
+
+            self.db.set_senser_detection(values=values)
+            self.load_detection_parms()
+
+    def refresh_sensor_image_page(self,):
+        self.load_detection_parms()
+        self.set_detection_parms()
+        self.get_picture_detection_page()
 
 
 from PySide6.QtCore import Signal, QThread, QObject
