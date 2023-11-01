@@ -1964,7 +1964,7 @@ class UI_main_window(QMainWindow, ui):
                     if page_value[col_value]==-1 or page_value[col_value]==-2:
                         table_item.setBackground(QBrush(QColor("#D4AC0D")))
 
-        table_name.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        # table_name.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
             # table_name.item(1, 1).setText("Put here whatever you want!")
 

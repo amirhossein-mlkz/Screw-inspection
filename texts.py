@@ -185,8 +185,8 @@ def set_title(self, lang):
 
      self.label_156.setText(Titles['top'][lang])
      self.label_158.setText(Titles['side'][lang])
-     self.connect_cameras_live_page.setText(Titles['connect_cameras'][lang])
-     self.disconnect_cameras_live_page.setText(Titles['disconnect_cameras'][lang])
+     # self.connect_cameras_live_page.setText(Titles['connect_cameras'][lang])
+     # self.disconnect_cameras_live_page.setText(Titles['disconnect_cameras'][lang])
      
 
 

@@ -236,7 +236,11 @@ class API:
         
         self.set_detection_parms()
 
-        
+
+        #hide
+
+        self.hide_objs()
+
 
         print('*Success*'*20)
 
@@ -439,6 +443,8 @@ class API:
         self.ui.thresh_max_detection_page.valueChanged.connect(self.get_picture_detection_page)
         self.ui.btn_save_sensor_detection_page.clicked.connect(self.save_detection_parms)
         
+
+        #
 
     # dashboard page
     #------------------------------------------------------------------------------------------------------------------------
@@ -2616,6 +2622,12 @@ class API:
             image_trigger_mode = self.ui.ret_sensor_mode()
             direction = self.ui.ret_direction_sensor_detect()
 
+            if image_trigger_mode==0 and direction=='side':
+                self.ui.set_camera_sensor_detection_page('top')
+                return
+
+
+
             values = {'x1':x1,
                     'y1':y1,
                     'x2':x2,
@@ -2629,11 +2641,44 @@ class API:
 
             self.db.set_senser_detection(values=values)
             self.load_detection_parms()
+            self.load_camera_params_from_db_to_camera()
 
     def refresh_sensor_image_page(self,):
         self.load_detection_parms()
         self.set_detection_parms()
         self.get_picture_detection_page()
+
+
+
+
+
+
+
+    def hide_objs(self,status=False):
+        self.ui.checkbox_page0_0_top.setVisible(status)
+        self.ui.checkbox_page0_1_top.setVisible(status)
+        self.ui.checkbox_page0_1_side.setVisible(status)
+        self.ui.frame_226.setVisible(status)
+        self.ui.frame_225.setVisible(status)
+        self.ui.frame_201.setVisible(status)   #side calib
+        self.ui.frame_206.setVisible(status)   #side calib
+        self.ui.frame_155.setVisible(status)   #top calib
+        self.ui.frame_196.setVisible(status)   #top calib
+        self.ui.reject_btn.setVisible(status)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 from PySide6.QtCore import Signal, QThread, QObject
