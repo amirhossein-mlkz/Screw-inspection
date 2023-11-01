@@ -28,8 +28,8 @@ DEFAULTS_PAGE = {
                 "circels_roi": [ [ [100,100], 50 ]],
                 "noise_filter0": 5,
                 "shape_type": "circel",
-                "thresh_max0": 250,
-                "thresh_min0": 20
+                "thresh_max0": 255,
+                "thresh_min0": 0
 
 
             },
@@ -39,15 +39,15 @@ DEFAULTS_PAGE = {
                 "circels_roi": [ [ [100,100], 50 ],[[100,100],30]],
                 "noise_filter0": 5,
                 "min_area": 10,
-                "thresh_max0": 250,
-                "thresh_min0": 20
+                "thresh_max0": 255,
+                "thresh_min0": 0
 
             },
             '4_top':
             {
                 "noise_filter0": 5,
-                "thresh_max0": 250,
-                "thresh_min0": 20
+                "thresh_max0": 255,
+                "thresh_min0": 0
             },
             '5_top':
             {
@@ -76,6 +76,7 @@ DEFAULTS_PAGE = {
             {
                 'rect_roi0': [[0,0], [100,100]],
                 'jump_thresh':5,
+                'navel_lenght': False
             },
 
             '4_side':

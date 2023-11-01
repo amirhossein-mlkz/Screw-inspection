@@ -1,13 +1,8 @@
 {
-    "active_tools": [
-        "2_side",
-        "3_side",
-        "4_side",
-        "5_side"
-    ],
+    "active_tools": [],
     "direction": "side",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P11\\side\\37_2023-10-31__19-26.bmp",
-    "name": "P11",
+    "img_path": "images/defualt.jpg",
+    "name": "P_7",
     "settings": {
         "0_top": {
             "angle": 0,
@@ -15,20 +10,19 @@
             "rbelt": 500
         },
         "1_side": {
-            "noise_filter0": 9,
+            "noise_filter0": 0,
             "rect_roi0": [
                 [
-                    37,
-                    315
+                    0,
+                    0
                 ],
                 [
-                    1289,
-                    738
+                    100,
+                    100
                 ]
             ],
-            "thresh0": 201,
-            "thresh_inv0": true,
-            "thresh_min0": 80
+            "thresh0": 0,
+            "thresh_inv0": true
         },
         "1_top": {
             "algo": "thresh_algo",
@@ -53,22 +47,14 @@
             "thresh_min0": 0
         },
         "2_side": {
-            "limits": {
-                "max": {
-                    "lenght": 1065
-                },
-                "min": {
-                    "lenght": 1045
-                }
-            },
             "rect_roi0": [
                 [
-                    41,
-                    485
+                    0,
+                    0
                 ],
                 [
-                    1248,
-                    526
+                    100,
+                    100
                 ]
             ]
         },
@@ -91,30 +77,15 @@
         },
         "3_side": {
             "jump_thresh": 5,
-            "limits": {
-                "max": {
-                    "navel_lenght": 110,
-                    "thread_count": 15,
-                    "thread_distance": 26,
-                    "thread_lenght": 285
-                },
-                "min": {
-                    "navel_lenght": 78,
-                    "thread_count": 11,
-                    "thread_distance": 21,
-                    "thread_lenght": 270
-                }
-            },
-            "navel": true,
-            "navel_lenght": true,
+            "navel_lenght": false,
             "rect_roi0": [
                 [
-                    13,
-                    377
+                    0,
+                    0
                 ],
                 [
-                    668,
-                    520
+                    100,
+                    100
                 ]
             ]
         },
@@ -143,46 +114,6 @@
             }
         },
         "4_side": {
-            "asd": {
-                "limits": {
-                    "max": {
-                        "body_diameter": 183
-                    },
-                    "min": {
-                        "body_diameter": 175
-                    }
-                },
-                "rect_roi0": [
-                    [
-                        719,
-                        388
-                    ],
-                    [
-                        876,
-                        644
-                    ]
-                ]
-            },
-            "head": {
-                "limits": {
-                    "max": {
-                        "body_diameter": 290
-                    },
-                    "min": {
-                        "body_diameter": 265
-                    }
-                },
-                "rect_roi0": [
-                    [
-                        1057,
-                        298
-                    ],
-                    [
-                        1104,
-                        745
-                    ]
-                ]
-            },
             "none": {
                 "rect_roi0": [
                     [
@@ -204,25 +135,17 @@
             }
         },
         "5_side": {
-            "edge_direction": "bottom",
-            "from_belt": false,
+            "edge_direction": "top",
+            "from_belt": true,
             "jump_thresh": 10,
-            "limits": {
-                "max": {
-                    "height": 160
-                },
-                "min": {
-                    "height": 140
-                }
-            },
             "rect_roi0": [
                 [
-                    969,
-                    350
+                    0,
+                    0
                 ],
                 [
-                    1220,
-                    748
+                    100,
+                    100
                 ]
             ]
         },

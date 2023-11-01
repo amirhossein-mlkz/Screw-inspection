@@ -1,16 +1,17 @@
 {
     "active_tools": [
-        "1_top",
-        "2_top"
+        "2_top",
+        "3_top",
+        "4_top"
     ],
     "direction": "top",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P12\\top\\9_2023-10-31__19-0.bmp",
-    "name": "P12",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P_15\\top\\0_2023-11-1__15-11.bmp",
+    "name": "P_15",
     "settings": {
         "0_top": {
-            "angle": 0.4,
-            "lbelt": 528,
-            "rbelt": 820
+            "angle": 0.6,
+            "lbelt": 530,
+            "rbelt": 810
         },
         "1_side": {
             "noise_filter0": 0,
@@ -29,25 +30,25 @@
         },
         "1_top": {
             "algo": "thresh_algo",
-            "belt_edge_margin": 48,
+            "belt_edge_margin": 15,
             "d_parm1": 0,
-            "d_parm3": 3,
-            "e_parm2": 2,
+            "d_parm3": 0,
+            "e_parm2": 0,
             "e_parm4": 0,
             "edge_thresh": 5,
-            "noise_filter0": 23,
+            "noise_filter0": 5,
             "rect_roi0": [
                 [
-                    350,
-                    100
+                    238,
+                    41
                 ],
                 [
-                    1017,
-                    800
+                    1051,
+                    924
                 ]
             ],
-            "thresh_max0": 95,
-            "thresh_min0": 16
+            "thresh_max0": 212,
+            "thresh_min0": 0
         },
         "2_side": {
             "rect_roi0": [
@@ -62,6 +63,21 @@
             ]
         },
         "2_top": {
+            "flanch": {
+                "circels_roi0": [
+                    [
+                        [
+                            642,
+                            483
+                        ],
+                        306
+                    ]
+                ],
+                "noise_filter0": 5,
+                "shape_type": "circel",
+                "thresh_max0": 255,
+                "thresh_min0": 0
+            },
             "none": {
                 "circels_roi0": [
                     [
@@ -76,25 +92,11 @@
                 "shape_type": "circel",
                 "thresh_max0": 250,
                 "thresh_min0": 20
-            },
-            "t12": {
-                "circels_roi0": [
-                    [
-                        [
-                            659,
-                            476
-                        ],
-                        487
-                    ]
-                ],
-                "noise_filter0": 5,
-                "shape_type": "circel",
-                "thresh_max0": 255,
-                "thresh_min0": 0
             }
         },
         "3_side": {
             "jump_thresh": 5,
+            "navel_lenght": false,
             "rect_roi0": [
                 [
                     0,
@@ -145,11 +147,22 @@
             }
         },
         "4_top": {
+            "circels_roi0": [
+                [
+                    [
+                        634,
+                        476
+                    ],
+                    308
+                ]
+            ],
             "none": {
                 "noise_filter0": 5,
                 "thresh_max0": 250,
                 "thresh_min0": 20
-            }
+            },
+            "thresh_max0": 255,
+            "thresh_min0": 0
         },
         "5_side": {
             "edge_direction": "top",

@@ -489,10 +489,15 @@ def object_dict_builder(ui_object):
                     
                             'label_min_diameter_2_top':self.label_min_diameter_2_top,
                             'label_max_diameter_2_top':self.label_max_diameter_2_top,
+                            'label_avg_diameter_2_top':self.label_avg_diameter_2_top,
+
                             'label_min_district_2_top':self.label_min_district_2_top,
                             'label_max_district_2_top':self.label_max_district_2_top,
+                            'label_avg_district_2_top':self.label_avg_district_2_top,
+                            
                             'label_min_corner_2_top':self.label_min_corner_2_top,
                             'label_max_corner_2_top':self.label_max_corner_2_top,
+                            'label_avg_corner_2_top':self.label_avg_corner_2_top,
                             
 
 

@@ -4,7 +4,7 @@ import sys
 
 from PyQt5.QtGui import * 
 
-from PySide6 import QtCore
+from PySide6 import QtCore,QtWidgets
 from PySide6.QtCore import *
 from PySide6.QtUiTools import loadUiType
 from PySide6.QtWidgets import *
@@ -1944,12 +1944,16 @@ class UI_main_window(QMainWindow, ui):
         self.clear_table(table_name)
         table_item = QTableWidgetItem()
         str1=[]
+        headers = table_name.horizontalHeader()
         if values:
             table_name.setRowCount(len(values))
             for id,page_value in enumerate(values):
                 limit_min=page_value['limit_min']
                 limit_max=page_value['limit_max']
                 for col_id , col_value in enumerate(self.col_parms) :
+
+                    headers.setSectionResizeMode(col_id, QtWidgets.QHeaderView.ResizeMode.ResizeToContents )
+                
         
                     table_item = QTableWidgetItem(str((page_value[col_value])))
                     table_name.setItem(id,col_id,table_item)
@@ -1959,12 +1963,12 @@ class UI_main_window(QMainWindow, ui):
                         # self.set_color_table_name_col(table_item,page_value[col_value],limit_min,limit_max)
                     else:
                         self.set_color_table(table_item,page_value[col_value],limit_min,limit_max)
-                    if col_id==4 or col_id==5:
+                    if col_id==4 or col_id==5 or col_id ==1 or col_id==2:
                         table_item.setBackground(QBrush(QColor("#808080")))    
                     if page_value[col_value]==-1 or page_value[col_value]==-2:
                         table_item.setBackground(QBrush(QColor("#D4AC0D")))
 
-        # table_name.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        table_name.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
             # table_name.item(1, 1).setText("Put here whatever you want!")
 

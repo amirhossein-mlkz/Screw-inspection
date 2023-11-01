@@ -1,13 +1,15 @@
 {
-    "active_tools": [],
-    "direction": "side",
-    "img_path": "images/defualt.jpg",
-    "name": "P_hex",
+    "active_tools": [
+        "2_top"
+    ],
+    "direction": "top",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P_13\\top\\0_2023-11-1__14-21.bmp",
+    "name": "P_13",
     "settings": {
         "0_top": {
             "angle": 0,
-            "lbelt": 100,
-            "rbelt": 500
+            "lbelt": 550,
+            "rbelt": 828
         },
         "1_side": {
             "noise_filter0": 0,
@@ -26,7 +28,7 @@
         },
         "1_top": {
             "algo": "thresh_algo",
-            "belt_edge_margin": 0,
+            "belt_edge_margin": 20,
             "d_parm1": 0,
             "d_parm3": 0,
             "e_parm2": 0,
@@ -35,16 +37,16 @@
             "noise_filter0": 5,
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    361,
+                    89
                 ],
                 [
-                    100,
-                    100
+                    1004,
+                    857
                 ]
             ],
-            "thresh_max0": 255,
-            "thresh_min0": 0
+            "thresh_max0": 160,
+            "thresh_min0": 1
         },
         "2_side": {
             "rect_roi0": [
@@ -59,6 +61,21 @@
             ]
         },
         "2_top": {
+            "flanch": {
+                "circels_roi0": [
+                    [
+                        [
+                            634,
+                            483
+                        ],
+                        367
+                    ]
+                ],
+                "noise_filter0": 5,
+                "shape_type": "circel",
+                "thresh_max0": 255,
+                "thresh_min0": 0
+            },
             "none": {
                 "circels_roi0": [
                     [
@@ -77,6 +94,7 @@
         },
         "3_side": {
             "jump_thresh": 5,
+            "navel_lenght": false,
             "rect_roi0": [
                 [
                     0,

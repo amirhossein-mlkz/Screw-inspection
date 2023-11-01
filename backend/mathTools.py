@@ -1,11 +1,26 @@
 import numpy as np
 import math
 
+def moving_average(a, n=3):
+    ret = np.cumsum(a, dtype=float)
+    ret[n:] = ret[n:] - ret[:-n]
+    return ret[n - 1:] / n
+
 
 def horizontal_distance( pts1,pts2, decimals=2):
     if len(pts1) == 0 or len(pts2) == 0:
         return 0,0,0,[]
     dist = np.round( abs(pts1[:,0] - pts2[:,0]) , decimals )
+    print(len(dist))
+    try:
+        if len(dist) >= 13:
+            dist = moving_average(dist, 10)
+        elif len(dist) >= 7:
+            dist = moving_average(dist, 5)
+        elif len(dist) >=4:
+            dist = moving_average(dist, 3)
+    except:
+        pass
     min_dist = dist.min()
     max_dist = dist.max()
     avg_dist = np.round( dist.mean(), decimals )

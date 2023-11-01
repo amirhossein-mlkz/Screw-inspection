@@ -1,11 +1,14 @@
 {
     "active_tools": [
-        "1_top",
-        "2_top"
+        "2_side",
+        "3_side",
+        "4_side",
+        "5_side",
+        "6_side"
     ],
-    "direction": "top",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P_hex\\top\\0_2023-10-31__19-45.bmp",
-    "name": "P_hex",
+    "direction": "side",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P_15\\side\\1_2023-11-1__15-21.bmp",
+    "name": "P_15",
     "settings": {
         "0_top": {
             "angle": 0,
@@ -13,43 +16,29 @@
             "rbelt": 500
         },
         "1_side": {
-            "noise_filter0": 0,
+            "noise_filter0": 12,
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    37,
+                    325
                 ],
                 [
-                    100,
-                    100
+                    1271,
+                    766
                 ]
             ],
-            "thresh0": 0,
+            "thresh0": 220,
             "thresh_inv0": true
         },
         "1_top": {
             "algo": "thresh_algo",
-            "belt_edge_margin": 5,
+            "belt_edge_margin": 0,
             "d_parm1": 0,
             "d_parm3": 0,
             "e_parm2": 0,
             "e_parm4": 0,
-            "edge_thresh": 12,
+            "edge_thresh": 5,
             "noise_filter0": 5,
-            "rect_roi0": [
-                [
-                    344,
-                    147
-                ],
-                [
-                    1076,
-                    787
-                ]
-            ],
-            "thresh_max0": 215,
-            "thresh_min0": 2
-        },
-        "2_side": {
             "rect_roi0": [
                 [
                     0,
@@ -59,38 +48,33 @@
                     100,
                     100
                 ]
+            ],
+            "thresh_max0": 255,
+            "thresh_min0": 0
+        },
+        "2_side": {
+            "rect_roi0": [
+                [
+                    32,
+                    485
+                ],
+                [
+                    1271,
+                    551
+                ]
             ]
         },
         "2_top": {
-            "dim": {
+            "none": {
                 "circels_roi0": [
                     [
                         [
-                            634,
-                            476
+                            100,
+                            100
                         ],
-                        365
+                        50
                     ]
                 ],
-                "limits": {
-                    "max": {
-                        "corner": 322,
-                        "diameter": 0,
-                        "district": 310
-                    },
-                    "min": {
-                        "corner": 312,
-                        "diameter": 0,
-                        "district": 290
-                    }
-                },
-                "noise_filter0": 5,
-                "shape_type": "hexagonal",
-                "thresh_max0": 250,
-                "thresh_min0": 20
-            },
-            "none": {
-                "circels_roi0": [],
                 "noise_filter0": 5,
                 "shape_type": "circel",
                 "thresh_max0": 250,
@@ -99,14 +83,15 @@
         },
         "3_side": {
             "jump_thresh": 5,
+            "navel_lenght": true,
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    27,
+                    322
                 ],
                 [
-                    100,
-                    100
+                    603,
+                    520
                 ]
             ]
         },
@@ -135,6 +120,38 @@
             }
         },
         "4_side": {
+            "d1": {
+                "rect_roi0": [
+                    [
+                        587,
+                        294
+                    ],
+                    [
+                        863,
+                        710
+                    ]
+                ]
+            },
+            "head": {
+                "limits": {
+                    "max": {
+                        "body_diameter": 295
+                    },
+                    "min": {
+                        "body_diameter": 275
+                    }
+                },
+                "rect_roi0": [
+                    [
+                        1095,
+                        325
+                    ],
+                    [
+                        1155,
+                        717
+                    ]
+                ]
+            },
             "none": {
                 "rect_roi0": [
                     [
@@ -156,17 +173,25 @@
             }
         },
         "5_side": {
-            "edge_direction": "top",
-            "from_belt": true,
-            "jump_thresh": 10,
+            "edge_direction": "bottom",
+            "from_belt": false,
+            "jump_thresh": 15,
+            "limits": {
+                "max": {
+                    "height": 165
+                },
+                "min": {
+                    "height": 150
+                }
+            },
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    937,
+                    336
                 ],
                 [
-                    100,
-                    100
+                    1387,
+                    734
                 ]
             ]
         },
@@ -175,15 +200,35 @@
             "Head": {}
         },
         "6_side": {
+            "a1": {
+                "limits": {
+                    "max": {
+                        "damage": 2000
+                    },
+                    "min": {
+                        "damage": 1200
+                    }
+                },
+                "rect_roi0": [
+                    [
+                        515,
+                        391
+                    ],
+                    [
+                        863,
+                        481
+                    ]
+                ]
+            },
             "none": {
                 "rect_roi0": [
                     [
-                        0,
-                        0
+                        533,
+                        395
                     ],
                     [
-                        100,
-                        100
+                        895,
+                        474
                     ]
                 ]
             }

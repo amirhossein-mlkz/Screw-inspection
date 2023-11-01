@@ -1,6 +1,7 @@
 from ast import Not
 from cv2 import cvtColor
 from backend import mathTools, cvTools, Utils,cvToolsCython
+from scipy.signal import convolve2d
 import cv2
 import numpy as np
 import time
@@ -78,21 +79,17 @@ def preprocessing_1_top_img( img, json,draw = None, centerise=True):
     mask_roi = cvTools.rects2mask(img.shape[:2], [rect_roi_main])
     
     if algo_name == 'thresh_algo':
-        t1 = time.time()
         thresh_min = json.get_thresh_min(page_name, subpage_name)
         thresh_max = json.get_thresh_max(page_name, subpage_name)
         noise_filter = json.get_noise_filter( page_name, subpage_name )
-        t3 = time.time()
+        belt_margin = json.get_numerical_parm(page_name, subpage_name, 'belt_edge_margin')
+        
 
         thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
-        t4 = time.time()-t3
 
         thresh_img = cv2.morphologyEx(thresh_img, cv2.MORPH_OPEN,
                            (2,2), iterations=1)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
-        t2=time.time()-t1
-        print('thresh_algo',t2 , 'threshould_minmax',t4)
-
 
 
 
@@ -108,17 +105,40 @@ def preprocessing_1_top_img( img, json,draw = None, centerise=True):
         thresh_img = cvToolsCython.derivative_threshould(gray.astype(np.int32), edge_thresh)
         thresh_img = cv2.bitwise_and(thresh_img, thresh_img, mask= mask_roi)
         
-        if belt_margin >0:
-            l_belt = json.get_numerical_parm('0_top', None, 'lbelt')
-            r_belt = json.get_numerical_parm('0_top', None, 'rbelt')
+        # if belt_margin >0:
+        #     l_belt = json.get_numerical_parm('0_top', None, 'lbelt')
+        #     r_belt = json.get_numerical_parm('0_top', None, 'rbelt')
 
-            pts_l = cvToolsCython.find_belt_edge_neighbor_point(thresh_img , l_belt ,np.array(rect_roi_main,dtype='int32'),belt_margin,kernel_w=5,kernel_h=5,thresh=7 )
-            pts_r = cvToolsCython.find_belt_edge_neighbor_point(thresh_img , r_belt ,np.array(rect_roi_main,dtype='int32'),belt_margin,kernel_w=5,kernel_h=5,thresh=7 )
+        #     pts_l = cvToolsCython.find_belt_edge_neighbor_point(thresh_img , l_belt ,np.array(rect_roi_main,dtype='int32'),belt_margin,kernel_w=5,kernel_h=5,thresh=7 )
+        #     pts_r = cvToolsCython.find_belt_edge_neighbor_point(thresh_img , r_belt ,np.array(rect_roi_main,dtype='int32'),belt_margin,kernel_w=5,kernel_h=5,thresh=7 )
             
+
+        #     thresh_img=cvToolsCython.remove_belt_edge_line(thresh_img,pts_l)
+        #     thresh_img=cvToolsCython.remove_belt_edge_line(thresh_img,pts_r)
+    pts_l = None
+    pts_r = None
+    if belt_margin >0:
+        l_belt = json.get_numerical_parm('0_top', None, 'lbelt')
+        r_belt = json.get_numerical_parm('0_top', None, 'rbelt')
+        
+
+        left_top_pt1, left_bottom_pt1 = cvTools.find_screw_edge_point(thresh_img, l_belt-belt_margin)
+        left_top_pt2, left_bottom_pt2 = cvTools.find_screw_edge_point(thresh_img, l_belt+belt_margin)
+        right_top_pt1, right_bottom_pt1 = cvTools.find_screw_edge_point(thresh_img, r_belt-belt_margin)
+        right_top_pt2, right_bottom_pt2 = cvTools.find_screw_edge_point(thresh_img, r_belt+belt_margin)
+        
+        if left_top_pt1 and left_top_pt2 and right_top_pt1 and right_top_pt2:
+            pts_l = [ [left_top_pt1,left_top_pt2], [left_bottom_pt1, left_bottom_pt2]]
+            pts_r = [ [right_top_pt1, right_top_pt2], [right_bottom_pt1, right_bottom_pt2]]
+
+            pts_l = np.array(pts_l).astype(np.int32)
+            pts_r = np.array(pts_r).astype(np.int32)
 
             thresh_img=cvToolsCython.remove_belt_edge_line(thresh_img,pts_l)
             thresh_img=cvToolsCython.remove_belt_edge_line(thresh_img,pts_r)
         
+        # cv2.imshow('a', thresh_img)
+        # cv2.waitKey(20)
 
     d_parm1 = json.get_numerical_parm(page_name, subpage_name, 'd_parm1')
     e_parm2 = json.get_numerical_parm(page_name, subpage_name, 'e_parm2')
@@ -131,7 +151,7 @@ def preprocessing_1_top_img( img, json,draw = None, centerise=True):
     thresh_img = cv2.dilate(thresh_img , np.ones((3,3)),iterations = d_parm3)
     thresh_img = cv2.erode(thresh_img , np.ones((3,3)),iterations = e_parm4)
     t2=time.time()-t1
-    print('dialteeeeee',t2)
+    
     
 
     #--------------------------------------------------------------------------------------
@@ -152,16 +172,12 @@ def preprocessing_1_top_img( img, json,draw = None, centerise=True):
 
     thresh_img = cvTools.mask_bigest_contour(thresh_img)
     if draw is not None:
-  
-        if algo_name == 'thresh_algo':
-            draw = Utils.mask_viewer(draw, thresh_img)
-        else:
-            draw = Utils.mask_viewer(draw, thresh_img)
-            if belt_margin >0:
-                for i in range(2):
-                    for j in range(2):
-                        cv2.circle(draw, tuple(pts_l[i,j]), 5, color=(0,255,0), thickness=-1)
-                        cv2.circle(draw, tuple(pts_r[i,j]), 5, color=(0,255,0), thickness=-1)
+        draw = Utils.mask_viewer(draw, thresh_img)
+        if belt_margin >0 and pts_r is not None and pts_l is not None:
+            for i in range(2):
+                for j in range(2):
+                    cv2.circle(draw, tuple(pts_l[i,j]), 5, color=(0,255,0), thickness=-1)
+                    cv2.circle(draw, tuple(pts_r[i,j]), 5, color=(0,255,0), thickness=-1)
 
 
     t2 = time.time()-tt1
@@ -258,14 +274,14 @@ def proccessing_body_lenght( img, mask, jsondb, draw=None):
     rect_roi_2 = jsondb.get_rect_roi( page_name, subpage_name)
     limits = jsondb.get_limit('lenght', page_name, subpage_name)
 
-    res_dict = set_dict('body length', -2, -2, -2, limits )        
+    res_dict = set_dict('body_length', -2, -2, -2, limits )        
     if Utils.is_rect(rect_roi_2):
         left_pts, right_pts = cvTools.find_vertical_edges(mask, rect_roi_2)
         if len(left_pts) > 0 and len(right_pts) > 0:
             min_dist, max_dist, avg_dist, _ = mathTools.horizontal_distance( left_pts, right_pts )
             
             res_dict = {
-                'name': 'body length',
+                'name': 'body_length',
                 'limit_min': limits['min'],
                 'limit_max': limits['max'],
                 'min': min_dist,
@@ -282,7 +298,7 @@ def proccessing_body_lenght( img, mask, jsondb, draw=None):
         
         else:
             res_dict = {
-                'name': 'body length',
+                'name': 'body_length',
                 'limit_min': limits['min'],
                 'limit_max': limits['max'],
                 'min': -1,
@@ -333,7 +349,7 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
                 left_xs = left_pts[:,0]
 
                 navel_length = np.abs(left_xs-first_thread_x)
-                dict_navel = {'name' : 'navel lenght',
+                dict_navel = {'name' : 'navel_lenght',
                                 'limit_min': limit_navel['min'],
                                 'limit_max': limit_navel['max'],
                                 'min' : np.min(navel_length),
@@ -349,7 +365,7 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
 
 
             _,_,lenght_male_avg,_  = mathTools.thread_lenght( male_thread_h )
-            dict_lenght = {'name' : 'thread male length',
+            dict_lenght = {'name' : 'thread_male_length',
                                 'limit_min': limit_thread_lenght['min'],
                                 'limit_max': limit_thread_lenght['max'],
                                 'min': lenght_male_avg,
@@ -359,7 +375,7 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
 
             min_s,max_s, avg_s,_  = mathTools.thread_step_distance( male_thread_h )
             
-            dict_thread_distance = {'name' : 'thread male distance',
+            dict_thread_distance = {'name' : 'thread_male_distance',
                                 'limit_min': limit_thread_distance['min'],
                                 'limit_max': limit_thread_distance['max'],
                                 'min': min_s,
@@ -367,7 +383,7 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
                                 'avg': avg_s }
              
             min_s,max_s, avg_s,_  = mathTools.thread_step_distance( male_thread_h )
-            dict_thread_count = {'name' : 'thread male count',
+            dict_thread_count = {'name' : 'thread_male_count',
                             'limit_min': limit_thread_count['min'],
                             'limit_max': limit_thread_count['max'],
                             'min': len(male_thread_h),
@@ -472,7 +488,7 @@ def proccessing_side_head( img, mask, jsondb, draw=None):
             min_dist, max_dist, avg_dist, _ = mathTools.horizontal_distance( left_pts, right_pts )
 
             res_dict = {
-                'name': 'head height',
+                'name': 'head_height',
                 'limit_min': limits['min'],
                 'limit_max': limits['max'],
                 'min': min_dist,
@@ -509,7 +525,7 @@ def preprocessing_side_damage( img, mask, jsondb, draw = None):
             area = cvTools.get_bigest_area( mask, rect_roi_2 )
             limit = jsondb.get_limit('damage', page_name, subpage_name)        
             res_dict = {
-                        'name' : '{} region area'.format( subpage_name ),
+                        'name' : '{} region_area'.format( subpage_name ),
                         'limit_min': limits['min'],
                         'limit_max': limits['max'],
                         'min': area,
@@ -575,6 +591,8 @@ def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
         thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
         cnt = cvTools.extract_bigest_contour(thresh_img)
+        if len(cnt)> 30:
+            cnt = cvTools.conture_moving_avg(cnt, 20)
 
         if draw is not None:
            draw = Utils.mask_viewer(draw, thresh_img)
@@ -775,7 +793,7 @@ def proccessing_top_edge_crack( img, mask_roi_main, jsondb, draw=None):
     #------------------------------------------------------------------------------------
     if len(cracks) > 0:
         res_dict = {
-                    'name' : 'edge crack',
+                    'name' : 'edge_crack',
                     'limit_min': 0,
                     'limit_max': 1,
                     'min': cracks_area.min(),
@@ -783,7 +801,7 @@ def proccessing_top_edge_crack( img, mask_roi_main, jsondb, draw=None):
                     'avg': np.round(cracks_area.mean(), 2) }
     else:
         res_dict = {
-                    'name' : 'edge crack',
+                    'name' : 'edge_crack',
                     'limit_min': 0,
                     'limit_max': 1,
                     'min': 0,
@@ -826,7 +844,7 @@ def proccessing_top_centerise( img, mask, jsondb, draw=None):
         masks = list(sub_thresh_imgs.values())
         cnts, centers, dist = cvTools.centerise_measurment(masks)
         res_dict = {
-                    'name' : 'center dist',
+                    'name' : 'center_dist',
                     'limit_min': limit['min'],
                     'limit_max': limit['max'],
                     'min': dist,
@@ -836,7 +854,7 @@ def proccessing_top_centerise( img, mask, jsondb, draw=None):
 
     else:
         res_dict = {
-                    'name' : 'center dist',
+                    'name' : 'center_dist',
                     'limit_min': limit['min'],
                     'limit_max': limit['max'],
                     'min': -1,
@@ -895,12 +913,13 @@ calib_dict_top = {
 
 
 calib_dict_side = {
-            'body length': calibration_generator(1),
-            'thread male distance': calibration_generator(1),
-            'thread male length': calibration_generator(1),
+            'body_length': calibration_generator(1),
+            'thread_male_distance': calibration_generator(1),
+            'thread_male_length': calibration_generator(1),
             'diameter': calibration_generator(1),
-            'head height': calibration_generator(1),
-            'region area': calibration_generator(2),
+            'head_height': calibration_generator(1),
+            'region_area': calibration_generator(2),
+            'navel_lenght' : calibration_generator(1),
         }
 
 

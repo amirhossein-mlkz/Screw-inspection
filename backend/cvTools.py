@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import copy
 
-
+from scipy.signal import convolve2d
 try:
     from backend import Utils
     from backend import mathTools
@@ -27,6 +27,33 @@ def time_measure(func):
 
 THRESH_C = 7
 
+
+def contour_moving_average(cnt:np.ndarray):
+    xs = mathTools.moving_average(cnt[:,0,0], 10).astype(np.int32)
+    ys = mathTools.moving_average(cnt[:,0,1], 10).astype(np.int32)
+    cnt = np.vstack((xs, ys)).reshape((-1,1,2))
+    return cnt
+    
+
+
+def slice_for_belt_margin(img:np.ndarray, pos:int, n_col=5) -> np.ndarray:
+    return img[:, pos - int(n_col//2): pos + int(n_col//2) + 1]
+
+def find_screw_edge_point(img, col_idx, kernel_shape=(5,3), thresh_count=10 ):
+    n_col = kernel_shape[1]
+    n_row = kernel_shape[0]
+    slice = slice_for_belt_margin(img, col_idx, n_col=n_col)
+    kernel = np.ones((n_row,n_col)) / (n_row * n_col)
+    res = convolve2d(slice, kernel, mode='valid')
+    #res = np.convolve(slice, kernel , mode='same')
+    #res = res[:, int(n_col//2) + 1]
+    pts_y,_ = np.where(res > thresh_count)
+    if len(pts_y)<10:
+        return None, None
+    min_y = pts_y.min()  + int(n_row) 
+    max_y = pts_y.max()  + int(n_row//2) - 1
+    x = col_idx
+    return (x, min_y), (x,max_y)
 
 
 def preprocess(img):
@@ -50,7 +77,6 @@ def threshould(img, thresh , mask_roi = None, inv=False):
     if mask_roi is not None:
         mask = cv2.bitwise_and( mask, mask , mask=mask_roi)
     return mask
-
 
 def threshould_minmax(img, thresh_min, thresh_max , mask_roi = None):
     if len(img.shape) == 3:
@@ -347,7 +373,7 @@ def crop_rect(img, rect):
 
 
 def extract_bigest_contour(mask):
-    cnts,_ = cv2.findContours(mask , cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts,_ = cv2.findContours(mask , cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     cnts = list(cnts)
     cnts.sort( key = lambda x:cv2.contourArea(x) , reverse=True)
     if len(cnts)>0:
@@ -877,7 +903,8 @@ def diameters_measurment(mask, cnt, angles):
             corners_dist.append(int(r*2))
 
         #corners_dist.append(np.count_nonzero(line_mask))
-
+    if len(corners_dist) > 5:
+        corners_dist = mathTools.moving_average(corners_dist, 3)
         # res_img = np.zeros( mask.shape + (3,), dtype=np.uint8)
         # res_img[:,:,0] = mask
         # res_img[:,:,1] = line_mask
@@ -916,6 +943,7 @@ def circel_measument(cnt):
     cnt, poly_img = poly_fit_image(cnt)
 
     diameters = diameters_measurment(poly_img, cnt, range(0,180,5))
+    diameters = mathTools.moving_average(diameters, 3)
     return diameters
 
 

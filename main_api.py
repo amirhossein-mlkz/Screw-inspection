@@ -97,7 +97,7 @@ class API:
     def __init__(self,ui):
         self.ui = ui
         self.win_fullscreen = FullScreen_UI()
-
+        self.prev_time = 0
         self.tools_live_enable = False        
         
         self.current_camera_imgs = {}
@@ -149,6 +149,7 @@ class API:
         self.rect_roi_drawing_sensor_detection_page = Drawing.drawRect()
         self.load_detection_parms()
         self.trig_done =False
+        self.realtime_measurment = False
         #self.set_detection_parms()
         self.cameras = {}
         self.connect_camera()
@@ -240,7 +241,7 @@ class API:
         #hide
 
         self.hide_objs()
-
+        
 
         print('*Success*'*20)
 
@@ -444,7 +445,9 @@ class API:
         self.ui.btn_save_sensor_detection_page.clicked.connect(self.save_detection_parms)
         
 
-        #
+        #yazd 
+
+        self.ui.checkBox_test_live.clicked.connect(self.set_realtime_measurment)
 
     # dashboard page
     #------------------------------------------------------------------------------------------------------------------------
@@ -1475,16 +1478,19 @@ class API:
                 if shape_type == 'circel':
                     info['min_diameter'] = result['min']
                     info['max_diameter'] =  result['max']
+                    info['avg_diameter'] =  result['avg']
                     self.ui.stackedWidget_3.setCurrentIndex(0)
                 
                 elif shape_type == 'hexagonal':
                     if 'corner' in result['name']:
                         info['min_corner'] = result['min']
                         info['max_corner'] = result['max']
+                        info['avg_corner'] = result['avg']
                     
                     elif 'district' in result['name']:
                         info['min_district'] = result['min']
                         info['max_district'] = result['max']
+                        info['avg_district'] = result['avg']
                     
                     self.ui.stackedWidget_3.setCurrentIndex(1)
 
@@ -2009,7 +2015,6 @@ class API:
                     line=eval('self.ui.line_{}'.format(parm['name']))
                     line.setText(parm['path'])
                 except:
-                    print('Erro load_plc_parms')
                     line=eval('self.ui.spin_{}'.format(parm['name']))
                     line.setValue(int(parm['path']))
                 combo_list.append(parm['name'])
@@ -2213,7 +2218,7 @@ class API:
 
         history = self.db.load_history()
 
-      
+        # history = self.history
 
         perfect = int(history['all_screw'])-int(history['defect'])
 
@@ -2292,14 +2297,28 @@ class API:
         eval('self.ui.btn_connect_{}_cal_page'.format(direction)).setEnabled(True)
         eval('self.ui.btn_disconnect_{}_cal_page'.format(direction)).setEnabled(False)
 
+    def set_realtime_measurment(self,):
+        # self.realtime_measurment = not(self.realtime_measurment)
 
+        self.realtime_measurment = self.ui.checkBox_test_live.isChecked()
+        
+        if self.realtime_measurment:
+            for direction in ['top', 'side']:
+                try:
+                    self.cameras[direction].off_trigger()
+                except:
+                    print(f'Error of trig for {direction}')
+        else:
+            self.load_camera_params_from_db_to_camera()
 
 
     def set_images(self):
         #correct set image
-        if not self.ui.camera_connect_flag:
+        t = time.time()
+        if not self.ui.camera_connect_flag or  t - self.prev_time < 0.2:
             return
         
+        self.prev_time = t
         if not self.during_set_image:
             self.during_set_image = True
         
@@ -2313,7 +2332,7 @@ class API:
                 other_camera = 'top'
                 trigger_camera = 'side'
 
-        if (self.image_trigger_mode and 
+        if (self.image_trigger_mode and not self.realtime_measurment and
             not self.ui.stackedWidget.currentWidget() in [self.ui.page_detection_mode, self.ui.page_camera_setting]) :
             
             
@@ -2342,11 +2361,11 @@ class API:
             self.current_camera_imgs[trigger_camera] = self.cameras[trigger_camera].image.copy()
         
         #-----------------------------------------------------------------------------
-        try:
-            self.cameras[other_camera].off_trigger()
-        except:
-            if not DEBUG:
-                print(f"ERROR:  self.cameras[{other_camera}].off_trigger()")
+        # try:
+        #     self.cameras[other_camera].off_trigger()
+        # except:
+        #     if not DEBUG:
+        #         print(f"ERROR:  self.cameras[{other_camera}].off_trigger()")
         
 
         if self.cameras[other_camera]:
@@ -2517,6 +2536,7 @@ class API:
                 
                 if feature['max'] > feature['limit_max']: 
                     return True
+            # self.his
             return False
 
 
@@ -2638,10 +2658,23 @@ class API:
                     'sensor':image_trigger_mode,
                     'direction':direction,
                     }
+        for direction in ['top', 'side']:
+            parm = self.db.load_cam_params(direction)
+            if image_trigger_mode == 0:
+                if direction == 'side':
+                    parm['trigger_mode'] = 'Off'
+                elif direction =='top':
+                    parm['trigger_mode'] = 'On'
+            
+            else:
+                parm['trigger_mode'] = 'Off'
+                
+                    
+            res = camera_funcs.set_camera_params_to_db(db_obj=self.db, camera_id=parm['id'], camera_params=parm)
 
-            self.db.set_senser_detection(values=values)
-            self.load_detection_parms()
-            self.load_camera_params_from_db_to_camera()
+        self.db.set_senser_detection(values=values)
+        self.load_detection_parms()
+        self.load_camera_params_from_db_to_camera()
 
     def refresh_sensor_image_page(self,):
         self.load_detection_parms()
@@ -2734,6 +2767,7 @@ class processingSideWorker(QObject):
         self.calib_value = calib_value
         self.draw_img = img.copy()
         self.results = []
+        
 
 
     @time_measure

@@ -111,14 +111,14 @@ class dataBaseUtils():
         #     print('camera info:', record)
         #     return record
 
-        try:
-            record = self.db.search( self.table_cameras , 'id', input_camera_id )[0]
+        # try:
+        record = self.db.search( self.table_cameras , 'id', input_camera_id )[0]
 
-            return record
-        except:
-            print('Error load_cam_params')
+        return record
+        # except:
+        #     print('Error load_cam_params')
 
-            return []
+            # return []
 
     def update_cam_params(self, input_camera_id, input_camera_params):
         if sql_mode=='none':
