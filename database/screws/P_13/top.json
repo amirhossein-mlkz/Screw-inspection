@@ -3,13 +3,13 @@
         "2_top"
     ],
     "direction": "top",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P_13\\top\\0_2023-11-1__14-21.bmp",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P_13\\top\\7_2023-11-2__14-23.bmp",
     "name": "P_13",
     "settings": {
         "0_top": {
             "angle": 0,
-            "lbelt": 550,
-            "rbelt": 828
+            "lbelt": 650,
+            "rbelt": 920
         },
         "1_side": {
             "noise_filter0": 0,
@@ -28,25 +28,25 @@
         },
         "1_top": {
             "algo": "thresh_algo",
-            "belt_edge_margin": 20,
+            "belt_edge_margin": 0,
             "d_parm1": 0,
-            "d_parm3": 0,
-            "e_parm2": 0,
+            "d_parm3": 4,
+            "e_parm2": 4,
             "e_parm4": 0,
             "edge_thresh": 5,
-            "noise_filter0": 5,
+            "noise_filter0": 14,
             "rect_roi0": [
                 [
                     361,
-                    89
+                    73
                 ],
                 [
-                    1004,
+                    1170,
                     857
                 ]
             ],
-            "thresh_max0": 160,
-            "thresh_min0": 1
+            "thresh_max0": 170,
+            "thresh_min0": 0
         },
         "2_side": {
             "rect_roi0": [
@@ -68,10 +68,10 @@
                             634,
                             483
                         ],
-                        367
+                        297
                     ]
                 ],
-                "noise_filter0": 5,
+                "noise_filter0": 6,
                 "shape_type": "circel",
                 "thresh_max0": 255,
                 "thresh_min0": 0

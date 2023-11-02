@@ -277,7 +277,12 @@ def proccessing_body_lenght( img, mask, jsondb, draw=None):
     res_dict = set_dict('body_length', -2, -2, -2, limits )        
     if Utils.is_rect(rect_roi_2):
         left_pts, right_pts = cvTools.find_vertical_edges(mask, rect_roi_2)
-        if len(left_pts) > 0 and len(right_pts) > 0:
+        
+        # if len(left_pts) > 0 and len(right_pts) > 0:
+        #     left_pts = left_pts[abs(left_pts[:,0]- rect_roi_2[0][0]<200)]
+        if len(left_pts) > 20:
+            left_pts = left_pts[ len(left_pts )//2 - 10 : len(left_pts)//2 + 10]
+            right_pts = right_pts.mean(axis=0).reshape((-1,2)).astype(np.int32)
             min_dist, max_dist, avg_dist, _ = mathTools.horizontal_distance( left_pts, right_pts )
             
             res_dict = {
@@ -294,7 +299,10 @@ def proccessing_body_lenght( img, mask, jsondb, draw=None):
                 color=(30,200,0)
                 draw = cvTools.draw_vertical_point( draw , [left_pts, right_pts], color=color, thicknes=5 )
                 idx = len(left_pts)//2
-                draw = cv2.line( draw, tuple(left_pts[idx]), tuple(right_pts[idx]), color=color, thickness=3   )
+                if len(right_pts)==1:
+                    draw = cv2.line( draw, tuple(left_pts[idx]), (right_pts[0,0], left_pts[idx,1]), color=color, thickness=3   )
+                else:
+                    draw = cv2.line( draw, tuple(left_pts[idx]), tuple(right_pts[idx]), color=color, thickness=3   )
         
         else:
             res_dict = {

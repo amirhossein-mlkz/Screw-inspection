@@ -6,7 +6,7 @@
         "5_side"
     ],
     "direction": "side",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P_13\\side\\1_2023-11-1__14-30.bmp",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P_13\\side\\6_2023-11-2__14-12.bmp",
     "name": "P_13",
     "settings": {
         "0_top": {
@@ -19,14 +19,14 @@
             "rect_roi0": [
                 [
                     83,
-                    280
+                    350
                 ],
                 [
-                    1317,
-                    748
+                    1340,
+                    776
                 ]
             ],
-            "thresh0": 150,
+            "thresh0": 40,
             "thresh_inv0": true
         },
         "1_top": {
@@ -81,16 +81,16 @@
             }
         },
         "3_side": {
-            "jump_thresh": 5,
+            "jump_thresh": 4,
             "navel_lenght": true,
             "rect_roi0": [
                 [
-                    125,
-                    343
+                    41,
+                    336
                 ],
                 [
-                    589,
-                    488
+                    774,
+                    506
                 ]
             ]
         },
@@ -122,24 +122,24 @@
             "d_body": {
                 "rect_roi0": [
                     [
-                        556,
+                        714,
                         332
                     ],
                     [
-                        825,
-                        682
+                        872,
+                        679
                     ]
                 ]
             },
             "d_hread": {
                 "rect_roi0": [
                     [
-                        1076,
+                        1150,
                         318
                     ],
                     [
-                        1118,
-                        700
+                        1197,
+                        696
                     ]
                 ]
             },

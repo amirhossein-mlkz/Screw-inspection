@@ -1,0 +1,188 @@
+{
+    "active_tools": [
+        "2_side",
+        "3_side",
+        "4_side",
+        "5_side"
+    ],
+    "direction": "side",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P_8\\side\\2_2023-11-2__11-13.bmp",
+    "name": "P_8",
+    "settings": {
+        "0_top": {
+            "angle": 0,
+            "lbelt": 100,
+            "rbelt": 500
+        },
+        "1_side": {
+            "noise_filter0": 0,
+            "rect_roi0": [
+                [
+                    491,
+                    301
+                ],
+                [
+                    1229,
+                    703
+                ]
+            ],
+            "thresh0": 130,
+            "thresh_inv0": true
+        },
+        "1_top": {
+            "algo": "thresh_algo",
+            "belt_edge_margin": 0,
+            "d_parm1": 0,
+            "d_parm3": 0,
+            "e_parm2": 0,
+            "e_parm4": 0,
+            "edge_thresh": 5,
+            "noise_filter0": 5,
+            "rect_roi0": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    100,
+                    100
+                ]
+            ],
+            "thresh_max0": 255,
+            "thresh_min0": 0
+        },
+        "2_side": {
+            "rect_roi0": [
+                [
+                    603,
+                    488
+                ],
+                [
+                    1201,
+                    537
+                ]
+            ]
+        },
+        "2_top": {
+            "none": {
+                "circels_roi0": [
+                    [
+                        [
+                            100,
+                            100
+                        ],
+                        50
+                    ]
+                ],
+                "noise_filter0": 5,
+                "shape_type": "circel",
+                "thresh_max0": 255,
+                "thresh_min0": 0
+            }
+        },
+        "3_side": {
+            "jump_thresh": 5,
+            "navel_lenght": false,
+            "rect_roi0": [
+                [
+                    621,
+                    412
+                ],
+                [
+                    974,
+                    502
+                ]
+            ]
+        },
+        "3_top": {
+            "none": {
+                "circels_roi0": [
+                    [
+                        [
+                            100,
+                            100
+                        ],
+                        50
+                    ],
+                    [
+                        [
+                            100,
+                            100
+                        ],
+                        30
+                    ]
+                ],
+                "min_area": 10,
+                "noise_filter0": 5,
+                "thresh_max0": 255,
+                "thresh_min0": 0
+            }
+        },
+        "4_side": {
+            "d11": {
+                "rect_roi0": [
+                    [
+                        1085,
+                        357
+                    ],
+                    [
+                        1118,
+                        679
+                    ]
+                ]
+            },
+            "none": {
+                "rect_roi0": [
+                    [
+                        0,
+                        0
+                    ],
+                    [
+                        100,
+                        100
+                    ]
+                ]
+            }
+        },
+        "4_top": {
+            "none": {
+                "noise_filter0": 5,
+                "thresh_max0": 255,
+                "thresh_min0": 0
+            }
+        },
+        "5_side": {
+            "edge_direction": "bottom",
+            "from_belt": false,
+            "jump_thresh": 25,
+            "rect_roi0": [
+                [
+                    853,
+                    495
+                ],
+                [
+                    1178,
+                    738
+                ]
+            ]
+        },
+        "5_top": {
+            "Flanch": {},
+            "Head": {}
+        },
+        "6_side": {
+            "none": {
+                "rect_roi0": [
+                    [
+                        0,
+                        0
+                    ],
+                    [
+                        100,
+                        100
+                    ]
+                ]
+            }
+        }
+    }
+}

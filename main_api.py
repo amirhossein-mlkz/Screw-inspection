@@ -945,9 +945,14 @@ class API:
     def setup_drawing_setting(self,page_name,):        
 
         self.drawing_available = False
-        if page_name in ['1_top', '1_side', '2_side', '3_side', '4_side', '5_side', '6_side']:
+        if page_name in ['1_top', '1_side', '3_side', '4_side', '5_side', '6_side']:
             self.mouse_roi_shape_type = 'rect'
             self.mouse_roi_max_count = 1     
+            self.drawing_available = True
+        
+        elif page_name in ['2_side']:
+            self.mouse_roi_shape_type = 'rect'
+            self.mouse_roi_max_count = 1
             self.drawing_available = True
 
         elif page_name in ['3_top']:
@@ -2557,7 +2562,7 @@ class API:
 
                 if not self.ui.btn_enabel_mask_draw_live[direction].isChecked():
                     draw_img = self.current_camera_imgs[direction]
-                    draw_img = cv2.rotate( draw_img, cv2.ROTATE_90_COUNTERCLOCKWISE )
+                    # draw_img = cv2.rotate( draw_img, cv2.ROTATE_90_COUNTERCLOCKWISE )
 
 
                 self.ui.set_live_table( self.ui.table_live_page[direction], worker[direction].results )
@@ -2565,7 +2570,7 @@ class API:
 
                 both_results[direction] = worker[direction].results
 
-            if self.check_rejection( both_results):
+            if self.check_rejection( both_results) and not self.realtime_measurment:
                 print('reject')
                 self.start_reject()
             
@@ -2730,28 +2735,33 @@ class processingTopWorker(QObject):
 
     @time_measure
     def run(self, ):
-        self.img, self.draw_img = proccessings.preprocessing_0_top_img(self.img, self.screw_json, self.draw_img)
-        self.img , mask_roi, self.draw_img = proccessings.preprocessing_1_top_img(self.img, self.screw_json, self.draw_img, centerise=False)
+        self.results = []
+        try:
+            self.img, self.draw_img = proccessings.preprocessing_0_top_img(self.img, self.screw_json, self.draw_img)
+            self.img , mask_roi, self.draw_img = proccessings.preprocessing_1_top_img(self.img, self.screw_json, self.draw_img, centerise=True)
 
-        for active_tool in self.screw_json.get_active_tools():
-            results_tools, self.draw_img = proccessings.tools_dict_top[active_tool]( self.img, mask_roi, self.screw_json, self.draw_img )
+            for active_tool in self.screw_json.get_active_tools():
+                results_tools, self.draw_img = proccessings.tools_dict_top[active_tool]( self.img, mask_roi, self.screw_json, self.draw_img )
 
-            for i in range(len(results_tools)) :
+                for i in range(len(results_tools)) :
 
-                tools_name =results_tools[i]['name']
-                if ' ' in tools_name:
-                    tools_name =tools_name.split(' ')[1]
-                if tools_name in proccessings.calib_dict_top:
-                    for key,value in results_tools[i].items():
-                        if key!='name' :
-                            results_tools[i][key]=round(proccessings.calib_dict_top[tools_name](value,self.calib_value), 2)
-                        
-            self.results.extend(results_tools)
+                    tools_name =results_tools[i]['name']
+                    if ' ' in tools_name:
+                        tools_name =tools_name.split(' ')[1]
+                    if tools_name in proccessings.calib_dict_top:
+                        for key,value in results_tools[i].items():
+                            if key!='name' :
+                                results_tools[i][key]=round(proccessings.calib_dict_top[tools_name](value,self.calib_value), 2)
+                            
+                self.results.extend(results_tools)
 
-        self.results.sort( key = lambda x:x['name'])
+            self.results.sort( key = lambda x:x['name'])
+        except Exception as e:
+            print(e)
 
-        self.complete.emit('top')
-        self.finished.emit()
+        finally:
+            self.complete.emit('top')
+            self.finished.emit()
 
 
 
@@ -2772,27 +2782,32 @@ class processingSideWorker(QObject):
 
     @time_measure
     def run(self,):
-        self.img, mask_roi,_ = proccessings.preprocessing_side_img( self.img, self.screw_json )
+        try:
+            self.img, mask_roi,_ = proccessings.preprocessing_side_img( self.img, self.screw_json )
 
-        self.draw_img = self.img.copy()
-        self.draw_img = Utils.mask_viewer(self.draw_img, mask_roi, color=(0,10,150))
-    
-        for active_tool in self.screw_json.get_active_tools():
-            results_tools, self.draw_img = proccessings.tools_dict_side[active_tool]( self.img, mask_roi, self.screw_json, self.draw_img  )
+            self.draw_img = self.img.copy()
+            self.draw_img = Utils.mask_viewer(self.draw_img, mask_roi, color=(0,10,150))
+        
+            for active_tool in self.screw_json.get_active_tools():
+                results_tools, self.draw_img = proccessings.tools_dict_side[active_tool]( self.img, mask_roi, self.screw_json, self.draw_img  )
 
-            for i in range(len(results_tools)) :
+                for i in range(len(results_tools)) :
 
-                tools_name =results_tools[i]['name']
-                if ' ' in tools_name:
-                    tools_name =tools_name.split(' ')[1]
+                    tools_name =results_tools[i]['name']
+                    if ' ' in tools_name:
+                        tools_name =tools_name.split(' ')[1]
 
-                if tools_name in proccessings.calib_dict_side:
-                    for key,value in results_tools[i].items():
-                        if key != 'name':
-                            results_tools[i][key]=round(proccessings.calib_dict_side[tools_name](value,self.calib_value),2)
-            self.results.extend(results_tools)
+                    if tools_name in proccessings.calib_dict_side:
+                        for key,value in results_tools[i].items():
+                            if key != 'name':
+                                results_tools[i][key]=round(proccessings.calib_dict_side[tools_name](value,self.calib_value),2)
+                self.results.extend(results_tools)
 
-        self.results.sort( key = lambda x:x['name'])
+            self.results.sort( key = lambda x:x['name'])
 
-        self.complete.emit('side')
-        self.finished.emit()
+        except Exception as e:
+            print(e)
+
+        finally:
+            self.complete.emit('side')
+            self.finished.emit()

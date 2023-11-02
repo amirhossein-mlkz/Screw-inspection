@@ -141,6 +141,21 @@ Titles = {
      'Color :': {'fa': "رنگ :",
           'en': 'Color :'},
 
+     
+     'name' : {'fa': "نام",
+          'en': 'name'},
+
+     
+     'min' : {'fa': "حداقل",
+          'en': 'min'},     
+     'max' : {'fa': "حداکثر",
+          'en': 'max'},     
+     'avg' : {'fa': "میانگین",
+          'en': 'avg'},     
+     'limit_min' : {'fa': "حد پایین",
+          'en': 'limit_min'},
+     'limit_max' : {'fa': "حد بالا",
+          'en': 'limit_max'},
                                             
     }
 
