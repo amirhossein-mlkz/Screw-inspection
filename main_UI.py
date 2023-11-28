@@ -20,6 +20,7 @@ import os
 import main_api
 import cv2
 from app_settings import Settings
+
 from functools import partial
 
 import numpy as np
