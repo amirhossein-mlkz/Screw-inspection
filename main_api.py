@@ -828,7 +828,8 @@ class API:
             self.setting_image_updater()
 
             if not flag:
-                self.ui.show_warning('Same Error 105', 'Error:same screw already exist ')
+                self.ui.show_warning(texts.WARNINGS['same_error_title'][self.language], texts.WARNINGS['same_error'][self.language])
+
 
             # self.ui.stackedWidget_2.setCurrentIndex(1)
             #self.update_setting_page_info()
@@ -839,15 +840,13 @@ class API:
             
             
         else:
-            self.ui.show_warning('Name Error', 'Screw Name Should be more than 3 character')
-
-
+            self.ui.show_warning(texts.WARNINGS['Name_Error_title'][self.language], texts.WARNINGS['Name_Error'][self.language])
 
 
 
     def save_screw(self):
         if self.ui.editmode:
-            flag = self.ui.show_save_question('Save Screw', 'Do you want to Save screw ?')
+            flag = self.ui.show_save_question(texts.WARNINGS['Save_Screw_title'][self.language], texts.WARNINGS['Save_Screw'][self.language])
         # try:
             if flag !=None:
                 if flag:
@@ -860,10 +859,10 @@ class API:
                         self.screw_jasons[key].write(path)  
     
                     print('Screw Saved')
-                    self.ui.show_warning('Save Screw','Successfully Save')
+                    self.ui.show_warning(texts.WARNINGS['Save_Screw_title'][self.language],texts.WARNINGS['Successfully Save'][self.language])
                 if not flag:
                     print('disacrd')
-                    self.ui.show_warning('Save Screw','Screw Settings Restored')
+                    self.ui.show_warning(texts.WARNINGS['Save_Screw_title'][self.language],texts.WARNINGS['Screw_Settings_Restored'][self.language])
                 self.ui.editmode=False
                 self.ui.set_label(self.ui.label_status_mode,'')   
                 self.ui.set_page_none()
@@ -897,7 +896,7 @@ class API:
     def remove_screw(self):
         name=self.ui.comboBox_edit_remove.currentText()
         if name!='-':
-            flag = self.ui.show_question('Delete Screw', 'Are you Sure to delete {}?'.format(name))
+            flag = self.ui.show_question(texts.WARNINGS['Delete_Screw_title'][self.language],texts.WARNINGS['Delete_Screw'][self.language]+' '+str(name))
             if flag:
                 dbUtils.remove_screw(name)
                 self.ui.set_combo_boxes(self.ui.comboBox_edit_remove, dbUtils.get_screws_list())
