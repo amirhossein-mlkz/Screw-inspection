@@ -279,6 +279,11 @@ class UI_main_window(QMainWindow, ui):
 
     
 
+        self.col_parms_multi = [texts.Titles['name'][self.language],texts.Titles['min'][self.language],texts.Titles['max'][self.language],texts.Titles['avg'][self.language],texts.Titles['limit_min'][self.language],texts.Titles['limit_max'][self.language]]
+        self.set_header_live_table(self.table_live_top_live_page,self.col_parms_multi)
+        self.set_header_live_table(self.table_live_side_live_page,self.col_parms_multi)
+
+
 
     # method called by timer
     # def update_images(self):

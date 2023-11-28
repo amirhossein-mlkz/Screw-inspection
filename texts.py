@@ -21,6 +21,41 @@ WARNINGS={
         'Delete_Screw': {'fa':' آیا از حذف اطمینان دارید ؟ ',
             'en':' Are you sure want to delete '},
 
+        'Delete_Screw_title': {'fa':'حذف پیچ ',
+            'en':' Delete Screw'},
+
+          'Save_Screw_title':  {'fa':'دخیره پیچ ',
+            'en':' Save Screw'},   
+
+        'Save_Screw': {'fa':' آیا از ذخیره سازی اطمینان دارید ؟ ',
+            'en':' Do you want to Save screw ?'},
+
+          'same_error_title':  {'fa':'پیچ مشابه',
+            'en':' Same Error 105'},   
+
+        'same_error': {'fa':'پیچ مشابه با این نام وجود دارد',
+            'en':' Error:same screw already exist '},
+
+
+
+
+          'Name_Error_title':{'fa':'خطا در نام گذاری ',
+            'en':' Name Error'},
+
+
+          'Name_Error':{'fa':'نام پیچ باید حداقل بیشتر از 3 کاراکتر باشد ',
+            'en': 'Screw Name Should be more than 3 character'},
+
+          'Successfully Save':{'fa':'ذخیره سازی با موفقیت انجام شد ',
+            'en':' Successfully Save'},
+
+
+
+
+          'Screw_Settings_Restored' :{'fa':'تنظیمات پیچ بازگردانی شد ',
+            'en':' Screw Settings Restored'},
+
+
         'EDIT_MODE': {'fa':' تصویر را ذخیره کنید ',
             'en':' First Save '},
 
@@ -64,7 +99,10 @@ MESSEGES = {
 
 Titles = {
 
-     
+     'status': {'fa': "اتصال",
+                        'en': 'status'},
+
+
     'connect_cameras': {'fa': "اتصال به دوربین",
                         'en': 'Connect Cameras'},
     'disconnect_cameras': {'fa': "قطع اتصال دوربین",
@@ -80,7 +118,7 @@ Titles = {
 
     'Camera :': {'fa': "دوربین ",
                         'en': 'Camera :'},
-    'Select Screw :': {'fa': "انتخاب بیچ :",
+    'Select Screw :': {'fa': "انتخاب بیچ ",
                         'en': 'Select Screw :'},
     'Select :': {'fa': "انتخاب ",
                         'en': 'Select '},
@@ -138,8 +176,7 @@ Titles = {
                         'en': 'Current :'},
     'Pos :': {'fa': "موقعیت :",
                         'en': 'Pos :'},
-     'Color :': {'fa': "رنگ :",
-          'en': 'Color :'},
+
 
      
      'name' : {'fa': "نام",
@@ -156,7 +193,96 @@ Titles = {
           'en': 'limit_min'},
      'limit_max' : {'fa': "حد بالا",
           'en': 'limit_max'},
-                                            
+
+     'mode': {'fa': "حالت",
+          'en': 'Mode'},
+
+     'reject': {'fa': "مرجوع",
+          'en': 'Reject'},
+     'Test_Live': {'fa': "تست زنده",
+          'en': 'Test_Live'},
+     'save_exit': {'fa': "خروج/ذحیره",
+          'en': 'Save/Exit'},
+
+     'live': {'fa': "زنده",
+          'en': 'Live'},
+
+
+
+     'cam1_top': {'fa': "دوربین بالا",
+          'en': 'Camera Top'},
+     'cam2_side': {'fa': "دوربین کنار",
+          'en': 'Camera Side'},
+     'select_camera': {'fa': "دوربین انتخابی",
+          'en': 'Select Camera'},
+     'ultra_settings': {'fa': "تنظیمات پیشرفته",
+          'en': 'Ulta Settings'},
+
+     'camera_setting_apply': {'fa': "اعمال تغییرات",
+          'en': 'Apply Settings'},
+
+     'reset_': {'fa': "بازگردانی",
+          'en': 'Reset'},
+
+
+     'folder_name': {'fa': "نام فولدر",
+          'en': 'Folder Name'},
+
+     'capture': {'fa': "تصویربرداری",
+          'en': 'Capture'},
+
+
+
+
+     'full_screen': {'fa': "تمام صفحه",
+          'en': 'Full Screen'},
+     'back_tools_page': {'fa': "بازگشت به صفحه تنظیمات",
+          'en': 'Back to Tools Page'},
+     'sensor': {'fa': "سنسور",
+          'en': 'Sensor'},
+     'software': {'fa': "نرم افزار",
+          'en': 'Software'},
+
+     'get_picture': {'fa': "عکس گرفتن",
+          'en': 'Get Picture'},
+
+     'thresh_min': {'fa': "حد پایین",
+          'en': 'thresh min'},
+
+     'thresh_max': {'fa': "حد بالا",
+          'en': 'thresh max'},
+
+
+     'area': {'fa': "مساحت ",
+          'en': 'Area'},
+
+
+     'pixel_size': {'fa': "ارزش پیکسل ",
+          'en': 'Pixel Size'},
+     'Appearance_Settings': {'fa': "تنظیمات اصلی ",
+          'en': 'Appearance_Settings'},
+     'Main_Path': {'fa': "مسیر ذخیره سازی ",
+          'en': 'Main Path  :          '},
+     'color': {'fa': "رنگ ",
+          'en': 'Color'},
+     'font_style': {'fa': "مدل فونت ",
+          'en': 'Font-Style'},
+
+
+
+
+     'font_size': {'fa': "اندازه فونت ",
+          'en': 'Font-Size'},
+     'language': {'fa': "زبان ",
+          'en': 'Language'},
+     'connect': {'fa': "اتصال ",
+          'en': 'Connect'},
+     'disconnect': {'fa': "قطع اتصال ",
+          'en': 'Disconnect'},
+     'area': {'fa': "مساحت ",
+          'en': 'Area'},
+     'area': {'fa': "مساحت ",
+          'en': 'Area'},
     }
 
 
@@ -192,7 +318,7 @@ def set_title(self, lang):
      self.btn_page0_6_side.setText(Titles['Defect'][lang])
 
      self.label_32.setText(Titles['Pos :'][lang])
-     self.label_31.setText(Titles['Color :'][lang])
+     self.label_31.setText(Titles['color'][lang])
 
      self.start_capture_live_page.setText(Titles['start'][lang])
      self.stop_capture_live_page.setText(Titles['stop'][lang])
@@ -200,6 +326,60 @@ def set_title(self, lang):
 
      self.label_156.setText(Titles['top'][lang])
      self.label_158.setText(Titles['side'][lang])
+
+
+     self.label_176.setText(Titles['status'][lang])
+     self.label_179.setText(Titles['mode'][lang])
+     self.label_183.setText(Titles['reject'][lang])
+     self.checkBox_test_live.setText(Titles['Test_Live'][lang])
+     self.save_btn_page_grab.setText(Titles['save_exit'][lang])
+     self.btn_tools_live.setText(Titles['live'][lang])
+
+
+     self.label.setText(Titles['cam1_top'][lang])
+     self.label_2.setText(Titles['cam2_side'][lang])
+     self.label_53.setText(Titles['select_camera'][lang])
+     self.ultra_setting_btn.setText(Titles['ultra_settings'][lang])
+     self.camera_setting_apply_btn.setText(Titles['camera_setting_apply'][lang])
+     self.camera_setting_reset_btn.setText(Titles['reset_'][lang])
+     self.label_178.setText(Titles['folder_name'][lang])
+
+
+     self.label_10.setText(Titles['cam1_top'][lang])
+     self.label_150.setText(Titles['cam2_side'][lang])
+     self.camera_setting_get_top_camera.setText(Titles['capture'][lang])
+     self.camera_setting_get_side_camera.setText(Titles['capture'][lang])
+     self.camera_setting_full_screen_side_camera.setText(Titles['full_screen'][lang])
+     self.camera_setting_full_screen_top_camera.setText(Titles['full_screen'][lang])
+     self.camera_setting_tools_page.setText(Titles['back_tools_page'][lang])
+     self.label_178.setText(Titles['folder_name'][lang])
+     self.groupBox_29.setTitle(Titles['mode'][lang])
+     self.groupBox_15.setTitle(Titles['select_camera'][lang])
+
+     
+     self.checkbox_page_detection_sensor.setText(Titles['sensor'][lang])
+     self.checkbox_page_detection_trigger.setText(Titles['software'][lang])
+     self.checkbox_page_detection_mode_top.setText(Titles['top'][lang])
+     self.checkbox_page_detection_mode_side.setText(Titles['side'][lang])
+     self.camera_get_picture_detection_mode.setText(Titles['get_picture'][lang])
+     self.label_225.setText(Titles['thresh_min'][lang])
+     self.label_226.setText(Titles['thresh_max'][lang])
+     self.label_227.setText(Titles['area'][lang])
+     self.label_11.setText(Titles['area'][lang])
+
+     self.label_208.setText(Titles['pixel_size'][lang])
+     self.label_209.setText(Titles['pixel_size'][lang])
+     self.groupBox_4.setTitle(Titles['Appearance_Settings'][lang])
+     self.groupBox_2.setTitle(Titles['Main_Path'][lang])
+     self.label_98.setText(Titles['color'][lang])
+     self.label_57.setText(Titles['font_style'][lang])
+     self.label_95.setText(Titles['font_size'][lang])
+     self.label_96.setText(Titles['language'][lang])
+     self.connect_plc_btn.setText(Titles['connect'][lang])
+     self.disconnect_plc_btn.setText(Titles['disconnect'][lang])
+
+
+
      # self.connect_cameras_live_page.setText(Titles['connect_cameras'][lang])
      # self.disconnect_cameras_live_page.setText(Titles['disconnect_cameras'][lang])
      

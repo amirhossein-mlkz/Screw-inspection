@@ -1,12 +1,7 @@
 {
-    "active_tools": [
-        "2_side",
-        "3_side",
-        "4_side",
-        "5_side"
-    ],
+    "active_tools": [],
     "direction": "side",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P_13\\side\\6_2023-11-2__14-12.bmp",
+    "img_path": "images/defualt.jpg",
     "name": "P_13",
     "settings": {
         "0_top": {
@@ -15,18 +10,18 @@
             "rbelt": 500
         },
         "1_side": {
-            "noise_filter0": 13,
+            "noise_filter0": 0,
             "rect_roi0": [
                 [
-                    83,
-                    350
+                    0,
+                    0
                 ],
                 [
-                    1340,
-                    776
+                    100,
+                    100
                 ]
             ],
-            "thresh0": 40,
+            "thresh0": 0,
             "thresh_inv0": true
         },
         "1_top": {
@@ -54,12 +49,12 @@
         "2_side": {
             "rect_roi0": [
                 [
-                    13,
-                    485
+                    0,
+                    0
                 ],
                 [
-                    1364,
-                    558
+                    100,
+                    100
                 ]
             ]
         },
@@ -76,21 +71,21 @@
                 ],
                 "noise_filter0": 5,
                 "shape_type": "circel",
-                "thresh_max0": 250,
-                "thresh_min0": 20
+                "thresh_max0": 255,
+                "thresh_min0": 0
             }
         },
         "3_side": {
-            "jump_thresh": 4,
-            "navel_lenght": true,
+            "jump_thresh": 5,
+            "navel_lenght": false,
             "rect_roi0": [
                 [
-                    41,
-                    336
+                    0,
+                    0
                 ],
                 [
-                    774,
-                    506
+                    100,
+                    100
                 ]
             ]
         },
@@ -114,35 +109,11 @@
                 ],
                 "min_area": 10,
                 "noise_filter0": 5,
-                "thresh_max0": 250,
-                "thresh_min0": 20
+                "thresh_max0": 255,
+                "thresh_min0": 0
             }
         },
         "4_side": {
-            "d_body": {
-                "rect_roi0": [
-                    [
-                        714,
-                        332
-                    ],
-                    [
-                        872,
-                        679
-                    ]
-                ]
-            },
-            "d_hread": {
-                "rect_roi0": [
-                    [
-                        1150,
-                        318
-                    ],
-                    [
-                        1197,
-                        696
-                    ]
-                ]
-            },
             "none": {
                 "rect_roi0": [
                     [
@@ -159,22 +130,22 @@
         "4_top": {
             "none": {
                 "noise_filter0": 5,
-                "thresh_max0": 250,
-                "thresh_min0": 20
+                "thresh_max0": 255,
+                "thresh_min0": 0
             }
         },
         "5_side": {
             "edge_direction": "top",
-            "from_belt": false,
+            "from_belt": true,
             "jump_thresh": 10,
             "rect_roi0": [
                 [
-                    923,
-                    280
+                    0,
+                    0
                 ],
                 [
-                    1276,
-                    714
+                    100,
+                    100
                 ]
             ]
         },
