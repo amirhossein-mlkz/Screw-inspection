@@ -87,8 +87,8 @@ def preprocessing_1_top_img( img, json,draw = None, centerise=True):
 
         thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi)
 
-        thresh_img = cv2.morphologyEx(thresh_img, cv2.MORPH_OPEN,
-                           (2,2), iterations=1)
+        # thresh_img = cv2.morphologyEx(thresh_img, cv2.MORPH_OPEN,
+        #                    (2,2), iterations=1)
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
 
 

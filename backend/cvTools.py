@@ -236,8 +236,12 @@ def filter_noise_area(mask, noise_filter=0):
     area = h * w
     noise_area = area / 5 * (noise_filter/100) #Optioanl Formula
 
-    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN,(2,2), iterations=1)
-    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE,(2,2), iterations=1)
+    mask = cv2.dilate(mask, np.ones((3,3)), iterations=1)
+    mask = cv2.erode(mask, np.ones((3,3)), iterations=2)
+    mask = cv2.dilate(mask, np.ones((3,3)), iterations=1)
+
+    # mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN,(2,2), iterations=1)
+    # mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE,(2,2), iterations=1)
     cnts,_ = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
     cnts = list(cnts)
     res_cnts = list( filter(lambda x: cv2.contourArea(x)>noise_area , cnts) )
@@ -1004,10 +1008,9 @@ def centerise_measurment(masks):
     res_cnts = []
     res_centers = []
     for mask in masks:
-        cnts,_ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        if len(cnts) == 0:
+        cnt = extract_bigest_contour(mask)
+        if len(cnt) == 0:
             continue
-        cnt = cnts[0]
         M = cv2.moments(cnt)
         res_centers.append( (int(M['m10']/M['m00']) , int(M['m01']/M['m00']) ) )
         res_cnts.append(cnt)
