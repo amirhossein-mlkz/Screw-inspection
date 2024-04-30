@@ -1956,6 +1956,11 @@ class UI_main_window(QMainWindow, ui):
             for id,page_value in enumerate(values):
                 limit_min=page_value['limit_min']
                 limit_max=page_value['limit_max']
+
+                flag = self.set_color_table(page_value['avg'],page_value['min'],page_value['max'],limit_min,limit_max)
+
+
+
                 for col_id , col_value in enumerate(self.col_parms) :
 
                     headers.setSectionResizeMode(col_id, QtWidgets.QHeaderView.ResizeMode.ResizeToContents )
@@ -1967,26 +1972,32 @@ class UI_main_window(QMainWindow, ui):
                         table_item.setBackground(QBrush(QColor("#17202A")))
 
                         # self.set_color_table_name_col(table_item,page_value[col_value],limit_min,limit_max)
-                    else:
-                        self.set_color_table(table_item,page_value[col_value],limit_min,limit_max)
-                    if col_id==4 or col_id==5 or col_id ==1 or col_id==2:
+
+                    elif col_id==4 or col_id==5 :#or col_id ==1 or col_id==2:
                         table_item.setBackground(QBrush(QColor("#808080")))    
-                    if page_value[col_value]==-1 or page_value[col_value]==-2:
+                    elif page_value[col_value]==-1 or page_value[col_value]==-2:
                         table_item.setBackground(QBrush(QColor("#D4AC0D")))
+                    else:
+                        if not flag:
+                            table_item.setBackground(QBrush(QColor("#E74C3C")))
+                        else:
+                            table_item.setBackground(QColor('#239B56'))                       
+
+
+
 
         table_name.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
             # table_name.item(1, 1).setText("Put here whatever you want!")
 
-    def set_color_table(self,table_item,value=0,limit_min=0,limit_max=0):
+    def set_color_table(self,avg=0,min_value=0,max_value=0,limit_min=0,limit_max=0):
         # print('limit_min , max',value,limit_min,limit_max)
-        if value<limit_min or value>limit_max:
+        if min_value<limit_min or max_value>limit_max:
             # print('min')
-            table_item.setBackground(QBrush(QColor("#E74C3C")))
+            return False
         else:
             # print('else')
-            table_item.setBackground(QColor('#239B56'))                       
-
+            return True
 
     def set_selected_image_live_page(self,direction,img):
 

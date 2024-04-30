@@ -1,0 +1,217 @@
+{
+    "active_tools": [
+        "2_side",
+        "3_side",
+        "4_side"
+    ],
+    "direction": "side",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P123\\side\\3_2024-4-30__16-15.bmp",
+    "name": "P123",
+    "settings": {
+        "0_top": {
+            "angle": 0,
+            "lbelt": 100,
+            "rbelt": 500
+        },
+        "1_side": {
+            "noise_filter0": 15,
+            "rect_roi0": [
+                [
+                    389,
+                    370
+                ],
+                [
+                    1299,
+                    786
+                ]
+            ],
+            "thresh0": 112,
+            "thresh_inv0": true
+        },
+        "1_top": {
+            "algo": "thresh_algo",
+            "belt_edge_margin": 0,
+            "d_parm1": 0,
+            "d_parm3": 0,
+            "e_parm2": 0,
+            "e_parm4": 0,
+            "edge_thresh": 5,
+            "noise_filter0": 5,
+            "rect_roi0": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    100,
+                    100
+                ]
+            ],
+            "thresh_max0": 255,
+            "thresh_min0": 0
+        },
+        "2_side": {
+            "limits": {
+                "max": {
+                    "lenght": 600
+                },
+                "min": {
+                    "lenght": 500
+                }
+            },
+            "rect_roi0": [
+                [
+                    570,
+                    474
+                ],
+                [
+                    1294,
+                    544
+                ]
+            ]
+        },
+        "2_top": {
+            "none": {
+                "circels_roi0": [
+                    [
+                        [
+                            100,
+                            100
+                        ],
+                        50
+                    ]
+                ],
+                "noise_filter0": 5,
+                "shape_type": "circel",
+                "thresh_max0": 255,
+                "thresh_min0": 0
+            }
+        },
+        "3_side": {
+            "jump_thresh": 5,
+            "limits": {
+                "max": {
+                    "navel_lenght": 0,
+                    "thread_count": 18,
+                    "thread_distance": 23,
+                    "thread_lenght": 300
+                },
+                "min": {
+                    "navel_lenght": 0,
+                    "thread_count": 12,
+                    "thread_distance": 14,
+                    "thread_lenght": 200
+                }
+            },
+            "navel_lenght": false,
+            "rect_roi0": [
+                [
+                    556,
+                    370
+                ],
+                [
+                    1076,
+                    520
+                ]
+            ]
+        },
+        "3_top": {
+            "none": {
+                "circels_roi0": [
+                    [
+                        [
+                            100,
+                            100
+                        ],
+                        50
+                    ],
+                    [
+                        [
+                            100,
+                            100
+                        ],
+                        30
+                    ]
+                ],
+                "min_area": 10,
+                "noise_filter0": 5,
+                "thresh_max0": 255,
+                "thresh_min0": 0
+            }
+        },
+        "4_side": {
+            "head": {
+                "limits": {
+                    "max": {
+                        "body_diameter": 300
+                    },
+                    "min": {
+                        "body_diameter": 240
+                    }
+                },
+                "rect_roi0": [
+                    [
+                        1160,
+                        322
+                    ],
+                    [
+                        1211,
+                        724
+                    ]
+                ]
+            },
+            "none": {
+                "rect_roi0": [
+                    [
+                        0,
+                        0
+                    ],
+                    [
+                        100,
+                        100
+                    ]
+                ]
+            }
+        },
+        "4_top": {
+            "none": {
+                "noise_filter0": 5,
+                "thresh_max0": 255,
+                "thresh_min0": 0
+            }
+        },
+        "5_side": {
+            "edge_direction": "top",
+            "from_belt": true,
+            "jump_thresh": 10,
+            "rect_roi0": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    100,
+                    100
+                ]
+            ]
+        },
+        "5_top": {
+            "Flanch": {},
+            "Head": {}
+        },
+        "6_side": {
+            "none": {
+                "rect_roi0": [
+                    [
+                        0,
+                        0
+                    ],
+                    [
+                        100,
+                        100
+                    ]
+                ]
+            }
+        }
+    }
+}

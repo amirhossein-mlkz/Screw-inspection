@@ -82,6 +82,9 @@ class Collector(sQObject):
         self.converter.OutputPixelFormat = pylon.PixelType_Mono8
         self.converter.OutputBitAlignment = pylon.OutputBitAlignment_MsbAligned
 
+        self.image = np.zeros([1200,1920],dtype=np.uint8)
+
+
         for device in self.__tl_factory.EnumerateDevices():              
                 devices.append(device)
 
@@ -220,7 +223,7 @@ class Collector(sQObject):
 
 
     def getPictures(self, time_out = 50):
-        self.image = np.zeros([1200,1920],dtype=np.uint8)
+        
         if self.camera:
             Flag=False
             try:
@@ -229,11 +232,11 @@ class Collector(sQObject):
                     grabResult = self.camera.RetrieveResult(time_out, pylon.TimeoutHandling_ThrowException)
                     if grabResult.GrabSucceeded():
                         image = self.converter.Convert(grabResult)
-
+                        
                         img = image.GetArray()
                         Flag =  True
                     else:
-                        img=np.zeros([1200,1920,3],dtype=np.uint8)
+                        img=np.zeros([1200,1920],dtype=np.uint8)
                         self.cont_eror+=1
                         print('eror',self.cont_eror)
                         print("Error: ", grabResult.ErrorCode, grabResult.ErrorDescription)
@@ -244,53 +247,57 @@ class Collector(sQObject):
                         img=np.zeros([1200,1920],dtype=np.uint8)
                         Flag=False
 
-            except:
+            except Exception as e:
 
-                img=np.zeros([1200,1920,3],dtype=np.uint8)
+                # print(e)
+                pass
+
+                img=np.zeros([1200,1920],dtype=np.uint8)
                 Flag=False
-            self.image = img
+            
             if Flag:
+                self.image = img
                 return True, img
             else:
 
-                return False, np.zeros([1200,1920,3],dtype=np.uint8)
+                return False, np.zeros([1200,1920],dtype=np.uint8)
 
 
 
-        return False, np.zeros([1200,1920,3],dtype=np.uint8)
+        return False, np.zeros([1200,1920],dtype=np.uint8)
 
     def software_trig(self):
 
         self.camera.TriggerSoftware.Execute()
 
 
-    def get_picture_while(self):
+    # def get_picture_while(self):
 
-        while True:
-            ret = False
-            if self.capturing:
-                # cv2.waitKey(150)
-                # print('imilad')
-                time.sleep(0.005)
-                ret, self.image = self.getPictures()
-                # print('picture captured')
-                if DEBUG:
-                    # ret,self.image = True,(np.random.rand(500,500,3)*255).astype('uint8')
-                    i = np.random.choice([1,5])
-                    #print(i)
-                    if i == 1:
-                        ret,self.image = True,cv2.imread(f'sample images/temp_top/1.jpg',0)
-                    elif i==5:
-                        ret,self.image = True,cv2.imread(f'sample images/temp_top/5.bmp',0)
+    #     while True:
+    #         ret = False
+    #         if self.capturing:
+    #             # cv2.waitKey(150)
+    #             # print('imilad')
+    #             time.sleep(0.005)
+    #             ret, self.image = self.getPictures()
+    #             # print('picture captured')
+    #             if DEBUG:
+    #                 # ret,self.image = True,(np.random.rand(500,500,3)*255).astype('uint8')
+    #                 i = np.random.choice([1,5])
+    #                 #print(i)
+    #                 if i == 1:
+    #                     ret,self.image = True,cv2.imread(f'sample images/temp_top/1.jpg',0)
+    #                 elif i==5:
+    #                     ret,self.image = True,cv2.imread(f'sample images/temp_top/5.bmp',0)
 
-                    cv2.waitKey(500)
+    #                 cv2.waitKey(500)
 
-                if ret:
-                    self.trig_signal.emit()
-                    time.sleep(0.15)
-            else:
-                break
-        self.finished.emit()
+    #             if ret:
+    #                 self.trig_signal.emit()
+    #                 time.sleep(0.15)
+    #         else:
+    #             break
+    #     self.finished.emit()
 
     def update_parms(self, parms):
         for parm, value in parms.items():

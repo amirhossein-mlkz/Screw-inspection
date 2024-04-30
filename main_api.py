@@ -53,6 +53,8 @@ from Keys import set_dimensions
 from PySide6.QtCore import QDateTime as sQDateTime
 from PySide6.QtCore import QObject as sQObject
 from PySide6.QtCore import QThread as sQThread
+from backend.cameraThread import cameraWorker
+import threading
 
 
 # from PyQt5.QtCore import 
@@ -152,6 +154,7 @@ class API:
         self.realtime_measurment = False
         #self.set_detection_parms()
         self.cameras = {}
+        self.cameraworkers = {}
         self.connect_camera()
         self.available_camera_serials = camera_funcs.get_available_cameras_list_serial_numbers()
 
@@ -528,6 +531,8 @@ class API:
 
 
     def connect_camera(self):
+
+
         # if self.cameras==None:
         if not self.ui.camera_connect_flag:
             self.init_cameras()
@@ -542,14 +547,9 @@ class API:
                         if direction!='top':
                             continue
                     
-                    
-                    self.threads[direction] = sQThread()
-                    self.cameras[direction].moveToThread(self.threads[direction])
-                    self.threads[direction].started.connect(self.cameras[direction].get_picture_while)
-                    self.cameras[direction].finished.connect(self.threads[direction].quit)
-                    self.cameras[direction].finished.connect(self.cameras[direction].deleteLater)
-                    self.threads[direction].finished.connect(self.threads[direction].deleteLater)
-                    self.cameras[direction].trig_signal.connect(self.set_images)
+                    self.cameraworkers[direction] = cameraWorker(self.cameras[direction])
+                    self.cameraworkers[direction].success_grab_signal.connect(self.set_images)
+                    self.threads[direction] = threading.Thread(target= self.cameraworkers[direction].grabber)
                     self.threads[direction].start()
             self.ui.camera_connect_flag=True
             self.ui.disconnect_cameras_live_page.setEnabled(True)
@@ -589,10 +589,16 @@ class API:
 
             if self.cameras!= None:
                 if not self.image_trigger_mode:
-                    try:
-                        self.cameras[direction].on_trigger()
-                    except:
-                        print('eror in set trigger in api')
+                    if self.direction_sensor_mode == direction:
+                        try:
+                            self.cameras[direction].on_trigger()
+                        except:
+                            print('eror in set trigger in api')
+                    else:
+                        try:
+                            self.cameras[direction].off_trigger()
+                        except:
+                            print('eror in set trigger in api')
 
                 else:
                     try:
@@ -1844,13 +1850,8 @@ class API:
             screw_json = self.screw_jasons[ 'side' ]   
 
             self.worker_p_side  = processingSideWorker(screw_json, img, self.calibration_value['side'])
-            self.thread_p_side = sQThread()
-            self.worker_p_side.moveToThread(self.thread_p_side)
-            self.thread_p_side.started.connect(self.worker_p_side.run)
             self.worker_p_side.complete.connect(self.complete_proccessing)
-            self.worker_p_side.finished.connect(self.thread_p_side.quit)
-            self.worker_p_side.finished.connect(self.worker_p_side.deleteLater)
-            self.thread_p_side.finished.connect(self.thread_p_side.deleteLater)
+            self.thread_p_side = threading.Thread(target=self.worker_p_side.run)
 
             if not DEBUG_PROCCESSING_THREAD:
                 self.thread_p_side.start()
@@ -1869,14 +1870,9 @@ class API:
             screw_json = self.screw_jasons[ 'top' ]
 
             self.worker_p_top  = processingTopWorker(screw_json, img, self.calibration_value['top'])
-            self.thread_p_top = sQThread()
-
-            self.worker_p_top.moveToThread(self.thread_p_top)
-            self.thread_p_top.started.connect(self.worker_p_top.run)
             self.worker_p_top.complete.connect(self.complete_proccessing)
-            self.worker_p_top.finished.connect(self.thread_p_top.quit)
-            self.worker_p_top.finished.connect(self.worker_p_top.deleteLater)
-            self.thread_p_top.finished.connect(self.thread_p_top.deleteLater)
+            self.thread_p_top = threading.Thread(target=self.worker_p_top.run)
+            
 
             if not DEBUG_PROCCESSING_THREAD:
                 self.thread_p_top.start()
@@ -2316,7 +2312,7 @@ class API:
             self.load_camera_params_from_db_to_camera()
 
 
-    def set_images(self):
+    def set_images(self,):
         #correct set image
         t = time.time()
         if not self.ui.camera_connect_flag or  t - self.prev_time < 0.2:
@@ -2396,15 +2392,19 @@ class API:
 
         if self.tools_live_enable:
             direction = self.ui.get_setting_page_idx(direction = True)
-            # try:
-            #     self.current_image_screw[direction] = self.cameras[direction].image.copy()
-            #         #self.current_camera_imgs[direction] = self.cameras[direction].image
+            try:
+                img = self.cameras[direction].image
+                color_img = img
+                if len(color_img.shape)==2:
+                    color_img = cv2.cvtColor(color_img, cv2.COLOR_GRAY2BGR)
+
+                self.current_image_screw[direction] = color_img.copy()
+                self.current_camera_imgs[direction] = img.copy()
 
                 
-            # except:
-            #     self.current_image_screw[direction] = np.zeros(shape=(1920,1200),dtype='uint8')
-            #     self.current_image_screw[direction] = np.random.randint(0,255,1920*1200).reshape((1920,1200)).astype(np.uint8)
-                
+            except Eception as e:
+                print(str(e))
+                pass
 
 
             self.setting_image_updater()
@@ -2501,10 +2501,17 @@ class API:
                 if not self.image_trigger_mode:
                     self.update_main_image()
                     for direction in self.cameras.keys():
-                        try:
-                            self.cameras[direction].on_trigger()
-                        except:
-                            print('ERROR: enable_live_view_for_tools on trigger error')
+                        if self.direction_sensor_mode == direction:
+                            try:
+                                self.cameras[direction].on_trigger()
+                            except:
+                                print('ERROR: enable_live_view_for_tools on trigger error')
+                        else:
+                            try:
+                                self.cameras[direction].off_trigger()
+                            except:
+                                print('ERROR: enable_live_view_for_tools on trigger error')
+
         except:
             print('ERROR: set trigger - enable_live_view_for_tools', direction)
         self.update_main_image()
@@ -2535,13 +2542,15 @@ class API:
     def check_rejection(self, result: dict):
         for side in result.keys():
             for feature in result[side]:
+                if feature['avg'] < 0:
+                    continue
                 if feature['min'] < feature['limit_min']:
                     return True
                 
                 if feature['max'] > feature['limit_max']: 
                     return True
             # self.his
-            return False
+        return False
 
 
     def complete_proccessing(self, direction):
