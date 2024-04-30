@@ -218,6 +218,8 @@ class UI_main_window(QMainWindow, ui):
 
         self.showMaximized()
         self.offset = None
+        self.maximized = True
+
 
 
     def load_single_page_defult_parms(self,page_name):
@@ -292,21 +294,26 @@ class UI_main_window(QMainWindow, ui):
 
 
     def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            self.offset = QPoint(event.position().x(),event.position().y())
-        else:
-            super().mousePressEvent(event)
+        if not self.maximized:
+            if event.button() == Qt.LeftButton:
+                self.offset = QPoint(event.position().x(),event.position().y())
+            else:
+                super().mousePressEvent(event)
 
     def mouseMoveEvent(self, event):
-        if self.offset is not None and event.buttons() == Qt.LeftButton:
+        if not self.maximized:
 
-            self.move(self.pos() + QPoint(event.scenePosition().x(),event.scenePosition().y()) - self.offset)
-        else:
-            super().mouseMoveEvent(event)
+            if self.offset is not None and event.buttons() == Qt.LeftButton:
+
+                self.move(self.pos() + QPoint(event.scenePosition().x(),event.scenePosition().y()) - self.offset)
+            else:
+                super().mouseMoveEvent(event)
 
     def mouseReleaseEvent(self, event):
-        self.offset = None
-        super().mouseReleaseEvent(event)
+        if not self.maximized:
+
+            self.offset = None
+            super().mouseReleaseEvent(event)
 
 
 
@@ -572,8 +579,11 @@ class UI_main_window(QMainWindow, ui):
         
         if self.isMaximized():
             self.showNormal()
+            self.maximized = False
+
             # self.sheet_view_down=data_grabber.sheetOverView(h=129,w=1084,nh=12,nw=30)
         else:
+            self.maximized = True
             self.showMaximized()
 
 

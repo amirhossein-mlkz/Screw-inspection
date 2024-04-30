@@ -163,10 +163,11 @@ def preprocessing_1_top_img( img, json,draw = None, centerise=True):
 
         thresh_img, img, div_pt = cvTools.centerise_top(thresh_img, img )
 
-        if algo_name == 'edge':
-            if belt_margin >0:            
+        if belt_margin >0:            
+            if pts_l is not None:
                 pts_l[:,:,0] =  pts_l[:,:,0] + div_pt[0]
                 pts_l[:,:,1] =  pts_l[:,:,1] + div_pt[1]
+            if pts_r is not None:
                 pts_r[:,:,0] =  pts_r[:,:,0] + div_pt[0]
                 pts_r[:,:,1] =  pts_r[:,:,1] + div_pt[1]
 

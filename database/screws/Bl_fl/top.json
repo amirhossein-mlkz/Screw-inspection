@@ -3,13 +3,13 @@
         "2_top"
     ],
     "direction": "top",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P123\\top\\3_2024-4-30__20-47.bmp",
-    "name": "P123",
+    "img_path": "images/defualt.jpg",
+    "name": "Bl_fl",
     "settings": {
         "0_top": {
             "angle": 0.9999999999999999,
-            "lbelt": 639,
-            "rbelt": 930
+            "lbelt": 665,
+            "rbelt": 955
         },
         "1_side": {
             "noise_filter0": 0,
@@ -29,24 +29,24 @@
         "1_top": {
             "algo": "thresh_algo",
             "belt_edge_margin": 30,
-            "d_parm1": 3,
+            "d_parm1": 0,
             "d_parm3": 0,
-            "e_parm2": 3,
+            "e_parm2": 0,
             "e_parm4": 0,
-            "edge_thresh": 16,
-            "noise_filter0": 10,
+            "edge_thresh": 10,
+            "noise_filter0": 0,
             "rect_roi0": [
                 [
-                    481,
-                    153
+                    493,
+                    188
                 ],
                 [
-                    1149,
-                    873
+                    1128,
+                    854
                 ]
             ],
-            "thresh_max0": 130,
-            "thresh_min0": 55
+            "thresh_max0": 148,
+            "thresh_min0": 65
         },
         "2_side": {
             "rect_roi0": [
@@ -65,37 +65,37 @@
                 "circels_roi0": [
                     [
                         [
-                            631,
-                            454
+                            642,
+                            476
                         ],
-                        385
+                        352
                     ]
                 ],
                 "limits": {
                     "max": {
                         "corner": 0,
-                        "diameter": 490,
+                        "diameter": 500,
                         "district": 0
                     },
                     "min": {
                         "corner": 0,
-                        "diameter": 440,
+                        "diameter": 455,
                         "district": 0
                     }
                 },
                 "noise_filter0": 5,
                 "shape_type": "circel",
                 "thresh_max0": 255,
-                "thresh_min0": 0
+                "thresh_min0": 32
             },
             "none": {
                 "circels_roi0": [
                     [
                         [
-                            642,
+                            634,
                             480
                         ],
-                        320
+                        359
                     ]
                 ],
                 "noise_filter0": 5,

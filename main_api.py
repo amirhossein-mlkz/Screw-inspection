@@ -244,7 +244,10 @@ class API:
         #hide
 
         self.hide_objs()
-        
+
+
+        self.set_realtime_measurment()
+
 
         print('*Success*'*20)
 
@@ -451,6 +454,9 @@ class API:
         #yazd 
 
         self.ui.checkBox_test_live.clicked.connect(self.set_realtime_measurment)
+
+
+        
 
     # dashboard page
     #------------------------------------------------------------------------------------------------------------------------
@@ -2390,7 +2396,7 @@ class API:
         #-----------------------------------------------------------------------------
 
 
-        if self.tools_live_enable:
+        if self.tools_live_enable and self.ui.stackedWidget.currentWidget()==self.ui.page_tools:
             direction = self.ui.get_setting_page_idx(direction = True)
             try:
                 img = self.cameras[direction].image

@@ -1,54 +1,42 @@
 {
     "active_tools": [
-        "2_top"
+        "2_side",
+        "3_side",
+        "4_side"
     ],
-    "direction": "top",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P123\\top\\3_2024-4-30__20-47.bmp",
-    "name": "P123",
+    "direction": "side",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Bl_fl\\side\\2_2024-4-30__20-20.bmp",
+    "name": "Bl_fl",
     "settings": {
         "0_top": {
-            "angle": 0.9999999999999999,
-            "lbelt": 639,
-            "rbelt": 930
+            "angle": 0,
+            "lbelt": 100,
+            "rbelt": 500
         },
         "1_side": {
-            "noise_filter0": 0,
+            "noise_filter0": 24,
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    120,
+                    322
                 ],
                 [
-                    100,
-                    100
+                    1313,
+                    776
                 ]
             ],
-            "thresh0": 0,
+            "thresh0": 58,
             "thresh_inv0": true
         },
         "1_top": {
             "algo": "thresh_algo",
-            "belt_edge_margin": 30,
-            "d_parm1": 3,
+            "belt_edge_margin": 0,
+            "d_parm1": 0,
             "d_parm3": 0,
-            "e_parm2": 3,
+            "e_parm2": 0,
             "e_parm4": 0,
-            "edge_thresh": 16,
-            "noise_filter0": 10,
-            "rect_roi0": [
-                [
-                    481,
-                    153
-                ],
-                [
-                    1149,
-                    873
-                ]
-            ],
-            "thresh_max0": 130,
-            "thresh_min0": 55
-        },
-        "2_side": {
+            "edge_thresh": 5,
+            "noise_filter0": 5,
             "rect_roi0": [
                 [
                     0,
@@ -58,44 +46,39 @@
                     100,
                     100
                 ]
+            ],
+            "thresh_max0": 255,
+            "thresh_min0": 0
+        },
+        "2_side": {
+            "limits": {
+                "max": {
+                    "lenght": 1060
+                },
+                "min": {
+                    "lenght": 980
+                }
+            },
+            "rect_roi0": [
+                [
+                    69,
+                    471
+                ],
+                [
+                    1303,
+                    547
+                ]
             ]
         },
         "2_top": {
-            "flanch": {
-                "circels_roi0": [
-                    [
-                        [
-                            631,
-                            454
-                        ],
-                        385
-                    ]
-                ],
-                "limits": {
-                    "max": {
-                        "corner": 0,
-                        "diameter": 490,
-                        "district": 0
-                    },
-                    "min": {
-                        "corner": 0,
-                        "diameter": 440,
-                        "district": 0
-                    }
-                },
-                "noise_filter0": 5,
-                "shape_type": "circel",
-                "thresh_max0": 255,
-                "thresh_min0": 0
-            },
             "none": {
                 "circels_roi0": [
                     [
                         [
-                            642,
-                            480
+                            100,
+                            100
                         ],
-                        320
+                        50
                     ]
                 ],
                 "noise_filter0": 5,
@@ -106,15 +89,29 @@
         },
         "3_side": {
             "jump_thresh": 5,
+            "limits": {
+                "max": {
+                    "navel_lenght": 0,
+                    "thread_count": 16,
+                    "thread_distance": 22,
+                    "thread_lenght": 220
+                },
+                "min": {
+                    "navel_lenght": 0,
+                    "thread_count": 10,
+                    "thread_distance": 15,
+                    "thread_lenght": 155
+                }
+            },
             "navel_lenght": false,
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    78,
+                    360
                 ],
                 [
-                    100,
-                    100
+                    649,
+                    495
                 ]
             ]
         },
@@ -143,6 +140,46 @@
             }
         },
         "4_side": {
+            "a11": {
+                "limits": {
+                    "max": {
+                        "body_diameter": 185
+                    },
+                    "min": {
+                        "body_diameter": 160
+                    }
+                },
+                "rect_roi0": [
+                    [
+                        696,
+                        315
+                    ],
+                    [
+                        937,
+                        665
+                    ]
+                ]
+            },
+            "a12": {
+                "limits": {
+                    "max": {
+                        "body_diameter": 300
+                    },
+                    "min": {
+                        "body_diameter": 240
+                    }
+                },
+                "rect_roi0": [
+                    [
+                        1171,
+                        318
+                    ],
+                    [
+                        1243,
+                        696
+                    ]
+                ]
+            },
             "none": {
                 "rect_roi0": [
                     [

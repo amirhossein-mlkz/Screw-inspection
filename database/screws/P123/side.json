@@ -5,7 +5,7 @@
         "4_side"
     ],
     "direction": "side",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P123\\side\\3_2024-4-30__16-15.bmp",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P123\\side\\4_2024-4-30__20-49.bmp",
     "name": "P123",
     "settings": {
         "0_top": {
@@ -25,7 +25,7 @@
                     786
                 ]
             ],
-            "thresh0": 112,
+            "thresh0": 102,
             "thresh_inv0": true
         },
         "1_top": {
