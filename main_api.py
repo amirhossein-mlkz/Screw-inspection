@@ -1817,7 +1817,9 @@ class API:
     # #
     # #____________________________________________________________________________________________________________
     def load_live_page_infoes(self,):
+        name = self.ui.combobox_select_screw_live.currentText()
         self.ui.set_combo_boxes(self.ui.combobox_select_screw_live, dbUtils.get_screws_list())
+        self.ui.combobox_select_screw_live.setCurrentText(name)
 
 
 

@@ -96,7 +96,7 @@ def threshould_minmax(img, thresh_min, thresh_max , mask_roi = None):
     else:
         mask = cv2.bitwise_and( mask_min, mask_max)
 
-    cnt = extract_bigest_contour(mask)
+    #cnt = extract_bigest_contour(mask)
     
     
     return mask

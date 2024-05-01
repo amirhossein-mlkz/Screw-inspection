@@ -39,6 +39,9 @@ import Keys
 from history_UI import UI_history_window
 
 
+import os
+import signal as os_signal
+
 DEBUG=False
 
 ui, _ = loadUiType("main_window.ui")
@@ -169,10 +172,10 @@ class UI_main_window(QMainWindow, ui):
         # Live page
 
 
-        self.col_parms=['name','min','max','avg','limit_min','limit_max']
+        self.col_parms=['name','avg','limit_min','limit_max']
         self.set_header_live_table(self.table_live_top_live_page,self.col_parms)
 
-        self.col_parms=['name','min','max','avg','limit_min','limit_max']
+        self.col_parms=['name','avg','limit_min','limit_max']
         self.set_header_live_table(self.table_live_side_live_page,self.col_parms)
 
         self.set_color_value_image_tool_page(value=50)
@@ -206,6 +209,14 @@ class UI_main_window(QMainWindow, ui):
         font = QFont()
         font.setPointSize(17)
         self.start_capture_live_page.setFont(font)
+
+        font = QFont()
+
+        font.setPointSize(24)
+        self.table_live_top_live_page.setFont(font)
+        self.table_live_side_live_page.setFont(font)
+
+
 
 
 
@@ -281,7 +292,7 @@ class UI_main_window(QMainWindow, ui):
 
     
 
-        self.col_parms_multi = [texts.Titles['name'][self.language],texts.Titles['min'][self.language],texts.Titles['max'][self.language],texts.Titles['avg'][self.language],texts.Titles['limit_min'][self.language],texts.Titles['limit_max'][self.language]]
+        self.col_parms_multi = [texts.Titles['name'][self.language],texts.Titles['avg'][self.language],texts.Titles['limit_min'][self.language],texts.Titles['limit_max'][self.language]]
         self.set_header_live_table(self.table_live_top_live_page,self.col_parms_multi)
         self.set_header_live_table(self.table_live_side_live_page,self.col_parms_multi)
 
@@ -570,6 +581,8 @@ class UI_main_window(QMainWindow, ui):
         ret = self.show_question('Warning',texts.WARNINGS['close_win'][self.language])
         if ret:
             self.close()
+            pid = os.getpid()
+            os.kill(pid,os_signal.SIGTERM)
             sys.exit()
 
     def minimize_win(self):
@@ -1948,6 +1961,7 @@ class UI_main_window(QMainWindow, ui):
         table_name.setRowCount(0)
         table_name.verticalHeader().setVisible(True)
         table_name.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        table_name.resizeRowsToContents()
 
 
     def clear_table(self,table_name):
@@ -1996,8 +2010,9 @@ class UI_main_window(QMainWindow, ui):
 
 
 
-        table_name.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        # table_name.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
+        # tableView.verticalHeader().setResizeMode(QHeaderView.ResizeToContents)
             # table_name.item(1, 1).setText("Put here whatever you want!")
 
     def set_color_table(self,avg=0,min_value=0,max_value=0,limit_min=0,limit_max=0 , avg_mode=False):

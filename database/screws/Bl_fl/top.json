@@ -1,6 +1,9 @@
 {
     "active_tools": [
-        "2_top"
+        "2_top",
+        "3_top",
+        "4_top",
+        "5_top"
     ],
     "direction": "top",
     "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/Screw-inspection - final version in yazd/sample images/temp_top/2.jpg",
@@ -10,8 +13,8 @@
             "angle": 0.9999999999999999,
             "detection_type": true,
             "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/Screw-inspection - final version in yazd/sample images/temp_top/2.jpg",
-            "lbelt": 610,
-            "rbelt": 844,
+            "lbelt": 633,
+            "rbelt": 847,
             "rect_roi0": [
                 [
                     523,

@@ -2337,7 +2337,7 @@ QPushButton:hover {
                          <enum>QFrame::Panel</enum>
                         </property>
                         <property name="currentIndex">
-                         <number>1</number>
+                         <number>0</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -2839,7 +2839,13 @@ border-color:rgb(213, 213, 213);;
                                 <number>2</number>
                                </property>
                                <layout class="QVBoxLayout" name="verticalLayout_23">
+                                <property name="leftMargin">
+                                 <number>0</number>
+                                </property>
                                 <property name="topMargin">
+                                 <number>0</number>
+                                </property>
+                                <property name="rightMargin">
                                  <number>0</number>
                                 </property>
                                 <item>
@@ -3691,33 +3697,56 @@ QPushButton:disabled {
                                  </widget>
                                 </item>
                                 <item>
-                                 <widget class="QGroupBox" name="groupBox_21">
-                                  <property name="title">
-                                   <string>Side Camera Table :</string>
+                                 <widget class="QFrame" name="frame_264">
+                                  <property name="frameShape">
+                                   <enum>QFrame::StyledPanel</enum>
                                   </property>
-                                  <layout class="QVBoxLayout" name="verticalLayout_137">
-                                   <property name="leftMargin">
-                                    <number>2</number>
+                                  <property name="frameShadow">
+                                   <enum>QFrame::Raised</enum>
+                                  </property>
+                                  <layout class="QHBoxLayout" name="horizontalLayout_226">
+                                   <property name="spacing">
+                                    <number>1</number>
                                    </property>
-                                   <property name="topMargin">
-                                    <number>2</number>
+                                   <property name="leftMargin">
+                                    <number>0</number>
                                    </property>
                                    <property name="rightMargin">
-                                    <number>2</number>
-                                   </property>
-                                   <property name="bottomMargin">
-                                    <number>2</number>
+                                    <number>0</number>
                                    </property>
                                    <item>
-                                    <widget class="QTableWidget" name="table_live_side_live_page">
-                                     <property name="styleSheet">
-                                      <string notr="true">QTableWidget {	
+                                    <widget class="QGroupBox" name="groupBox_21">
+                                     <property name="title">
+                                      <string>Side Camera Table :</string>
+                                     </property>
+                                     <layout class="QVBoxLayout" name="verticalLayout_137">
+                                      <property name="leftMargin">
+                                       <number>2</number>
+                                      </property>
+                                      <property name="topMargin">
+                                       <number>2</number>
+                                      </property>
+                                      <property name="rightMargin">
+                                       <number>2</number>
+                                      </property>
+                                      <property name="bottomMargin">
+                                       <number>2</number>
+                                      </property>
+                                      <item>
+                                       <widget class="QTableWidget" name="table_live_side_live_page">
+                                        <property name="font">
+                                         <font>
+                                          <pointsize>-1</pointsize>
+                                         </font>
+                                        </property>
+                                        <property name="styleSheet">
+                                         <string notr="true">QTableWidget {	
 	padding: 1px;
 	border-radius:1px;
 	gridline-color: rgb(190,170,160);
 	border-bottom: 1px solid rgb(180,180,180);
 	color:rgb(255,255,255);
-
+	font-size :20px;
 }
 QHeaderView::section:horizontal
 {
@@ -3735,40 +3764,54 @@ color:rgb(255,255,255);
 
 }
 </string>
-                                     </property>
-                                     <property name="sizeAdjustPolicy">
-                                      <enum>QAbstractScrollArea::AdjustToContents</enum>
-                                     </property>
-                                     <property name="editTriggers">
-                                      <set>QAbstractItemView::NoEditTriggers</set>
-                                     </property>
-                                     <property name="verticalScrollMode">
-                                      <enum>QAbstractItemView::ScrollPerPixel</enum>
-                                     </property>
-                                     <property name="horizontalScrollMode">
-                                      <enum>QAbstractItemView::ScrollPerPixel</enum>
-                                     </property>
-                                     <property name="rowCount">
-                                      <number>9</number>
-                                     </property>
-                                     <property name="columnCount">
-                                      <number>6</number>
-                                     </property>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <row/>
-                                     <column/>
-                                     <column/>
-                                     <column/>
-                                     <column/>
-                                     <column/>
-                                     <column/>
+                                        </property>
+                                        <property name="sizeAdjustPolicy">
+                                         <enum>QAbstractScrollArea::AdjustToContents</enum>
+                                        </property>
+                                        <property name="editTriggers">
+                                         <set>QAbstractItemView::NoEditTriggers</set>
+                                        </property>
+                                        <property name="verticalScrollMode">
+                                         <enum>QAbstractItemView::ScrollPerPixel</enum>
+                                        </property>
+                                        <property name="horizontalScrollMode">
+                                         <enum>QAbstractItemView::ScrollPerPixel</enum>
+                                        </property>
+                                        <property name="rowCount">
+                                         <number>9</number>
+                                        </property>
+                                        <property name="columnCount">
+                                         <number>4</number>
+                                        </property>
+                                        <row/>
+                                        <row/>
+                                        <row/>
+                                        <row/>
+                                        <row/>
+                                        <row/>
+                                        <row/>
+                                        <row/>
+                                        <row/>
+                                        <column/>
+                                        <column/>
+                                        <column/>
+                                        <column/>
+                                       </widget>
+                                      </item>
+                                      <item>
+                                       <spacer name="verticalSpacer_24">
+                                        <property name="orientation">
+                                         <enum>Qt::Vertical</enum>
+                                        </property>
+                                        <property name="sizeHint" stdset="0">
+                                         <size>
+                                          <width>20</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </spacer>
+                                      </item>
+                                     </layout>
                                     </widget>
                                    </item>
                                    <item>
@@ -3791,11 +3834,16 @@ color:rgb(255,255,255);
                                       </property>
                                       <item>
                                        <widget class="QTableWidget" name="table_live_top_live_page">
-                                        <property name="maximumSize">
-                                         <size>
-                                          <width>16777215</width>
-                                          <height>16777215</height>
-                                         </size>
+                                        <property name="sizePolicy">
+                                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                          <horstretch>0</horstretch>
+                                          <verstretch>0</verstretch>
+                                         </sizepolicy>
+                                        </property>
+                                        <property name="font">
+                                         <font>
+                                          <pointsize>-1</pointsize>
+                                         </font>
                                         </property>
                                         <property name="styleSheet">
                                          <string notr="true">QTableWidget {	
@@ -3804,6 +3852,7 @@ color:rgb(255,255,255);
 	gridline-color: rgb(190,170,160);
 	border-bottom: 1px solid rgb(180,180,180);
 	color:rgb(255,255,255);
+	font-size :20px;
 
 }
 QHeaderView::section:horizontal
@@ -3848,7 +3897,7 @@ color:rgb(255,255,255);
                                          <number>9</number>
                                         </property>
                                         <property name="columnCount">
-                                         <number>6</number>
+                                         <number>4</number>
                                         </property>
                                         <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
                                          <bool>true</bool>
@@ -3869,9 +3918,20 @@ color:rgb(255,255,255);
                                         <column/>
                                         <column/>
                                         <column/>
-                                        <column/>
-                                        <column/>
                                        </widget>
+                                      </item>
+                                      <item>
+                                       <spacer name="verticalSpacer_25">
+                                        <property name="orientation">
+                                         <enum>Qt::Vertical</enum>
+                                        </property>
+                                        <property name="sizeHint" stdset="0">
+                                         <size>
+                                          <width>20</width>
+                                          <height>40</height>
+                                         </size>
+                                        </property>
+                                       </spacer>
                                       </item>
                                      </layout>
                                     </widget>
