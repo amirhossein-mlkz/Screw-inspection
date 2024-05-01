@@ -1,28 +1,13 @@
 {
-    "active_tools": [
-        "2_top",
-        "3_top",
-        "4_top"
-    ],
+    "active_tools": [],
     "direction": "top",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P_15\\top\\0_2023-11-1__15-11.bmp",
-    "name": "P_15",
+    "img_path": "images/defualt.jpg",
+    "name": "Teesss",
     "settings": {
         "0_top": {
-            "angle": 0.6,
-            "detection_type": true,
-            "lbelt": 596,
-            "rbelt": 817,
-            "rect_roi0": [
-                [
-                    515,
-                    780
-                ],
-                [
-                    881,
-                    822
-                ]
-            ]
+            "angle": 0,
+            "lbelt": 100,
+            "rbelt": 500
         },
         "1_side": {
             "noise_filter0": 0,
@@ -40,26 +25,26 @@
             "thresh_inv0": true
         },
         "1_top": {
-            "algo": "edge_algo",
-            "belt_edge_margin": 20,
-            "d_parm1": 3,
+            "algo": "thresh_algo",
+            "belt_edge_margin": 0,
+            "d_parm1": 0,
             "d_parm3": 0,
-            "e_parm2": 6,
+            "e_parm2": 0,
             "e_parm4": 0,
-            "edge_thresh": 22,
+            "edge_thresh": 5,
             "noise_filter0": 5,
             "rect_roi0": [
                 [
-                    425,
-                    172
+                    0,
+                    0
                 ],
                 [
-                    1051,
-                    684
+                    100,
+                    100
                 ]
             ],
-            "thresh_max0": 182,
-            "thresh_min0": 70
+            "thresh_max0": 255,
+            "thresh_min0": 0
         },
         "2_side": {
             "rect_roi0": [
@@ -74,33 +59,6 @@
             ]
         },
         "2_top": {
-            "flanch": {
-                "circels_roi0": [
-                    [
-                        [
-                            642,
-                            483
-                        ],
-                        306
-                    ]
-                ],
-                "limits": {
-                    "max": {
-                        "corner": 15.1,
-                        "diameter": 17.9,
-                        "district": 14.4
-                    },
-                    "min": {
-                        "corner": 14.7,
-                        "diameter": 17.5,
-                        "district": 14.0
-                    }
-                },
-                "noise_filter0": 5,
-                "shape_type": "circel",
-                "thresh_max0": 255,
-                "thresh_min0": 0
-            },
             "none": {
                 "circels_roi0": [
                     [
@@ -113,8 +71,8 @@
                 ],
                 "noise_filter0": 5,
                 "shape_type": "circel",
-                "thresh_max0": 250,
-                "thresh_min0": 20
+                "thresh_max0": 255,
+                "thresh_min0": 0
             }
         },
         "3_side": {
@@ -151,8 +109,8 @@
                 ],
                 "min_area": 10,
                 "noise_filter0": 5,
-                "thresh_max0": 250,
-                "thresh_min0": 20
+                "thresh_max0": 255,
+                "thresh_min0": 0
             }
         },
         "4_side": {
@@ -170,22 +128,11 @@
             }
         },
         "4_top": {
-            "circels_roi0": [
-                [
-                    [
-                        634,
-                        476
-                    ],
-                    308
-                ]
-            ],
             "none": {
                 "noise_filter0": 5,
-                "thresh_max0": 250,
-                "thresh_min0": 20
-            },
-            "thresh_max0": 255,
-            "thresh_min0": 0
+                "thresh_max0": 255,
+                "thresh_min0": 0
+            }
         },
         "5_side": {
             "edge_direction": "top",

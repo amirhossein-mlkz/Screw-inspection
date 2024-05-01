@@ -1894,7 +1894,7 @@ class UI_main_window(QMainWindow, ui):
         for name, value in parms.items():
 
             name, idx = self.deasmble_name_and_idx( name )
-            if name in ['thresh_inv', 'navel_lenght','from_belt'] :
+            if name in ['thresh_inv', 'navel_lenght','from_belt', 'detection_type'] :
                 self.set_checkbox_value(name,value,page_name,idx=idx)
                 
             elif name in ['thresh', 'thresh_min', 'thresh_max', 'noise_filter', 'edge_thresh'] :
@@ -1956,7 +1956,7 @@ class UI_main_window(QMainWindow, ui):
         for i in range(table_name.rowCount()):
             table_name.removeRow(0)
 
-    def set_live_table(self,table_name,values=False):
+    def set_live_table(self,table_name,values=False, avg_mode=False):
         self.clear_table(table_name)
         table_item = QTableWidgetItem()
         str1=[]
@@ -1967,7 +1967,7 @@ class UI_main_window(QMainWindow, ui):
                 limit_min=page_value['limit_min']
                 limit_max=page_value['limit_max']
 
-                flag = self.set_color_table(page_value['avg'],page_value['min'],page_value['max'],limit_min,limit_max)
+                flag = self.set_color_table(page_value['avg'],page_value['min'],page_value['max'],limit_min,limit_max, avg_mode=avg_mode)
 
 
 
@@ -2000,14 +2000,20 @@ class UI_main_window(QMainWindow, ui):
 
             # table_name.item(1, 1).setText("Put here whatever you want!")
 
-    def set_color_table(self,avg=0,min_value=0,max_value=0,limit_min=0,limit_max=0):
-        # print('limit_min , max',value,limit_min,limit_max)
-        if min_value<limit_min or max_value>limit_max:
-            # print('min')
-            return False
-        else:
-            # print('else')
+    def set_color_table(self,avg=0,min_value=0,max_value=0,limit_min=0,limit_max=0 , avg_mode=False):
+        if avg_mode:
+            if avg<limit_min or avg > limit_max:
+                return False
             return True
+
+        else:
+        # print('limit_min , max',value,limit_min,limit_max)
+            if min_value<limit_min or max_value>limit_max:
+                # print('min')
+                return False
+            else:
+                # print('else')
+                return True
 
     def set_selected_image_live_page(self,direction,img):
 

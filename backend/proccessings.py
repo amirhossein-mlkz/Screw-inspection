@@ -97,6 +97,7 @@ def preprocessing_1_top_img( img, json,draw = None, centerise=True):
 
         edge_thresh = json.get_numerical_parm(page_name, subpage_name, 'edge_thresh')
         belt_margin = json.get_numerical_parm(page_name, subpage_name, 'belt_edge_margin')
+
         gray = None
         if len(img.shape) == 3:
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -203,10 +204,50 @@ def preprocessing_0_top_img( img, json, draw=None):
     lbelt = json.get_numerical_parm(page_name, subpage_name, 'lbelt')
     rbelt = json.get_numerical_parm(page_name, subpage_name, 'rbelt')
     angle = json.get_numerical_parm(page_name, subpage_name, 'angle')
+    detection_type  = json.get_checkbox(page_name,subpage_name,'detection_type')
+
+    img = cvTools.rotate_image(img.copy(),angle=angle)
+ 
 
 
-    img = cvTools.rotate_image(img,angle=angle)
-    
+    rect_roi = json.get_rect_roi( '0_top', None )
+    if len(img.shape) == 3:
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    else:
+        gray = img
+    if detection_type:
+        if len(rect_roi) == 2:
+            if len(rect_roi[0]) ==2 and len(rect_roi[1]) ==2:
+                y1 = rect_roi[0][1]
+                y2 = rect_roi[1][1]
+
+                x1 = rect_roi[0][0]
+                x2 = rect_roi[1][0]
+
+                x_mid = (x2 - x1) //2 + x1
+
+                crop_belt_left = gray[y1:y2 , x1:x_mid]
+                crop_belt_left = crop_belt_left.astype(np.int32)
+
+                crop_belt_right = gray[y1:y2 , x_mid:x2]
+                crop_belt_right = crop_belt_right.astype(np.int32)
+
+
+                left_ds = crop_belt_left[:,:-1] - crop_belt_left[:,1:]
+                #left_ds = np.mean(left_ds, axis=0)
+                if len(left_ds):
+                    lbelt = int(np.argmax(left_ds, axis=1).mean())
+                    lbelt = lbelt + x1
+                    json.set_numerical_parm(page_name, subpage_name, 'lbelt', lbelt)
+
+                right_ds = (crop_belt_right[:,:-1] - crop_belt_right[:,1:]) * -1
+                if len(right_ds):
+                    rbelt = int(np.argmax(right_ds, axis=1).mean())
+                    rbelt = rbelt + x_mid
+                    json.set_numerical_parm(page_name, subpage_name, 'rbelt', rbelt)
+
+
+            
 
     
     if draw is not None:
@@ -268,7 +309,7 @@ def preprocessing_side_img( img, json, rotation=True, centerise=True):
 
 
 
-def proccessing_body_lenght( img, mask, jsondb, draw=None):
+def proccessing_body_lenght( img, mask, jsondb, draw=None, calib_value=1):
     page_name = '2_side'
     subpage_name = None
     
@@ -290,9 +331,9 @@ def proccessing_body_lenght( img, mask, jsondb, draw=None):
                 'name': 'body_length',
                 'limit_min': limits['min'],
                 'limit_max': limits['max'],
-                'min': min_dist,
-                'max': max_dist,
-                'avg': avg_dist
+                'min': round(min_dist * calib_value,2),
+                'max': round(max_dist * calib_value,2),
+                'avg': round(avg_dist * calib_value,2)
                  }
 
             
@@ -327,7 +368,7 @@ def proccessing_body_lenght( img, mask, jsondb, draw=None):
     
 
     
-def proccessing_thread_male( img, mask, jsondb, draw=None):
+def proccessing_thread_male( img, mask, jsondb, draw=None, calib_value=1):
     page_name = '3_side'
     subpage_name = None
     rect_roi_2 = jsondb.get_rect_roi( page_name, subpage_name)
@@ -361,9 +402,9 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
                 dict_navel = {'name' : 'navel_lenght',
                                 'limit_min': limit_navel['min'],
                                 'limit_max': limit_navel['max'],
-                                'min' : np.min(navel_length),
-                                'max' : np.max(navel_length),
-                                'avg' : np.round( np.average(navel_length),2)
+                                'min' : round(np.min(navel_length) * calib_value,2),
+                                'max' : round(np.max(navel_length) * calib_value,2),
+                                'avg' : round(np.round( np.average(navel_length) * calib_value ,2),2)
                               }
                 
                 if draw is not None:
@@ -377,9 +418,9 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
             dict_lenght = {'name' : 'thread_male_length',
                                 'limit_min': limit_thread_lenght['min'],
                                 'limit_max': limit_thread_lenght['max'],
-                                'min': lenght_male_avg,
-                                'max': lenght_male_avg,
-                                'avg': lenght_male_avg }
+                                'min': round( lenght_male_avg * calib_value,2),
+                                'max': round(lenght_male_avg * calib_value,2),
+                                'avg': round(lenght_male_avg * calib_value,2) }
             
 
             min_s,max_s, avg_s,_  = mathTools.thread_step_distance( male_thread_h )
@@ -387,9 +428,9 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
             dict_thread_distance = {'name' : 'thread_male_distance',
                                 'limit_min': limit_thread_distance['min'],
                                 'limit_max': limit_thread_distance['max'],
-                                'min': min_s,
-                                'max': max_s,
-                                'avg': avg_s }
+                                'min': round( min_s * calib_value,2),
+                                'max': round(max_s * calib_value,2),
+                                'avg': round(avg_s * calib_value,2) }
              
             min_s,max_s, avg_s,_  = mathTools.thread_step_distance( male_thread_h )
             dict_thread_count = {'name' : 'thread_male_count',
@@ -424,7 +465,7 @@ def proccessing_thread_male( img, mask, jsondb, draw=None):
 
 
         
-def proccessing_side_diameters( img, mask, jsondb, draw=None):
+def proccessing_side_diameters( img, mask, jsondb, draw=None, calib_value=1):
     page_name = '4_side'
     results = []
 
@@ -445,9 +486,9 @@ def proccessing_side_diameters( img, mask, jsondb, draw=None):
                 res_dict = {'name' : '{} diameter'.format( subpage_name ),
                             'limit_min': limits['min'],
                             'limit_max': limits['max'],
-                            'min': min_d,
-                            'max': max_d,
-                            'avg': avg_d }
+                            'min':round( min_d * calib_value,2),
+                            'max':round( max_d * calib_value,2),
+                            'avg':round( avg_d * calib_value ,2)}
 
                 if draw is not None:
                     color = (200,50,15)
@@ -476,7 +517,7 @@ def proccessing_side_diameters( img, mask, jsondb, draw=None):
 
 
 
-def proccessing_side_head( img, mask, jsondb, draw=None):
+def proccessing_side_head( img, mask, jsondb, draw=None , calib_value=1):
     page_name = '5_side'
     subpage_name = None
     results = []
@@ -500,9 +541,9 @@ def proccessing_side_head( img, mask, jsondb, draw=None):
                 'name': 'head_height',
                 'limit_min': limits['min'],
                 'limit_max': limits['max'],
-                'min': min_dist,
-                'max': max_dist,
-                'avg': avg_dist }
+                'min': round(min_dist * calib_value,2),
+                'max': round(max_dist * calib_value,2),
+                'avg': round(avg_dist * calib_value,2) }
             
 
             if draw is not None:
@@ -520,7 +561,7 @@ def proccessing_side_head( img, mask, jsondb, draw=None):
     return results, draw
 
 
-def preprocessing_side_damage( img, mask, jsondb, draw = None):
+def preprocessing_side_damage( img, mask, jsondb, draw = None , calib_value=1):
     page_name = '6_side'
     results = []
     for subpage_name in jsondb.get_subpages(page_name):
@@ -537,9 +578,9 @@ def preprocessing_side_damage( img, mask, jsondb, draw = None):
                         'name' : '{} region_area'.format( subpage_name ),
                         'limit_min': limits['min'],
                         'limit_max': limits['max'],
-                        'min': area,
-                        'max': area,
-                        'avg': area }
+                        'min':round( area * (calib_value**2),4),
+                        'max':round( area * (calib_value**2),4),
+                        'avg':round( area * (calib_value**2),4) }
             
             results.append(res_dict)
 
@@ -579,7 +620,7 @@ def preprocessing_empty(img, mask, jsondb, draw=None):
 
 
 
-def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
+def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None , calib_value=1):
     page_name = '2_top'
     results = []
     for subpage_name in jsondb.get_subpages(page_name):
@@ -616,9 +657,9 @@ def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
                         'name' : '{} diameter'.format( subpage_name ),
                         'limit_min': limit['min'],
                         'limit_max': limit['max'],
-                        'min': diameters.min(),
-                        'max': diameters.max(),
-                        'avg': np.round(diameters.mean(),2) }
+                        'min': round(diameters.min() * calib_value,2),
+                        'max': round(diameters.max() * calib_value,2),
+                        'avg': round(np.round(diameters.mean() * calib_value,2) ,2)}
                 results.append( res_dict)
                 
             
@@ -629,9 +670,9 @@ def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
                         'name' : '{} district'.format( subpage_name ),
                         'limit_min': limit['min'],
                         'limit_max': limit['max'],
-                        'min': e2e.min(),
-                        'max': e2e.max(),
-                        'avg': np.round(e2e.mean(),2) }
+                        'min':round( e2e.min() * calib_value,2),
+                        'max':round( e2e.max() * calib_value,2),
+                        'avg':round( np.round(e2e.mean() * calib_value,2) ,2)}
                 results.append( res_dict )
                 #-----------------------------------------------
                 limit = jsondb.get_limit('corner', page_name, subpage_name)
@@ -639,9 +680,9 @@ def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
                         'name' : '{} corner'.format( subpage_name ),
                         'limit_min': limit['min'],
                         'limit_max': limit['max'],
-                        'min': c2c.min(),
-                        'max': c2c.max(),
-                        'avg': np.round(c2c.mean(),2) }
+                        'min':round( c2c.min() * calib_value,2),
+                        'max':round( c2c.max() * calib_value,2),
+                        'avg':round( np.round(c2c.mean() * calib_value,2) ,2)}
 
                 results.append( res_dict )
                 
@@ -714,7 +755,7 @@ def proccessing_top_measurment( img, mask_roi_main, jsondb, draw = None):
 
 
 
-def proccessing_top_defect( img, mask_roi_main, jsondb, draw=None):
+def proccessing_top_defect( img, mask_roi_main, jsondb, draw=None , calib_value=1):
     page_name = '3_top'
     results = []
     for subpage_name in jsondb.get_subpages(page_name):    
@@ -743,9 +784,9 @@ def proccessing_top_defect( img, mask_roi_main, jsondb, draw=None):
                     'name' : '{} defect'.format( subpage_name ),
                     'limit_min': 0,
                     'limit_max': 1,
-                    'min': lakes_ares.min(),
-                    'max': lakes_ares.max(),
-                    'avg': np.round( lakes_ares.mean(), 2 ) }
+                    'min':round( lakes_ares.min() *(calib_value**2),2),
+                    'max':round( lakes_ares.max() *(calib_value**2),2),
+                    'avg':round( np.round( lakes_ares.mean() *(calib_value**2), 2 ) ,2)}
         else:
             res_dict = {
                     'name' : '{} defect'.format( subpage_name ),
@@ -771,7 +812,7 @@ def proccessing_top_defect( img, mask_roi_main, jsondb, draw=None):
 
 
 
-def proccessing_top_edge_crack( img, mask_roi_main, jsondb, draw=None):
+def proccessing_top_edge_crack( img, mask_roi_main, jsondb, draw=None, calib_value=1):
     page_name = '4_top'
     subpage_name = None
     results = []
@@ -805,9 +846,9 @@ def proccessing_top_edge_crack( img, mask_roi_main, jsondb, draw=None):
                     'name' : 'edge_crack',
                     'limit_min': 0,
                     'limit_max': 1,
-                    'min': cracks_area.min(),
-                    'max': cracks_area.max(),
-                    'avg': np.round(cracks_area.mean(), 2) }
+                    'min':round( cracks_area.min() * (calib_value**2),2),
+                    'max':round( cracks_area.max() * (calib_value**2),2),
+                    'avg':round( np.round(cracks_area.mean() * (calib_value**2), 2) ,2)}
     else:
         res_dict = {
                     'name' : 'edge_crack',
@@ -827,7 +868,7 @@ def proccessing_top_edge_crack( img, mask_roi_main, jsondb, draw=None):
 
 
 
-def proccessing_top_centerise( img, mask, jsondb, draw=None):
+def proccessing_top_centerise( img, mask, jsondb, draw=None, calib_value=1):
     page_name = '5_top'
     subpage_name = 'flanch'
     results = []
@@ -856,9 +897,9 @@ def proccessing_top_centerise( img, mask, jsondb, draw=None):
                     'name' : 'center_dist',
                     'limit_min': limit['min'],
                     'limit_max': limit['max'],
-                    'min': dist,
-                    'max': dist,
-                    'avg': dist
+                    'min':round( dist * calib_value,2),
+                    'max':round( dist * calib_value,2),
+                    'avg':round( dist * calib_value,2)
                      }
 
     else:

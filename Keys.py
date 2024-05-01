@@ -23,6 +23,9 @@ def object_dict_builder(ui_object):
 
     self.multi_options = {
 
+       
+
+
         '1_top':
         {
             'algo':
@@ -359,6 +362,9 @@ def object_dict_builder(ui_object):
         },
         'other':
         {
+            '0_top':{
+                'checkbox_detection_type_0_top':self.checkbox_detection_type_0_top,
+            },
             '3_side':{
                 'checkbox_navel_lenght_3_side':self.checkbox_navel_lenght_3_side,
             },

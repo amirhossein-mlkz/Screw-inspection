@@ -96,7 +96,9 @@ def threshould_minmax(img, thresh_min, thresh_max , mask_roi = None):
     else:
         mask = cv2.bitwise_and( mask_min, mask_max)
 
-
+    cnt = extract_bigest_contour(mask)
+    
+    
     return mask
 
 
@@ -236,8 +238,12 @@ def filter_noise_area(mask, noise_filter=0):
     area = h * w
     noise_area = area / 5 * (noise_filter/100) #Optioanl Formula
 
-    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN,(2,2), iterations=1)
-    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE,(2,2), iterations=1)
+    #mask = cv2.dilate(mask, np.ones((2,2)), iterations=1)
+    #mask = cv2.erode(mask, np.ones((2,2)), iterations=1)
+
+    # mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN,(2,2), iterations=1)
+    #mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN,(2,2), iterations=1)
+    #mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE,(2,2), iterations=1)
     cnts,_ = cv2.findContours(mask, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
     cnts = list(cnts)
     res_cnts = list( filter(lambda x: cv2.contourArea(x)>noise_area , cnts) )
@@ -921,9 +927,12 @@ def hexagonal_measument(cnt):
     
     rect = cv2.minAreaRect(cnt)
     _,_, angle = rect
-    if angle > 45:
-        angle = angle - 90
+    print(angle)
 
+    if angle > 45:
+        angle = 90-angle
+    else:
+        angle*=-1
     angle = int(angle)
     #poly_img = rotate_image(poly_img, angle)
     diameters1 = diameters_measurment(poly_img, cnt, range(30-angle,180-angle,60))

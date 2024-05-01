@@ -105,6 +105,7 @@ class API:
         self.current_camera_imgs = {}
         self.sides=['side','top']
         self.during_set_image = False
+        self.avrage_mode = True
         #self.image_trigger_mode = False
         
         #------------------------------------------------------------------------------------------------------------------------
@@ -148,6 +149,8 @@ class API:
         cameras_info = self.db.load_cam_params(1)
 
         #sensor_detection_page
+        self.both_results = {}
+
         self.rect_roi_drawing_sensor_detection_page = Drawing.drawRect()
         self.load_detection_parms()
         self.trig_done =False
@@ -956,6 +959,11 @@ class API:
     def setup_drawing_setting(self,page_name,):        
 
         self.drawing_available = False
+        if page_name in ['0_top']:
+            self.mouse_roi_shape_type = 'rect'
+            self.mouse_roi_max_count = 1   
+            self.drawing_available = True
+
         if page_name in ['1_top', '1_side', '3_side', '4_side', '5_side', '6_side']:
             self.mouse_roi_shape_type = 'rect'
             self.mouse_roi_max_count = 1     
@@ -1305,7 +1313,12 @@ class API:
         direction = self.ui.get_setting_page_idx(direction = True)
         subpage_name = self.ui.get_sub_page_name( page_name )
 
+
         parms = self.screw_jasons[ direction ].get_setting( page_name, subpage_name )
+
+        if page_name in ['0_top', '1_side']:
+            parms['img_path'] = self.screw_jasons[ direction ].get_img_path() 
+
         if isinstance(parms,list):
             print('@'*20)
             assert False, f"parms should be dictionary, maybe you didn't define subpage 'none' for {page_name} in defaultScrew.py"
@@ -1429,6 +1442,7 @@ class API:
 
 
         if self.ui.is_drawing_mask_enabel():
+            draw = self.roi_drawings['rect'][direction].get_image(draw)
             self.ui.set_image_page_tool_labels(draw)
 
         else:
@@ -1484,7 +1498,7 @@ class API:
         img , mask_roi, draw = proccessings.preprocessing_1_top_img(img,json, )
 
 
-        results, draw = proccessings.proccessing_top_measurment(img, mask_roi, json, img.copy())
+        results, draw = proccessings.proccessing_top_measurment(img, mask_roi, json, img.copy(), calib_value=self.calibration_value['top'])
 
         info = {}
         for result in results:
@@ -1542,7 +1556,7 @@ class API:
         
         img,_ = proccessings.preprocessing_0_top_img(img,json,None)
         img , mask_roi, draw = proccessings.preprocessing_1_top_img(img,json, )
-        results, draw = proccessings.proccessing_top_defect(img, mask_roi, json, img.copy())
+        results, draw = proccessings.proccessing_top_defect(img, mask_roi, json, img.copy(), calib_value=self.calibration_value['top'])
 
 
         info={}
@@ -1579,7 +1593,7 @@ class API:
 
         img,_ = proccessings.preprocessing_0_top_img(img,json,None)
         img , mask_roi, draw = proccessings.preprocessing_1_top_img(img,json, )
-        results, draw = proccessings.proccessing_top_edge_crack(img, mask_roi, json, img.copy())
+        results, draw = proccessings.proccessing_top_edge_crack(img, mask_roi, json, img.copy(), calib_value=self.calibration_value['top'])
        
         info={}
         result =results[0]
@@ -1613,7 +1627,7 @@ class API:
 
         img,_ = proccessings.preprocessing_0_top_img(img,json,None)
         img , mask_roi, draw = proccessings.preprocessing_1_top_img(img,json, )
-        results, draw = proccessings.proccessing_top_centerise(img, mask_roi, json, img.copy())
+        results, draw = proccessings.proccessing_top_centerise(img, mask_roi, json, img.copy() , calib_value=self.calibration_value['top'])
        
         if subpage_name!='none':
             #---------1-----------------------------------------------------------------------------
@@ -1676,7 +1690,7 @@ class API:
         json = self.screw_jasons[ direction ]
         img, thresh_img, _ = proccessings.preprocessing_side_img( img, json  )
                     
-        result,img = proccessings.proccessing_body_lenght(img,thresh_img,json,draw=img)
+        result,img = proccessings.proccessing_body_lenght(img,thresh_img,json,draw=img.copy(), calib_value=self.calibration_value['side'])
 
         result=result[0]    
         info = {'min_lenght' : result['min'], 'max_lenght': result['max'], 'avg_lenght': result['avg']}  
@@ -1701,7 +1715,7 @@ class API:
         img, thresh_img, _ = proccessings.preprocessing_side_img( img, json  )
 
 
-        result,img = proccessings.proccessing_thread_male(img,thresh_img,json,draw=img)
+        result,img = proccessings.proccessing_thread_male(img,thresh_img,json,draw=img.copy(), calib_value=self.calibration_value['side'])
         
         info = {'thread_lenght': result[1]['avg'],
                 'count_thread': result[2]['avg'] , 
@@ -1730,7 +1744,7 @@ class API:
         json = self.screw_jasons[ direction ]
         img, thresh_img, _ = proccessings.preprocessing_side_img( img, json  )
     
-        results,img = proccessings.proccessing_side_diameters(img,thresh_img,json,draw=img)
+        results,img = proccessings.proccessing_side_diameters(img,thresh_img,json,draw=img.copy(), calib_value=self.calibration_value['side'])
 
         for result in results:
             if subpage_name in result['name']:
@@ -1755,7 +1769,7 @@ class API:
         json = self.screw_jasons[ direction ]
         img, thresh_img, _ = proccessings.preprocessing_side_img( img, json  )
         
-        results,img = proccessings.proccessing_side_head(img,thresh_img,json,draw=img)
+        results,img = proccessings.proccessing_side_head(img,thresh_img,json,draw=img.copy(), calib_value=self.calibration_value['side'])
 
    
         result = results[0]
@@ -1781,7 +1795,7 @@ class API:
         json = self.screw_jasons[ direction ]
         img, thresh_img, _ = proccessings.preprocessing_side_img( img, json  )
 
-        results,img = proccessings.preprocessing_side_damage(img,thresh_img,json,draw=img)
+        results,img = proccessings.preprocessing_side_damage(img,thresh_img,json,draw=img.copy(), calib_value=self.calibration_value['side'])
         
 
         for result in results:
@@ -2550,20 +2564,28 @@ class API:
             for feature in result[side]:
                 if feature['avg'] < 0:
                     continue
-                if feature['min'] < feature['limit_min']:
-                    return True
+                if self.avrage_mode:
+                    if feature['avg'] < feature['limit_min'] or feature['avg'] > feature['limit_max']:
+                        return True
+
+                else:
+                    if feature['min'] < feature['limit_min']:
+                        return True
+                    
+                    if feature['max'] > feature['limit_max']: 
+                        return True
                 
-                if feature['max'] > feature['limit_max']: 
-                    return True
             # self.his
         return False
 
 
-    def complete_proccessing(self, direction):
+    def complete_proccessing(self, direction, results):
 
         self.p_finished[direction] = True
 
-        both_results = {}
+        #both_results = {}
+        self.both_results[direction] = results
+
         if self.p_finished['top'] and self.p_finished['side']:
         
             worker = {
@@ -2579,12 +2601,11 @@ class API:
                     # draw_img = cv2.rotate( draw_img, cv2.ROTATE_90_COUNTERCLOCKWISE )
 
 
-                self.ui.set_live_table( self.ui.table_live_page[direction], worker[direction].results )
+                self.ui.set_live_table( self.ui.table_live_page[direction], self.both_results[direction], avg_mode=self.avrage_mode )
                 self.ui.set_image_label( self.ui.label_img_live[direction], draw_img )
 
-                both_results[direction] = worker[direction].results
 
-            if self.check_rejection( both_results) and not self.realtime_measurment:
+            if self.check_rejection( self.both_results) and not self.realtime_measurment:
                 print('reject')
                 self.start_reject()
             
@@ -2592,6 +2613,7 @@ class API:
             self.p_finished['side'] = False
             self.p_is_during['top'] = False
             self.p_is_during['side'] = False
+            self.both_results = {}
 
 
     def get_picture_detection_page(self):
@@ -2736,7 +2758,7 @@ class API:
 from PySide6.QtCore import Signal, QThread, QObject
 class processingTopWorker(QObject):
     finished = Signal()
-    complete = Signal(str)
+    complete = Signal(str, list)
 
     def __init__(self,screw_json, img, calib_value) -> None:
         super(processingTopWorker, self).__init__()
@@ -2755,17 +2777,17 @@ class processingTopWorker(QObject):
             self.img , mask_roi, self.draw_img = proccessings.preprocessing_1_top_img(self.img, self.screw_json, self.draw_img, centerise=True)
 
             for active_tool in self.screw_json.get_active_tools():
-                results_tools, self.draw_img = proccessings.tools_dict_top[active_tool]( self.img, mask_roi, self.screw_json, self.draw_img )
+                results_tools, self.draw_img = proccessings.tools_dict_top[active_tool]( self.img, mask_roi, self.screw_json, self.draw_img , self.calib_value)
 
                 for i in range(len(results_tools)) :
 
                     tools_name =results_tools[i]['name']
-                    if ' ' in tools_name:
-                        tools_name =tools_name.split(' ')[1]
-                    if tools_name in proccessings.calib_dict_top:
-                        for key,value in results_tools[i].items():
-                            if key!='name' :
-                                results_tools[i][key]=round(proccessings.calib_dict_top[tools_name](value,self.calib_value), 2)
+                    # if ' ' in tools_name:
+                    #     tools_name =tools_name.split(' ')[1]
+                    # if tools_name in proccessings.calib_dict_top:
+                    #     for key,value in results_tools[i].items():
+                    #         if key!='name' :
+                    #             results_tools[i][key]=round(proccessings.calib_dict_top[tools_name](value,self.calib_value), 2)
                             
                 self.results.extend(results_tools)
 
@@ -2774,7 +2796,7 @@ class processingTopWorker(QObject):
             print(e)
 
         finally:
-            self.complete.emit('top')
+            self.complete.emit('top', self.results)
             self.finished.emit()
 
 
@@ -2782,7 +2804,7 @@ class processingTopWorker(QObject):
 
 class processingSideWorker(QObject):
     finished = Signal()
-    complete = Signal(str)
+    complete = Signal(str, list)
 
     def __init__(self,screw_json, img, calib_value) -> None:
         super(processingSideWorker, self).__init__()
@@ -2803,18 +2825,18 @@ class processingSideWorker(QObject):
             self.draw_img = Utils.mask_viewer(self.draw_img, mask_roi, color=(0,10,150))
         
             for active_tool in self.screw_json.get_active_tools():
-                results_tools, self.draw_img = proccessings.tools_dict_side[active_tool]( self.img, mask_roi, self.screw_json, self.draw_img  )
+                results_tools, self.draw_img = proccessings.tools_dict_side[active_tool]( self.img, mask_roi, self.screw_json, self.draw_img , self.calib_value )
 
-                for i in range(len(results_tools)) :
+                # for i in range(len(results_tools)) :
 
-                    tools_name =results_tools[i]['name']
-                    if ' ' in tools_name:
-                        tools_name =tools_name.split(' ')[1]
+                #     tools_name =results_tools[i]['name']
+                #     if ' ' in tools_name:
+                #         tools_name =tools_name.split(' ')[1]
 
-                    if tools_name in proccessings.calib_dict_side:
-                        for key,value in results_tools[i].items():
-                            if key != 'name':
-                                results_tools[i][key]=round(proccessings.calib_dict_side[tools_name](value,self.calib_value),2)
+                #     if tools_name in proccessings.calib_dict_side:
+                #         for key,value in results_tools[i].items():
+                #             if key != 'name':
+                #                 results_tools[i][key]=round(proccessings.calib_dict_side[tools_name](value,self.calib_value),2)
                 self.results.extend(results_tools)
 
             self.results.sort( key = lambda x:x['name'])
@@ -2823,5 +2845,5 @@ class processingSideWorker(QObject):
             print(e)
 
         finally:
-            self.complete.emit('side')
+            self.complete.emit('side', self.results)
             self.finished.emit()

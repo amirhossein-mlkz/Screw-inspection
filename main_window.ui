@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1200</width>
-    <height>847</height>
+    <height>848</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1169,7 +1169,7 @@ Button */
                      </property>
                      <property name="icon">
                       <iconset>
-                       <normaloff>../../home/milad/.designer/backup/images/login_white.png</normaloff>../../home/milad/.designer/backup/images/login_white.png</iconset>
+                       <normaloff>../home/milad/.designer/backup/images/login_white.png</normaloff>../home/milad/.designer/backup/images/login_white.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -1640,7 +1640,7 @@ text-align:left;</string>
                          <string/>
                         </property>
                         <property name="pixmap">
-                         <pixmap>../../home/milad/.designer/backup/images/images/whitew.png</pixmap>
+                         <pixmap>../home/milad/.designer/backup/images/images/whitew.png</pixmap>
                         </property>
                         <property name="scaledContents">
                          <bool>true</bool>
@@ -1819,7 +1819,7 @@ QPushButton:hover {
                            </property>
                            <property name="icon">
                             <iconset>
-                             <normaloff>../../home/milad/.designer/backup/images/enter.png</normaloff>../../home/milad/.designer/backup/images/enter.png</iconset>
+                             <normaloff>../home/milad/.designer/backup/images/enter.png</normaloff>../home/milad/.designer/backup/images/enter.png</iconset>
                            </property>
                            <property name="iconSize">
                             <size>
@@ -2337,7 +2337,7 @@ QPushButton:hover {
                          <enum>QFrame::Panel</enum>
                         </property>
                         <property name="currentIndex">
-                         <number>0</number>
+                         <number>1</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -3389,7 +3389,7 @@ border-color:rgb(213, 213, 213);;
                                             <string/>
                                            </property>
                                            <property name="pixmap">
-                                            <pixmap>../../home/milad/.designer/backup/sample images/New folder/31x_1_2.png</pixmap>
+                                            <pixmap>../home/milad/.designer/backup/sample images/New folder/31x_1_2.png</pixmap>
                                            </property>
                                            <property name="scaledContents">
                                             <bool>true</bool>
@@ -3464,7 +3464,7 @@ border-color:rgb(213, 213, 213);;
                                             <string/>
                                            </property>
                                            <property name="pixmap">
-                                            <pixmap>../../home/milad/.designer/backup/sample images/New folder/42x_0_20.png</pixmap>
+                                            <pixmap>../home/milad/.designer/backup/sample images/New folder/42x_0_20.png</pixmap>
                                            </property>
                                            <property name="scaledContents">
                                             <bool>true</bool>
@@ -6341,7 +6341,7 @@ QPushButton:disabled{
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>2</number>
+                                   <number>0</number>
                                   </property>
                                   <widget class="QWidget" name="page_0_top">
                                    <layout class="QVBoxLayout" name="verticalLayout_145">
@@ -6474,6 +6474,13 @@ QPushButton:disabled{
                                        <enum>QFrame::Raised</enum>
                                       </property>
                                       <layout class="QVBoxLayout" name="verticalLayout_138">
+                                       <item>
+                                        <widget class="QRadioButton" name="checkbox_detection_type_0_top">
+                                         <property name="text">
+                                          <string>Auto Detection</string>
+                                         </property>
+                                        </widget>
+                                       </item>
                                        <item>
                                         <widget class="QFrame" name="frame_235">
                                          <property name="frameShape">
@@ -6893,7 +6900,7 @@ border-radius : 5px;</string>
                                                 </size>
                                                </property>
                                                <property name="currentIndex">
-                                                <number>0</number>
+                                                <number>1</number>
                                                </property>
                                                <widget class="QWidget" name="page_edge">
                                                 <layout class="QVBoxLayout" name="verticalLayout_147">
@@ -8172,7 +8179,7 @@ border-radius : 5px;</string>
                                           </size>
                                          </property>
                                          <property name="currentIndex">
-                                          <number>1</number>
+                                          <number>0</number>
                                          </property>
                                          <widget class="QWidget" name="page_circle">
                                           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -8309,12 +8316,18 @@ border-radius : 5px;</string>
                                                </widget>
                                               </item>
                                               <item>
-                                               <widget class="QSpinBox" name="spin_min_diameter_2_top">
-                                                <property name="maximum">
-                                                 <number>20000</number>
+                                               <widget class="QDoubleSpinBox" name="spin_min_diameter_2_top">
+                                                <property name="maximumSize">
+                                                 <size>
+                                                  <width>66</width>
+                                                  <height>16777215</height>
+                                                 </size>
                                                 </property>
-                                                <property name="singleStep">
-                                                 <number>5</number>
+                                                <property name="decimals">
+                                                 <number>2</number>
+                                                </property>
+                                                <property name="maximum">
+                                                 <double>200000.000000000000000</double>
                                                 </property>
                                                </widget>
                                               </item>
@@ -8326,12 +8339,18 @@ border-radius : 5px;</string>
                                                </widget>
                                               </item>
                                               <item>
-                                               <widget class="QSpinBox" name="spin_max_diameter_2_top">
-                                                <property name="maximum">
-                                                 <number>20000</number>
+                                               <widget class="QDoubleSpinBox" name="spin_max_diameter_2_top">
+                                                <property name="maximumSize">
+                                                 <size>
+                                                  <width>66</width>
+                                                  <height>16777215</height>
+                                                 </size>
                                                 </property>
-                                                <property name="singleStep">
-                                                 <number>5</number>
+                                                <property name="decimals">
+                                                 <number>2</number>
+                                                </property>
+                                                <property name="maximum">
+                                                 <double>200000.000000000000000</double>
                                                 </property>
                                                </widget>
                                               </item>
@@ -8516,18 +8535,18 @@ border-radius : 5px;</string>
                                                   </widget>
                                                  </item>
                                                  <item>
-                                                  <widget class="QSpinBox" name="spin_min_district_2_top">
+                                                  <widget class="QDoubleSpinBox" name="spin_min_district_2_top">
                                                    <property name="maximumSize">
                                                     <size>
-                                                     <width>48</width>
+                                                     <width>66</width>
                                                      <height>16777215</height>
                                                     </size>
                                                    </property>
-                                                   <property name="maximum">
-                                                    <number>20000</number>
+                                                   <property name="decimals">
+                                                    <number>2</number>
                                                    </property>
-                                                   <property name="singleStep">
-                                                    <number>5</number>
+                                                   <property name="maximum">
+                                                    <double>200000.000000000000000</double>
                                                    </property>
                                                   </widget>
                                                  </item>
@@ -8539,18 +8558,18 @@ border-radius : 5px;</string>
                                                   </widget>
                                                  </item>
                                                  <item>
-                                                  <widget class="QSpinBox" name="spin_max_district_2_top">
+                                                  <widget class="QDoubleSpinBox" name="spin_max_district_2_top">
                                                    <property name="maximumSize">
                                                     <size>
-                                                     <width>44</width>
+                                                     <width>66</width>
                                                      <height>16777215</height>
                                                     </size>
                                                    </property>
-                                                   <property name="maximum">
-                                                    <number>20000</number>
+                                                   <property name="decimals">
+                                                    <number>2</number>
                                                    </property>
-                                                   <property name="singleStep">
-                                                    <number>5</number>
+                                                   <property name="maximum">
+                                                    <double>200000.000000000000000</double>
                                                    </property>
                                                   </widget>
                                                  </item>
@@ -8688,18 +8707,18 @@ border-radius : 5px;</string>
                                                </widget>
                                               </item>
                                               <item>
-                                               <widget class="QSpinBox" name="spin_min_corner_2_top">
+                                               <widget class="QDoubleSpinBox" name="spin_min_corner_2_top">
                                                 <property name="maximumSize">
                                                  <size>
-                                                  <width>48</width>
+                                                  <width>66</width>
                                                   <height>16777215</height>
                                                  </size>
                                                 </property>
-                                                <property name="maximum">
-                                                 <number>20000</number>
+                                                <property name="decimals">
+                                                 <number>2</number>
                                                 </property>
-                                                <property name="singleStep">
-                                                 <number>5</number>
+                                                <property name="maximum">
+                                                 <double>200000.000000000000000</double>
                                                 </property>
                                                </widget>
                                               </item>
@@ -8711,18 +8730,18 @@ border-radius : 5px;</string>
                                                </widget>
                                               </item>
                                               <item>
-                                               <widget class="QSpinBox" name="spin_max_corner_2_top">
+                                               <widget class="QDoubleSpinBox" name="spin_max_corner_2_top">
                                                 <property name="maximumSize">
                                                  <size>
-                                                  <width>44</width>
+                                                  <width>66</width>
                                                   <height>16777215</height>
                                                  </size>
                                                 </property>
-                                                <property name="maximum">
-                                                 <number>20000</number>
+                                                <property name="decimals">
+                                                 <number>2</number>
                                                 </property>
-                                                <property name="singleStep">
-                                                 <number>5</number>
+                                                <property name="maximum">
+                                                 <double>200000.000000000000000</double>
                                                 </property>
                                                </widget>
                                               </item>
@@ -9944,12 +9963,18 @@ QPushButton:disabled{
                                      </widget>
                                     </item>
                                     <item>
-                                     <widget class="QSpinBox" name="spin_min_area_4_top">
-                                      <property name="maximum">
-                                       <number>5000</number>
+                                     <widget class="QDoubleSpinBox" name="spin_min_area_4_top">
+                                      <property name="maximumSize">
+                                       <size>
+                                        <width>16777215</width>
+                                        <height>16777215</height>
+                                       </size>
                                       </property>
-                                      <property name="singleStep">
-                                       <number>10</number>
+                                      <property name="decimals">
+                                       <number>2</number>
+                                      </property>
+                                      <property name="maximum">
+                                       <double>200000.000000000000000</double>
                                       </property>
                                      </widget>
                                     </item>
@@ -10390,12 +10415,18 @@ QPushButton:disabled{
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="spin_min_distance_5_top">
-                                            <property name="maximum">
-                                             <number>20000</number>
+                                           <widget class="QDoubleSpinBox" name="spin_min_distance_5_top">
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>66</width>
+                                              <height>16777215</height>
+                                             </size>
                                             </property>
-                                            <property name="singleStep">
-                                             <number>5</number>
+                                            <property name="decimals">
+                                             <number>2</number>
+                                            </property>
+                                            <property name="maximum">
+                                             <double>200000.000000000000000</double>
                                             </property>
                                            </widget>
                                           </item>
@@ -10407,12 +10438,18 @@ QPushButton:disabled{
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="spin_max_distance_5_top">
-                                            <property name="maximum">
-                                             <number>20000</number>
+                                           <widget class="QDoubleSpinBox" name="spin_max_distance_5_top">
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>66</width>
+                                              <height>16777215</height>
+                                             </size>
                                             </property>
-                                            <property name="singleStep">
-                                             <number>5</number>
+                                            <property name="decimals">
+                                             <number>2</number>
+                                            </property>
+                                            <property name="maximum">
+                                             <double>200000.000000000000000</double>
                                             </property>
                                            </widget>
                                           </item>
@@ -11669,12 +11706,18 @@ QPushButton:disabled{
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="spin_min_lenght_2_side">
-                                            <property name="maximum">
-                                             <number>20000</number>
+                                           <widget class="QDoubleSpinBox" name="spin_min_lenght_2_side">
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>66</width>
+                                              <height>16777215</height>
+                                             </size>
                                             </property>
-                                            <property name="singleStep">
-                                             <number>5</number>
+                                            <property name="decimals">
+                                             <number>2</number>
+                                            </property>
+                                            <property name="maximum">
+                                             <double>200000.000000000000000</double>
                                             </property>
                                            </widget>
                                           </item>
@@ -11686,12 +11729,18 @@ QPushButton:disabled{
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="spin_max_lenght_2_side">
-                                            <property name="maximum">
-                                             <number>20000</number>
+                                           <widget class="QDoubleSpinBox" name="spin_max_lenght_2_side">
+                                            <property name="maximumSize">
+                                             <size>
+                                              <width>66</width>
+                                              <height>16777215</height>
+                                             </size>
                                             </property>
-                                            <property name="singleStep">
-                                             <number>5</number>
+                                            <property name="decimals">
+                                             <number>2</number>
+                                            </property>
+                                            <property name="maximum">
+                                             <double>200000.000000000000000</double>
                                             </property>
                                            </widget>
                                           </item>
@@ -12140,18 +12189,18 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_min_thread_lenght_3_side">
+                                        <widget class="QDoubleSpinBox" name="spin_min_thread_lenght_3_side">
                                          <property name="maximumSize">
                                           <size>
-                                           <width>50</width>
+                                           <width>66</width>
                                            <height>16777215</height>
                                           </size>
                                          </property>
-                                         <property name="maximum">
-                                          <number>20000</number>
+                                         <property name="decimals">
+                                          <number>2</number>
                                          </property>
-                                         <property name="singleStep">
-                                          <number>5</number>
+                                         <property name="maximum">
+                                          <double>200000.000000000000000</double>
                                          </property>
                                         </widget>
                                        </item>
@@ -12163,18 +12212,18 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_max_thread_lenght_3_side">
+                                        <widget class="QDoubleSpinBox" name="spin_max_thread_lenght_3_side">
                                          <property name="maximumSize">
                                           <size>
-                                           <width>50</width>
+                                           <width>66</width>
                                            <height>16777215</height>
                                           </size>
                                          </property>
-                                         <property name="maximum">
-                                          <number>20000</number>
+                                         <property name="decimals">
+                                          <number>2</number>
                                          </property>
-                                         <property name="singleStep">
-                                          <number>5</number>
+                                         <property name="maximum">
+                                          <double>200000.000000000000000</double>
                                          </property>
                                         </widget>
                                        </item>
@@ -12215,18 +12264,18 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_min_thread_count_3_side">
+                                        <widget class="QDoubleSpinBox" name="spin_min_thread_count_3_side">
                                          <property name="maximumSize">
                                           <size>
-                                           <width>50</width>
+                                           <width>66</width>
                                            <height>16777215</height>
                                           </size>
                                          </property>
-                                         <property name="maximum">
-                                          <number>20000</number>
+                                         <property name="decimals">
+                                          <number>2</number>
                                          </property>
-                                         <property name="singleStep">
-                                          <number>5</number>
+                                         <property name="maximum">
+                                          <double>200000.000000000000000</double>
                                          </property>
                                         </widget>
                                        </item>
@@ -12238,18 +12287,18 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_max_thread_count_3_side">
+                                        <widget class="QDoubleSpinBox" name="spin_max_thread_count_3_side">
                                          <property name="maximumSize">
                                           <size>
-                                           <width>50</width>
+                                           <width>66</width>
                                            <height>16777215</height>
                                           </size>
                                          </property>
-                                         <property name="maximum">
-                                          <number>20000</number>
+                                         <property name="decimals">
+                                          <number>2</number>
                                          </property>
-                                         <property name="singleStep">
-                                          <number>5</number>
+                                         <property name="maximum">
+                                          <double>200000.000000000000000</double>
                                          </property>
                                         </widget>
                                        </item>
@@ -12290,18 +12339,18 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_min_thread_distance_3_side">
+                                        <widget class="QDoubleSpinBox" name="spin_min_thread_distance_3_side">
                                          <property name="maximumSize">
                                           <size>
-                                           <width>50</width>
+                                           <width>66</width>
                                            <height>16777215</height>
                                           </size>
                                          </property>
-                                         <property name="maximum">
-                                          <number>20000</number>
+                                         <property name="decimals">
+                                          <number>2</number>
                                          </property>
-                                         <property name="singleStep">
-                                          <number>5</number>
+                                         <property name="maximum">
+                                          <double>200000.000000000000000</double>
                                          </property>
                                         </widget>
                                        </item>
@@ -12313,18 +12362,18 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_max_thread_distance_3_side">
+                                        <widget class="QDoubleSpinBox" name="spin_max_thread_distance_3_side">
                                          <property name="maximumSize">
                                           <size>
-                                           <width>50</width>
+                                           <width>66</width>
                                            <height>16777215</height>
                                           </size>
                                          </property>
-                                         <property name="maximum">
-                                          <number>20000</number>
+                                         <property name="decimals">
+                                          <number>2</number>
                                          </property>
-                                         <property name="singleStep">
-                                          <number>5</number>
+                                         <property name="maximum">
+                                          <double>200000.000000000000000</double>
                                          </property>
                                         </widget>
                                        </item>
@@ -12397,18 +12446,18 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_min_navel_lenght_3_side">
+                                        <widget class="QDoubleSpinBox" name="spin_min_navel_lenght_3_side">
                                          <property name="maximumSize">
                                           <size>
-                                           <width>50</width>
+                                           <width>66</width>
                                            <height>16777215</height>
                                           </size>
                                          </property>
-                                         <property name="maximum">
-                                          <number>20000</number>
+                                         <property name="decimals">
+                                          <number>2</number>
                                          </property>
-                                         <property name="singleStep">
-                                          <number>5</number>
+                                         <property name="maximum">
+                                          <double>200000.000000000000000</double>
                                          </property>
                                         </widget>
                                        </item>
@@ -12420,18 +12469,18 @@ QPushButton:disabled{
                                         </widget>
                                        </item>
                                        <item>
-                                        <widget class="QSpinBox" name="spin_max_navel_lenght_3_side">
+                                        <widget class="QDoubleSpinBox" name="spin_max_navel_lenght_3_side">
                                          <property name="maximumSize">
                                           <size>
-                                           <width>50</width>
+                                           <width>66</width>
                                            <height>16777215</height>
                                           </size>
                                          </property>
-                                         <property name="maximum">
-                                          <number>20000</number>
+                                         <property name="decimals">
+                                          <number>2</number>
                                          </property>
-                                         <property name="singleStep">
-                                          <number>5</number>
+                                         <property name="maximum">
+                                          <double>200000.000000000000000</double>
                                          </property>
                                         </widget>
                                        </item>
@@ -12703,6 +12752,12 @@ QPushButton:disabled{
                                     </item>
                                     <item>
                                      <widget class="QFrame" name="frame_141">
+                                      <property name="minimumSize">
+                                       <size>
+                                        <width>0</width>
+                                        <height>0</height>
+                                       </size>
+                                      </property>
                                       <property name="maximumSize">
                                        <size>
                                         <width>16777215</width>
@@ -13012,18 +13067,18 @@ QPushButton:disabled{
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="spin_min_body_diameter_4_side">
+                                           <widget class="QDoubleSpinBox" name="spin_min_body_diameter_4_side">
                                             <property name="maximumSize">
                                              <size>
-                                              <width>50</width>
+                                              <width>66</width>
                                               <height>16777215</height>
                                              </size>
                                             </property>
-                                            <property name="maximum">
-                                             <number>20000</number>
+                                            <property name="decimals">
+                                             <number>2</number>
                                             </property>
-                                            <property name="singleStep">
-                                             <number>5</number>
+                                            <property name="maximum">
+                                             <double>200000.000000000000000</double>
                                             </property>
                                            </widget>
                                           </item>
@@ -13048,18 +13103,18 @@ QPushButton:disabled{
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="spin_max_body_diameter_4_side">
+                                           <widget class="QDoubleSpinBox" name="spin_max_body_diameter_4_side">
                                             <property name="maximumSize">
                                              <size>
-                                              <width>50</width>
+                                              <width>66</width>
                                               <height>16777215</height>
                                              </size>
                                             </property>
-                                            <property name="maximum">
-                                             <number>20000</number>
+                                            <property name="decimals">
+                                             <number>2</number>
                                             </property>
-                                            <property name="singleStep">
-                                             <number>5</number>
+                                            <property name="maximum">
+                                             <double>200000.000000000000000</double>
                                             </property>
                                            </widget>
                                           </item>
@@ -13597,18 +13652,18 @@ QPushButton:disabled{
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="spin_min_height_5_side">
+                                           <widget class="QDoubleSpinBox" name="spin_min_height_5_side">
                                             <property name="maximumSize">
                                              <size>
-                                              <width>50</width>
+                                              <width>66</width>
                                               <height>16777215</height>
                                              </size>
                                             </property>
-                                            <property name="maximum">
-                                             <number>20000</number>
+                                            <property name="decimals">
+                                             <number>2</number>
                                             </property>
-                                            <property name="singleStep">
-                                             <number>5</number>
+                                            <property name="maximum">
+                                             <double>200000.000000000000000</double>
                                             </property>
                                            </widget>
                                           </item>
@@ -13620,18 +13675,18 @@ QPushButton:disabled{
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="spin_max_height_5_side">
+                                           <widget class="QDoubleSpinBox" name="spin_max_height_5_side">
                                             <property name="maximumSize">
                                              <size>
-                                              <width>50</width>
+                                              <width>66</width>
                                               <height>16777215</height>
                                              </size>
                                             </property>
-                                            <property name="maximum">
-                                             <number>20000</number>
+                                            <property name="decimals">
+                                             <number>2</number>
                                             </property>
-                                            <property name="singleStep">
-                                             <number>5</number>
+                                            <property name="maximum">
+                                             <double>200000.000000000000000</double>
                                             </property>
                                            </widget>
                                           </item>
@@ -14170,18 +14225,18 @@ QPushButton:disabled{
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="spin_min_damage_6_side">
+                                           <widget class="QDoubleSpinBox" name="spin_min_damage_6_side">
                                             <property name="maximumSize">
                                              <size>
-                                              <width>50</width>
+                                              <width>66</width>
                                               <height>16777215</height>
                                              </size>
                                             </property>
-                                            <property name="maximum">
-                                             <number>20000</number>
+                                            <property name="decimals">
+                                             <number>2</number>
                                             </property>
-                                            <property name="singleStep">
-                                             <number>5</number>
+                                            <property name="maximum">
+                                             <double>200000.000000000000000</double>
                                             </property>
                                            </widget>
                                           </item>
@@ -14193,18 +14248,18 @@ QPushButton:disabled{
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="spin_max_damage_6_side">
+                                           <widget class="QDoubleSpinBox" name="spin_max_damage_6_side">
                                             <property name="maximumSize">
                                              <size>
-                                              <width>50</width>
+                                              <width>66</width>
                                               <height>16777215</height>
                                              </size>
                                             </property>
-                                            <property name="maximum">
-                                             <number>20000</number>
+                                            <property name="decimals">
+                                             <number>2</number>
                                             </property>
-                                            <property name="singleStep">
-                                             <number>5</number>
+                                            <property name="maximum">
+                                             <double>200000.000000000000000</double>
                                             </property>
                                            </widget>
                                           </item>
@@ -15002,7 +15057,7 @@ border-color:Transparent</string>
                                        </property>
                                        <property name="icon">
                                         <iconset>
-                                         <normaloff>../../.designer/backup/images/camtop.png</normaloff>../../.designer/backup/images/camtop.png</iconset>
+                                         <normaloff>../.designer/backup/images/camtop.png</normaloff>../.designer/backup/images/camtop.png</iconset>
                                        </property>
                                        <property name="iconSize">
                                         <size>
@@ -15026,7 +15081,7 @@ border-color:Transparent</string>
                                        </property>
                                        <property name="icon">
                                         <iconset>
-                                         <normaloff>../../.designer/backup/images/camside.png</normaloff>../../.designer/backup/images/camside.png</iconset>
+                                         <normaloff>../.designer/backup/images/camside.png</normaloff>../.designer/backup/images/camside.png</iconset>
                                        </property>
                                        <property name="iconSize">
                                         <size>
@@ -16527,7 +16582,7 @@ background-color: rgb(153, 193, 241);</string>
                                       <string/>
                                      </property>
                                      <property name="pixmap">
-                                      <pixmap>../../home/milad/.designer/backup/images/camera.png</pixmap>
+                                      <pixmap>../home/milad/.designer/backup/images/camera.png</pixmap>
                                      </property>
                                      <property name="scaledContents">
                                       <bool>false</bool>
@@ -16672,7 +16727,7 @@ QPushButton:pressed {
                                      </property>
                                      <property name="icon">
                                       <iconset>
-                                       <normaloff>../../.designer/backup/images/full-screen.png</normaloff>../../.designer/backup/images/full-screen.png</iconset>
+                                       <normaloff>../.designer/backup/images/full-screen.png</normaloff>../.designer/backup/images/full-screen.png</iconset>
                                      </property>
                                      <property name="iconSize">
                                       <size>
@@ -16728,7 +16783,7 @@ QPushButton:pressed {
                                       <string/>
                                      </property>
                                      <property name="pixmap">
-                                      <pixmap>../../home/milad/.designer/backup/images/camera.png</pixmap>
+                                      <pixmap>../home/milad/.designer/backup/images/camera.png</pixmap>
                                      </property>
                                      <property name="scaledContents">
                                       <bool>false</bool>
@@ -16870,7 +16925,7 @@ QPushButton:pressed {
                                      </property>
                                      <property name="icon">
                                       <iconset>
-                                       <normaloff>../../.designer/backup/images/full-screen.png</normaloff>../../.designer/backup/images/full-screen.png</iconset>
+                                       <normaloff>../.designer/backup/images/full-screen.png</normaloff>../.designer/backup/images/full-screen.png</iconset>
                                      </property>
                                      <property name="iconSize">
                                       <size>
@@ -17148,7 +17203,7 @@ QPushButton:pressed {
                                       <string/>
                                      </property>
                                      <property name="pixmap">
-                                      <pixmap>../../home/milad/.designer/backup/images/settings.png</pixmap>
+                                      <pixmap>../home/milad/.designer/backup/images/settings.png</pixmap>
                                      </property>
                                      <property name="scaledContents">
                                       <bool>true</bool>
@@ -17791,7 +17846,7 @@ QPushButton:pressed {
                                       <string/>
                                      </property>
                                      <property name="pixmap">
-                                      <pixmap>../../home/milad/.designer/backup/images/settings.png</pixmap>
+                                      <pixmap>../home/milad/.designer/backup/images/settings.png</pixmap>
                                      </property>
                                      <property name="scaledContents">
                                       <bool>true</bool>
@@ -18294,8 +18349,8 @@ QPushButton:pressed {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>276</width>
-                                  <height>751</height>
+                                  <width>67</width>
+                                  <height>67</height>
                                  </rect>
                                 </property>
                                 <layout class="QHBoxLayout" name="horizontalLayout_29">

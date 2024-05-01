@@ -6,6 +6,18 @@
     "img_path": "images//defualt.jpg",
     "name": "P3",
     "settings": {
+        "0_top":{
+            "rect_roi0": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    60,
+                    60
+                ]
+            ]
+        },
         "1_top": {
             "img_path": "images//defualt.jpg",
             "noise_filter0": 5,
