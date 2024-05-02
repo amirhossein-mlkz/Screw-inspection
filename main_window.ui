@@ -2337,7 +2337,7 @@ QPushButton:hover {
                          <enum>QFrame::Panel</enum>
                         </property>
                         <property name="currentIndex">
-                         <number>0</number>
+                         <number>1</number>
                         </property>
                         <widget class="QWidget" name="page_dashboard">
                          <property name="styleSheet">
@@ -6401,7 +6401,7 @@ QPushButton:disabled{
                                    </size>
                                   </property>
                                   <property name="currentIndex">
-                                   <number>0</number>
+                                   <number>3</number>
                                   </property>
                                   <widget class="QWidget" name="page_0_top">
                                    <layout class="QVBoxLayout" name="verticalLayout_145">
@@ -9583,24 +9583,15 @@ QPushButton:disabled{
                                            </widget>
                                           </item>
                                           <item>
-                                           <widget class="QSpinBox" name="spin_min_area_3_top">
+                                           <widget class="QDoubleSpinBox" name="spin_min_area_3_top">
                                             <property name="minimumSize">
                                              <size>
                                               <width>100</width>
                                               <height>0</height>
                                              </size>
                                             </property>
-                                            <property name="maximumSize">
-                                             <size>
-                                              <width>200</width>
-                                              <height>16777215</height>
-                                             </size>
-                                            </property>
-                                            <property name="maximum">
-                                             <number>999999</number>
-                                            </property>
-                                            <property name="singleStep">
-                                             <number>10</number>
+                                            <property name="decimals">
+                                             <number>4</number>
                                             </property>
                                            </widget>
                                           </item>
@@ -18409,7 +18400,7 @@ QPushButton:pressed {
                                  <rect>
                                   <x>0</x>
                                   <y>0</y>
-                                  <width>67</width>
+                                  <width>92</width>
                                   <height>67</height>
                                  </rect>
                                 </property>

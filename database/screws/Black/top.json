@@ -3,23 +3,23 @@
         "2_top"
     ],
     "direction": "top",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/Screw-inspection - final version in yazd/sample images/temp_top/2.jpg",
-    "name": "Bl_fl",
+    "img_path": "images/defualt.jpg",
+    "name": "Black",
     "settings": {
         "0_top": {
-            "angle": 0.9999999999999999,
+            "angle": 0,
             "detection_type": true,
-            "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/Screw-inspection - final version in yazd/sample images/temp_top/2.jpg",
-            "lbelt": 600,
-            "rbelt": 831,
+            "img_path": "images/defualt.jpg",
+            "lbelt": 573,
+            "rbelt": 856,
             "rect_roi0": [
                 [
-                    523,
-                    777
+                    515,
+                    828
                 ],
                 [
-                    940,
-                    832
+                    889,
+                    867
                 ]
             ]
         },
@@ -40,24 +40,24 @@
         },
         "1_top": {
             "algo": "thresh_algo",
-            "belt_edge_margin": 0,
+            "belt_edge_margin": 30,
             "d_parm1": 0,
             "d_parm3": 0,
             "e_parm2": 0,
             "e_parm4": 0,
-            "edge_thresh": 11,
-            "noise_filter0": 10,
+            "edge_thresh": 5,
+            "noise_filter0": 5,
             "rect_roi0": [
                 [
-                    404,
-                    214
+                    361,
+                    208
                 ],
                 [
-                    1038,
-                    656
+                    1064,
+                    755
                 ]
             ],
-            "thresh_max0": 147,
+            "thresh_max0": 145,
             "thresh_min0": 0
         },
         "2_side": {
@@ -80,23 +80,23 @@
                             642,
                             476
                         ],
-                        352
+                        303
                     ]
                 ],
                 "limits": {
                     "max": {
-                        "corner": 17.7,
+                        "corner": 0.0,
                         "diameter": 23.0,
-                        "district": 17.0
+                        "district": 0.0
                     },
                     "min": {
-                        "corner": 17.2,
+                        "corner": 0.0,
                         "diameter": 22.0,
-                        "district": 16.5
+                        "district": 0.0
                     }
                 },
                 "noise_filter0": 5,
-                "shape_type": "hexagonal",
+                "shape_type": "circel",
                 "thresh_max0": 255,
                 "thresh_min0": 0
             },
@@ -104,10 +104,10 @@
                 "circels_roi0": [
                     [
                         [
-                            634,
-                            480
+                            100,
+                            100
                         ],
-                        359
+                        50
                     ]
                 ],
                 "noise_filter0": 5,
@@ -138,14 +138,14 @@
                             100,
                             100
                         ],
-                        50
+                        30
                     ],
                     [
                         [
                             100,
                             100
                         ],
-                        30
+                        50
                     ]
                 ],
                 "min_area": 10,

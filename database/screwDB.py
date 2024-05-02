@@ -190,13 +190,16 @@ class screwJson():
     #-----------------------------------------
     def set_circels_roi(self, page, subpage, shapes, idx=0):
         name = 'circels_roi{}'.format(idx)
+        if len(shapes):
+            shapes.sort(key= lambda x : x[1] )
         self.set_value( page, subpage, name, shapes)
 
     def get_circels_roi(self, page, subpage, idx=0):
         name = 'circels_roi{}'.format(idx)
         circles = self.get_value( page, subpage, name, [])
-        circles.sort(key= lambda x : x[1] )
-        return circles
+        if len(circles):
+            circles.sort(key= lambda x : x[1] )
+        return circles.copy()
     
 
     #-----------------------------------------

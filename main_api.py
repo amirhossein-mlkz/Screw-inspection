@@ -1247,7 +1247,7 @@ class API:
 
                     self.ui.set_roi_value('circle_roi', circle_dict)
 
-
+  
 
 
         
@@ -1300,6 +1300,9 @@ class API:
             # if len(items) > self.ui.get_selected_list_pack_count('sub_pages'):
             self.ui.set_list_pack_items( 'sub_pages', items )
             subpage_name = self.ui.get_sub_page_name( page_name )
+        
+        activate_tools = self.ui.get_activate_pages(direction = direction)
+        self.screw_jasons[direction].set_active_tools(activate_tools)
         #-----------loade limits --------------------
         self.setup_drawing_setting(page_name)
         self.refresh_page()

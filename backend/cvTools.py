@@ -236,7 +236,7 @@ def filter_noise_area(mask, noise_filter=0):
     
     h,w = mask.shape[:2]
     area = h * w
-    noise_area = area / 5 * (noise_filter/100) #Optioanl Formula
+    noise_area = area / 10 * (noise_filter/100) #Optioanl Formula
 
     #mask = cv2.dilate(mask, np.ones((2,2)), iterations=1)
     #mask = cv2.erode(mask, np.ones((2,2)), iterations=1)
@@ -323,11 +323,28 @@ def donate2mask(img_size, circels , defualt=255):
         mask+= defualt
         return mask
 
+    outer_circel = None
+    inner_circel = None
+
     circels.sort( key = lambda x:x[1], reverse=True ) #sort by radius
-    center, r = circels[0]
-    mask = cv2.circle(mask, tuple(center), r, 255, thickness=-1)
-    if len(circels) == 2:
-        center, r = circels[1]
+    if len(circels) == 1:
+        outer_circel = circels[0]
+    elif len(circels) == 2:
+        circle1 = circels[0]
+        circle2 = circels[1]
+        if circle1[1] < circle2[1]:
+            inner_circel = circle1
+            outer_circel = circle2
+        else:
+            outer_circel = circle1
+            inner_circel = circle2
+    
+    if outer_circel is not None:
+
+        center, r = outer_circel
+        mask = cv2.circle(mask, tuple(center), r, 255, thickness=-1)
+    if inner_circel is not None:
+        center, r = inner_circel
         mask = cv2.circle(mask, tuple(center), r, 0, thickness=-1)
 
     return mask

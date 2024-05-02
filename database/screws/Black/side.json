@@ -1,41 +1,32 @@
 {
     "active_tools": [
-        "2_top"
+        "2_side",
+        "3_side",
+        "4_side"
     ],
-    "direction": "top",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/Screw-inspection - final version in yazd/sample images/temp_top/2.jpg",
-    "name": "Bl_fl",
+    "direction": "side",
+    "img_path": "images/defualt.jpg",
+    "name": "Black",
     "settings": {
         "0_top": {
-            "angle": 0.9999999999999999,
-            "detection_type": true,
-            "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/Screw-inspection - final version in yazd/sample images/temp_top/2.jpg",
-            "lbelt": 600,
-            "rbelt": 831,
-            "rect_roi0": [
-                [
-                    523,
-                    777
-                ],
-                [
-                    940,
-                    832
-                ]
-            ]
+            "angle": 0,
+            "lbelt": 100,
+            "rbelt": 500
         },
         "1_side": {
-            "noise_filter0": 0,
+            "img_path": "images/defualt.jpg",
+            "noise_filter0": 9,
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    199,
+                    329
                 ],
                 [
-                    100,
-                    100
+                    1354,
+                    818
                 ]
             ],
-            "thresh0": 0,
+            "thresh0": 100,
             "thresh_inv0": true
         },
         "1_top": {
@@ -45,22 +36,8 @@
             "d_parm3": 0,
             "e_parm2": 0,
             "e_parm4": 0,
-            "edge_thresh": 11,
-            "noise_filter0": 10,
-            "rect_roi0": [
-                [
-                    404,
-                    214
-                ],
-                [
-                    1038,
-                    656
-                ]
-            ],
-            "thresh_max0": 147,
-            "thresh_min0": 0
-        },
-        "2_side": {
+            "edge_thresh": 5,
+            "noise_filter0": 5,
             "rect_roi0": [
                 [
                     0,
@@ -70,44 +47,39 @@
                     100,
                     100
                 ]
+            ],
+            "thresh_max0": 255,
+            "thresh_min0": 0
+        },
+        "2_side": {
+            "limits": {
+                "max": {
+                    "lenght": 67.2
+                },
+                "min": {
+                    "lenght": 66.0
+                }
+            },
+            "rect_roi0": [
+                [
+                    148,
+                    502
+                ],
+                [
+                    1373,
+                    551
+                ]
             ]
         },
         "2_top": {
-            "flanch": {
-                "circels_roi0": [
-                    [
-                        [
-                            642,
-                            476
-                        ],
-                        352
-                    ]
-                ],
-                "limits": {
-                    "max": {
-                        "corner": 17.7,
-                        "diameter": 23.0,
-                        "district": 17.0
-                    },
-                    "min": {
-                        "corner": 17.2,
-                        "diameter": 22.0,
-                        "district": 16.5
-                    }
-                },
-                "noise_filter0": 5,
-                "shape_type": "hexagonal",
-                "thresh_max0": 255,
-                "thresh_min0": 0
-            },
             "none": {
                 "circels_roi0": [
                     [
                         [
-                            634,
-                            480
+                            100,
+                            100
                         ],
-                        359
+                        50
                     ]
                 ],
                 "noise_filter0": 5,
@@ -118,15 +90,29 @@
         },
         "3_side": {
             "jump_thresh": 5,
+            "limits": {
+                "max": {
+                    "navel_lenght": 0.0,
+                    "thread_count": 14.0,
+                    "thread_distance": 1.26,
+                    "thread_lenght": 18.0
+                },
+                "min": {
+                    "navel_lenght": 0.0,
+                    "thread_count": 10.0,
+                    "thread_distance": 1.24,
+                    "thread_lenght": 16.5
+                }
+            },
             "navel_lenght": false,
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    213,
+                    350
                 ],
                 [
-                    100,
-                    100
+                    714,
+                    520
                 ]
             ]
         },
@@ -138,14 +124,14 @@
                             100,
                             100
                         ],
-                        50
+                        30
                     ],
                     [
                         [
                             100,
                             100
                         ],
-                        30
+                        50
                     ]
                 ],
                 "min_area": 10,
@@ -155,6 +141,26 @@
             }
         },
         "4_side": {
+            "body": {
+                "limits": {
+                    "max": {
+                        "body_diameter": 12.1
+                    },
+                    "min": {
+                        "body_diameter": 11.6
+                    }
+                },
+                "rect_roi0": [
+                    [
+                        696,
+                        318
+                    ],
+                    [
+                        881,
+                        738
+                    ]
+                ]
+            },
             "none": {
                 "rect_roi0": [
                     [

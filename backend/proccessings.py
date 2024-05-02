@@ -384,19 +384,22 @@ def proccessing_thread_male( img, mask, jsondb, draw=None, calib_value=1):
     dict_thread_distance = set_dict('thread distance', -2, -2, -2, limit_thread_distance )
     dict_thread_count = set_dict('thread count', -2, -2, -2, limit_thread_count )
     dict_navel = set_dict('navel lenght', -2, -2, -2, limit_navel )
-
+    left_xs = None
     if Utils.is_rect(rect_roi_2):
 
         male_thread_l, male_thread_h = cvTools.find_screw_thread_top( mask, rect_roi_2,  min_diff=jump_thresh)
-
+        
         if len(male_thread_h) > 2:
-            if navel and '2_side' in jsondb.get_active_tools() :
+            if '2_side' in jsondb.get_active_tools() :
                 rect_roi_2 = jsondb.get_rect_roi( '2_side', None)
                 left_pts, _ = cvTools.find_vertical_edges(mask, rect_roi_2)
+                left_xs = left_pts[:,0]
+
+            
+            if navel and left_xs is not None and len(left_xs):
                 threads = np.vstack((male_thread_l,male_thread_h))
                 first_thread_x = np.min(threads[:,0])
                 thread_mean_y = int( threads[:,1].mean())
-                left_xs = left_pts[:,0]
 
                 navel_length = np.abs(left_xs-first_thread_x)
                 dict_navel = {'name' : 'navel_lenght',
@@ -413,15 +416,17 @@ def proccessing_thread_male( img, mask, jsondb, draw=None, calib_value=1):
                                     color=(200,0,0),
                                     thickness=2)
 
-
-            _,_,lenght_male_avg,_  = mathTools.thread_lenght( male_thread_h )
-            dict_lenght = {'name' : 'thread_male_length',
-                                'limit_min': limit_thread_lenght['min'],
-                                'limit_max': limit_thread_lenght['max'],
-                                'min': round( lenght_male_avg * calib_value,2),
-                                'max': round(lenght_male_avg * calib_value,2),
-                                'avg': round(lenght_male_avg * calib_value,2) }
-            
+            if left_xs is not None and len(left_xs):
+                rightes_thread_x = max( male_thread_h[:,0].max(), male_thread_l[:,0].max())
+                lenght_male = rightes_thread_x - left_xs
+                #_,_,lenght_male_avg,_  = mathTools.thread_lenght( male_thread_h )
+                dict_lenght = {'name' : 'thread_male_length',
+                                    'limit_min': limit_thread_lenght['min'],
+                                    'limit_max': limit_thread_lenght['max'],
+                                    'min': round( lenght_male.min() * calib_value,2),
+                                    'max': round(lenght_male.max() * calib_value,2),
+                                    'avg': round(lenght_male.mean() * calib_value,2) }
+                
 
             min_s,max_s, avg_s,_  = mathTools.thread_step_distance( male_thread_h )
             
@@ -455,7 +460,8 @@ def proccessing_thread_male( img, mask, jsondb, draw=None, calib_value=1):
     result.append( dict_thread_distance )
     result.append( dict_lenght )
     result.append( dict_thread_count )
-    result.append( dict_navel )
+    if navel:
+        result.append( dict_navel )
 
     if draw is None:
         draw = np.copy(img)
@@ -773,25 +779,28 @@ def proccessing_top_defect( img, mask_roi_main, jsondb, draw=None , calib_value=
         thresh_max = jsondb.get_thresh_max(page_name, subpage_name)
  
         thresh_img = cvTools.threshould_minmax(img, thresh_min, thresh_max, mask_roi_main)
+        thresh_img = cv2.dilate(thresh_img, np.ones((3,3)))
+        thresh_img = cv2.erode(thresh_img, np.ones((3,3)))
         thresh_img = cvTools.filter_noise_area(thresh_img, noise_filter)
         mask_roi = cvTools.donate2mask(thresh_img.shape, circels_roi, 255)
         thresh_img = cv2.bitwise_and(thresh_img, mask_roi)
         lakes_cnt, lakes_ares  = cvTools.filter_area(thresh_img, min_area_lake)
         #------------------------------------------------------------------------------------
+
         res_dict = {}
         if len(lakes_ares) > 0:
             res_dict = {
                     'name' : '{} defect'.format( subpage_name ),
-                    'limit_min': 0,
-                    'limit_max': 1,
+                    'limit_min':0,
+                    'limit_max': min_area_lake,
                     'min':round( lakes_ares.min() *(calib_value**2),2),
                     'max':round( lakes_ares.max() *(calib_value**2),2),
-                    'avg':round( np.round( lakes_ares.mean() *(calib_value**2), 2 ) ,2)}
+                    'avg':round( lakes_ares.max() *(calib_value**2),2)}
         else:
             res_dict = {
                     'name' : '{} defect'.format( subpage_name ),
                     'limit_min': 0,
-                    'limit_max': 1,
+                    'limit_max': min_area_lake,
                     'min': 0,
                     'max': 0,
                     'avg': 0, 
@@ -848,7 +857,7 @@ def proccessing_top_edge_crack( img, mask_roi_main, jsondb, draw=None, calib_val
                     'limit_max': 1,
                     'min':round( cracks_area.min() * (calib_value**2),2),
                     'max':round( cracks_area.max() * (calib_value**2),2),
-                    'avg':round( np.round(cracks_area.mean() * (calib_value**2), 2) ,2)}
+                    'avg':round( cracks_area.max() * (calib_value**2),2)}
     else:
         res_dict = {
                     'name' : 'edge_crack',

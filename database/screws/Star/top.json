@@ -1,25 +1,25 @@
 {
     "active_tools": [
-        "2_top"
+        "3_top"
     ],
     "direction": "top",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/Screw-inspection - final version in yazd/sample images/temp_top/2.jpg",
-    "name": "Bl_fl",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Star\\top\\0_2024-5-2__12-40.bmp",
+    "name": "Star",
     "settings": {
         "0_top": {
-            "angle": 0.9999999999999999,
+            "angle": 1.7,
             "detection_type": true,
-            "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/Screw-inspection - final version in yazd/sample images/temp_top/2.jpg",
-            "lbelt": 600,
-            "rbelt": 831,
+            "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Star\\top\\0_2024-5-2__12-40.bmp",
+            "lbelt": 612,
+            "rbelt": 863,
             "rect_roi0": [
                 [
-                    523,
-                    777
+                    527,
+                    809
                 ],
                 [
-                    940,
-                    832
+                    949,
+                    848
                 ]
             ]
         },
@@ -40,24 +40,24 @@
         },
         "1_top": {
             "algo": "thresh_algo",
-            "belt_edge_margin": 0,
+            "belt_edge_margin": 30,
             "d_parm1": 0,
             "d_parm3": 0,
             "e_parm2": 0,
             "e_parm4": 0,
-            "edge_thresh": 11,
-            "noise_filter0": 10,
+            "edge_thresh": 5,
+            "noise_filter0": 5,
             "rect_roi0": [
                 [
-                    404,
-                    214
+                    438,
+                    243
                 ],
                 [
-                    1038,
-                    656
+                    1068,
+                    688
                 ]
             ],
-            "thresh_max0": 147,
+            "thresh_max0": 121,
             "thresh_min0": 0
         },
         "2_side": {
@@ -77,26 +77,14 @@
                 "circels_roi0": [
                     [
                         [
-                            642,
-                            476
+                            621,
+                            480
                         ],
-                        352
+                        257
                     ]
                 ],
-                "limits": {
-                    "max": {
-                        "corner": 17.7,
-                        "diameter": 23.0,
-                        "district": 17.0
-                    },
-                    "min": {
-                        "corner": 17.2,
-                        "diameter": 22.0,
-                        "district": 16.5
-                    }
-                },
                 "noise_filter0": 5,
-                "shape_type": "hexagonal",
+                "shape_type": "circel",
                 "thresh_max0": 255,
                 "thresh_min0": 0
             },
@@ -104,10 +92,10 @@
                 "circels_roi0": [
                     [
                         [
-                            634,
-                            480
+                            638,
+                            483
                         ],
-                        359
+                        222
                     ]
                 ],
                 "noise_filter0": 5,
@@ -152,6 +140,28 @@
                 "noise_filter0": 5,
                 "thresh_max0": 255,
                 "thresh_min0": 0
+            },
+            "test": {
+                "circels_roi0": [
+                    [
+                        [
+                            642,
+                            479
+                        ],
+                        155
+                    ],
+                    [
+                        [
+                            639,
+                            479
+                        ],
+                        175
+                    ]
+                ],
+                "min_area": 0.005,
+                "noise_filter0": 0,
+                "thresh_max0": 255,
+                "thresh_min0": 91
             }
         },
         "4_side": {
@@ -169,11 +179,21 @@
             }
         },
         "4_top": {
+            "circels_roi0": [
+                [
+                    [
+                        642,
+                        489
+                    ],
+                    217
+                ]
+            ],
             "none": {
                 "noise_filter0": 5,
                 "thresh_max0": 255,
                 "thresh_min0": 0
-            }
+            },
+            "thresh_max0": 255
         },
         "5_side": {
             "edge_direction": "top",

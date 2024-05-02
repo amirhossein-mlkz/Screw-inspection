@@ -1,5 +1,8 @@
 {
-    "active_tools": [],
+    "active_tools": [
+        "2_side",
+        "3_side"
+    ],
     "direction": "side",
     "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Bl_fl\\side\\2_2024-4-30__20-20.bmp",
     "name": "Bl_fl",
@@ -10,6 +13,7 @@
             "rbelt": 500
         },
         "1_side": {
+            "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Bl_fl\\side\\2_2024-4-30__20-20.bmp",
             "noise_filter0": 24,
             "rect_roi0": [
                 [
