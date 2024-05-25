@@ -1,7 +1,10 @@
 {
-    "active_tools": [],
+    "active_tools": [
+        "2_side",
+        "3_side"
+    ],
     "direction": "side",
-    "img_path": "images/defualt.jpg",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs/Aaaaa/side/3_2024-5-1__17-2.bmp",
     "name": "Teesss",
     "settings": {
         "0_top": {
@@ -10,18 +13,19 @@
             "rbelt": 500
         },
         "1_side": {
-            "noise_filter0": 0,
+            "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs/Aaaaa/side/3_2024-5-1__17-2.bmp",
+            "noise_filter0": 10,
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    459,
+                    305
                 ],
                 [
-                    100,
-                    100
+                    1317,
+                    741
                 ]
             ],
-            "thresh0": 0,
+            "thresh0": 70,
             "thresh_inv0": true
         },
         "1_top": {
@@ -47,14 +51,22 @@
             "thresh_min0": 0
         },
         "2_side": {
+            "limits": {
+                "max": {
+                    "lenght": 1000.0
+                },
+                "min": {
+                    "lenght": 0.0
+                }
+            },
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    593,
+                    492
                 ],
                 [
-                    100,
-                    100
+                    1327,
+                    540
                 ]
             ]
         },
@@ -77,15 +89,31 @@
         },
         "3_side": {
             "jump_thresh": 5,
-            "navel_lenght": false,
+            "limits": {
+                "max": {
+                    "navel_lenght": 0.0,
+                    "thread_count": 20.0,
+                    "thread_diameter": 2.0,
+                    "thread_distance": 2.0,
+                    "thread_lenght": 100.0
+                },
+                "min": {
+                    "navel_lenght": 0.0,
+                    "thread_count": 0.0,
+                    "thread_diameter": 0.0,
+                    "thread_distance": 0.0,
+                    "thread_lenght": 0.0
+                }
+            },
+            "navel_lenght": true,
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    640,
+                    325
                 ],
                 [
-                    100,
-                    100
+                    1030,
+                    731
                 ]
             ]
         },

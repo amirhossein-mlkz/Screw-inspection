@@ -1,8 +1,5 @@
 {
-    "active_tools": [
-        "2_top",
-        "4_top"
-    ],
+    "active_tools": [],
     "direction": "top",
     "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P123\\side\\4_2024-4-30__20-49.bmp",
     "name": "P123",
@@ -10,16 +7,17 @@
         "0_top": {
             "angle": 0.9999999999999999,
             "detection_type": true,
-            "lbelt": 595,
-            "rbelt": 890,
+            "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P123\\side\\4_2024-4-30__20-49.bmp",
+            "lbelt": 532,
+            "rbelt": 791,
             "rect_roi0": [
                 [
-                    445,
-                    180
+                    404,
+                    172
                 ],
                 [
-                    969,
-                    221
+                    1081,
+                    755
                 ]
             ]
         },

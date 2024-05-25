@@ -378,18 +378,27 @@ def proccessing_thread_male( img, mask, jsondb, draw=None, calib_value=1):
     limit_thread_distance = jsondb.get_limit('thread_distance', page_name, subpage_name)
     limit_navel = jsondb.get_limit('navel_lenght', page_name, subpage_name)
     limit_thread_count = jsondb.get_limit('thread_count', page_name, subpage_name)
+    limit_thread_diameter = jsondb.get_limit('thread_diameter', page_name, subpage_name)
+
 
     result = []
-    dict_lenght = set_dict('thread lenght', -2, -2, -2, limit_thread_lenght )
-    dict_thread_distance = set_dict('thread distance', -2, -2, -2, limit_thread_distance )
-    dict_thread_count = set_dict('thread count', -2, -2, -2, limit_thread_count )
-    dict_navel = set_dict('navel lenght', -2, -2, -2, limit_navel )
+    dict_lenght = set_dict('thread_male_length', -2, -2, -2, limit_thread_lenght )
+    dict_thread_distance = set_dict('thread_male_distance', -2, -2, -2, limit_thread_distance )
+    dict_thread_count = set_dict('thread_male_count', -2, -2, -2, limit_thread_count )
+    dict_thread_diameter = set_dict('thread diameter', -2, -2, -2, limit_thread_diameter )
+    dict_navel = set_dict('navel_lenght', -2, -2, -2, limit_navel )
+
     left_xs = None
     if Utils.is_rect(rect_roi_2):
-
-        male_thread_l, male_thread_h = cvTools.find_screw_thread_top( mask, rect_roi_2,  min_diff=jump_thresh)
+        (x1,y1), (x2,y2) = rect_roi_2
+        rect_roi_2_top = [[x1,y1], [x2,y1 + (y2-y1)//2]]
+        rect_roi_2_bottom = [[x1,y1 + (y2-y1)//2], [x2, y2]]
         
-        if len(male_thread_h) > 2:
+        male_thread_l_top, male_thread_h_top = cvTools.find_screw_thread_top( mask, rect_roi_2_top,  min_diff=jump_thresh)
+        male_thread_l_bottom, male_thread_h_bottom = cvTools.find_screw_thread_bottom( mask, rect_roi_2_bottom,  min_diff=jump_thresh)
+
+        
+        if len(male_thread_h_top) > 2 and len(male_thread_h_bottom) > 2:
             if '2_side' in jsondb.get_active_tools() :
                 rect_roi_2 = jsondb.get_rect_roi( '2_side', None)
                 left_pts, _ = cvTools.find_vertical_edges(mask, rect_roi_2)
@@ -397,7 +406,10 @@ def proccessing_thread_male( img, mask, jsondb, draw=None, calib_value=1):
 
             
             if navel and left_xs is not None and len(left_xs):
-                threads = np.vstack((male_thread_l,male_thread_h))
+                threads = np.vstack((male_thread_l_bottom,
+                                     male_thread_h_bottom,
+                                     male_thread_l_top,
+                                     male_thread_h_top))
                 first_thread_x = np.min(threads[:,0])
                 thread_mean_y = int( threads[:,1].mean())
 
@@ -417,7 +429,11 @@ def proccessing_thread_male( img, mask, jsondb, draw=None, calib_value=1):
                                     thickness=2)
 
             if left_xs is not None and len(left_xs):
-                rightes_thread_x = max( male_thread_h[:,0].max(), male_thread_l[:,0].max())
+                rightes_thread_x = max( male_thread_l_bottom[:,0].max(),
+                                        male_thread_h_bottom[:,0].max(),
+                                        male_thread_l_top[:,0].max(),
+                                        male_thread_h_top[:,0].max(),
+                                        )
                 lenght_male = rightes_thread_x - left_xs
                 #_,_,lenght_male_avg,_  = mathTools.thread_lenght( male_thread_h )
                 dict_lenght = {'name' : 'thread_male_length',
@@ -428,8 +444,13 @@ def proccessing_thread_male( img, mask, jsondb, draw=None, calib_value=1):
                                     'avg': round(lenght_male.mean() * calib_value,2) }
                 
 
-            min_s,max_s, avg_s,_  = mathTools.thread_step_distance( male_thread_h )
-            
+            min_s_top,max_s_top, avg_s_top,_  = mathTools.thread_step_distance( male_thread_h_top )
+            min_s_bottom,max_s_bottom, avg_s_bottom,_  = mathTools.thread_step_distance( male_thread_h_bottom )
+
+            min_s = min(min_s_bottom, min_s_top)
+            max_s = max(max_s_bottom, max_s_top)
+            avg_s =( avg_s_top + avg_s_bottom) /2
+
             dict_thread_distance = {'name' : 'thread_male_distance',
                                 'limit_min': limit_thread_distance['min'],
                                 'limit_max': limit_thread_distance['max'],
@@ -437,29 +458,46 @@ def proccessing_thread_male( img, mask, jsondb, draw=None, calib_value=1):
                                 'max': round(max_s * calib_value,2),
                                 'avg': round(avg_s * calib_value,2) }
              
-            min_s,max_s, avg_s,_  = mathTools.thread_step_distance( male_thread_h )
+            
             dict_thread_count = {'name' : 'thread_male_count',
                             'limit_min': limit_thread_count['min'],
                             'limit_max': limit_thread_count['max'],
-                            'min': len(male_thread_h),
-                            'max': len(male_thread_h),
-                            'avg': len(male_thread_h) }
+                            'min': len(male_thread_h_top),
+                            'max': len(male_thread_h_top),
+                            'avg': len(male_thread_h_top) }
             
+            min_count = min( len(male_thread_h_bottom), len( male_thread_h_top))
+            diameters = np.abs(
+                male_thread_h_bottom[:min_count,1] - male_thread_h_top[:min_count,1]
+            )
 
+            dict_thread_diameter = {'name' : 'thread_male_diameter',
+                                'limit_min': limit_thread_diameter['min'],
+                                'limit_max': limit_thread_diameter['max'],
+                                'min': round( diameters.min() * calib_value,2),
+                                'max': round( diameters.max() * calib_value,2),
+                                'avg': round( diameters.mean() * calib_value,2) }
             if draw is not None:
-                draw = cvTools.draw_points(draw, male_thread_h, (0,50,150), 5)
-                draw = cvTools.draw_points(draw, male_thread_l, (200,50,0), 5)
+                draw = cvTools.draw_points(draw, male_thread_h_top, (0,50,150), 5)
+                draw = cvTools.draw_points(draw, male_thread_h_bottom, (0,50,150), 5)
+
+                draw = cvTools.draw_points(draw, male_thread_l_top, (200,50,0), 5)
+                draw = cvTools.draw_points(draw, male_thread_l_bottom, (200,50,0), 5)
+
 
         else:
-            dict_lenght = set_dict('thread lenght', -1, -1, -1, limit_thread_lenght )
-            dict_thread_distance = set_dict('thread distance', -1, -1, -1, limit_thread_distance )
-            dict_thread_count = set_dict('thread count', -1, -1, -1, limit_thread_count )
+            dict_lenght = set_dict('thread_male_length', -1, -1, -1, limit_thread_lenght )
+            dict_thread_distance = set_dict('thread_male_distance', -1, -1, -1, limit_thread_distance )
+            dict_thread_count = set_dict('thread_male_count', -1, -1, -1, limit_thread_count )
+            dict_thread_diameter = set_dict('thread_male_diameter', -1, -1, -1, limit_thread_diameter )
+
             if navel:
-                dict_navel = set_dict('navel lenght', -1, -1, -1, limit_navel )
+                dict_navel = set_dict('navel_lenght', -1, -1, -1, limit_navel )
     
     result.append( dict_thread_distance )
     result.append( dict_lenght )
     result.append( dict_thread_count )
+    result.append( dict_thread_diameter)
     if navel:
         result.append( dict_navel )
 

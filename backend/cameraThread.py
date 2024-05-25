@@ -71,7 +71,8 @@ class cameraWorker(QObject):
                 
 
             except Exception as e:
-                print('camera Error happend in thread while !', repr(e))
+                pass
+                #print('camera Error happend in thread while !', repr(e))
             
             time.sleep(0.008)
 

@@ -228,6 +228,7 @@ def object_dict_builder(ui_object):
                 
                 '3_side':{
                     'spin_min_thread_lenght_3_side':self.spin_min_thread_lenght_3_side,
+                    'spin_min_thread_diameter_3_side':self.spin_min_thread_diameter_3_side,
                     'spin_min_thread_count_3_side':self.spin_min_thread_count_3_side,
                     'spin_min_thread_distance_3_side':self.spin_min_thread_distance_3_side,
                     'spin_min_navel_lenght_3_side':self.spin_min_navel_lenght_3_side,
@@ -271,6 +272,8 @@ def object_dict_builder(ui_object):
                 
                 '3_side':{
                     'spin_max_thread_lenght_3_side':self.spin_max_thread_lenght_3_side,
+                    'spin_max_thread_diameter_3_side':self.spin_max_thread_diameter_3_side,
+
                     'spin_max_thread_count_3_side':self.spin_max_thread_count_3_side,
                     'spin_max_thread_distance_3_side':self.spin_max_thread_distance_3_side,
                     'spin_max_navel_lenght_3_side':self.spin_max_navel_lenght_3_side,
@@ -464,6 +467,7 @@ def object_dict_builder(ui_object):
                 '3_side':
                     {
                         'label_thread_lenght_3_side':self.label_thread_lenght_3_side,
+                        'label_thread_diameter_3_side':self.label_thread_diameter_3_side,
                         'label_count_thread_3_side':self.label_count_thread_3_side,
                         'label_step_distance_3_side':self.label_step_distance_3_side,
                         'label_navel_lenght_3_side':self.label_navel_lenght_3_side,

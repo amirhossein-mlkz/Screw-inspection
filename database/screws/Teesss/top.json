@@ -6,6 +6,7 @@
     "settings": {
         "0_top": {
             "angle": 0,
+            "img_path": "images/defualt.jpg",
             "lbelt": 100,
             "rbelt": 500
         },

@@ -2,10 +2,11 @@
     "active_tools": [
         "2_side",
         "3_side",
-        "4_side"
+        "4_side",
+        "5_side"
     ],
     "direction": "side",
-    "img_path": "images/defualt.jpg",
+    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Black\\side\\7_2024-5-16__12-45.bmp",
     "name": "Black",
     "settings": {
         "0_top": {
@@ -14,19 +15,19 @@
             "rbelt": 500
         },
         "1_side": {
-            "img_path": "images/defualt.jpg",
-            "noise_filter0": 9,
+            "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Black\\side\\7_2024-5-16__12-45.bmp",
+            "noise_filter0": 10,
             "rect_roi0": [
                 [
-                    199,
-                    329
+                    589,
+                    322
                 ],
                 [
-                    1354,
-                    818
+                    1359,
+                    710
                 ]
             ],
-            "thresh0": 100,
+            "thresh0": 124,
             "thresh_inv0": true
         },
         "1_top": {
@@ -54,20 +55,20 @@
         "2_side": {
             "limits": {
                 "max": {
-                    "lenght": 67.2
+                    "lenght": 25.5
                 },
                 "min": {
-                    "lenght": 66.0
+                    "lenght": 24.5
                 }
             },
             "rect_roi0": [
                 [
-                    148,
-                    502
+                    617,
+                    461
                 ],
                 [
-                    1373,
-                    551
+                    1132,
+                    509
                 ]
             ]
         },
@@ -93,26 +94,26 @@
             "limits": {
                 "max": {
                     "navel_lenght": 0.0,
-                    "thread_count": 14.0,
+                    "thread_count": 25.0,
                     "thread_distance": 1.26,
-                    "thread_lenght": 18.0
+                    "thread_lenght": 28.0
                 },
                 "min": {
                     "navel_lenght": 0.0,
-                    "thread_count": 10.0,
-                    "thread_distance": 1.24,
-                    "thread_lenght": 16.5
+                    "thread_count": 8.0,
+                    "thread_distance": 1.23,
+                    "thread_lenght": 21.5
                 }
             },
             "navel_lenght": false,
             "rect_roi0": [
                 [
-                    213,
-                    350
+                    700,
+                    332
                 ],
                 [
-                    714,
-                    520
+                    1048,
+                    464
                 ]
             ]
         },
@@ -141,23 +142,23 @@
             }
         },
         "4_side": {
-            "body": {
+            "diameter": {
                 "limits": {
                     "max": {
-                        "body_diameter": 12.1
+                        "body_diameter": 11.8
                     },
                     "min": {
-                        "body_diameter": 11.6
+                        "body_diameter": 11.5
                     }
                 },
                 "rect_roi0": [
                     [
-                        696,
-                        318
+                        719,
+                        308
                     ],
                     [
-                        881,
-                        738
+                        909,
+                        651
                     ]
                 ]
             },
@@ -185,14 +186,22 @@
             "edge_direction": "top",
             "from_belt": true,
             "jump_thresh": 10,
+            "limits": {
+                "max": {
+                    "height": 11.5
+                },
+                "min": {
+                    "height": 11.0
+                }
+            },
             "rect_roi0": [
                 [
-                    0,
-                    0
+                    1076,
+                    332
                 ],
                 [
-                    100,
-                    100
+                    1354,
+                    714
                 ]
             ]
         },

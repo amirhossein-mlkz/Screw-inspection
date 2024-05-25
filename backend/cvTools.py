@@ -590,101 +590,33 @@ def find_screw_thread_top(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
     
     return [],[]
 
-# def find_screw_thread_top(mask , rect_roi,  min_diff = 5, max_bad_iter = 5, direction='top' ):
-#     ys, xs = np.nonzero( crop_rect( mask, rect_roi ) )
-#     pts = np.vstack((xs,ys)).transpose()
-#     if direction == 'top':
-#         edge_pts = np.array( pd.DataFrame(pts).groupby(0).min().reset_index().values.tolist() ) #return point with min y and same x
+
+
+def find_screw_thread_bottom(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
     
-#     points_count = len(edge_pts)
-#     mean_y = int(edge_pts[ points_count//2: , 1 ].mean())
-
-#     idx0 = -1
-#     idx1 = -1
-#     max_pt = [0, np.inf * -1]
-#     min_pt = [0, np.inf ] 
-    
-#     rezve_pts_h = []
-#     rezve_pts_l = []
-#     what_find = ''
-#     for i in range(len(edge_pts)):
-         
-#         if edge_pts[i][1] > mean_y and what_find=='':
-#             what_find = 'low'
-#             idx0 = i
-        
-#         elif edge_pts[i][1] < mean_y and what_find=='':
-#             what_find == 'high'
-#             idx0 = i
-        
-#         if what_find == 'high'
-        
-        
-#         if idx0 == -1:
-#             idx0 = i
-#         else:
-#                 idx1 = i
-#         #      *        *
-#         #     * *      * *
-#         #  --*---*----*---*------> mean_y
-#         #         *  *     *
-#         #          *        *
-
-#         if idx0!=-1 and idx1==-1:
-#             if edge_pts[i][1] <= min_pt[1]:
-#                 min_pt[1] = edge_pts[i][1]
-#                 min_pt[0] = i
-
-
-#             if edge_pts[i][1] >= max_pt[1]:
-#                 max_pt[1] = edge_pts[i][1]
-#                 max_pt[0] = i
-        
-        
-#         if idx0 > 0 and idx1 > 0:
-#             print(idx0, idx1, max_pt, min_pt, mean_y)
-#             if abs(mean_y - max_pt[1]) > min_diff /2:
-#                 print('max')
-#                 rezve_pts_l.append( copy.copy(max_pt) )
-#                 max_pt = [0, np.inf * -1]
-            
-#             elif abs(mean_y - min_pt[1]) > min_diff /2:
-#                 print('min')
-#                 rezve_pts_h.append( copy.copy(min_pt) )
-#                 min_pt = [0, np.inf ] 
-            
-#             idx0 = idx1
-#             idx1 = -1
-    
-    
-#     rezve_pts_l, rezve_pts_h = np.array(rezve_pts_l), np.array(rezve_pts_h)          
-#     if len(rezve_pts_h) > 0 and len(rezve_pts_l) > 0:
-#         start_point = np.array(rect_roi[0])
-#         rezve_pts_l = rezve_pts_l + start_point
-#         rezve_pts_h = rezve_pts_h + start_point
-#     return rezve_pts_l, rezve_pts_h #, mean_y + start_point[1]
-
-
-    
-
-def find_screw_thread_down(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
     ys, xs = np.nonzero( crop_rect( mask, rect_roi ) )
     pts = np.vstack((xs,ys)).transpose()
-    up_edge_pts = np.array ( pd.DataFrame(pts).groupby(0).max().reset_index().values.tolist()) #return point with min y and same x
+    down_edge_pts = np.array ( pd.DataFrame(pts).groupby(0).max().reset_index().values.tolist()) #return point with min y and same x
     
+    
+    # mask_test = np.zeros_like(crop_rect( mask, rect_roi ))
+    # mask_test[ down_edge_pts[:,1], down_edge_pts[:,0]] = 255
+    # cv2.imshow('mask_test',mask_test)
+    # cv2.waitKey(10)
+
     rezve_pts_h = []
     rezve_pts_l = []
     
-    max_pt = up_edge_pts[0]
-    min_pt = up_edge_pts[0]
+    max_pt = [0, np.inf*-1]
+    min_pt = [0, np.inf ] 
     iter = 0
     find_max = True
-    for i in range(1,len(up_edge_pts)):
+    for i in range(1,len(down_edge_pts)):
         
         #upper y is lower in value
         if find_max:
-            if up_edge_pts[i][1] >= max_pt[1]:
-                max_pt = up_edge_pts[i]
+            if down_edge_pts[i][1] >= max_pt[1]:
+                max_pt = down_edge_pts[i]
                 iter = 0
             else:
                 iter+=1
@@ -696,8 +628,8 @@ def find_screw_thread_down(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
                 
         
         else:
-            if up_edge_pts[i][1] <= min_pt[1]:
-                min_pt = up_edge_pts[i]
+            if down_edge_pts[i][1] <= min_pt[1]:
+                min_pt = down_edge_pts[i]
                 iter = 0
             
             else:
@@ -719,6 +651,8 @@ def find_screw_thread_down(mask , rect_roi,  min_diff = 5, max_bad_iter = 5 ):
         return rezve_pts_l, rezve_pts_h
     
     return [],[]
+    
+
 
 def find_head_vertival_pts(mask, rect_roi, jump_thresh = 10, percentage=0.5, side='bottom', from_belt=False):
     crop_mask = crop_rect( mask, rect_roi ) 
@@ -855,6 +789,7 @@ def draw_horizental_point(img, pts_group, color, thicknes=4):
 
 def draw_points(img, pts, color, radius=4):
     for pt in pts:
+        #pt = int(pt[0]), int(pt[1])
         cv2.circle(img, tuple(pt), radius, color, thickness=-1)
     return img
 

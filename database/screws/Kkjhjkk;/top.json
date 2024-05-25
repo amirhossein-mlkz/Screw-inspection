@@ -1,27 +1,14 @@
 {
-    "active_tools": [
-        "2_top"
-    ],
+    "active_tools": [],
     "direction": "top",
-    "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Black\\top\\5_2024-5-16__12-24.bmp",
-    "name": "Black",
+    "img_path": "images/defualt.jpg",
+    "name": "Kkjhjkk;",
     "settings": {
         "0_top": {
-            "angle": 0.4999999999999998,
-            "detection_type": false,
-            "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\Black\\top\\5_2024-5-16__12-24.bmp",
-            "lbelt": 590,
-            "rbelt": 880,
-            "rect_roi0": [
-                [
-                    515,
-                    828
-                ],
-                [
-                    889,
-                    867
-                ]
-            ]
+            "angle": 0,
+            "img_path": "images/defualt.jpg",
+            "lbelt": 100,
+            "rbelt": 500
         },
         "1_side": {
             "noise_filter0": 0,
@@ -40,25 +27,25 @@
         },
         "1_top": {
             "algo": "thresh_algo",
-            "belt_edge_margin": 30,
+            "belt_edge_margin": 0,
             "d_parm1": 0,
             "d_parm3": 0,
             "e_parm2": 0,
             "e_parm4": 0,
             "edge_thresh": 5,
-            "noise_filter0": 12,
+            "noise_filter0": 5,
             "rect_roi0": [
                 [
-                    361,
-                    208
+                    0,
+                    0
                 ],
                 [
-                    1064,
-                    755
+                    100,
+                    100
                 ]
             ],
-            "thresh_max0": 154,
-            "thresh_min0": 32
+            "thresh_max0": 255,
+            "thresh_min0": 0
         },
         "2_side": {
             "rect_roi0": [
@@ -73,33 +60,6 @@
             ]
         },
         "2_top": {
-            "flanch": {
-                "circels_roi0": [
-                    [
-                        [
-                            642,
-                            476
-                        ],
-                        303
-                    ]
-                ],
-                "limits": {
-                    "max": {
-                        "corner": 0.0,
-                        "diameter": 23.0,
-                        "district": 0.0
-                    },
-                    "min": {
-                        "corner": 0.0,
-                        "diameter": 22.0,
-                        "district": 0.0
-                    }
-                },
-                "noise_filter0": 4,
-                "shape_type": "circel",
-                "thresh_max0": 255,
-                "thresh_min0": 0
-            },
             "none": {
                 "circels_roi0": [
                     [
@@ -131,28 +91,6 @@
             ]
         },
         "3_top": {
-            "crack": {
-                "circels_roi0": [
-                    [
-                        [
-                            100,
-                            100
-                        ],
-                        50
-                    ],
-                    [
-                        [
-                            634,
-                            480
-                        ],
-                        240
-                    ]
-                ],
-                "min_area": 10,
-                "noise_filter0": 5,
-                "thresh_max0": 135,
-                "thresh_min0": 0
-            },
             "none": {
                 "circels_roi0": [
                     [
@@ -160,14 +98,14 @@
                             100,
                             100
                         ],
-                        50
+                        30
                     ],
                     [
                         [
-                            651,
-                            480
+                            100,
+                            100
                         ],
-                        263
+                        50
                     ]
                 ],
                 "min_area": 10,

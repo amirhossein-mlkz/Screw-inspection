@@ -1,8 +1,7 @@
 {
     "active_tools": [
         "2_side",
-        "3_side",
-        "4_side"
+        "3_side"
     ],
     "direction": "side",
     "img_path": "C:/Users/RAYANEH GOSTAR/Desktop/imgs\\P123\\side\\4_2024-4-30__20-49.bmp",
@@ -94,13 +93,13 @@
                     "navel_lenght": 0.0,
                     "thread_count": 18.0,
                     "thread_distance": 1.5,
-                    "thread_lenght": 17.5
+                    "thread_lenght": 22.0
                 },
                 "min": {
                     "navel_lenght": 0.0,
                     "thread_count": 12.0,
                     "thread_distance": 1.0,
-                    "thread_lenght": 14.0
+                    "thread_lenght": 18.0
                 }
             },
             "navel_lenght": false,

@@ -1722,10 +1722,11 @@ class API:
         
         info = {'thread_lenght': result[1]['avg'],
                 'count_thread': result[2]['avg'] , 
-                'step_distance':result[0]['avg']
+                'step_distance':result[0]['avg'],
+                'thread_diameter': result[3]['avg']
                 }
-        if len(result) == 4:
-            info['navel_lenght'] = result[3]['avg']
+        if len(result) == 5:
+            info['navel_lenght'] = result[4]['avg']
         self.ui.set_stetting_page_label_info(info)
         
         
