@@ -1,14 +1,46 @@
-click==8.1.3                                                                                                   colorama==0.4.6                                                                                                Cython==3.0.0                                                                                                  importlib-metadata==6.6.0                                                                                      modbus==3.2                                                                                                    numpy==1.21.6                                                                                                  opencv-python==4.7.0.72                                                                                        pandas==1.3.5                                                                                                  persiantools==3.0.1                                                                                            Pillow==9.5.0                                                                                                  pyModbusTCP==0.2.0                                                                                             pyparsing==3.0.9                                                                                               pypylon==1.4.0                                                                                                 PyQt5==5.15.9                                                                                                  pyqt5-plugins==5.15.9.2.3                                                                                      PyQt5-Qt5==5.15.2                                                                                              PyQt5-sip==12.12.1                                                                                             PySide6==6.5.0                                                                                                 PySide6-Addons==6.5.0                                                                                          PySide6-Essentials==6.5.0                                                                                      python-dateutil==2.8.2                                                                                         pytz==2023.3                                                                                                   qt5-applications==5.15.2.2.3                                                                                   qt5-tools==5.15.2.1.3                                                                                          shiboken6==6.5.0                                                                                               six==1.16.0                                                                                                    typing_extensions==4.5.0                                                                                       zipp==3.15.0       
+# Bolt Inspection System
+
+A Python-based bolt inspection software that extracts various bolt dimensions and detects defects using **OpenCV** and **Qt**.
+
+## Features
+- **Dimension Measurement:** Extracts bolt diameter, length, and thread count.
+- **Defect Detection:** Identifies cracks, missing threads, and deformations.
+- **Thread Analysis:** Counts and measures thread length accurately.
+- **Graphical User Interface:** Built with **Qt** for ease of use.
+- **Real-time Processing:** Supports live inspection from camera input.
+
+## Technologies Used
+- **Python**
+- **OpenCV** (Computer Vision & Image Processing)
+- **Qt** (GUI Development)
+- **NumPy & SciPy** (Mathematical Computations)
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/bolt-inspection.git
+   cd bolt-inspection
+   ```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Run the application:
+   ```bash
+   python main_UI.py
+   ```
+
+## Sample Screenshots
 
 
-pylon viewer == 5.1.0
-python== 3.7.0
+## Usage
+1. Load an image or connect to a live camera.
+2. Adjust parameters if needed.
+3. Click **"Inspect"** to analyze the bolt.
+4. View the extracted measurements and detected defects.
 
+## Future Improvements
+- Implement computer vision defect detection.
+- Add support for different bolt types.
 
-firs install pylon viewrer then copy below files in libs/site_paack_pypylon folder
-Basler_A1_A3_A6_1394.zip
-Basler_scout_1394.zip
-Pylon1394_v5_2_TL.dll
-
-
-and maybe some other files
